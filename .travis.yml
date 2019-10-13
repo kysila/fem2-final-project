@@ -1,5 +1,0 @@
-dist: trusty
-
-cache:
-  directories:
-    - ./path-to-your-frontend-folder/node_modules
