@@ -25,4 +25,8 @@ yarn-error.log*
 
 #credentials
 .env
+<<<<<<< Updated upstream
 /config/keys_dev.js
+=======
+/config/keys_dev.js
+>>>>>>> Stashed changes
