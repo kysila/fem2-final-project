@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
+import axios from 'axios';
 
 import {MainPage} from './components'
-import axios from 'axios';
+
 
 
 
@@ -29,6 +30,8 @@ function App() {
     return (
         <MainPage/>
     )
-
 }
+
+
+
 export default App;
