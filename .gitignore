@@ -25,4 +25,6 @@ yarn-error.log*
 
 #credentials
 .env
+/.env
+/*.env
 /config/keys_dev.js
