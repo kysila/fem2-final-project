@@ -6,13 +6,15 @@ import '../../index.css'
 import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Header} from "../../commons";
+import BrandsBlock from "./BrandsBlock";
 
 //global settings for site
 const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
     '@global': {
         body: {
-            fontFamily: "Museo Sans"
+            fontFamily: "Museo Sans",
+            color: '#444444'
         },
         // You should target [class*="MuiButton-root"] instead if you nest themes.
         '.MuiButton-root': {
@@ -32,6 +34,8 @@ export const MainPage = props => {
             <Container maxWidth="md">
                 <Header/>
             </Container>
+            <BrandsBlock/>
+
         </React.Fragment>
     )
 }
