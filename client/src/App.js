@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 
-import {MainPage} from './components'
+import MainPage from './components';
 
 
 

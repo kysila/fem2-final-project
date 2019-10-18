@@ -1,9 +1,8 @@
 import React from 'react';
-import {Header} from '../../commons'
+import { Header } from '../../commons';
 
-
-export const MainPage = props => {
-    return (
-        <Header/>
-    )
+export default function MainPage() {
+  return (
+    <Header />
+  );
 }
