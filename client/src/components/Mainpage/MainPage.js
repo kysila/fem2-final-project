@@ -1,4 +1,5 @@
 import React from 'react';
+
 import '../../index.css'
 
 
@@ -23,15 +24,14 @@ const GlobalCss = withStyles({
 })(() => null);
 
 
+
 export const MainPage = props => {
     return (
-
         <React.Fragment>
             <GlobalCss/>
             <Container maxWidth="md">
                 <Header/>
             </Container>
         </React.Fragment>
-
     )
 }
