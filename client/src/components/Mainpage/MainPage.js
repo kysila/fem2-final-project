@@ -1,12 +1,11 @@
 import React from 'react';
 
-import '../../index.css'
-
-
 import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Header} from "../../commons";
 import BrandsBlock from "./BrandsBlock";
+
+import '../../index.css'
 
 //global settings for site
 const GlobalCss = withStyles({
@@ -27,7 +26,7 @@ const GlobalCss = withStyles({
 
 
 
-export const MainPage = props => {
+export default function MainPage(props) {
     return (
         <React.Fragment>
             <GlobalCss/>
