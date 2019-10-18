@@ -7,7 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 import {brandImg} from '../../img/brands';
-import Tungsten from '../../fonts/Tungsten-Book.woff'
+// import {brandImg} from '/img/brands';
+import Tungsten from '../../fonts/Tungsten-Book.woff';
+
+
 const tungsten = {
     fontFamily: 'Tungsten Book',
     fontStyle: 'normal',
@@ -16,8 +19,6 @@ const tungsten = {
     url(${Tungsten}) format('woff')
   `,
 };
-
-
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -91,7 +92,6 @@ const BrandsBlock = () => {
 
                 </div>
             </Container>
-
         </section>
     );
 };
