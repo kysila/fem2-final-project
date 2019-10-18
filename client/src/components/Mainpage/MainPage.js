@@ -12,12 +12,19 @@ const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
     '@global': {
         body: {
-            fontFamily: "Museo Sans"
+            fontFamily: "'Museo Sans 500'",
+            color: "#444444"
+        },
+        a: {
+            textDecoration: 'none'
+
         },
         // You should target [class*="MuiButton-root"] instead if you nest themes.
         '.MuiButton-root': {
             background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
             borderRadius: '4px',
+            border: 'none',
+            color: '#FFFFFF'
         },
 
     },
@@ -29,9 +36,9 @@ export const MainPage = props => {
     return (
         <React.Fragment>
             <GlobalCss/>
-            <Container maxWidth="md">
+
                 <Header/>
-            </Container>
+
         </React.Fragment>
     )
 }
