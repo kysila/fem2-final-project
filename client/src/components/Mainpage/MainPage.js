@@ -26,7 +26,7 @@ const GlobalCss = withStyles({
 
 
 
-export default function MainPage(props) {
+export function MainPage(props) {
     return (
         <React.Fragment>
             <GlobalCss/>

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import MainPage from './components';
+import {MainPage} from './components';
 import { Header } from './commons'
 import { Products, SingleProduct, NotFound } from './components'
 
