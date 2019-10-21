@@ -31,5 +31,6 @@ body {
   font-weight: normal;
   font-style: normal;
 }
-
-
+.bold-text{
+  font-weight: bold;
+}
