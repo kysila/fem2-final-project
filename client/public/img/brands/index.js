@@ -12,4 +12,4 @@ export const brandImg = {
     brandLogo4,
     brandLogo5,
     brandLogo6
-}
+};
