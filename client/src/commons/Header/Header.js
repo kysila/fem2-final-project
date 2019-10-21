@@ -1,6 +1,5 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-// import {logoImg} from "../../img";
 
 import {makeStyles} from '@material-ui/core/styles';
 import {Search} from "./Searchbar";
@@ -73,7 +72,7 @@ export const Header = props => {
                 <Container maxWidth='md'>
                     <Box className={classes.container} >
                         <Box className={classes.link}>
-                            <Link to={'/products'}>
+                            <Link to={'/'}>
                                 <img src="img/logo.svg" alt="Logo"/>
                             </Link>
                         </Box>

@@ -40,7 +40,8 @@ const useStyles = makeStyles({
 		marginBottom: 10,
 		fontSize: 14,
 		lineHeight: '20px',
-		color: '#444444'
+		color: '#444444',
+		textTransform: 'capitalize',
 	}
 });
 
