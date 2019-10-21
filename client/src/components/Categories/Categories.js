@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
@@ -94,11 +94,32 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+
+// axios.get(`/catalog`)
+//      .then(catalog => {
+//          let categoryId = catalog.data.map((el) => {
+//              const id = el.id;
+//              const name = el.name;
+//
+//              const titleName = tileData.forEach((tile) => {
+//                  const title = tile.title;
+//                  return title;
+//              });
+//              if (titleName === name){
+//                  return id
+//              }});
+//              return categoryId
+//         })
+//         // })
+//      .catch(err => {
+//             console.log(err)
+//         });
+
 const tileData = [
      {
          img: 'img/categories/e-scooter.png',
          title: 'electric scooter',
-         link: `/e-scooter`,
+         link: '/e-scooter',
          cols: 2
      },
      {
@@ -160,12 +181,14 @@ export const Categories = () => {
 
     return(
         <div>
+            <Container maxWidth='md'>
             <CategoryImages/>
             <Box  mx='auto' mt='50px' className={classes.box}>
                 <Link to='/catalog' className={classes.link}>
                     <Button className={classes.button}>shop all categories</Button>
                 </Link>
             </Box>
+            </Container>
         </div>
     )
 };
