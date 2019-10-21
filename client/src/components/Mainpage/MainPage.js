@@ -5,21 +5,35 @@ import '../../index.css'
 
 import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
 import {Header} from "../../commons";
 import Categories from "../Categories/Categories";
+import BrandsBlock from "./BrandsBlock";
+import StayInTouch from "./StayInTouch";
+import {ProductCard} from '../ProductCard/ProductCard';
 
 //global settings for site
 const GlobalCss = withStyles({
-    // @global is handled by jss-plugin-global.
     '@global': {
         body: {
-            fontFamily: "Museo Sans"
+            fontFamily: "'Museo Sans 500'",
+            color: "#444444"
         },
-        // You should target [class*="MuiButton-root"] instead if you nest themes.
-        '.MuiButton-root': {
+        '.MuiTypography-body2': {
+            fontFamily: "'Museo Sans 500'"
+        },
+        a: {
+            textDecoration: 'none'
+        },
+       '.MuiButton-root': {
             background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
             borderRadius: '4px',
+            border: 'none',
+            color: '#FFFFFF'
         },
+        '.MuiTypography-root':{
+            fontFamily: "'Museo Sans 500'",
+        }
 
     },
 })(() => null);
@@ -30,10 +44,11 @@ export const MainPage = props => {
     return (
         <React.Fragment>
             <GlobalCss/>
-            <Container maxWidth="md">
-                <Header/>
+                <Header count={2} callCenter={'1-855-324-5387'}/>
+                <BrandsBlock/>
+								<ProductCard rating={3}/>
                 <Categories/>
-            </Container>
+                <StayInTouch/>
         </React.Fragment>
     )
-}
+};

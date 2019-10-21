@@ -4,3 +4,5 @@ export {SingleProduct} from './SingleProduct/SingleProduct'
 export {NotFound} from './Notfound/NotFound'
 
 
+export {ProductCard} from './ProductCard/ProductCard'
+
