@@ -5,6 +5,8 @@ import Container from '@material-ui/core/Container';
 import {Header} from "../../commons";
 import BrandsBlock from "./BrandsBlock";
 
+import {ProductCard} from '../ProductCard/ProductCard';
+
 import '../../index.css'
 
 //global settings for site
@@ -34,7 +36,7 @@ export function MainPage(props) {
                 <Header/>
             </Container>
             <BrandsBlock/>
-
+            <ProductCard/>
         </React.Fragment>
     )
 }
