@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 import {Header} from "../../commons";
 import BrandsBlock from "./BrandsBlock";
 import StayInTouch from "./StayInTouch";
+import {ProductCard} from '../ProductCard/ProductCard';
 
 //global settings for site
 const GlobalCss = withStyles({
@@ -44,10 +45,8 @@ export const MainPage = props => {
             <GlobalCss/>
                 <Header count={2} callCenter={'1-855-324-5387'}/>
                 <BrandsBlock/>
+								<ProductCard rating={3}/>
                 <StayInTouch/>
-
-
-
         </React.Fragment>
     )
-}
+};
