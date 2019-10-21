@@ -6,8 +6,9 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {Header} from './commons'
 import {MainPage, Products, SingleProduct, NotFound} from './components'
 
-import axios from 'axios';
+// import axios from 'axios';
 
+// import {MainPage} from './components'
 
 // class App extends React.Component {
 //   componentDidMount() {
