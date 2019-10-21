@@ -33,8 +33,10 @@ const GlobalCss = withStyles({
         },
         '.MuiTypography-root':{
             fontFamily: "'Museo Sans 500'",
+        },
+        '.MuiButtonGroup-groupedContainedPrimary:not(:last-child)': {
+          borderRight: '1px solid #EAEAEA',
         }
-
     },
 })(() => null);
 
