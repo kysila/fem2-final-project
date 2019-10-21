@@ -6,6 +6,7 @@ import '../../index.css'
 import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Header} from "../../commons";
+import Categories from "../Categories/Categories";
 
 //global settings for site
 const GlobalCss = withStyles({
@@ -31,6 +32,7 @@ export const MainPage = props => {
             <GlobalCss/>
             <Container maxWidth="md">
                 <Header/>
+                <Categories/>
             </Container>
         </React.Fragment>
     )
