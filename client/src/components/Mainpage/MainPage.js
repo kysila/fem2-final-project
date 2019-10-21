@@ -7,6 +7,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import {Header} from "../../commons";
+import Categories from "../Categories/Categories";
 import BrandsBlock from "./BrandsBlock";
 import StayInTouch from "./StayInTouch";
 import {ProductCard} from '../ProductCard/ProductCard';
@@ -48,6 +49,7 @@ export const MainPage = props => {
                 <Header count={2} callCenter={'1-855-324-5387'}/>
                 <BrandsBlock/>
 								<ProductCard rating={3}/>
+                <Categories/>
                 <StayInTouch/>
         </React.Fragment>
     )

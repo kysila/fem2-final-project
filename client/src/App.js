@@ -41,8 +41,6 @@ function App() {
             </div>
         </Router>
     )
-
-
 }
 
 
