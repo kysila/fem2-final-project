@@ -1,5 +1,8 @@
 import React from 'react';
 
+import '../../index.css'
+
+
 import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Header} from "../../commons";
@@ -7,20 +10,23 @@ import BrandsBlock from "./BrandsBlock";
 
 import {ProductCard} from '../ProductCard/ProductCard';
 
-import '../../index.css'
-
-//global settings for site
 const GlobalCss = withStyles({
-    // @global is handled by jss-plugin-global.
     '@global': {
         body: {
-            fontFamily: "Museo Sans",
-            color: '#444444'
+            fontFamily: "'Museo Sans 500'",
+            color: "#444444"
         },
-        // You should target [class*="MuiButton-root"] instead if you nest themes.
-        '.MuiButton-root': {
+        '.MuiTypography-body2': {
+            fontFamily: "'Museo Sans 500'"
+        },
+        a: {
+            textDecoration: 'none'
+        },
+       '.MuiButton-root': {
             background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
             borderRadius: '4px',
+            border: 'none',
+            color: '#FFFFFF'
         },
 
     },
@@ -28,15 +34,14 @@ const GlobalCss = withStyles({
 
 
 
-export function MainPage(props) {
+
+export const MainPage = props => {
     return (
         <React.Fragment>
             <GlobalCss/>
-            <Container maxWidth="md">
-                <Header/>
-            </Container>
-            <BrandsBlock/>
-            <ProductCard/>
+                <Header count={2} callCenter={'1-855-324-5387'}/>
+                <BrandsBlock/>
+								<ProductCard/>
         </React.Fragment>
     )
 }

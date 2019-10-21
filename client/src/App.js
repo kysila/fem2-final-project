@@ -1,12 +1,14 @@
 import React from 'react';
-import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-import {MainPage} from './components';
-import { Header } from './commons'
-import { Products, SingleProduct, NotFound } from './components'
-
 import './App.css';
+
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+
+import {Header} from './commons'
+import {MainPage, Products, SingleProduct, NotFound} from './components'
+
+// import axios from 'axios';
+
+// import {MainPage} from './components'
 
 // class App extends React.Component {
 //   componentDidMount() {
