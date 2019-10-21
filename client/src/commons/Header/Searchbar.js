@@ -23,8 +23,8 @@ const [value, setValue] = useState('');
             onChange={(newValue) => setValue( newValue ) }
             onCancelSearch={()=> setValue('')}
             className={classes.search}
-            searchIcon = <SearchIcon style={{color: ' #6686FF ' }} />
-            closeIcon = <ClearIcon style={{ color: ' #6686FF ' }} />
+            searchIcon = {<SearchIcon style={{color: ' #6686FF ' }} />}
+            closeIcon = {<ClearIcon style={{ color: ' #6686FF ' }} />}
         />
         </React.Fragment>
     )

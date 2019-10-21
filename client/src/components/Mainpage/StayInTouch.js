@@ -16,28 +16,34 @@ const useStyles = makeStyles(theme => ({
 
     },
     textField: {
+        width: '50%',
         '&>div>input':{
             backgroundColor: '#fff',
-            paddingRight: '145px',
         },
 
     },
     subscribeForm: {
-        width: '50%',
-        position: 'relative',
-        margin: '0 auto'
+        '&>div':{
+            margin: '0'
+        },
+        margin: '0 auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     subscribeBtn:{
-        position: 'absolute',
-        right: '0',
-        top: '16px',
-        height: '56px',
-        paddingLeft: '20px',
-        paddingRight: '20px'
-
+        display: 'inline-flex',
+        alignItems: 'center',
+        padding: '15px 20px',
+        '&>span':{
+            width: 'auto'
+        }
     },
     subscribeIcon:{
         marginRight: '4px',
+    },
+    text:{
+        marginBottom: '24px',
     }
 }));
 
@@ -49,7 +55,7 @@ const StayInTouch = () => {
         <section className={classes.blueBG}>
             <Container maxWidth="md">
                 <SubsectionTitle color="#6A86E8" title="Stay in touch"/>
-                <Typography align='center'>
+                <Typography align='center' className={classes.text}>
                     Subscribe to get the latest promo actions, discounts, and new arrivals
                 </Typography>
                 <form noValidate autoComplete="off" className={classes.subscribeForm}>
