@@ -7,23 +7,23 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Rating from '@material-ui/lab/Rating';
 
-import {productImg} from "../../img/products";
 
 const useStyles = makeStyles({
 	card: {
-		padding: "0 20px 28px 20px",
 		maxWidth: 251,
-		maxHeight: 334,
+		minHeight: 334,
 		boxSizing: 'border-box',
-	},
-	cardContent: {
-		padding: 0
 	},
 	media: {
 		height: 210,
 		width: 210,
-		margin: '0 auto',
+		margin: '0 20px 0 20px',
+		backgroundPosition: 'center center',
+	},
+	cardContent: {
+		padding: '0 20px 20px 20px',
 	},
 	newPrice: {
 		marginRight: 10,
@@ -36,13 +36,17 @@ const useStyles = makeStyles({
 		textDecoration: 'line-through',
 	},
 	fontDesc: {
+		marginTop: 10,
+		marginBottom: 10,
 		fontSize: 14,
 		lineHeight: '20px',
 		color: '#444444'
 	}
 });
 
-export function ProductCard () {
+export function ProductCard ({rating}) {
+	const [value, setValue] = React.useState(rating);
+
 	const classes = useStyles();
 
 	return (
@@ -50,7 +54,7 @@ export function ProductCard () {
 			<CardActionArea>
 				<CardMedia
 					className={classes.media}
-					image={productImg.productImg1}
+					image="img/products/image31.png"
 					title="Contemplative Reptile"
 				/>
 				<CardContent
@@ -78,6 +82,9 @@ export function ProductCard () {
 						component="p">
 						Addmotor M-5500 Commemorative Flying Tiger Electric Fat Bike
 					</Typography>
+					<Rating
+						value={value}
+						readOnly />
 				</CardContent>
 			</CardActionArea>
 			<CardActions>

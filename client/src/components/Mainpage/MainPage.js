@@ -7,7 +7,6 @@ import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Header} from "../../commons";
 import BrandsBlock from "./BrandsBlock";
-
 import {ProductCard} from '../ProductCard/ProductCard';
 
 const GlobalCss = withStyles({
@@ -41,7 +40,7 @@ export const MainPage = props => {
             <GlobalCss/>
                 <Header count={2} callCenter={'1-855-324-5387'}/>
                 <BrandsBlock/>
-								<ProductCard/>
+								<ProductCard rating={3}/>
         </React.Fragment>
     )
-}
+};

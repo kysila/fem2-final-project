@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 import {brandImg} from '../../img/brands';
-// import {brandImg} from '/img/brands';
 import Tungsten from '../../fonts/Tungsten-Book.woff';
 
 
