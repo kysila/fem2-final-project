@@ -73,7 +73,7 @@ export const Header = props => {
                 <Container maxWidth='md'>
                     <Box className={classes.container} >
                         <Box className={classes.link}>
-                            <Link to={'/'}>
+                            <Link to={'/products'}>
                                 <img src="img/logo.svg" alt="Logo"/>
                             </Link>
                         </Box>
