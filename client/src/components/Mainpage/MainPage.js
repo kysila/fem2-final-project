@@ -5,10 +5,13 @@ import '../../index.css'
 
 import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
 import {Header} from "../../commons";
 import BrandsBlock from "./BrandsBlock";
+import StayInTouch from "./StayInTouch";
 import {ProductCard} from '../ProductCard/ProductCard';
 
+//global settings for site
 const GlobalCss = withStyles({
     '@global': {
         body: {
@@ -27,10 +30,12 @@ const GlobalCss = withStyles({
             border: 'none',
             color: '#FFFFFF'
         },
+        '.MuiTypography-root':{
+            fontFamily: "'Museo Sans 500'",
+        }
 
     },
 })(() => null);
-
 
 
 
@@ -41,6 +46,7 @@ export const MainPage = props => {
                 <Header count={2} callCenter={'1-855-324-5387'}/>
                 <BrandsBlock/>
 								<ProductCard rating={3}/>
+                <StayInTouch/>
         </React.Fragment>
     )
 };
