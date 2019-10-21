@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-export const SingleProduct = ({name, itemImg, price, url, rating})=>{
+export const ProductDetails = ({name, itemImg, price, url, rating})=>{
     return(
         <div>
             <h5>{name}</h5>

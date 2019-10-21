@@ -44,8 +44,9 @@ const useStyles = makeStyles({
 	}
 });
 
-export function ProductCard ({rating}) {
+export function ProductCard ({name, itemImg, price, url, rating}) {
 	const [value, setValue] = React.useState(rating);
+
 
 	const classes = useStyles();
 
@@ -54,7 +55,8 @@ export function ProductCard ({rating}) {
 			<CardActionArea>
 				<CardMedia
 					className={classes.media}
-					image="img/products/image31.png"
+					// image="img/products/image31.png"
+					image={`${itemImg}`}
 					title="Contemplative Reptile"
 				/>
 				<CardContent
@@ -66,7 +68,8 @@ export function ProductCard ({rating}) {
 						variant="h5"
 						display="inline"
 						component="h2">
-						$2,699
+						{/*$2,699*/}
+						{price}
 					</Typography>
 					<Typography
 						className={classes.oldPrice}
@@ -80,10 +83,12 @@ export function ProductCard ({rating}) {
 						className={classes.fontDesc}
 						variant="body2"
 						component="p">
-						Addmotor M-5500 Commemorative Flying Tiger Electric Fat Bike
+						{/*Addmotor M-5500 Commemorative Flying Tiger Electric Fat Bike*/}
+						{name}
 					</Typography>
 					<Rating
-						value={value}
+						// value={value}
+						value={rating}
 						readOnly />
 				</CardContent>
 			</CardActionArea>
