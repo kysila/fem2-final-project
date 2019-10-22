@@ -43,12 +43,12 @@ const GlobalCss = withStyles({
 export const MainPage = props => {
     return (
         <React.Fragment>
-            <GlobalCss/>
-                <Header count={2} callCenter={'1-855-324-5387'}/>
-                <BrandsBlock/>
-                <ProductCard rating={3}/>
+            {/*<GlobalCss/>*/}
+            {/*    <Header count={2} callCenter={'1-855-324-5387'}/>*/}
+            {/*    <BrandsBlock/>*/}
+            {/*    <ProductCard rating={3}/>*/}
                 <Categories/>
-                <StayInTouch/>
+                {/*<StayInTouch/>*/}
         </React.Fragment>
     )
 };

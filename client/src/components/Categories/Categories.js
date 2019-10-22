@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
@@ -8,10 +8,9 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import Box from '@material-ui/core/Box'
-import axios from "axios";
+import axios from 'axios';
 
-
-
+import Preloader from "../Preloader/Preloader";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -94,87 +93,58 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
-// axios.get(`/catalog`)
-//      .then(catalog => {
-//          let categoryId = catalog.data.map((el) => {
-//              const id = el.id;
-//              const name = el.name;
-//
-//              const titleName = tileData.forEach((tile) => {
-//                  const title = tile.title;
-//                  return title;
-//              });
-//              if (titleName === name){
-//                  return id
-//              }});
-//              return categoryId
-//         })
-//         // })
-//      .catch(err => {
-//             console.log(err)
-//         });
-
-const tileData = [
-     {
-         img: 'img/categories/e-scooter.png',
-         title: 'electric scooter',
-         link: '/e-scooter',
-         cols: 2
-     },
-     {
-         img: 'img/categories/e-bike.png',
-         title: 'electric bike',
-         link: '/e-bike',
-         cols: 1
-     },
-     {
-         img: 'img/categories/e-skateboard.png',
-         title: 'electric skate',
-         link: '/e-skateboard',
-         cols: 1
-     },
-     {
-         img: 'img/categories/e-unicycle.png',
-         title: 'electric unicycle',
-         link: '/e-unicycle',
-         cols: 1
-     },
-     {
-         img: 'img/categories/e-hoverboard.png',
-         title: 'electric hoverboard',
-         link: '/e-hoverboard',
-         cols: 1
-     },
- ];
-
-
 export const CategoryImages = () => {
     const classes = useStyles();
+    let categoryBlocks;
+    const [categoryLink, setCategoryLink] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function getData() {
+            await axios.get("/catalog")
+                .then(catalog => {
+                    setCategoryLink(catalog.data);
+                    setLoading(false);
+                })
+                .catch(err => {
+                   console.log(err)
+                });
+            }
+        getData()
+    }, []);
+
+    if (categoryLink && !loading) {
+        categoryBlocks = categoryLink.map((tile) => {
+            return (
+                <GridListTile key={tile._id} cols={+tile.cols || 1}>
+                    <Link to={`/${tile.id}`} className={classes.hover}>
+                        <div className={classes.img} style={{background: `rgb(0, 130, 67) url('${tile.imgUrl}')`}}/>
+                        <GridListTileBar
+                            className={classes.titleBar}
+                            title={tile.name.toUpperCase()}
+                            actionIcon={
+                                <div className={classes.arrowBox}>
+                                    <ArrowForwardIcon className={classes.icon}/>
+                                </div>
+                                }
+                        />
+                    </Link>
+                </GridListTile>
+            )
+        });
+    } else if(loading) {
+        return <Preloader/>
+    }
 
     return (
-            <div className={classes.root}>
-                <GridList cellHeight={266} className={classes.gridList} cols={3}>
-                    {tileData.map(tile => (
-                        <GridListTile key={tile.img} cols={tile.cols || 1}>
-                            <Link to={tile.link} className={classes.hover}>
-                                <div className={classes.img} style={{background: `rgb(0, 130, 67) url('${tile.img}')`}} />
-                                <GridListTileBar
-                                    className={classes.titleBar}
-                                    title={tile.title.toUpperCase()}
-                                    actionIcon={
-                                        <div className={classes.arrowBox}>
-                                            <ArrowForwardIcon className={classes.icon}/>
-                                        </div>
-                                    }
-                                />
-                            </Link>
-                        </GridListTile>
-                    ))}
-                </GridList>
-            </div>
-    );
+        <div className={classes.root}>
+            <GridList cellHeight={266} className={classes.gridList} cols={3}>
+                {categoryBlocks}
+            </GridList>
+        </div>
+    )
 };
+
 
 export const Categories = () => {
     const classes = useStyles();
@@ -182,9 +152,9 @@ export const Categories = () => {
     return(
         <div>
             <Container maxWidth='md'>
-            <CategoryImages/>
+                <CategoryImages/>
             <Box  mx='auto' mt='50px' className={classes.box}>
-                <Link to='/catalog' className={classes.link}>
+                <Link to='/products' className={classes.link}>
                     <Button className={classes.button}>shop all categories</Button>
                 </Link>
             </Box>
@@ -192,6 +162,5 @@ export const Categories = () => {
         </div>
     )
 };
-
 
 export default Categories;
