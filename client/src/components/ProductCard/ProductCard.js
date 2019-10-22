@@ -13,6 +13,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles({
 	card: {
+		marginBottom: 30,
 		maxWidth: 251,
 		minHeight: 334,
 		boxSizing: 'border-box',
@@ -20,13 +21,12 @@ const useStyles = makeStyles({
 		borderRadius: 0,
 		boxShadow: 'none',
 		'&:hover': {
-
 		}
 	},
 	media: {
-		height: 210,
-		width: 210,
-		margin: '0 20px 0 20px',
+		height: 200,
+		width: 200,
+		margin: '10px 20px 10px 20px',
 		backgroundPosition: 'center center',
 	},
 	cardContent: {
@@ -81,18 +81,18 @@ const bagIcon = <path d="M10 8H12V5H15V3H12V0H10V3H7V5H10V8ZM6 17C4.9 17 4.01 17
 
 export function ProductCard ({name, itemImg, price, url, rating}) {
 	const [state, setState] = useState({
-		open: false
+		openButtons: false
 	});
 
-	const showButtons = (event) => {
-		setState({
-			open: true
-		});
+	const showButtonsPanel = () => {
+		setState(() => ({
+			openButtons: true
+		}));
 	};
 
-	const hideButtons = (event) => {
+	const hideButtonsPanel = () => {
 		setState({
-			open: false
+			openButtons: false
 		});
 	};
 
@@ -101,8 +101,8 @@ export function ProductCard ({name, itemImg, price, url, rating}) {
 	return (
 		<Card
 			className={classes.card}
-			onMouseOver={showButtons}
-			onMouseOut={hideButtons}>
+			onMouseOver={showButtonsPanel}
+			onMouseOut={hideButtonsPanel}>
 			<CardActionArea>
 				<CardMedia
 					className={classes.media}
@@ -141,11 +141,10 @@ export function ProductCard ({name, itemImg, price, url, rating}) {
 			</CardActionArea>
 			<CardActions
 				className={classes.buttonField}
-				style={state.open ? {display: 'block'} : null}>
+				style={state.openButtons ? {display: 'block'} : null}>
 				<ButtonGroup
 					className={classes.buttonGroup}
 					variant="contained"
-					color="primary"
 					aria-label="full-width contained primary button group">
 					<Button
 						className={classes.buttonStyle}>
@@ -153,8 +152,8 @@ export function ProductCard ({name, itemImg, price, url, rating}) {
 							style={{
 								width: 23,
 								height: 22,
-							}}
-							color='action'>
+								fill: 'red'
+							}}>
 							{heartIcon}
 						</SvgIcon>
 					</Button>

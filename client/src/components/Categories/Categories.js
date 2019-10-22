@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import {Title} from '../Title/Title'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -15,6 +16,7 @@ import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
     root: {
+        paddingTop: 50,
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
@@ -133,6 +135,7 @@ export const CategoryImages = () => {
 
     return (
             <div className={classes.root}>
+                <Title title="How do you ride?"/>
                 <GridList cellHeight={266} className={classes.gridList} cols={3}>
                     {tileData.map(tile => (
                         <GridListTile key={tile.img} cols={tile.cols || 1}>
