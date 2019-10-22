@@ -14,11 +14,14 @@ const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
     '@global': {
         body: {
-            fontFamily: "Museo Sans",
+            fontFamily: '"Museo Sans 500"',
             color: '#444444'
         },
         a: {
             textDecoration: 'none'
+        },
+        '.MuiTypography-body2': {
+            fontFamily: "'Museo Sans 500'"
         },
        '.MuiButton-root': {
             fontFamily: "'Museo Sans 500'",
@@ -40,7 +43,7 @@ const GlobalCss = withStyles({
 
 
 export const MainPage = props => {
-    return (
+        return (
         <React.Fragment>
             <GlobalCss/>
                 <Header callCenter={'1-855-324-5387'}/>
