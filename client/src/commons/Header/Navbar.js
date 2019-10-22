@@ -41,11 +41,14 @@ const useStyles = makeStyles(() =>
             width: '250px',
         },
         item: {
-            margin: '2%'
+            marginLeft: '2%',
+            marginRight: '2%'
         },
         text: {
             display: 'inline-block',
-            padding: '3%'
+            paddingRight: '3%',
+            paddingLeft: '3%',
+
         },
         logo: {
             paddingLeft: '8%',
