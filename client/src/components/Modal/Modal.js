@@ -7,9 +7,11 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
 function Modal() {
+
   useEffect(() => {
 
   });
+
 }
 
 function mapStateToProps(state) {}

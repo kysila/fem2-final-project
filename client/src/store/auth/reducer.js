@@ -7,10 +7,10 @@ export const ACTIONS = Object.seal({
   GET_CUSTOMER_INFO: 'GET_CUSTOMER_INFO',
 });
 
-export default function (state = {}, { type, payload }) {
+export default function(state = {}, { type, payload }) {
   let newState = state;
 
-  switch (type) {
+  switch(type) {
     case ACTIONS.LOGIN:
       Cookie.set('auth', payload.token);
       break;
@@ -19,11 +19,11 @@ export default function (state = {}, { type, payload }) {
       break;
     case ACTIONS.LOGOUT:
       Cookie.remove('auth');
-      newState = { ...newState, user: null };
+      newState = Object.assign({}, newState, { user: null });
       window.location.href = '/';
       break;
     case ACTIONS.GET_CUSTOMER_INFO:
-      newState = { ...newState, user: payload };
+      newState = Object.assign({}, newState, { user: payload });
       break;
   }
 

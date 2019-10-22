@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
 import authReducer from './auth/reducer';
+import thunk from 'redux-thunk';
 
-export const initialStore = { auth: { user: null }, ...window.initialStore };
+export const initialStore = Object.assign({ auth: { user: null } }, window.initialStore);
 
 const rootReducer = combineReducers({
   auth: authReducer,
