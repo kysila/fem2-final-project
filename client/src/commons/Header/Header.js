@@ -85,7 +85,6 @@ export const Header = props => {
     useEffect(()=> {
         axios.get("/").then(data => {
             console.log('data in axios then', data);
-            console.log('setMenu', setMenu);
             setMenu(data);
             console.log('menu after axios', menu)
         });
