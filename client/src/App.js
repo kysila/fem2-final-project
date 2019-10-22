@@ -1,47 +1,28 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import {MainPage, Products, ProductDetails, NotFound} from './components'
+import {MainPage, Products, ProductDetails, NotFound} from './components';
+import { Provider } from 'react-redux';
 
-// import axios from 'axios';
+import store from './store/index';
 
-// import {MainPage} from './components'
-
-// class App extends React.Component {
-//   componentDidMount() {
-//     axios.get("/products").then(products => {
-//       console.log(products);
-//     })
-//   }
-
-//   render() {
-//
-//     return (
-//       <div className="App">
-//         <p>Test</p>
-//       </div>
-//     );
-//   }
-// }
 function App() {
     return (
-        <Router>
-            <div className="App">
+        <Provider store={store}>
+            <Router>
+                <div className="App">
 
-                <Switch>
-                    <Route path={'/'} exact component={MainPage}/>
-                    <Route path={'/products'} exact component={Products}/>
-                    <Route path={'/products/:id'} component={ProductDetails}/>
-                    <Route component={NotFound}/>
-                </Switch>
+                    <Switch>
+                        <Route path={'/'} exact component={MainPage}/>
+                        <Route path={'/products'} exact component={Products}/>
+                        <Route path={'/products/:id'} component={ProductDetails}/>
+                        <Route component={NotFound}/>
+                    </Switch>
 
-            </div>
-        </Router>
+                </div>
+            </Router>
+        </Provider>
     )
-
-
 }
-
-
 
 export default App;
