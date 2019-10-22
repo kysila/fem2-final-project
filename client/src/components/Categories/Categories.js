@@ -145,7 +145,6 @@ export const CategoryImages = () => {
     )
 };
 
-
 export const Categories = () => {
     const classes = useStyles();
 
