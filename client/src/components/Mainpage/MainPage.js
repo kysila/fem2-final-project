@@ -2,6 +2,8 @@ import React from 'react';
 import '../../index.css'
 //
 import {withStyles} from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+
 import {Header} from "../../commons";
 import Categories from "../Categories/Categories";
 import BrandsBlock from "./BrandsBlock";
@@ -9,16 +11,17 @@ import StayInTouch from "./StayInTouch";
 import {ProductCard} from '../ProductCard/ProductCard';
 
 const GlobalCss = withStyles({
+    // @global is handled by jss-plugin-global.
     '@global': {
         body: {
-            fontFamily: "'Museo Sans 500'",
-            color: "#444444"
-        },
-        '.MuiTypography-body2': {
-            fontFamily: "'Museo Sans 500'"
+            fontFamily: '"Museo Sans 500"',
+            color: '#444444'
         },
         a: {
             textDecoration: 'none'
+        },
+        '.MuiTypography-body2': {
+            fontFamily: "'Museo Sans 500'"
         },
        '.MuiButton-root': {
             fontFamily: "'Museo Sans 500'",
@@ -40,7 +43,7 @@ const GlobalCss = withStyles({
 
 
 export const MainPage = props => {
-    return (
+        return (
         <React.Fragment>
             <GlobalCss/>
                 <Header callCenter={'1-855-324-5387'}/>
@@ -54,4 +57,4 @@ export const MainPage = props => {
                 <StayInTouch/>
         </React.Fragment>
     )
-};
+}

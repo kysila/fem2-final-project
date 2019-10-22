@@ -70,11 +70,10 @@ export  const Products = () => {
     useEffect(()=> {
         axios.get("/products").then(data => {
             console.log('data in axios then', data);
-            console.log('setList', setList)
+            console.log('setList', setList);
             setList(data);
             console.log('list after axios', list)
      });
-
 
         return () => {
             console.log('unmount');
@@ -88,14 +87,8 @@ export  const Products = () => {
             <Container maxWidth="md">
                  <div>
                     <Grid container spacing={3}>
-
                             {products}
-
-
-
                     </Grid>
-
-
                 </div>
             </Container>
         </React.Fragment>

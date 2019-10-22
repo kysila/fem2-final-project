@@ -29,7 +29,7 @@ const useStyles = makeStyles(() =>
         },
         drawer: {},
         paper: {
-            paddingRight: '2%',
+            paddingRight: '0.5%',
             paddingTop: '2%',
             background: '#f4efff',
             fontSize: '20px',
@@ -41,11 +41,14 @@ const useStyles = makeStyles(() =>
             width: '250px',
         },
         item: {
-            margin: '2%'
+            marginLeft: '2%',
+            marginRight: '2%'
         },
         text: {
             display: 'inline-block',
-            padding: '3%'
+            paddingRight: '3%',
+            paddingLeft: '3%',
+
         },
         logo: {
             paddingLeft: '8%',
@@ -73,7 +76,7 @@ export const NavBar = (props) => {
                     <img src="img/logo.svg" alt="Logo"/>
                 </div>
                 <List>
-                    {[' SCOOTERS ', 'BIKES', 'SСATES', 'UNICYCLES', 'HOVERBORDS'].map((text, index) => (
+                    {[' SCOOTERS ', 'BIKES', 'SKATES', 'UNICYCLES', 'HOVERBORDS'].map((text, index) => (
                         <ListItem
                             divider={'true'}
                             dense={'true'}
