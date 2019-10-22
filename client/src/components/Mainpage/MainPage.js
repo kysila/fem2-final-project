@@ -14,9 +14,10 @@ const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
     '@global': {
         body: {
-            fontFamily: "Museo Sans",
-            color: '#444444'
+            fontFamily: "'Museo Sans 500'",
+            color: "#444444"
         },
+
         a: {
             textDecoration: 'none'
         },
@@ -30,6 +31,9 @@ const GlobalCss = withStyles({
         '.MuiTypography-root': {
             fontFamily: "'Museo Sans 500'",
             color: "#444444"
+        },
+        '.MuiTypography-body2': {
+            fontFamily: "'Museo Sans 500'"
         },
         '.MuiButtonGroup-groupedContainedPrimary:not(:last-child)': {
           borderRight: '1px solid #EAEAEA',

@@ -84,10 +84,10 @@ export  const Products = () => {
     return (
         <React.Fragment>
             <GlobalCss/>
-            <Header count={2} callCenter={'1-855-324-5387'}/>
+            <Header callCenter={'1-855-324-5387'}/>
             <Container maxWidth="md">
                  <div>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={4}>
 
                             {products}
 
