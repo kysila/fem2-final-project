@@ -1,10 +1,7 @@
 import React from 'react';
-
 import '../../index.css'
 
-
 import {withStyles} from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import {Header} from "../../commons";
 import Categories from "../Categories/Categories";
 import BrandsBlock from "./BrandsBlock";
@@ -46,13 +43,12 @@ export const MainPage = props => {
     return (
         <React.Fragment>
             <GlobalCss/>
-                <Header count={2} callCenter={'1-855-324-5387'}/>
+                <Header callCenter={'1-855-324-5387'}/>
                 <BrandsBlock/>
                 <ProductCard rating={3}
                              name="Addmotor M-5500 Commemorative Flying Tiger Electric Fat Bike"
                              itemImg="img/products/image31.png"
                              price="$2,699"
-
                                 />
                 <Categories/>
                 <StayInTouch/>

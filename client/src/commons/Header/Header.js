@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {makeStyles, createStyles} from '@material-ui/core/styles';
 import {Search} from "./Searchbar";
 import {NavBar} from "./Navbar";
+import {Cart} from './Cart';
 import {ProductCard} from "../../components";
 
 
@@ -19,62 +20,60 @@ import Drawer from "@material-ui/core/Drawer";
 
 const useStyles = makeStyles(() =>
     createStyles({
-    appBar: {
-        width: '100%',
-        backgroundColor: '#FFFFFF',
-        padding: '10px',
-        position:  'sticky'
-    },
-    container: {
-        display: 'flex',
-        flexWrap: "wrap",
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    link: {
-        color: "#444444",
-        margin: '2%',
-        alignItems: 'center',
-        fontSize: '14px'
-    },
-    input: {
-        width: '45%'
-    },
-    drawer: {
-
-    },
-    paper: {
+        appBar: {
+            width: '100%',
+            backgroundColor: '#FFFFFF',
+            padding: '10px',
+            position: 'sticky'
+        },
+        container: {
+            display: 'flex',
+            flexWrap: "wrap",
+            justifyContent: 'space-between',
+            alignItems: 'center'
+        },
+        link: {
+            color: "#444444",
+            margin: '2%',
+            alignItems: 'center',
+            fontSize: '14px'
+        },
+        input: {
+            width: '45%'
+        },
+        drawer: {},
+        paper: {
             paddingRight: '2%',
             paddingTop: '2%',
             background: '#f4efff',
             fontSize: '20px',
             color: '#9c80ff',
-    },
-    basket: {
-        position: 'relative',
-        borderRadius: '50%',
-        border: '1px solid #6A86E8',
-        width: '50px',
-        height: '50px',
-        textAlign: 'center',
-        paddingTop: '14px'
-    },
-    circle: {
-        backgroundColor: ' #6A86E8 ',
-        borderRadius: '50%',
-        height: '15px',
-        width: '15px',
-        position: 'absolute',
-        top: '0px',
-        right: '0px',
-        fontSize: '11px',
-        color: ' #FFFFFF '
-    },
-    call: {
-        color: ' #6A86E8 '
-    }
+        },
+        basket: {
+            position: 'relative',
+            borderRadius: '50%',
+            border: '1px solid #6A86E8',
+            width: '50px',
+            height: '50px',
+            textAlign: 'center',
+            paddingTop: '14px'
+        },
+        circle: {
+            backgroundColor: ' #6A86E8 ',
+            borderRadius: '50%',
+            height: '15px',
+            width: '15px',
+            position: 'absolute',
+            top: '0px',
+            right: '0px',
+            fontSize: '11px',
+            color: ' #FFFFFF '
+        },
+        call: {
+            color: ' #6A86E8 '
+        }
 
-}));
+    }));
 
 export const Header = props => {
     const [cartIsOpen, setCartIsOpen] = useState(false);
@@ -99,13 +98,13 @@ export const Header = props => {
                             <Link to={'/login'}>Login |</Link>
                             <Link to={'/login'}> Sign Up</Link>
                         </Box>
-
-                        <Box className={classes.basket} onClick={(cartIsOpen)=> {setCartIsOpen(true)}}>
-                            <Link to={'#'}>
-                                <img src="img/basket.svg" alt="Logo"/>
-                                <div className={classes.circle}>{props.count}</div>
-                            </Link>
-                        </Box>
+                        <Cart count={2} />
+                        {/*<Box className={classes.basket} onClick={(cartIsOpen)=> {setCartIsOpen(true)}}>*/}
+                        {/*    <Link to={'#'}>*/}
+                        {/*        <img src="img/basket.svg" alt="Logo"/>*/}
+                        {/*        <div className={classes.circle}>{props.count}</div>*/}
+                        {/*    </Link>*/}
+                        {/*</Box>*/}
 
 
                     </Box>
@@ -119,21 +118,21 @@ export const Header = props => {
 
                     </Box>
                 </Container>
-                <Drawer
-                    anchor="right"
-                    className={classes.drawer}
-                    classes={{
-                        paper: classes.paper,
-                    }}
-                    open={cartIsOpen} onClose={(cartIsOpen) => {
-                    setCartIsOpen(false)
-                }}>
-                    <Box p={2}>
-                        <h3>Cart</h3>
-                        <ProductCard/>
-                    </Box>
+                {/*<Drawer*/}
+                {/*    anchor="right"*/}
+                {/*    className={classes.drawer}*/}
+                {/*    classes={{*/}
+                {/*        paper: classes.paper,*/}
+                {/*    }}*/}
+                {/*    open={cartIsOpen} onClose={(cartIsOpen) => {*/}
+                {/*    setCartIsOpen(false)*/}
+                {/*}}>*/}
+                {/*    <Box p={2}>*/}
+                {/*        <h3>Cart</h3>*/}
+                {/*        <ProductCard/>*/}
+                {/*    </Box>*/}
 
-                </Drawer>
+                {/*</Drawer>*/}
             </AppBar>
 
 
