@@ -22,11 +22,16 @@ const GlobalCss = withStyles({
             textDecoration: 'none'
         },
        '.MuiButton-root': {
+            fontFamily: "'Museo Sans 500'",
             background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
             borderRadius: '4px',
             border: 'none',
             color: '#FFFFFF'
         },
+        '.MuiTypography-root': {
+            fontFamily: "'Museo Sans 500'",
+            color: "#444444"
+        }
 
     },
 })(() => null);
