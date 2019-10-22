@@ -14,8 +14,8 @@ const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
     '@global': {
         body: {
-            fontFamily: "Museo Sans",
-            color: '#444444'
+            fontFamily: "'Museo Sans 500'",
+            color: "#444444"
         },
 
         a: {
