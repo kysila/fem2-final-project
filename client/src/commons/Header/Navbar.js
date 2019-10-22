@@ -29,7 +29,7 @@ const useStyles = makeStyles(() =>
         },
         drawer: {},
         paper: {
-            paddingRight: '2%',
+            paddingRight: '0.5%',
             paddingTop: '2%',
             background: '#f4efff',
             fontSize: '20px',
@@ -73,7 +73,7 @@ export const NavBar = (props) => {
                     <img src="img/logo.svg" alt="Logo"/>
                 </div>
                 <List>
-                    {[' SCOOTERS ', 'BIKES', 'SСATES', 'UNICYCLES', 'HOVERBORDS'].map((text, index) => (
+                    {[' SCOOTERS ', 'BIKES', 'SKATES', 'UNICYCLES', 'HOVERBORDS'].map((text, index) => (
                         <ListItem
                             divider={'true'}
                             dense={'true'}
