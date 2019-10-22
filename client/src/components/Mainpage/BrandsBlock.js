@@ -3,22 +3,13 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 import {brandImg} from '../../img/brands';
 // import {brandImg} from '/img/brands';
-import Tungsten from '../../fonts/Tungsten-Book.woff';
 
-
-const tungsten = {
-    fontFamily: 'Tungsten Book',
-    fontStyle: 'normal',
-    src: `
-    local('Tungsten Book'),
-    url(${Tungsten}) format('woff')
-  `,
-};
+import SubsectionTitle from "./SubsectionTitle";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,12 +32,6 @@ const useStyles = makeStyles(theme => ({
             opacity: '1',
         }
     },
-    subsectionTitle: {
-        fontSize: '33px',
-        fontWeight: '326',
-        textTransform: 'capitalize',
-        marginBottom: '20px',
-    },
     greyBG: {
         paddingTop: '44px',
         paddingBottom: '35px',
@@ -63,9 +48,7 @@ const BrandsBlock = () => {
     return (
         <section className={classes.greyBG}>
             <Container maxWidth="md">
-                <Typography align='center' style={tungsten} variant="h3"  className={classes.subsectionTitle}>
-                    We are Proud to Be an Authorized Dealer for These Brands
-                </Typography>
+                <SubsectionTitle color="inherited" title="We are Proud to Be an Authorized Dealer for These Brands"/>
                 <div className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={6} sm={3} md={2}>

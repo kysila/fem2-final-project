@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, createStyles} from '@material-ui/core/styles';
 import {Search} from "./Searchbar";
 import {NavBar} from "./Navbar";
+import {ProductCard} from "../../components";
 
 
 import Container from '@material-ui/core/Container';
@@ -16,11 +17,13 @@ import ArrowRightOutlinedIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() =>
+    createStyles({
     appBar: {
         width: '100%',
         backgroundColor: '#FFFFFF',
-        padding: '10px'
+        padding: '10px',
+        position:  'sticky'
     },
     container: {
         display: 'flex',
@@ -36,6 +39,16 @@ const useStyles = makeStyles({
     },
     input: {
         width: '45%'
+    },
+    drawer: {
+
+    },
+    paper: {
+            paddingRight: '2%',
+            paddingTop: '2%',
+            background: '#f4efff',
+            fontSize: '20px',
+            color: '#9c80ff',
     },
     basket: {
         position: 'relative',
@@ -61,7 +74,7 @@ const useStyles = makeStyles({
         color: ' #6A86E8 '
     }
 
-});
+}));
 
 export const Header = props => {
     const [cartIsOpen, setCartIsOpen] = useState(false);
@@ -106,10 +119,20 @@ export const Header = props => {
 
                     </Box>
                 </Container>
-                <Drawer anchor="right" open={cartIsOpen} onClose={(cartIsOpen) => {
+                <Drawer
+                    anchor="right"
+                    className={classes.drawer}
+                    classes={{
+                        paper: classes.paper,
+                    }}
+                    open={cartIsOpen} onClose={(cartIsOpen) => {
                     setCartIsOpen(false)
                 }}>
-                    <h3>Cart</h3>
+                    <Box p={2}>
+                        <h3>Cart</h3>
+                        <ProductCard/>
+                    </Box>
+
                 </Drawer>
             </AppBar>
 

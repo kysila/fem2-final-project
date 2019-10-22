@@ -4,17 +4,18 @@ import React, {useState} from 'react'
 import Link from '@material-ui/core/Link';
 import ExpandMoreSharpIcon from '@material-ui/icons/ExpandMoreSharp';
 import Box from "@material-ui/core/Box";
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, createStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import MenuItem from '@material-ui/core/MenuItem'
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
-import ArrowRightOutlinedIcon from '@material-ui/icons/ArrowRightOutlined';
+import TollIcon from '@material-ui/icons/Toll';
 import Divider from "@material-ui/core/Divider";
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() =>
+    createStyles({
     menuItem: {
         marginRight: '15px',
         marginLeft: '15px',
@@ -30,17 +31,32 @@ const useStyles = makeStyles({
         alignItems: 'center'
     },
     drawer: {
-       fontSize: '15px',
-       color: '#8F8DE2',
-    },
+              },
     paper: {
-        backgroundColor: '#8F8DE2',
-        marginRight: '25px'
-    }
+        paddingRight: '2%',
+        paddingTop: '2%',
+        background: '#f4efff',
+        fontSize: '20px',
+        color: '#9c80ff',
+    },
+     list: {
+        marginRight: '50px',
+        divider: 'true',
+        width: '250px',
+        },
+    item: {
+        margin: '2%'
+     },
+     text: {
+        display: 'inline-block',
+         padding: '3%'
+     },
+     logo:{
+        paddingLeft: '8%',
+        marginBottom: '5%'
+     }
 
-});
-
-
+}));
 
 export const NavBar = (props) => {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -48,12 +64,29 @@ export const NavBar = (props) => {
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Drawer  open={menuIsOpen} onClose={(menuIsOpen)=> {setMenuIsOpen(false)} }>
-                <List className={classes.drawer}>
-                    {['SCOOTERS', 'BIKES', 'SСATES', 'UNICYCLES', 'HOVERBORDS'].map((text, index) => (
-                        <ListItem button key={text} >
-                            <ArrowRightOutlinedIcon/>
-                            <ListItemText primary={text}/>
+            <Drawer
+                className={classes.drawer}
+                classes={{
+                    paper: classes.paper,
+                                  }}
+                open={menuIsOpen}
+                onClose={(menuIsOpen)=> {setMenuIsOpen(false)} }>
+                <div className={classes.logo}>
+                    <img  src="img/logo.svg" alt="Logo"/>
+                 </div>
+
+
+                <List >
+                    {[' SCOOTERS ', 'BIKES', 'SСATES', 'UNICYCLES', 'HOVERBORDS'].map((text, index) => (
+                        <ListItem
+                            divider={'true'}
+                            dense={'true'}
+                            button key={text}
+                            className={classes.list}
+                            classes={{button: classes.item}}
+                        >
+                            <TollIcon/>
+                            <ListItemText classes={{primary: classes.text}} primary={text} />
                         </ListItem>
                     ))}
                 </List>
