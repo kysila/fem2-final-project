@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../index.css'
-
+//
 import {withStyles} from '@material-ui/core/styles';
 import {Header} from "../../commons";
 import Categories from "../Categories/Categories";
