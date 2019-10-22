@@ -16,11 +16,16 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         '&>div':{
             justifyContent: 'center',
+            alignItems: 'center'
         }
     },
     box: {
         padding: theme.spacing(2),
         textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+
     },
     img: {
         width: '100%',
@@ -51,22 +56,22 @@ const BrandsBlock = () => {
                 <SubsectionTitle color="inherited" title="We are Proud to Be an Authorized Dealer for These Brands"/>
                 <div className={classes.root}>
                     <Grid container spacing={3}>
-                        <Grid item xs={6} sm={3} md={2}>
+                        <Grid item xs={3} sm={2} md={2}>
                             <Box className={classes.box}><img className={classes.img} src={brandImg.brandLogo1} alt="brand Logo"/></Box>
                         </Grid>
-                        <Grid item xs={6} sm={3} md={2}>
+                        <Grid item xs={3} sm={2} md={2}>
                             <Box className={classes.box}><img className={classes.img} src={brandImg.brandLogo2} alt="brand Logo"/></Box>
                         </Grid>
-                        <Grid item xs={6} sm={3} md={2}>
+                        <Grid item xs={3} sm={2} md={2}>
                             <Box className={classes.box}><img className={classes.img} src={brandImg.brandLogo3} alt="brand Logo"/></Box>
                         </Grid>
-                        <Grid item xs={6} sm={3} md={2}>
+                        <Grid item xs={3} sm={2} md={2}>
                             <Box className={classes.box}><img className={classes.img} src={brandImg.brandLogo4} alt="brand Logo"/></Box>
                         </Grid>
-                        <Grid item xs={6} sm={3} md={2}>
+                        <Grid item xs={3} sm={2} md={2}>
                             <Box className={classes.box}><img className={classes.img} src={brandImg.brandLogo5} alt="brand Logo"/></Box>
                         </Grid>
-                        <Grid item xs={6} sm={3} md={2}>
+                        <Grid item xs={3} sm={2} md={2}>
                             <Box className={classes.box}><img className={classes.img} src={brandImg.brandLogo6} alt="brand Logo"/></Box>
                         </Grid>
 
