@@ -1,9 +1,6 @@
 import React from 'react';
 import './App.css';
-
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-
-import {Header} from './commons'
 import {MainPage, Products, ProductDetails, NotFound} from './components'
 
 // import axios from 'axios';
@@ -41,6 +38,8 @@ function App() {
             </div>
         </Router>
     )
+
+
 }
 
 
