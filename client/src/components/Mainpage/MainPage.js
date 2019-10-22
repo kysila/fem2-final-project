@@ -33,8 +33,10 @@ const GlobalCss = withStyles({
         },
         '.MuiTypography-root':{
             fontFamily: "'Museo Sans 500'",
+        },
+        '.MuiButtonGroup-groupedContainedPrimary:not(:last-child)': {
+          borderRight: '1px solid #EAEAEA',
         }
-
     },
 })(() => null);
 
@@ -46,7 +48,11 @@ export const MainPage = props => {
             <GlobalCss/>
                 <Header count={2} callCenter={'1-855-324-5387'}/>
                 <BrandsBlock/>
-								<ProductCard rating={3}/>
+                <ProductCard rating={3}
+                             name="Addmotor M-5500 Commemorative Flying Tiger Electric Fat Bike"
+                             itemImg="img/products/image31.png"
+                             price="$2,699"
+                            />
                 <Categories/>
                 <StayInTouch/>
         </React.Fragment>
