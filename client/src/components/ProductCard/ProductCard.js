@@ -152,8 +152,8 @@ export function ProductCard ({name, itemImg, price, url, rating}) {
 							style={{
 								width: 23,
 								height: 22,
-								fill: 'red'
-							}}>
+							}}
+							color='action'>
 							{heartIcon}
 						</SvgIcon>
 					</Button>
