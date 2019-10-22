@@ -3,7 +3,9 @@ import './index.css'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {MainPage, Products, ProductDetails, NotFound} from './components'
 import {withStyles} from '@material-ui/core/styles';
+import { Provider } from 'react-redux';
 
+import store from './store/index';
 
 const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
@@ -41,22 +43,27 @@ const GlobalCss = withStyles({
         }
     },
 })(() => null);
+
 function App() {
     return (
-        <Router>
+        <Provider store={store}>
+          <Router>
             <GlobalCss/>
             <div className="App">
-
-                <Switch>
-                    <Route path={'/'} exact component={MainPage}/>
-                    <Route path={'/products'} exact component={Products}/>
-                    <Route path={'/products/:id'} component={ProductDetails}/>
-                    <Route component={NotFound}/>
-                </Switch>
-
+                <div className="App">
+                  <Switch>
+                      <Route path={'/'} exact component={MainPage}/>
+                      <Route path={'/products'} exact component={Products}/>
+                      <Route path={'/products/:id'} component={ProductDetails}/>
+                      <Route component={NotFound}/>
+                  </Switch>
+                </div>
             </div>
-        </Router>
+          </Router>
+        </Provider>
     )
+
+
 }
 
 
