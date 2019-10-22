@@ -12,7 +12,7 @@ const SampleNextArrow = (props) => {
 	const style = {
 		position: 'absolute',
 		top: '134px',
-		left: '-24px',
+		right: '-24px',
 		width: '48px',
 		height: '48px',
 		borderRadius: '50%',
@@ -40,7 +40,7 @@ function SamplePrevArrow(props) {
 	const style = {
 		position: 'absolute',
 		top: '134px',
-		right: '-24px',
+		left: '-24px',
 		width: '48px',
 		height: '48px',
 		borderRadius: '50%',
