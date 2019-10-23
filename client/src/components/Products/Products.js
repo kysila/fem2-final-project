@@ -41,7 +41,8 @@ export  const Products = () => {
     let products;
     if(list.data) {
         products = list.data.map((el)=>{
-            return <Grid item xs={12} sm={4} md={3} key={el.itemNo}><ProductCard
+            return <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
+                <ProductCard
                 className={classes.card}
                 name={el.name}
                 itemImg={el.imageUrls[0]}
@@ -49,6 +50,7 @@ export  const Products = () => {
                 url={`products/${el.itemNo}`}
                 rating={el.rating}
             />
+            </Grid>
         })
     }
 
@@ -56,12 +58,7 @@ export  const Products = () => {
 
         axios.get("/products").then(data => {
             setList(data);
-     });
-
-
-        return () => {
-            console.log('unmount');
-        }
+     })
     },[]);
 
     return (
