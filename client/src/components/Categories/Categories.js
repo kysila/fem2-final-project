@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import {Title} from '../Title/Title'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -151,6 +152,7 @@ export const Categories = () => {
     return(
         <div>
             <Container maxWidth='md'>
+                <Title title="How do you ride?"/>
                 <CategoryImages/>
             <Box  mx='auto' mt='50px' className={classes.box}>
                 <Link to='/products' className={classes.link}>

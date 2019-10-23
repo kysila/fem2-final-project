@@ -10,14 +10,16 @@ import Categories from "../Categories/Categories";
 import BrandsBlock from "./BrandsBlock";
 import StayInTouch from "./StayInTouch";
 import {ProductCard} from '../ProductCard/ProductCard';
+import {Favorites} from "../Favorites/Favorites";
 
 const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
     '@global': {
         body: {
-            fontFamily: "Museo Sans",
-            color: '#444444'
+            fontFamily: "'Museo Sans 500'",
+            color: "#444444"
         },
+
         a: {
             textDecoration: 'none'
         },
@@ -31,6 +33,9 @@ const GlobalCss = withStyles({
         '.MuiTypography-root': {
             fontFamily: "'Museo Sans 500'",
             color: "#444444"
+        },
+        '.MuiTypography-body2': {
+            fontFamily: "'Museo Sans 500'"
         },
         '.MuiButtonGroup-groupedContainedPrimary:not(:last-child)': {
           borderRight: '1px solid #EAEAEA',
@@ -46,11 +51,7 @@ export const MainPage = props => {
             <GlobalCss/>
                 <Header callCenter={'1-855-324-5387'}/>
                 <BrandsBlock/>
-                <ProductCard rating={3}
-                             name="Addmotor M-5500 Commemorative Flying Tiger Electric Fat Bike"
-                             itemImg="img/products/image31.png"
-                             price="$2,699"
-                                />
+                <Favorites/>
                 <Categories/>
                 <StayInTouch/>
         </React.Fragment>
