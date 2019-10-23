@@ -100,7 +100,7 @@ export const Header = props => {
             <CssBaseline/>
             <AppBar className={classes.appBar}>
                 <Container maxWidth='md'>
-                    <Box className={classes.container}>
+                    <Box className={classes.container} >
                         <Box className={classes.link}>
                             <Link to={'/'}>
                                 <img src="img/logo.svg" alt="Logo"/>

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../index.css'
-//
+
 import {withStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
@@ -23,14 +23,14 @@ const GlobalCss = withStyles({
         '.MuiTypography-body2': {
             fontFamily: "'Museo Sans 500'"
         },
-       '.MuiButton-root': {
+        '.MuiButton-root': {
             fontFamily: "'Museo Sans 500'",
             background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
             borderRadius: '4px',
             border: 'none',
             color: '#FFFFFF'
         },
-        '.MuiTypography-root': {
+        '.MuiTypography-root':{
             fontFamily: "'Museo Sans 500'",
             color: "#444444"
         },
