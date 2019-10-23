@@ -17,5 +17,7 @@ module.exports = {
   "plugins": [
     "react", "jsx-a11y", "import"
   ],
-  "rules": {}
+  "rules": {
+    "linebreak-style": "off"
+  }
 };

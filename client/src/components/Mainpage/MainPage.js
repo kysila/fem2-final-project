@@ -1,8 +1,11 @@
 import React from 'react';
 
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Header} from "../../commons";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+import MainCarousel from "./MainCarousel";
+import { Header } from "../../commons";
 import BrandsBlock from "./BrandsBlock";
 
 import '../../index.css'
@@ -29,11 +32,12 @@ const GlobalCss = withStyles({
 export function MainPage(props) {
     return (
         <React.Fragment>
-            <GlobalCss/>
+            <GlobalCss />
+            <MainCarousel />
             <Container maxWidth="md">
-                <Header/>
+                <Header />
             </Container>
-            <BrandsBlock/>
+            <BrandsBlock />
 
         </React.Fragment>
     )
