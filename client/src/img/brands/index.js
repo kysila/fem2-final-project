@@ -6,10 +6,10 @@ import brandLogo5 from './buzz-logo.jpg';
 import brandLogo6 from './california-bicycle-factory-logo.jpg';
 
 export const brandImg = {
-    brandLogo1,
-    brandLogo2,
-    brandLogo3,
-    brandLogo4,
-    brandLogo5,
-    brandLogo6
-}
+  brandLogo1,
+  brandLogo2,
+  brandLogo3,
+  brandLogo4,
+  brandLogo5,
+  brandLogo6,
+};
