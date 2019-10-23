@@ -8,7 +8,6 @@ import {Header} from "../../commons";
 import Categories from "../Categories/Categories";
 import BrandsBlock from "./BrandsBlock";
 import StayInTouch from "./StayInTouch";
-import {ProductCard} from '../ProductCard/ProductCard';
 import {Favorites} from "../Favorites/Favorites";
 
 const GlobalCss = withStyles({
@@ -38,6 +37,9 @@ const GlobalCss = withStyles({
         },
         '.MuiButtonGroup-groupedContainedPrimary:not(:last-child)': {
           borderRight: '1px solid #EAEAEA',
+        },
+        '.MuiContainer-maxWidthMd': {
+            maxWidth: '1060px'
         }
     },
 })(() => null);

@@ -165,7 +165,7 @@ export const Categories = () => {
         <div>
             <CategoryImages/>
             <Box  mx='auto' mt='50px' className={classes.box}>
-                <Link to='/catalog' className={classes.link}>
+                <Link to='/products' className={classes.link}>
                     <Button className={classes.button}>shop all categories</Button>
                 </Link>
             </Box>
