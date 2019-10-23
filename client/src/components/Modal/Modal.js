@@ -1,18 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { dispatchModalClose } from '../../store/modal/actions';
 
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Dialog from '@material-ui/core/Dialog';
 
-function Modal() {
-  useEffect(() => {
+function Modal(props) {
+  const onClose = () => props.closeModal();
 
-  });
+  return (
+    <Dialog open={props.opened} onClose={onClose}>
+      {props.children}
+    </Dialog>
+  );
 }
 
-function mapStateToProps(state) {}
-function mapDispatchToProps(dispatch) {}
+function mapStateToProps(state) {
+  return {
+    opened: state.modal.opened,
+    children: state.modal.child
+  };
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+function mapDispatchToProps(dispatch) {
+  return {
+    closeModal() { dispatch(dispatchModalClose()); }
+  }
+}
+
+const ModalConnect = connect(mapStateToProps, mapDispatchToProps)(Modal);
+
+export {
+  ModalConnect as Modal,
+  Modal as Mdl
+};

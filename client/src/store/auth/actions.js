@@ -9,9 +9,9 @@ export function login(payload) {
   };
 }
 
-export function dispatchLogin(data) {
+export function dispatchLogin(payload) {
   return (dispatch) => {
-    axios.post(LOGIN, data)
+    axios.post(LOGIN, payload)
       .then((data) => {
         dispatch(login(data));
       })
@@ -29,9 +29,9 @@ export function register(payload) {
   };
 }
 
-export function dispatchRegister(data) {
+export function dispatchRegister(payload) {
   return (dispatch) => {
-    axios.post(REGISTER, data)
+    axios.post(REGISTER, payload, { withCredentials: true, headers: { 'Access-Control-Allow-Origin': '*' } })
       .then((data) => {
         dispatch(register(data));
       })

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Cookie from 'js-cookie';
 
 export const ACTIONS = Object.seal({
@@ -15,7 +17,7 @@ export default function (state = {}, { type, payload }) {
       Cookie.set('auth', payload.token);
       break;
     case ACTIONS.REGISTER:
-      window.location.href = '/login';
+      // TODO: do something
       break;
     case ACTIONS.LOGOUT:
       Cookie.remove('auth');
@@ -24,6 +26,8 @@ export default function (state = {}, { type, payload }) {
       break;
     case ACTIONS.GET_CUSTOMER_INFO:
       newState = { ...newState, user: payload };
+      break;
+    default:
       break;
   }
 
