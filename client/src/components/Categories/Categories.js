@@ -15,6 +15,7 @@ import Preloader from "../Preloader/Preloader";
 
 const useStyles = makeStyles(theme => ({
     root: {
+        paddingTop: 50,
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
