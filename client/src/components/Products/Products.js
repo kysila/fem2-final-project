@@ -70,10 +70,11 @@ export  const Products = () => {
     useEffect(()=> {
         axios.get("/products").then(data => {
             console.log('data in axios then', data);
-            console.log('setList', setList);
+            console.log('setList', setList)
             setList(data);
             console.log('list after axios', list)
      });
+
 
         return () => {
             console.log('unmount');
@@ -83,10 +84,11 @@ export  const Products = () => {
     return (
         <React.Fragment>
             <GlobalCss/>
-            <Header count={2} callCenter={'1-855-324-5387'}/>
+            <Header callCenter={'1-855-324-5387'}/>
             <Container maxWidth="md">
                  <div>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={4}>
+
                             {products}
                     </Grid>
                 </div>

@@ -13,6 +13,7 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 
 const useStyles = makeStyles({
 	card: {
+		marginBottom: 30,
 		maxWidth: 251,
 		minHeight: 334,
 		boxSizing: 'border-box',
@@ -20,13 +21,12 @@ const useStyles = makeStyles({
 		borderRadius: 0,
 		boxShadow: 'none',
 		'&:hover': {
-
 		}
 	},
 	media: {
-		height: 210,
-		width: 210,
-		margin: '0 20px 0 20px',
+		height: 200,
+		width: 200,
+		margin: '10px 20px 10px 20px',
 		backgroundPosition: 'center center',
 	},
 	cardContent: {
@@ -79,20 +79,23 @@ const weigherIcon = <path d="M17.5897 17.9076C18.0294 18.5131 18.6102 19.0157 19
 const bagIcon = <path d="M10 8H12V5H15V3H12V0H10V3H7V5H10V8ZM6 17C4.9 17 4.01 17.9 4.01 19C4.01 20.1 4.9 21 6 21C7.1 21 8 20.1 8 19C8 17.9 7.1 17 6 17ZM16 17C14.9 17 14.01 17.9 14.01 19C14.01 20.1 14.9 21 16 21C17.1 21 18 20.1 18 19C18 17.9 17.1 17 16 17ZM6.17 13.75L6.2 13.63L7.1 12H14.55C15.3 12 15.96 11.59 16.3 10.97L20.16 3.96L18.42 3H18.41L17.31 5L14.55 10H7.53L7.4 9.73L5.16 5L4.21 3L3.27 1H0V3H2L5.6 10.59L4.25 13.04C4.09 13.32 4 13.65 4 14C4 15.1 4.9 16 6 16H18V14H6.42C6.29 14 6.17 13.89 6.17 13.75Z" fill="url(#paint0_linear)"/>;
 
 
+
+
 export function ProductCard ({name, itemImg, price, url, rating}) {
+	const [value, setValue] = React.useState(rating);
 	const [state, setState] = useState({
-		open: false
+		openButtons: false
 	});
 
-	const showButtons = (event) => {
-		setState({
-			open: true
-		});
+	const showButtonsPanel = () => {
+		setState(() => ({
+			openButtons: true
+		}));
 	};
 
-	const hideButtons = (event) => {
+	const hideButtonsPanel = () => {
 		setState({
-			open: false
+			openButtons: false
 		});
 	};
 
@@ -101,8 +104,8 @@ export function ProductCard ({name, itemImg, price, url, rating}) {
 	return (
 		<Card
 			className={classes.card}
-			onMouseOver={showButtons}
-			onMouseOut={hideButtons}>
+			onMouseOver={showButtonsPanel}
+			onMouseOut={hideButtonsPanel}>
 			<CardActionArea>
 				<CardMedia
 					className={classes.media}
@@ -141,11 +144,10 @@ export function ProductCard ({name, itemImg, price, url, rating}) {
 			</CardActionArea>
 			<CardActions
 				className={classes.buttonField}
-				style={state.open ? {display: 'block'} : null}>
+				style={state.openButtons ? {display: 'block'} : null}>
 				<ButtonGroup
 					className={classes.buttonGroup}
 					variant="contained"
-					color="primary"
 					aria-label="full-width contained primary button group">
 					<Button
 						className={classes.buttonStyle}>
