@@ -49,7 +49,7 @@ export const Cart = (props) => {
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const classes = useStyles();
   return (
-    <>
+    <React.Fragment>
       <CssBaseline />
       <Box className={classes.basket} onClick={(cartIsOpen) => { setCartIsOpen(true); }}>
         <Link to="#">
@@ -74,6 +74,6 @@ export const Cart = (props) => {
         </Box>
       </Drawer>
 
-    </>
+    </React.Fragment>
   );
 };

@@ -18,7 +18,7 @@ export const Search = (props) => {
   const [value, setValue] = useState('');
   const classes = useStyles();
   return (
-    <>
+    <React.Fragment>
       <SearchBar
         value={value}
         onChange={(newValue) => setValue(newValue)}
@@ -27,6 +27,6 @@ export const Search = (props) => {
         searchIcon={<SearchIcon style={{ color: ' #6686FF ' }} />}
         closeIcon={<ClearIcon style={{ color: ' #6686FF ' }} />}
       />
-    </>
+    </React.Fragment>
   );
 };
