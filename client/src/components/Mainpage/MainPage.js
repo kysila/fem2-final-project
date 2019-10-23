@@ -9,6 +9,7 @@ import Categories from "../Categories/Categories";
 import BrandsBlock from "./BrandsBlock";
 import StayInTouch from "./StayInTouch";
 import {ProductCard} from '../ProductCard/ProductCard';
+import {Favorites} from "../Favorites/Favorites";
 
 const GlobalCss = withStyles({
     // @global is handled by jss-plugin-global.
@@ -49,11 +50,7 @@ export const MainPage = props => {
             <GlobalCss/>
                 <Header callCenter={'1-855-324-5387'}/>
                 <BrandsBlock/>
-                <ProductCard rating={3}
-                             name="Addmotor M-5500 Commemorative Flying Tiger Electric Fat Bike"
-                             itemImg="img/products/image31.png"
-                             price="$2,699"
-                                />
+                <Favorites/>
                 <Categories/>
                 <StayInTouch/>
         </React.Fragment>
