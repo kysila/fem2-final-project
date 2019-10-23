@@ -11,37 +11,7 @@ import {Header} from "../../commons";
 import ProductBreadcrumbs from "./ProductBreadcrumbs";
 import {Title} from "../Title/Title"
 import StayInTouch from "../Mainpage/StayInTouch";
-const GlobalCss = withStyles({
-    '@global': {
-        body: {
-            fontFamily: "'Museo Sans 500'",
-            color: "#444444"
-        },
-        '.MuiTypography-body2': {
-            fontFamily: "'Museo Sans 500'"
-        },
-        a: {
-            textDecoration: 'none'
-        },
-        '.MuiButton-root': {
-            background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
-            borderRadius: '4px',
-            border: 'none',
-            color: '#FFFFFF'
-        },
-        '.MuiTypography-root':{
-            fontFamily: "'Museo Sans 500'",
-        },
-        '.MuiContainer-maxWidthMd': {
-            maxWidth: '1060px'
-        },
-        '.MuiCardMedia-root':{
-            backgroundSize: 'contain',
 
-        }
-
-    },
-})(() => null);
 const useStyles = makeStyles(theme => ({
     card: {
         marginBottom: 0,
@@ -79,10 +49,7 @@ export  const Products = () => {
 
     useEffect(()=> {
         axios.get("/products").then(data => {
-            console.log('data in axios then', data);
-            console.log('setList', setList)
             setList(data);
-            console.log('list after axios', list)
      });
 
 
@@ -93,22 +60,15 @@ export  const Products = () => {
 
     return (
         <React.Fragment>
-            <GlobalCss/>
             <Header callCenter={'1-855-324-5387'}/>
             <Container maxWidth="md">
                 <ProductBreadcrumbs/>
                 <Title title="All products"/>
-                 <div>
+                 <main>
                     <Grid container spacing={0}>
-
                             {products}
-
-
-
                     </Grid>
-
-
-                </div>
+                </main>
             </Container>
             <StayInTouch/>
         </React.Fragment>

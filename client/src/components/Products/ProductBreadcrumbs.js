@@ -27,7 +27,7 @@ export default function ProductsBreadcrumbs() {
         <div className={classes.root}>
             <Paper elevation={0} className={classes.paper}>
                 <Breadcrumbs separator="›" aria-label="breadcrumb">
-                    <Link color="inherit" href="/" onClick={handleClick}>
+                    <Link to="/" onClick={handleClick}>
                         Homepage
                     </Link>
                     {/*<Link color="inherit" href="/products" onClick={handleClick}>*/}
