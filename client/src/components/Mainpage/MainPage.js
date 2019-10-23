@@ -10,6 +10,7 @@ import {Favorites} from "../Favorites/Favorites";
 export const MainPage = props => {
     return (
         <React.Fragment>
+
                 <Header callCenter={'1-855-324-5387'}/>
                 <BrandsBlock/>
                 <Favorites/>
