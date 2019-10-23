@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
-import axios from 'axios';
+
 
 import {makeStyles, createStyles} from '@material-ui/core/styles';
 import {Search} from "./Searchbar";
@@ -77,23 +77,8 @@ const useStyles = makeStyles(() =>
     }));
 
 export const Header = props => {
-    const [cartIsOpen, setCartIsOpen] = useState(false);
-    const  [menu, setMenu] = useState('');
-    let menuItems;
     const classes = useStyles();
-
-    useEffect(()=> {
-        axios.get("/").then(data => {
-            console.log('data in axios then', data);
-            setMenu(data);
-            console.log('menu after axios', menu)
-        });
-
-
-        return () => {
-            console.log('unmount');
-        }
-    },[]);
+    const [cartIsOpen, setCartIsOpen] = useState(false);
 
     return (
         <React.Fragment>
