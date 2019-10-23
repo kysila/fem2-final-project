@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 	card: {
 		marginBottom: 30,
 		maxWidth: 251,
-		minHeight: 334,
+		minHeight: 355,
 		boxSizing: 'border-box',
 		border: '1px solid #EAEAEA',
 		borderRadius: 0,
