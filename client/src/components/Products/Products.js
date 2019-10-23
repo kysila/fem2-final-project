@@ -48,8 +48,7 @@ export  const Products = () => {
                 price={el.currentPrice}
                 url={`products/${el.itemNo}`}
                 rating={el.rating}
-
-            /></Grid>
+            />
         })
     }
 
@@ -85,7 +84,6 @@ export  const Products = () => {
                         {products}
                     </Grid>
                 </main>
-
             </Container>
             <StayInTouch/>
         </React.Fragment>
