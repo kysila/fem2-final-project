@@ -8,8 +8,10 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import Box from '@material-ui/core/Box'
+import Box from '@material-ui/core/Box';
+import {spacing} from '@material-ui/system';
 import axios from 'axios';
+
 
 import Preloader from "../Preloader/Preloader";
 
@@ -92,6 +94,10 @@ const useStyles = makeStyles(theme => ({
             opacity: 0.5
         },
     },
+    spaces: {
+        marginTop: 50,
+        marginBottom: 50,
+    }
 }));
 
 export const CategoryImages = () => {
@@ -150,9 +156,9 @@ export const Categories = () => {
     const classes = useStyles();
 
     return(
-        <div>
+        <div className={classes.spaces}>
             <Container maxWidth='md'>
-                <Title title="How do you ride?"/>
+                <Title title="How do you ride?" />
                 <CategoryImages/>
             <Box  mx='auto' mt='50px' className={classes.box}>
                 <Link to='/products' className={classes.link}>
