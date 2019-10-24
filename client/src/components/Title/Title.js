@@ -14,11 +14,10 @@ const tungsten = {
 
 const useStyles = makeStyles(() => ({
 	title: {
-		fontSize: 48,
+		fontSize: 56,
 		fontWeight: '326',
 		textTransform: 'capitalize',
 		lineHeight: '100%',
-		marginBottom: 50,
 		color: '#444444'
 	},
 

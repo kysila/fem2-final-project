@@ -1,47 +1,69 @@
 import React from 'react';
-import './App.css';
+import './index.css'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import {MainPage, Products, ProductDetails, NotFound} from './components'
+import {withStyles} from '@material-ui/core/styles';
+import { Provider } from 'react-redux';
+import {
+  MainPage, Products, ProductDetails, NotFound,
+} from './components';
 
-// import axios from 'axios';
+import store from './store/index';
 
-// import {MainPage} from './components'
+const GlobalCss = withStyles({
+    // @global is handled by jss-plugin-global.
+    '@global': {
+        body: {
+            fontFamily: "'Museo Sans 500'",
+            color: "#444444"
+        },
 
-// class App extends React.Component {
-//   componentDidMount() {
-//     axios.get("/products").then(products => {
-//       console.log(products);
-//     })
-//   }
+        a: {
+            textDecoration: 'none'
+        },
+        '.MuiButton-root': {
+            fontFamily: "'Museo Sans 500'",
+            background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
+            borderRadius: '4px',
+            border: 'none',
+            color: '#FFFFFF'
+        },
+        '.MuiTypography-root': {
+            fontFamily: "'Museo Sans 500'",
+            color: "#444444"
+        },
+        '.MuiTypography-body2': {
+            fontFamily: "'Museo Sans 500'"
+        },
+        '.MuiButtonGroup-groupedContainedPrimary:not(:last-child)': {
+            borderRight: '1px solid #EAEAEA',
+        },
+        '.MuiContainer-maxWidthMd': {
+            maxWidth: '1060px'
+        },
+        '.MuiCardMedia-root': {
+            backgroundSize: 'contain',
+        }
+    },
+})(() => null);
 
-//   render() {
-//
-//     return (
-//       <div className="App">
-//         <p>Test</p>
-//       </div>
-//     );
-//   }
-// }
 function App() {
     return (
-        <Router>
+        <Provider store={store}>
+          <Router>
+            <GlobalCss/>
             <div className="App">
-
                 <Switch>
                     <Route path={'/'} exact component={MainPage}/>
                     <Route path={'/products'} exact component={Products}/>
                     <Route path={'/products/:id'} component={ProductDetails}/>
                     <Route component={NotFound}/>
                 </Switch>
-
             </div>
-        </Router>
+          </Router>
+        </Provider>
     )
 
 
 }
-
-
 
 export default App;

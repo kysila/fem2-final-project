@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
+
 
 import {makeStyles, createStyles} from '@material-ui/core/styles';
 import {Search} from "./Searchbar";
 import {NavBar} from "./Navbar";
 import {Cart} from './Cart';
-import {ProductCard} from "../../components";
+
 
 
 import Container from '@material-ui/core/Container';
@@ -67,23 +68,24 @@ const useStyles = makeStyles(() =>
             top: '0px',
             right: '0px',
             fontSize: '11px',
-            color: ' #FFFFFF '
+            color: '#FFFFFF'
         },
         call: {
-            color: ' #6A86E8 '
+            color: '#6A86E8'
         }
 
     }));
 
 export const Header = props => {
-    const [cartIsOpen, setCartIsOpen] = useState(false);
     const classes = useStyles();
+    const [cartIsOpen, setCartIsOpen] = useState(false);
+
     return (
         <React.Fragment>
             <CssBaseline/>
             <AppBar className={classes.appBar}>
                 <Container maxWidth='md'>
-                    <Box className={classes.container}>
+                    <Box className={classes.container} >
                         <Box className={classes.link}>
                             <Link to={'/'}>
                                 <img src="img/logo.svg" alt="Logo"/>
@@ -99,15 +101,7 @@ export const Header = props => {
                             <Link to={'/login'}> Sign Up</Link>
                         </Box>
                         <Cart count={2} />
-                        {/*<Box className={classes.basket} onClick={(cartIsOpen)=> {setCartIsOpen(true)}}>*/}
-                        {/*    <Link to={'#'}>*/}
-                        {/*        <img src="img/basket.svg" alt="Logo"/>*/}
-                        {/*        <div className={classes.circle}>{props.count}</div>*/}
-                        {/*    </Link>*/}
-                        {/*</Box>*/}
-
-
-                    </Box>
+                                  </Box>
                     <Box className={classes.container}>
                         <Box>
                             <NavBar/>
@@ -118,21 +112,6 @@ export const Header = props => {
 
                     </Box>
                 </Container>
-                {/*<Drawer*/}
-                {/*    anchor="right"*/}
-                {/*    className={classes.drawer}*/}
-                {/*    classes={{*/}
-                {/*        paper: classes.paper,*/}
-                {/*    }}*/}
-                {/*    open={cartIsOpen} onClose={(cartIsOpen) => {*/}
-                {/*    setCartIsOpen(false)*/}
-                {/*}}>*/}
-                {/*    <Box p={2}>*/}
-                {/*        <h3>Cart</h3>*/}
-                {/*        <ProductCard/>*/}
-                {/*    </Box>*/}
-
-                {/*</Drawer>*/}
             </AppBar>
 
 

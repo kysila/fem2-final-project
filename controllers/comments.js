@@ -4,6 +4,7 @@ const _ = require("lodash");
 
 exports.addComment = (req, res, next) => {
   const commentData = _.cloneDeep(req.body);
+  commentData.customer = req.user.id;
   const newComment = new Comment(queryCreator(commentData));
 
   newComment
@@ -70,7 +71,7 @@ exports.deleteComment = (req, res, next) => {
       Comment.deleteOne({ _id: req.params.id })
         .then(deletedCount =>
           res.status(200).json({
-            message: `Comment witn customId "${commentToDelete.customId}" is successfully deletes from DB.`,
+            message: `Comment witn id "${commentToDelete._id}" is successfully deletes from DB.`,
             deletedCommentInfo: commentToDelete
           })
         )
