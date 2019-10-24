@@ -8,15 +8,16 @@ import StayInTouch from "./StayInTouch";
 import { Favorites } from "../Favorites/Favorites";
 import MainCarousel from "./MainCarousel";
 
+
 export const MainPage = props => {
-    return (
-        <React.Fragment>
-          <Header callCenter={'1-855-324-5387'}/>
-          <MainCarousel />
-          <BrandsBlock/>
-          <Favorites/>
-          <Categories/>
-          <StayInTouch/>
-        </React.Fragment>
-    )
+  return (
+    <React.Fragment>
+      <Header callCenter={'1-855-324-5387'} />
+      <MainCarousel />
+      <BrandsBlock />
+      <Favorites />
+      <Categories />
+      <StayInTouch />
+    </React.Fragment>
+  )
 }
