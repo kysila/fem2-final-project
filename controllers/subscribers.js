@@ -152,7 +152,7 @@ exports.updateSubscriberById = (req, res, next) => {
 };
 
 exports.updateSubscriberByEmail = (req, res, next) => {
-  const subscriberMail = req.body.email;
+  const subscriberMail = req.params.email;
   const letterSubject = req.body.letterSubject;
   const letterHtml = req.body.letterHtml;
 

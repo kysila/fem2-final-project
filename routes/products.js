@@ -80,11 +80,6 @@ router.put(
 // @access  Public
 router.get("/", getProducts);
 
-// @route   GET /products/:id
-// @desc    GET existing product by id
-// @access  Public
-router.get("/:id", getProductById);
-
 // @route   GET /products/filter
 // @desc    GET appropriate filtered products
 // @access  Public
@@ -94,5 +89,10 @@ router.get("/filter", getProductsFilterParams);
 // @desc    POST appropriate to search query products
 // @access  Public
 router.post("/search", searchProducts);
+
+// @route   GET /products/:id
+// @desc    GET existing product by id
+// @access  Public
+router.get("/:itemNo", getProductById);
 
 module.exports = router;
