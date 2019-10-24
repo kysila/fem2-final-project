@@ -41,6 +41,7 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         height: '100%',
         backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
     },
     titleBar: {
         background: 'rgba(54, 62, 99, 0.9)'

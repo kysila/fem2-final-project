@@ -7,7 +7,7 @@ import '../../index.css'
 import {Header} from "../../commons";
 import Categories from "../Categories/Categories";
 import BrandsBlock from "./BrandsBlock";
-import StayInTouch from "./StayInTouch";
+import StayInTouch from "../StayInTouch/StayInTouch";
 import {Favorites} from "../Favorites/Favorites";
 
 

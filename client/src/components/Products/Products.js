@@ -10,7 +10,7 @@ import {ProductCard} from "../ProductCard/ProductCard";
 import {Header} from "../../commons";
 import ProductBreadcrumbs from "./ProductBreadcrumbs";
 import {Title} from "../Title/Title"
-import StayInTouch from "../Mainpage/StayInTouch";
+import StayInTouch from "../StayInTouch/StayInTouch";
 
 const useStyles = makeStyles(theme => ({
     card: {
