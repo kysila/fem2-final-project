@@ -12,9 +12,6 @@ exports.createCart = (req, res, next) => {
     } else {
       const initialQuery = _.cloneDeep(req.body);
       initialQuery.customerId = req.user.id;
-      if (req.body.products) {
-        initialQuery.products = JSON.parse(req.body.products);
-      }
 
       const newCart = new Cart(queryCreator(initialQuery));
 
@@ -41,9 +38,7 @@ exports.updateCart = (req, res, next) => {
       if (!cart) {
         const initialQuery = _.cloneDeep(req.body);
         initialQuery.customerId = req.user.id;
-        if (req.body.products) {
-          initialQuery.products = JSON.parse(req.body.products);
-        }
+
         const newCart = new Cart(queryCreator(initialQuery));
 
         newCart
@@ -61,9 +56,6 @@ exports.updateCart = (req, res, next) => {
           );
       } else {
         const initialQuery = _.cloneDeep(req.body);
-        if (req.body.products) {
-          initialQuery.products = JSON.parse(req.body.products);
-        }
         const updatedCart = queryCreator(initialQuery);
 
         Cart.findOneAndUpdate(
@@ -174,6 +166,58 @@ exports.addProductToCart = async (req, res, next) => {
         })
       );
   }
+};
+
+exports.decreaseCartProductQuantity = async (req, res, next) => {
+  Cart.findOne({ customerId: req.user.id })
+    .then(cart => {
+      if (!cart) {
+        res.status(400).json({ message: "Cart does not exists" });
+      } else {
+        const cartData = {};
+
+        const isProductExistInCart = cart.products.some(
+          item => item.product.toString() === req.params.productId
+        );
+
+        if (isProductExistInCart) {
+          cartData.products = cart.products.map(item => {
+            if (item.product.toString() === req.params.productId) {
+              item.cartQuantity -= 1;
+            }
+
+            return item;
+          });
+
+          cartData.products = cart.products.filter(
+            item => item.cartQuantity > 0
+          );
+        } else {
+          res.status(400).json({
+            message: "Product ${} does not exists in cart to decrease quantity"
+          });
+        }
+
+        Cart.findOneAndUpdate(
+          { customerId: req.user.id },
+          { $set: cartData },
+          { new: true }
+        )
+          .populate("products.product")
+          .populate("customerId")
+          .then(cart => res.json(cart))
+          .catch(err =>
+            res.status(400).json({
+              message: `Error happened on server: "${err}" `
+            })
+          );
+      }
+    })
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
 };
 
 exports.deleteCart = (req, res, next) => {

@@ -62,6 +62,34 @@ const ProductSchema = new Schema(
     date: {
       type: Date,
       default: Date.now
+    },
+    maxSpeed: {
+      type: String,
+      required: true
+    },
+    chargingTime: {
+      type: String
+    },
+    motor: {
+      type: String
+    },
+    battery: {
+      type: String
+    },
+    distance: {
+      type: String
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    linkItem: {
+      type: String
+    },
+    rating: {
+      type: String,
+      required: true,
+      default: 0
     }
   },
   { strict: false }

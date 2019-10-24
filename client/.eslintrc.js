@@ -15,7 +15,10 @@ module.exports = {
     "ecmaVersion": 2018
   },
   "plugins": [
-    "react", "jsx-a11y", "import"
+    "react", "jsx-a11y", "import", "material-ui"
   ],
-  "rules": {}
+  "rules": {
+    "linebreak-style": "off",
+    "no-unused-vars": "off"
+  }
 };

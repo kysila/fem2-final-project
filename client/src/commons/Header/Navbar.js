@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import axios from 'axios';
 
 
 import Link from '@material-ui/core/Link';
@@ -10,6 +11,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
 import TollIcon from '@material-ui/icons/Toll';
+import {ProductCard} from "../../components";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -48,6 +50,7 @@ const useStyles = makeStyles(() =>
             display: 'inline-block',
             paddingRight: '3%',
             paddingLeft: '3%',
+            textTransform: 'uppercase'
 
         },
         logo: {
@@ -59,56 +62,77 @@ const useStyles = makeStyles(() =>
 
 export const NavBar = (props) => {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
-
+    const [catalog, setCatalog] = useState({});
+    let categories;
     const classes = useStyles();
-    return (
-        <React.Fragment>
-            <Drawer
-                className={classes.drawer}
-                classes={{
-                    paper: classes.paper,
-                }}
-                open={menuIsOpen}
-                onClose={(menuIsOpen) => {
-                    setMenuIsOpen(false)
-                }}>
-                <div className={classes.logo}>
-                    <img src="img/logo.svg" alt="Logo"/>
-                </div>
-                <List>
-                    {[' SCOOTERS ', 'BIKES', 'SKATES', 'UNICYCLES', 'HOVERBORDS'].map((text, index) => (
-                        <ListItem
-                            divider={'true'}
-                            dense={'true'}
-                            button key={text}
-                            className={classes.list}
-                            classes={{button: classes.item}}
-                        >
-                            <TollIcon/>
-                            <ListItemText classes={{primary: classes.text}} primary={text}/>
-                        </ListItem>
-                    ))}
-                </List>
 
-            </Drawer>
+    if (catalog.data) {
+        console.log('зашел в условие if list.data');
+        categories = catalog.data.map((el) => {
+            return(
+                <ListItem
+                    divider={'true'}
+                    dense={'true'}
+                    button key={el.name}
+                    className={classes.list}
+                    classes={{button: classes.item}}
+                >
+                    <TollIcon/>
+                    <ListItemText classes={{primary: classes.text}} primary={el.name}/>
+                </ListItem>
+        )
+        })}
 
-            <Box className={classes.container}>
-                <Link component="button" variant="body2" underline={'none'} className={classes.menuItem}>
-                    <Box onClick={(menuIsOpen) => {
-                        setMenuIsOpen(true)
+        useEffect(() => {
+            axios.get("/catalog")
+                .then(catalog => {
+                    console.log('catalog in axios then', catalog);
+                    setCatalog(catalog);
+                    console.log('catalog after axios', catalog)
+                })
+                .catch(err => {
+                    console.log('Unsuccessful axios', err);
+                });
+
+        }, []);
+
+        return (
+            <React.Fragment>
+                <Drawer
+                    className={classes.drawer}
+                    classes={{
+                        paper: classes.paper,
                     }}
-                         className={classes.container}>
-                        <p>Shop</p>
-                        <ExpandMoreSharpIcon fontSize={"small"}/>
-                    </Box>
-                </Link>
-                <Link component="button" variant="body2" underline={'none'} className={classes.menuItem}>
-                    Customer Favorites
-                </Link>
-                <Link component="button" variant="body2" underline={'none'} className={classes.menuItem}>
-                    Contact
-                </Link>
-            </Box>
-        </React.Fragment>
-    )
-};
+                    open={menuIsOpen}
+                    onClose={(menuIsOpen) => {
+                        setMenuIsOpen(false)
+                    }}>
+                    <div className={classes.logo}>
+                        <img src="img/logo.svg" alt="Logo"/>
+                    </div>
+                    <List>
+                        {categories}
+                    </List>
+
+                </Drawer>
+
+                <Box className={classes.container}>
+                    <Link component="button" variant="body2" underline={'none'} className={classes.menuItem}>
+                        <Box onClick={(menuIsOpen) => {
+                            setMenuIsOpen(true)
+                        }}
+                             className={classes.container}>
+                            <p>Shop</p>
+                            <ExpandMoreSharpIcon fontSize={"small"}/>
+                        </Box>
+                    </Link>
+                    <Link component="button" variant="body2" underline={'none'} className={classes.menuItem}>
+                        Customer Favorites
+                    </Link>
+                    <Link component="button" variant="body2" underline={'none'} className={classes.menuItem}>
+                        Contact
+                    </Link>
+                </Box>
+            </React.Fragment>
+        )
+    }

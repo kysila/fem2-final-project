@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 
-import SubsectionTitle from "../Mainpage/SubsectionTitle";
+import SubsectionTitle from "../../components/Mainpage/SubsectionTitle";
 
 const useStyles = makeStyles(theme => ({
     blueBG: {

@@ -1,28 +1,21 @@
 import React from 'react';
+import '../../index.css';
 
-import '../../index.css'
-
-
-
-import {Header} from "../../commons";
-import Categories from "../Categories/Categories";
-import BrandsBlock from "./BrandsBlock";
-import StayInTouch from "../StayInTouch/StayInTouch";
-import {Favorites} from "../Favorites/Favorites";
-
-
-
-
+import { Header } from '../../commons';
+import Categories from '../Categories/Categories';
+import BrandsBlock from './BrandsBlock';
+import StayInTouch from '../../commons/Footer/StayInTouch';
+import { Favorites } from '../Favorites/Favorites';
 
 export const MainPage = props => {
-    return (
-        <React.Fragment>
+  return (
+      <React.Fragment>
 
-                <Header callCenter={'1-855-324-5387'}/>
-                <BrandsBlock/>
-                <Favorites/>
-                <Categories/>
-                <StayInTouch/>
-        </React.Fragment>
-    )
+          <Header callCenter={'1-855-324-5387'} />
+          <BrandsBlock />
+          <Favorites />
+          <Categories />
+          <StayInTouch />
+      </React.Fragment>
+  )
 }
