@@ -24,7 +24,7 @@ router.put("/:id", updateSubscriberById);
 // @route   PUT /subscribers/:email
 // @desc    Update existing subscriber by email
 // @access  Private
-router.put("/:email", updateSubscriberByEmail);
+router.put("/email/:email", updateSubscriberByEmail);
 
 // @route   GET /subscribers
 // @desc    GET existing subscribers
@@ -34,6 +34,6 @@ router.get("/", getSubscribers);
 // @route   GET /subscribers/:id
 // @desc    GET existing subscribers
 // @access  Public
-router.get("/:id", getSubscriber);
+router.get("/:email", getSubscriber);
 
 module.exports = router;

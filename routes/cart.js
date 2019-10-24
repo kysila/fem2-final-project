@@ -7,6 +7,7 @@ const {
   createCart,
   updateCart,
   addProductToCart,
+  decreaseCartProductQuantity,
   deleteCart,
   deleteProductFromCart,
   getCart
@@ -47,6 +48,15 @@ router.delete(
   "/:productId",
   passport.authenticate("jwt", { session: false }),
   deleteProductFromCart
+);
+
+// @route   DELETE /cart/product/:productId
+// @desc    Delete one product from cart
+// @access  Private
+router.delete(
+  "/product/:productId",
+  passport.authenticate("jwt", { session: false }),
+  decreaseCartProductQuantity
 );
 
 // @route   GET /cart
