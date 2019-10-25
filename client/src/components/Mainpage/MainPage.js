@@ -5,6 +5,7 @@ import { Header } from '../../commons';
 import { Categories } from '../Categories/Categories';
 import BrandsBlock from './BrandsBlock';
 import { Favorites } from '../Favorites/Favorites';
+import StayInTouch from '../../commons/Footer/StayInTouch';
 import { Contacts } from './Contacts';
 
 export const MainPage = (props) => (
@@ -14,5 +15,6 @@ export const MainPage = (props) => (
     <Favorites />
     <Categories />
     <Contacts />
+    <StayInTouch />
   </React.Fragment>
 );

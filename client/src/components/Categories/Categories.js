@@ -15,7 +15,7 @@ import Preloader from '../Preloader/Preloader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: 50,
+    marginTop: 50,
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
     backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
   },
   titleBar: {
     background: 'rgba(54, 62, 99, 0.9)',
@@ -92,6 +93,10 @@ const useStyles = makeStyles((theme) => ({
       background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
       opacity: 0.5,
     },
+  },
+  spaces: {
+    marginTop: 50,
+    marginBottom: 50,
   },
 }));
 
@@ -149,7 +154,7 @@ export const Categories = () => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.spaces}>
       <Container maxWidth="md">
         <Title title="How do you ride?" />
         <CategoryImages />
@@ -162,3 +167,5 @@ export const Categories = () => {
     </div>
   );
 };
+
+export default Categories;
