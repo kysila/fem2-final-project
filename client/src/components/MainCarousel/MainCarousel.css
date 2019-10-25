@@ -53,18 +53,10 @@
 }
 
 .main-Carousel .slick-slide img {
-  /*margin: auto;*/
-  /* display: block; */
   float: right;
   border: 5px solid #fff;
-  width: 400px;
+  width: 40%;
   height: 500px;
-  /* order: 0;
-  flex: 0 1 auto;
-  align-self: auto; */
-  /*position: absolute;*/
-  /*top: 0;*/
-  /*right: 50px;*/
 }
 
 .main-Carousel .slick-slide img.slick-loading {
@@ -104,23 +96,18 @@
 
 .main-Carousel .slide-information {
   width: 40%;
-  /* height: 56px; */
   margin-left: 200px;
-  margin-top: 150px;
+  margin-top: 170px;
   display: block;
-  /* order: 0; */
-  /* flex: 0 1 auto;
-  align-self: auto; */
 }
 .main-Carousel .slick-description {
-  font-size: 48px;
+  font-size: 3rem;
   text-transform: capitalize;
   color: #6a86e8;
 }
 .main-Carousel .slick-information__explanation {
   width: 417px;
-  /* height: 78px; */
-  font-size: 16px;
+  font-size: 1rem;
   margin: 0;
 }
 /*BUTTONS for carousel*/
