@@ -7,7 +7,7 @@ import BrandsBlock from './BrandsBlock';
 import { Favorites } from '../Favorites/Favorites';
 import StayInTouch from '../../commons/Footer/StayInTouch';
 import { Contacts } from './Contacts';
-import MainCarousel from "./MainCarousel";
+import MainCarousel from "../MainCarousel/MainCarousel";
 
 
 export const MainPage = (props) => (
