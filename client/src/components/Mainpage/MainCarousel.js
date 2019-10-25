@@ -1,60 +1,90 @@
-import React, { Component } from "react";
-import { AutoRotatingCarousel, Slide } from "material-auto-rotating-carousel";
-import { grey } from "@material-ui/core/colors";
-import Button from "@material-ui/core/Button";
+import React, {Component} from 'react';
 
-class MainCarousel extends Component {
-    let state = {
-      open: true
-    };
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+import './MainCarousel.css';
+
+// class CustomSlide extends Component {
+//   render() {
+//     const { index, ...props } = this.props;
+//     return (
+//       <div {...props}>
+//         <h3>{index}</h3>
+//       </div>
+//     );
+//   }
+// }
 
 
+export default class MainCarousel extends Component {
   render() {
-    const { open } = this.state;
+    const settings = {
+      // adaptiveHeight: true,
+      arrows: true,
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
 
+    };
     return (
-      <div style={{ position: "static", width: "70%", height: 300 }}>
-        <Button onClick={() => this.setState({ open: true })}>
-          Open carousel
-        </Button>
-        <AutoRotatingCarousel
-          autoPlay={false}
-          label="Get started"
-          open={open}
-          onClose={() => this.setState({ open: false })}
-          style={{ position: "static" }}
-        >
-          <Slide
-            media={
-              <img src="http://www.icons101.com/icon_png/size_256/id_79394/youtube.png" />
-            }
-            mediaBackgroundStyle={{ backgroundColor: grey[400] }}
-            style={{ backgroundColor: grey[500], color: "rgb(0, 0, 0, 0.87)" }}
-            title="This is a very cool feature"
-            subtitle="Just using this will blow your mind."
-          />
-          <Slide
-            media={
-              <img src="http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png" />
-            }
-            mediaBackgroundStyle={{ backgroundColor: grey[400] }}
-            style={{ backgroundColor: grey[500], color: "rgb(0, 0, 0, 0.87)" }}
-            title="Ever wanted to be popular?"
-            subtitle="Well just mix two colors and your are good to go!"
-          />
-          <Slide
-            media={
-              <img src="http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png" />
-            }
-            mediaBackgroundStyle={{ backgroundColor: grey[400] }}
-            style={{ backgroundColor: grey[500], color: "rgb(0, 0, 0, 0.87)" }}
-            title="May the force be with you"
-            subtitle="The Force is a metaphysical and ubiquitous power in the Star Wars fictional universe."
-          />
-        </AutoRotatingCarousel>
+      <div>
+        <Slider {...settings}>
+          <div>
+            <img
+              src="img/slides/01.jpeg"
+              alt="First slide"
+              className="slick-image"
+            />
+            <div className="slick-caption">
+              <p>
+                Yellowstone National Park, United States
+              </p>
+            </div>
+          </div>
+          <div>
+            <img
+              src="img/slides/02.jpeg"
+              alt="Second slide"
+              className="slick-image"
+            />
+            <div className="slick-caption">
+              <p>
+                Somewhere Beyond, United States
+              </p>
+            </div>
+          </div>
+          <div>
+            <img
+              src="img/slides/03.jpeg"
+              alt="Third slide"
+              className="slick-image"
+            />
+            <div className="slick-caption">
+              <p>
+                Yellowstone National Park, United States
+              </p>
+            </div>
+          </div>
+          <div>
+            <img
+              src="img/slides/04.jpeg"
+              alt="Third slide"
+              className="slick-image"
+            />
+            <div className="slick-caption">
+              <p>
+                Yellowstone National Park, United States
+              </p>
+            </div>
+          </div>
+        </Slider>
       </div>
+
     );
   }
 }
-
-export default MainCarousel;
