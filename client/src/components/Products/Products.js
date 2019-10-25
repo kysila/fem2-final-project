@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-import Typography from "@material-ui/core/Typography";
+import Typography from '@material-ui/core/Typography';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { Header } from '../../commons';
 import ProductBreadcrumbs from './ProductBreadcrumbs';
