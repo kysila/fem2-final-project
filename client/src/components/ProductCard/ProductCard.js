@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -38,11 +38,10 @@ const useStyles = makeStyles({
 	newPrice: {
 		marginRight: 10,
 		fontSize: 20,
-		color: '#6A86E8',
 	},
 	oldPrice: {
 		fontSize: 20,
-		color: '#AAAAAA',
+		color: '#AAAAAA !important',
 		textDecoration: 'line-through',
 	},
 	fontDesc: {
@@ -62,7 +61,6 @@ const useStyles = makeStyles({
 		bottom: 0,
 		left: '-1px',
 		opacity: 0,
-		transition: 'all 2 ease-in-out !important',
 		padding: 0,
 		height: 49,
 	},
@@ -98,7 +96,6 @@ const bagIcon = <path d="M10 8H12V5H15V3H12V0H10V3H7V5H10V8ZM6 17C4.9 17 4.01 17
 
 
 export function ProductCard ({name, itemImg, price, url, rating}) {
-	const [value, setValue] = React.useState(rating);
 	const [state, setState] = useState({
 		openButtons: false
 	});
@@ -153,6 +150,8 @@ export function ProductCard ({name, itemImg, price, url, rating}) {
 						{name}
 					</Typography>
 					<Rating
+						name="half-rating"
+						precision={0.5}
 						value={rating}
 						readOnly />
 				</CardContent>
