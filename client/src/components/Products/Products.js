@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-// eslint-disable-next-line import/prefer-default-export
 export const Products = () => {
   const classes = useStyles();
 
