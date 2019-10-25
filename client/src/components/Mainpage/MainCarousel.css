@@ -9,85 +9,169 @@
   text-align: center;
 } */
 .variable-width .slick-slide p {
-  background: #00558b;
-  height: 100px;
-  color: #fff;
-  margin: 5px;
-  line-height: 100px;
-  text-align: center;
+    background: #00558b;
+    height: 100px;
+    color: #fff;
+    margin: 5px;
+    line-height: 100px;
+    text-align: center;
 }
+
 .center .slick-center h3 {
-  color: #e67e22;
-  opacity: 1;
-  transform: scale(1.08);
-}
-.center h3 {
-  opacity: 0.8;
-  transition: all 300ms ease;
-}
-.content {
-  padding: 20px;
-  margin: auto;
-  width: 90%;
-}
-.slick-slide .image {
-  padding: 10px;
-}
-.slick-slide img {
-  border: 5px solid #fff;
-  display: block;
-  margin: auto;
-}
-.slick-slide img.slick-loading {
-  border: 0;
-}
-.slick-slider {
-  margin: 30px auto 50px;
-}
-.slick-dots {
-  margin-left: 0;
-}
-@media (max-width: 768px) {
-  h3 {
-    font-size: 24px;
-  }
-  .center {
-    margin-left: -40px;
-    margin-right: -40px;
-  }
-  .center .slick-center h3 {
     color: #e67e22;
     opacity: 1;
-    transform: scale(1);
-  }
-  .center h3 {
+    transform: scale(1.08);
+}
+
+.center h3 {
     opacity: 0.8;
-    transform: scale(0.95);
     transition: all 300ms ease;
-  }
+}
+
+.content {
+    padding: 20px;
+    margin: auto;
+    width: 90%;
+}
+
+.slick-slide .image {
+    padding: 10px;
+}
+
+.slick-slide img {
+    border: 5px solid #fff;
+    display: block;
+    margin: auto;
+}
+
+.slick-slide img.slick-loading {
+    border: 0;
+}
+
+.slick-slider {
+    margin: 30px auto 50px;
+}
+
+.slick-dots {
+    margin-left: 0;
+}
+
+@media (max-width: 768px) {
+    h3 {
+        font-size: 24px;
+    }
+
+    .center {
+        margin-left: -40px;
+        margin-right: -40px;
+    }
+
+    .center .slick-center h3 {
+        color: #e67e22;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .center h3 {
+        opacity: 0.8;
+        transform: scale(0.95);
+        transition: all 300ms ease;
+    }
 }
 
 .slick-vertical .slick-slide {
-  height: 180px;
+    height: 180px;
 }
+
 p {
-  text-align: center;
+    text-align: center;
 }
 
-.slick-arrow {
-  background-color: grey;
-  color: black;
+/*.slick-arrow {*/
+/*    !*background-color: rgba(195, 195, 195, 0.36);*!*/
+/*    !*color: red;*!*/
+/*    outline: none;*/
+/*}*/
+
+/*.slick-arrow:hover {*/
+/*    !*background-color: grey;*!*/
+/*    !*color: rgba(195, 195, 195, 0.36);*!*/
+/*}*/
+
+.slick-prev {
+    position: absolute;
+    display: block;
+    left: 111.53px;
+    top: 202.47px;
+    width: 48px;
+    height: 48px;
+    z-index: 100;
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: 1.5px solid #EAEAEA;
+    background: #FFFFFF;
+    user-select: none;
+    cursor: pointer;
+    outline: none;
 }
 
-.slick-arrow:hover {
-  background-color: grey;
+.slick-prev:hover {
+    background: #FFFFFF;
+    box-sizing: border-box;
+    border: 1.7px solid rgba(106, 134, 232, 0.5);
+    box-shadow: 0px 5px 30px rgba(106, 134, 232, 0.05);
 }
 
-/* .slick-prev {
-  z-index: 100;
-  left: 20px !important;
+.slick-prev:before {
+    content: "\2039";
+    width: 10px;
+    height: 17px;
+    margin-left: -4px;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 0.5;
+    color: #6686FF;
+    font-family: 'Museo Sans 500';
+  -webkit-font-smoothing: antialiased;
+    user-select: none;
+    cursor: pointer;
 }
+
 .slick-next {
+  position: absolute;
+  display: block;
+  right: 111.53px;
+  top: 202.47px;
+  width: 48px;
+  height: 48px;
   z-index: 100;
-  right: 20px !important;
-} */
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1.5px solid #EAEAEA;
+  background: #FFFFFF;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.slick-next:before {
+  content: "\203A";
+  width: 10px;
+  height: 17px;
+  margin-left: 4px;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 0.5;
+  color: #6686FF;
+  font-family: 'Museo Sans 500';
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: pointer;
+}
+
+.slick-next:hover {
+  background: #FFFFFF;
+  box-sizing: border-box;
+  border: 1.7px solid rgba(106, 134, 232, 0.5);
+  box-shadow: 0px 5px 30px rgba(106, 134, 232, 0.05);
+}

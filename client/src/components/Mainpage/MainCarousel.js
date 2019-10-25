@@ -32,7 +32,10 @@ export default class MainCarousel extends Component {
 
     };
     return (
-      <div>
+      <div
+      container
+
+      >
         <Slider {...settings}>
           <div>
             <img
