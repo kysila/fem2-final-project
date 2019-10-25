@@ -1,36 +1,36 @@
-import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import {makeStyles, withStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-import {ProductCard} from "../ProductCard/ProductCard";
-import {Header} from "../../commons";
-import ProductBreadcrumbs from "./ProductBreadcrumbs";
-import {Title} from "../Title/Title"
-import StayInTouch from "../Mainpage/StayInTouch";
-import Filter from "./Filter";
-import Preloader from "../Preloader/Preloader";
 import Typography from "@material-ui/core/Typography";
+import { ProductCard } from '../ProductCard/ProductCard';
+import { Header } from '../../commons';
+import ProductBreadcrumbs from './ProductBreadcrumbs';
+import { Title } from '../Title/Title';
+import StayInTouch from '../../commons/Footer/StayInTouch';
+import Filter from './Filter';
+import Preloader from "../Preloader/Preloader";
 
-const useStyles = makeStyles(theme => ({
-    card: {
-        marginBottom: 0,
-        maxWidth: 'auto',
-    },
-    space:{
-        marginBottom: '40px'
-    },
-    paddingTop: {
-        paddingTop: '20px'
-    },
+const useStyles = makeStyles((theme) => ({
+  card: {
+    marginBottom: 0,
+    maxWidth: 'auto',
+  },
+  space: {
+    marginBottom: '40px',
+  },
+  paddingTop: {
+    paddingTop: '20px',
+  },
 
 }));
 
-export  const Products = () => {
-    const classes = useStyles();
+// eslint-disable-next-line import/prefer-default-export
+export const Products = () => {
+  const classes = useStyles();
 
     const [list, setList] = useState({
     });

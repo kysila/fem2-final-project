@@ -83,10 +83,6 @@ const ProductSchema = new Schema(
       type: String,
       required: true
     },
-    shortDescription: {
-      type: String,
-      required: true
-    },
     linkItem: {
       type: String
     },

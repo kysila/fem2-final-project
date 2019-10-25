@@ -2,7 +2,7 @@ import React from 'react';
 import './preloader.css'
 
 
-export default function CircularIndeterminate() {
+export default function Preloader() {
 
     return (
         <div className={'flex'} >
