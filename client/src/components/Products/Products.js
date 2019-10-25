@@ -84,8 +84,6 @@ export const Products = () => {
             <StayInTouch/>
         </React.Fragment>
         )
-
-
     }
     return (
         <React.Fragment>
