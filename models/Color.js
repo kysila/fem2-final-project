@@ -8,8 +8,7 @@ const ColorSchema = new Schema(
       required: true
     },
     cssValue: {
-      type: String,
-      required: true
+      type: String
     },
     cssStyles: {
       type: String
