@@ -34,33 +34,60 @@ export  const Products = () => {
 
     const [list, setList] = useState({
     });
-    const {state, setState} = useState({
-        isDataFetching: false
-    });
-    console.log(state);
+    const [loading, setLoading] = useState(true);
     let products;
-    if(list.data) {
+
+
+    useEffect(()=> {
+        async function getList(){
+            await axios.get("/products").then(data => {
+                setList(data);
+                setLoading(false);
+            })
+                .catch(err=>{console.log(err)})
+
+     }
+     getList()
+    },[]);
+    if(list.data && !loading) {
         products = list.data.map((el)=>{
             return <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
                 <ProductCard
-                className={classes.card}
-                name={el.name}
-                itemImg={el.imageUrls[0]}
-                price={el.currentPrice}
-                url={`products/${el.itemNo}`}
-                rating={el.rating}
-            />
+                    className={classes.card}
+                    name={el.name}
+                    itemImg={el.imageUrls[0]}
+                    price={el.currentPrice}
+                    url={`products/${el.itemNo}`}
+                    rating={el.rating}
+                />
             </Grid>
         })
+    }else{
+        return(
+        <React.Fragment>
+            <Header callCenter={'1-855-324-5387'}/>
+            <Container maxWidth="md" className={classes.paddingTop}>
+                <ProductBreadcrumbs/>
+                <Title title="All products"/>
+                <Typography
+                    variant="body1"
+                    gutterBottom
+                    align="center"
+                    className={classes.space}
+                >
+                    Our full collection of electric devices
+                </Typography>
+                <Filter/>
+                <main>
+                    <Preloader/>
+                </main>
+            </Container>
+            <StayInTouch/>
+        </React.Fragment>
+        )
+
+
     }
-
-    useEffect(()=> {
-
-        axios.get("/products").then(data => {
-            setList(data);
-     })
-    },[]);
-
     return (
         <React.Fragment>
             <Header callCenter={'1-855-324-5387'}/>
