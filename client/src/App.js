@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import {
-  MainPage, Products, ProductDetails, NotFound, Modal
+  MainPage, Products, ProductDetails, NotFound, Modal,
 } from './components';
 
 import './App.css';
 
 import store from './store/index';
+import { dispatchGetCustomer } from './store/auth/actions';
 
 const GlobalCss = withStyles({
   // @global is handled by jss-plugin-global.
@@ -48,6 +49,8 @@ const GlobalCss = withStyles({
 })(() => null);
 
 function App() {
+  const state = store.getState();
+  if (state.auth && state.auth.token) store.dispatch(dispatchGetCustomer());
   return (
     <Provider store={store}>
       <Router>
@@ -60,8 +63,8 @@ function App() {
             <Route component={NotFound} />
           </Switch>
         </div>
+        <Modal />
       </Router>
-      <Modal />
     </Provider>
   );
 }

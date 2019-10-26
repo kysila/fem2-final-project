@@ -14,12 +14,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ArrowRightOutlinedIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Drawer from '@material-ui/core/Drawer';
-import { LoginModal } from '../../components/Auth/LoginForm';
-import { RegisterModal } from '../../components/Auth/RegisterForm';
+import { LoginForm } from '../../components/Auth/LoginForm';
+import { RegisterForm } from '../../components/Auth/RegisterForm';
 import { Cart } from './Cart';
 import { NavBar } from './Navbar';
 import { Search } from './Searchbar';
 import { dispatchModalOpen } from '../../store/modal/actions';
+import {dispatchLogout} from "../../store/auth/actions";
 
 const useStyles = makeStyles(() => createStyles({
   appBar: {
@@ -74,7 +75,10 @@ const useStyles = makeStyles(() => createStyles({
   call: {
     color: '#6A86E8',
   },
-
+  profileLink: {
+    cursor: 'pointer',
+    textDecoration: 'underline',
+  },
 }));
 
 const Header = (props) => {
@@ -83,11 +87,11 @@ const Header = (props) => {
 
   const openLogin = (e) => {
     e.preventDefault();
-    props.openModal(<LoginModal />);
+    props.openModal(<LoginForm />);
   };
   const openRegister = (e) => {
     e.preventDefault();
-    props.openModal(<RegisterModal />);
+    props.openModal(<RegisterForm />);
   };
 
   return (
@@ -106,24 +110,42 @@ const Header = (props) => {
               <Search />
             </Box>
 
-            <Box className={classes.link}>
-              <a href="/login" onClick={openLogin}>Login |</a>
-              <a href="/register" onClick={openRegister}> Sign Up</a>
-            </Box>
+            {
+              props.user ? (
+                <Box className={classes.link}>
+                  <Link className={classes.profileLink} to="/login">
+                    {`Hello, ${props.user.firstName || props.user.login}`}
+                  </Link>
+                  <span> | </span>
+                  <a href="/logout" onClick={(e) => { e.preventDefault(); props.logout(); }}>
+                    Logout
+                  </a>
+                </Box>
+              ) : (
+                <Box className={classes.link}>
+                  <a href="/login" onClick={openLogin}>Login |</a>
+                  <a href="/register" onClick={openRegister}> Sign Up</a>
+                </Box>
+              )
+            }
             <Cart count={2} />
           </Box>
-          <Box className={classes.container}>
-            <Box>
-              <NavBar />
-            </Box>
-            <Box className={classes.call}>
-              <p>
-                Call or text us toll-free:
-                {props.callCenter}
-              </p>
-            </Box>
+          {
+            !props.subMenuHidden && (
+              <Box className={classes.container}>
+                <Box>
+                  <NavBar />
+                </Box>
+                <Box className={classes.call}>
+                  <p>
+                    Call or text us toll-free:
+                    {props.callCenter}
+                  </p>
+                </Box>
 
-          </Box>
+              </Box>
+            )
+          }
         </Container>
       </AppBar>
     </React.Fragment>
@@ -139,6 +161,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     openModal: (child) => dispatch(dispatchModalOpen(child)),
+    logout: () => dispatch(dispatchLogout()),
   };
 }
 
