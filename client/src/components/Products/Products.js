@@ -35,7 +35,7 @@ export const Products = () => {
   const { state, setState } = useState({
     isDataFetching: false,
   });
-  console.log(state);
+
   let products;
   if (list.data) {
     products = list.data.map((el) => (

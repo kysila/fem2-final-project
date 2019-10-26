@@ -87,7 +87,7 @@ const ProductSchema = new Schema(
       type: String
     },
     rating: {
-      type: String,
+      type: Number,
       required: true,
       default: 0
     }
