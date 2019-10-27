@@ -15,6 +15,9 @@ export const useStyles = makeStyles((theme) => ({
   },
   container__body: {
     padding: '24px 48px',
+    [theme.breakpoints.down(768)]: {
+      padding: '24px 20px',
+    },
     height: '100%',
   },
   title: {

@@ -25,6 +25,8 @@ import { useStyles } from './styles';
 
 import Tungsten from '../../fonts/Tungsten-Book.woff';
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
+import FacebookSvg from '../../img/auth/facebook.svg';
+import GoogleSvg from '../../img/auth/google.svg';
 
 const tungsten = {
   fontFamily: 'Tungsten Book',
@@ -70,7 +72,12 @@ const useMobileStyles = makeStyles((theme) => ({
       cursor: 'pointer',
     },
   },
-  socialButton: {},
+  socialIcon: {
+    [theme.breakpoints.down(768)]: {
+      backgroundColor: 'transparent',
+      width: '100%',
+    },
+  },
 }));
 
 
@@ -143,7 +150,6 @@ function RegisterForm(props) {
       justify="center"
       alignItems="flex-start"
       className={classes.container}
-      style={{ width: '350px' }}
       action="#"
     >
       <Grid
@@ -155,11 +161,11 @@ function RegisterForm(props) {
       >
         <Grid
           container
-          direction="column"
+          direction={matchMobile ? 'column' : 'row'}
           justify="flex-start"
           alignItems="center"
-          lg={12}
-          md={12}
+          lg={5}
+          md={5}
           xs={12}
         >
           <Box className={classesMobile.title}>
@@ -263,7 +269,7 @@ function RegisterForm(props) {
             />
           </FormControl>
           <Button fullWidth className={classes.submitBtn} onClick={onSubmit}>
-            Create Account
+            Sign up
           </Button>
           <Typography className={classes.agree}>
             By continuing, you agree to
@@ -272,22 +278,111 @@ function RegisterForm(props) {
             <Link className={classes.link} href="/privacy"> Use and Privacy Notice.</Link>
           </Typography>
         </Grid>
+        <Grid
+          className={classesMobile.separ}
+          container
+          direction={matchMobile ? 'row' : 'column'}
+          justify="center"
+          alignItems="center"
+          lg={2}
+          md={2}
+          xs={2}
+        >
+          <Box className={classes.separ} style={matchMobile ? { left: 0, width: '40%', height: '1px' } : { top: 0 }} />
+          <Typography style={museo}>
+            OR
+          </Typography>
+          <Box className={classes.separ} style={matchMobile ? { right: 0, width: '40%', height: '1px' } : { bottom: 0 }} />
+        </Grid>
+        <Grid
+          container
+          direction={matchMobile ? 'row' : 'column'}
+          justify="center"
+          alignItems="center"
+          lg={5}
+          md={5}
+          xs={12}
+        >
+          <Typography className={classes.title} style={tungsten} variant="h3" color="textPrimary" align="center">
+            Enter With
+          </Typography>
+          <Grid
+            container
+            direction={matchMobile ? 'row' : 'column'}
+            justify="space-around"
+          >
+            <Grid
+              lg={12}
+              md={12}
+              xs={5}
+              className={classNames(classes.socialButton, classes.socialFacebook)}
+            >
+              <img src={FacebookSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
+              {
+                !matchMobile ? (
+                  <Grid
+                    container
+                    justify="center"
+                    alignItems="center"
+                  >
+                    <Typography className={classes.socialText}>
+                      FACEBOOK
+                    </Typography>
+                  </Grid>
+                ) : null
+              }
+            </Grid>
+            <Grid
+              lg={12}
+              md={12}
+              xs={5}
+              className={classNames(classes.socialButton, classes.socialGoogle)}
+            >
+              <img src={GoogleSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
+              {
+                !matchMobile ? (
+                  <Grid
+                    container
+                    justify="center"
+                    alignItems="center"
+                  >
+                    <Typography className={classes.socialText}>
+                      GOOGLE
+                    </Typography>
+                  </Grid>
+                ) : null
+              }
+            </Grid>
+          </Grid>
+          {
+            !matchMobile ? (
+              <React.Fragment>
+                <Typography className={classes.toLeft}>
+                  Already Have Account?
+                </Typography>
+                <Button
+                  fullWidth
+                  classes={{ root: classes.createButton, label: classes.createButtonLabel }}
+                  onClick={() => props.loginModal()}
+                >
+                  Sign In
+                </Button>
+              </React.Fragment>
+            ) : null
+          }
+        </Grid>
       </Grid>
     </Grid>
   );
 }
 
-function mapStateToProps() {
-  return {};
-}
+const mapStateToProps = () => ({});
 
-function mapDispatchToProps(dispatch) {
-  return {
-    register: (data) => dispatch(dispatchRegister(data)),
-    loginModal: () => dispatch(dispatchModalOpen()),
-    closeModal: () => dispatch(dispatchModalClose()),
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  register: (data) => dispatch(dispatchRegister(data)),
+  loginModal: () => dispatch(dispatchModalOpen()),
+  closeModal: () => dispatch(dispatchModalClose()),
+});
 
 const ConnectRegisterForm = withTheme(connect(mapStateToProps, mapDispatchToProps)(RegisterForm));
 

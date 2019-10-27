@@ -125,7 +125,7 @@ function LoginForm(props) {
       direction="row"
       justify="center"
       alignItems="flex-start"
-      className={classNames(classes.container, classesMobile.container)}
+      className={classes.container}
       action="#"
     >
       <Grid
