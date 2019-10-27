@@ -1,5 +1,4 @@
 import React from 'react';
-import { LoginForm } from '../../components/Auth/LoginForm';
 
 import { ACTIONS } from './reducer';
 
@@ -10,7 +9,7 @@ export function modalOpen(payload) {
   };
 }
 
-export function dispatchModalOpen(payload = <LoginForm />) {
+export function dispatchModalOpen(payload = 'login') {
   return (dispatch) => {
     dispatch(modalOpen(payload));
   };

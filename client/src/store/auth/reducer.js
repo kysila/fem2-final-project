@@ -12,13 +12,13 @@ export default function (state = {}, { type, payload }) {
 
   switch (type) {
     case ACTIONS.LOGIN:
-      newState = { ...newState, token: payload.token };
+      newState = { ...newState };
       break;
     case ACTIONS.REGISTER:
       // TODO: do something
       break;
     case ACTIONS.LOGOUT:
-      newState = { ...newState, user: null, token: null };
+      newState = { ...newState, user: null };
       break;
     case ACTIONS.GET_CUSTOMER_INFO:
       newState = { ...newState, user: payload };

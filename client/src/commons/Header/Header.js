@@ -14,13 +14,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ArrowRightOutlinedIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Drawer from '@material-ui/core/Drawer';
-import { LoginForm } from '../../components/Auth/LoginForm';
-import { RegisterForm } from '../../components/Auth/RegisterForm';
 import { Cart } from './Cart';
 import { NavBar } from './Navbar';
 import { Search } from './Searchbar';
 import { dispatchModalOpen } from '../../store/modal/actions';
-import {dispatchLogout} from "../../store/auth/actions";
+import { dispatchLogout } from '../../store/auth/actions';
 
 const useStyles = makeStyles(() => createStyles({
   appBar: {
@@ -87,11 +85,11 @@ const Header = (props) => {
 
   const openLogin = (e) => {
     e.preventDefault();
-    props.openModal(<LoginForm />);
+    props.openModal('login');
   };
   const openRegister = (e) => {
     e.preventDefault();
-    props.openModal(<RegisterForm />);
+    props.openModal('register');
   };
 
   return (
@@ -113,7 +111,7 @@ const Header = (props) => {
             {
               props.user ? (
                 <Box className={classes.link}>
-                  <Link className={classes.profileLink} to="/login">
+                  <Link className={classes.profileLink} to="/profile">
                     {`Hello, ${props.user.firstName || props.user.login}`}
                   </Link>
                   <span> | </span>

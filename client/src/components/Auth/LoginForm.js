@@ -27,7 +27,6 @@ import Tungsten from '../../fonts/Tungsten-Book.woff';
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
 import FacebookSvg from '../../img/auth/facebook.svg';
 import GoogleSvg from '../../img/auth/google.svg';
-import { RegisterForm } from './RegisterForm';
 
 const tungsten = {
   fontFamily: 'Tungsten Book',
@@ -75,7 +74,7 @@ const useMobileStyles = makeStyles((theme) => ({
   socialIcon: {
     [theme.breakpoints.down(768)]: {
       backgroundColor: 'transparent',
-      width: '100%'
+      width: '100%',
     },
   },
 }));
@@ -320,17 +319,13 @@ function LoginForm(props) {
   );
 }
 
-function mapStateToProps() {
-  return {};
-}
+const mapStateToProps = () => ({});
 
-function mapDispatchToProps(dispatch) {
-  return {
-    login: (data) => dispatch(dispatchLogin(data)),
-    registerModal: () => dispatch(dispatchModalOpen(<RegisterForm />)),
-    closeModal: () => dispatch(dispatchModalClose()),
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  login: (data) => dispatch(dispatchLogin(data)),
+  registerModal: () => dispatch(dispatchModalOpen('register')),
+  closeModal: () => dispatch(dispatchModalClose()),
+});
 
 const ConnectLoginForm = withTheme(connect(mapStateToProps, mapDispatchToProps)(LoginForm));
 

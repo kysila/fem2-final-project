@@ -13,8 +13,8 @@ export function dispatchLogout() {
   return (dispatch) => {
     dispatch(logout());
     Cookie.remove('auth');
-    window.location.href = '/';
     axios.defaults.headers.common.Authorization = null;
+    window.history.pushState(null, null, '/');
   };
 }
 
