@@ -1,25 +1,5 @@
-/* h3 {
-  background: #00558b;
-  color: #fff;
-  font-size: 36px;
-  line-height: 100px;
-  margin: 10px;
-  padding: 2%;
-  position: relative;
-  text-align: center;
-} */
-
 .main-Carousel .slick-slider {
   margin: 0 auto 50px;
-  /*position: relative;*/
-}
-
-.main-Carousel .slide-flex-container {
-  /* display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-content: stretch;
-  align-items: stretch; */
 }
 
 .main-Carousel .variable-width .slick-slide p {
@@ -194,14 +174,3 @@
   border: 2px solid rgba(106, 134, 232, 0.5);
   box-shadow: 0px 5px 30px 5px rgba(106, 134, 232, 0.05);
 }
-
-/*.slick-arrow {*/
-/*    !*background-color: rgba(195, 195, 195, 0.36);*!*/
-/*    !*color: red;*!*/
-/*    outline: none;*/
-/*}*/
-
-/*.slick-arrow:hover {*/
-/*    !*background-color: grey;*!*/
-/*    !*color: rgba(195, 195, 195, 0.36);*!*/
-/*}*/
