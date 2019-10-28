@@ -50,12 +50,12 @@ const museo = {
 
 const useMobileStyles = makeStyles((theme) => ({
   container: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(769)]: {
       width: '90%',
     },
   },
   title: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(769)]: {
       width: '100%',
       display: 'flex',
       flexDirection: 'row',
@@ -63,18 +63,18 @@ const useMobileStyles = makeStyles((theme) => ({
     },
   },
   separ: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(769)]: {
       marginTop: '25px',
     },
   },
   inactive: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(769)]: {
       color: '#AAAAAA !important',
       cursor: 'pointer',
     },
   },
   socialIcon: {
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(769)]: {
       backgroundColor: 'transparent',
       width: '100%',
     },
@@ -95,7 +95,7 @@ function RegisterForm(props) {
     repeatPassword: '',
   });
 
-  const matchMobile = useMediaQuery(props.theme.breakpoints.down(768));
+  const matchMobile = useMediaQuery(props.theme.breakpoints.down(769));
 
   const validate = () => {
     const trimmed = Object.keys(state).reduce((trm, key) => {

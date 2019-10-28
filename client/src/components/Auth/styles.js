@@ -9,13 +9,13 @@ export const useStyles = makeStyles((theme) => ({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     borderRadius: '8px',
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(769)]: {
       width: '279px',
     },
   },
   container__body: {
     padding: '24px 48px',
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(769)]: {
       padding: '24px 20px',
     },
     height: '100%',
@@ -116,7 +116,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '50%',
     width: '24px',
     height: '24px',
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(769)]: {
       top: '-10px',
       right: '-10px',
     },
