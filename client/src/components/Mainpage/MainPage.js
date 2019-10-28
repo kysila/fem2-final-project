@@ -4,7 +4,7 @@ import '../../index.css';
 import { Header } from '../../commons';
 import BrandsBlock from './BrandsBlock';
 import { MainCarousel } from '../MainCarousel';
-import { Favorites } from '../Favorites/Favorites';
+import { Favourites } from '../Favourites/Favourites';
 import { Categories } from '../Categories/Categories';
 import { Contacts } from './Contacts';
 import StayInTouch from '../../commons/Footer/StayInTouch';
@@ -15,7 +15,7 @@ export const MainPage = (props) => (
     <Header callCenter="1-855-324-5387" />
     <MainCarousel />
     <BrandsBlock />
-    <Favorites />
+    <Favourites />
     <Categories />
     <Contacts />
     <StayInTouch />
