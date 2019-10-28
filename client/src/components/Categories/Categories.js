@@ -122,6 +122,7 @@ export const CategoryImages = () => {
 
   if (categoryLink && !loading) {
     categoryBlocks = categoryLink.map((tile) => (
+      // eslint-disable-next-line react/jsx-filename-extension,no-underscore-dangle
       <GridListTile key={tile._id} cols={+tile.cols || 1}>
         <Link to={`/${tile.id}`} className={classes.hover}>
           <div className={classes.img} style={{ background: `rgb(0, 130, 67) url('${tile.imgUrl}')` }} />
