@@ -5,13 +5,10 @@ export const buttons = {
 		width: '48px',
 		height: '48px',
 		borderRadius: '50%',
-		border: '1.5px solid #EAEAEA',
+		border: '1.5px solid rgba(106, 134, 232, 0.5)',
 		backgroundColor: '#FFFFFF',
 		cursor: 'pointer',
 		zIndex: 1000,
-		'&:hover': {
-			border: '1.5px solid #AAAAAA',
-		}
 	},
 	arrow: {
 		display: 'block',

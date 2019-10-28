@@ -6,7 +6,7 @@ export const SampleNextArrow = (props) => {
 	const { className, onClick } = props;
 
 	const style = { ...buttons.circle };
-	style.right = '-112px';
+	style.right = '-24px';
 
 	const next = { ...buttons.arrow};
 

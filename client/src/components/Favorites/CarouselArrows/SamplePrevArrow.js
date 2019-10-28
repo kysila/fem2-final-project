@@ -5,7 +5,7 @@ export const SamplePrevArrow = (props) => {
 	const { prevArrow, onClick } = props;
 
 	const style = { ...buttons.circle };
-	style.left = '-112px';
+	style.left = '-24px';
 
 	const prev = { ...buttons.arrow };
 
