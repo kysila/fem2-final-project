@@ -136,8 +136,6 @@ function RegisterForm(props) {
     const { email, login, password } = state;
 
     if (validate()) {
-      console.log(state, 'REQUEST');
-      // TODO: send request onSubmit
       props.register({ email, login, password });
       props.closeModal({ email, login, password });
     }
