@@ -60,11 +60,9 @@ exports.updateProduct = (req, res, next) => {
   Product.findOne({ _id: req.params.id })
     .then(product => {
       if (!product) {
-        return res
-          .status(400)
-          .json({
-            message: `Product with id "${req.params.id}" is not found.`
-          });
+        return res.status(400).json({
+          message: `Product with id "${req.params.id}" is not found.`
+        });
       } else {
         const productFields = _.cloneDeep(req.body);
 
@@ -113,12 +111,12 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProductById = (req, res, next) => {
   Product.findOne({
-    itemNo: req.params.id
+    itemNo: req.params.itemNo
   })
     .then(product => {
       if (!product) {
         res.status(400).json({
-          message: `Product with itemNo ${req.params.id} is not found`
+          message: `Product with itemNo ${req.params.itemNo} is not found`
         });
       } else {
         res.json(product);

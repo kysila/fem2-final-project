@@ -8,7 +8,10 @@ const SliderSchema = new Schema(
       required: true
     },
     title: String,
-    imageUrl: String,
+    imageUrl: {
+      type: String,
+      required: true
+    },
     description: String,
     htmlContent: String,
     product: {
@@ -22,6 +25,10 @@ const SliderSchema = new Schema(
     customer: {
       type: Schema.Types.ObjectId,
       ref: "customers"
+    },
+    date: {
+      type: Date,
+      default: Date.now
     }
   },
   { strict: false }
