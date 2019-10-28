@@ -95,7 +95,7 @@ function RegisterForm(props) {
     repeatPassword: '',
   });
 
-  const matchMobile = useMediaQuery(props.theme.breakpoints.down(769));
+  const matchMobile = useMediaQuery(props.theme.breakpoints.down(960));
 
   const validate = () => {
     const trimmed = Object.keys(state).reduce((trm, key) => {
@@ -243,8 +243,10 @@ function RegisterForm(props) {
                 state.password
                   ? (
                     <PasswordIcon
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: 'pointer', userSelect: 'none' }}
+                      onTouchStart={() => setPasswordVisible(false)}
                       onMouseDown={() => setPasswordVisible(false)}
+                      onTouchEnd={() => setPasswordVisible(true)}
                       onMouseUp={() => setPasswordVisible(true)}
                     />
                   ) : null

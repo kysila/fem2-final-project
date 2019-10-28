@@ -90,7 +90,7 @@ function LoginForm(props) {
     loginOrEmail: '',
     password: '',
   });
-  const matchMobile = useMediaQuery(props.theme.breakpoints.down(769));
+  const matchMobile = useMediaQuery(props.theme.breakpoints.down(960));
 
   const validate = () => {
     if (!state.loginOrEmail.trim()) {
@@ -199,8 +199,10 @@ function LoginForm(props) {
                 state.password
                   ? (
                     <PasswordIcon
-                      style={{ cursor: 'pointer' }}
+                      style={{ cursor: 'pointer', userSelect: 'none' }}
+                      onTouchStart={() => setPasswordVisible(false)}
                       onMouseDown={() => setPasswordVisible(false)}
+                      onTouchEnd={() => setPasswordVisible(true)}
                       onMouseUp={() => setPasswordVisible(true)}
                     />
                   ) : null
