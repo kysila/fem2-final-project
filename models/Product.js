@@ -83,13 +83,13 @@ const ProductSchema = new Schema(
       type: String,
       required: true
     },
-    linkItem: {
-      type: String
-    },
     rating: {
       type: Number,
       required: true,
       default: 0
+    },
+    features: {
+      type: Object
     }
   },
   { strict: false }
