@@ -1,96 +1,86 @@
-import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import {makeStyles, withStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-import {ProductCard} from "../ProductCard/ProductCard";
-import {Header} from "../../commons";
-const GlobalCss = withStyles({
-    '@global': {
-        body: {
-            fontFamily: "'Museo Sans 500'",
-            color: "#444444"
-        },
-        '.MuiTypography-body2': {
-            fontFamily: "'Museo Sans 500'"
-        },
-        a: {
-            textDecoration: 'none'
-        },
-        '.MuiButton-root': {
-            background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
-            borderRadius: '4px',
-            border: 'none',
-            color: '#FFFFFF'
-        },
-        '.MuiTypography-root':{
-            fontFamily: "'Museo Sans 500'",
-        }
+import Typography from '@material-ui/core/Typography';
+import { ProductCard } from '../ProductCard/ProductCard';
+import { Header } from '../../commons';
 
-    },
-})(() => null);
-const useStyles = makeStyles(theme => ({
-    root: {
+import { Title } from '../Title/Title';
+import StayInTouch from '../../commons/Footer/StayInTouch';
+import Filter from './Filter';
 
-    },
-    box: {
-
-    },
-    img: {
-
-    },
-
+const useStyles = makeStyles((theme) => ({
+  card: {
+    marginBottom: 0,
+    maxWidth: 'auto',
+  },
+  space: {
+    marginBottom: '40px',
+  },
+  paddingTop: {
+    paddingTop: '20px',
+  },
 
 }));
 
-export  const Products = () => {
-    const classes = useStyles();
+// eslint-disable-next-line import/prefer-default-export
+export const Products = () => {
+  const classes = useStyles();
 
-    const [list, setList] = useState({});
-    console.log('list', list)
-    let products;
-    if(list.data)  {
-        console.log('зашел в условие if list.data')
-        products = list.data.map((el)=>{
-            return <ProductCard
-                key={el.itemNo}
-                name={el.name}
-                itemImg={el.imageUrls[0]}
-                price={el.currentPrice}
-                url={`products/${el.itemNo}`}
-                rating={el.rating}
+  const [list, setList] = useState({});
+  const { state, setState } = useState({
+    isDataFetching: false,
+  });
+  console.log(state);
+  let products;
+  if (list.data) {
+    products = list.data.map((el) => (
+      // eslint-disable-next-line react/jsx-filename-extension
+      <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
+        <ProductCard
+          className={classes.card}
+          name={el.name}
+          itemImg={el.imageUrls[0]}
+          price={el.currentPrice}
+          url={`products/${el.itemNo}`}
+          rating={el.rating}
+        />
+      </Grid>
+    ));
+  }
 
-            />
-        })
-    }
+  useEffect(() => {
+    axios.get('/products').then((data) => {
+      setList(data);
+    });
+  }, []);
 
-    useEffect(()=> {
-        axios.get("/products").then(data => {
-            console.log('data in axios then', data);
-            console.log('setList', setList);
-            setList(data);
-            console.log('list after axios', list)
-     });
+  return (
+    <>
+      <Header callCenter="1-855-324-5387" />
+      <Container maxWidth="md" className={classes.paddingTop}>
 
-        return () => {
-            console.log('unmount');
-        }
-    },[]);
-
-    return (
-        <React.Fragment>
-            <GlobalCss/>
-            <Header count={2} callCenter={'1-855-324-5387'}/>
-            <Container maxWidth="md">
-                 <div>
-                    <Grid container spacing={3}>
-                            {products}
-                    </Grid>
-                </div>
-            </Container>
-        </React.Fragment>
-    )
-}
+        <Title title="All products" />
+        <Typography
+          variant="body1"
+          gutterBottom
+          align="center"
+          className={classes.space}
+        >
+                    Our full collection of electric devices
+        </Typography>
+        <Filter />
+        <main>
+          <Grid container spacing={0}>
+            {products}
+          </Grid>
+        </main>
+      </Container>
+      <StayInTouch />
+    </>
+  );
+};

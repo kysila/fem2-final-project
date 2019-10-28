@@ -1,12 +1,12 @@
-const Subscriber = require("../models/Subscriber");
-const sendMail = require("../commonHelpers/mailSender");
-const queryCreator = require("../commonHelpers/queryCreator");
-const _ = require("lodash");
+const Subscriber = require('../models/Subscriber');
+const sendMail = require('../commonHelpers/mailSender');
+const queryCreator = require('../commonHelpers/queryCreator');
+const _ = require('lodash');
 
 exports.addSubscriber = (req, res, next) => {
   if (!req.body.letterSubject || !req.body.letterHtml) {
     res.status(400).json({
-      message: "Subject (letterSubject) and content (letterHtml) is required."
+      message: 'Subject (letterSubject) and content (letterHtml) is required.'
     });
 
     return;
@@ -152,7 +152,7 @@ exports.updateSubscriberById = (req, res, next) => {
 };
 
 exports.updateSubscriberByEmail = (req, res, next) => {
-  const subscriberMail = req.body.email;
+  const subscriberMail = req.params.email;
   const letterSubject = req.body.letterSubject;
   const letterHtml = req.body.letterHtml;
 
