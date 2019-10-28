@@ -128,22 +128,17 @@ const Header = (props) => {
             }
             <Cart count={2} />
           </Box>
-          {
-            !props.subMenuHidden && (
-              <Box className={classes.container}>
-                <Box>
-                  <NavBar />
-                </Box>
-                <Box className={classes.call}>
-                  <p>
+          <Box className={classes.container}>
+            <Box>
+              <NavBar />
+            </Box>
+            <Box className={classes.call}>
+              <p>
                     Call or text us toll-free:
-                    {props.callCenter}
-                  </p>
-                </Box>
-
-              </Box>
-            )
-          }
+                {props.callCenter}
+              </p>
+            </Box>
+          </Box>
         </Container>
       </AppBar>
     </React.Fragment>

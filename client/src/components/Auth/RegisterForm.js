@@ -18,6 +18,7 @@ import classNames from 'classnames';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { dispatchRegister } from '../../store/auth/actions';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
@@ -372,6 +373,9 @@ function RegisterForm(props) {
           }
         </Grid>
       </Grid>
+      <Box className={classes.closeWrapper} onClick={props.closeModal}>
+        <CloseIcon className={classes.close} />
+      </Box>
     </Grid>
   );
 }

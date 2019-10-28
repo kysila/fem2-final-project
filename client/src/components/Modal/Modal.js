@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 
-import { Header } from '../../commons/Header/Header';
 import { dispatchModalClose } from '../../store/modal/actions';
 
 import { LoginForm } from '../Auth/LoginForm';
@@ -20,9 +19,17 @@ function ModalWindow(props) {
     }
   };
   return (
-    <Modal open={props.opened} onClose={onClose}>
+    <Modal
+      open={props.opened}
+      BackdropProps={{
+        style: {
+          background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
+          opacity: '0.5',
+        },
+      }}
+      onClose={onClose}
+    >
       <React.Fragment>
-        <Header callCenter="1-855-324-5387" subMenuHidden />
         {getChild()}
       </React.Fragment>
     </Modal>

@@ -105,4 +105,25 @@ export const useStyles = makeStyles((theme) => ({
     background: '#EAEAEA',
     position: 'absolute',
   },
+  closeWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+    background: '#F8F8F8',
+    borderRadius: '50%',
+    width: '24px',
+    height: '24px',
+    [theme.breakpoints.down(768)]: {
+      top: '-10px',
+      right: '-10px',
+    },
+  },
+  close: {
+    stroke: '#888888',
+    width: '15px',
+    height: '15px',
+  },
 }));
