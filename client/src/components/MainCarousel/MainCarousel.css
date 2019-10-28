@@ -1,5 +1,13 @@
 .main-Carousel .slick-slider {
   margin: 0 auto 50px;
+  background: linear-gradient(
+    180deg,
+    rgba(106, 134, 232, 0.08) 0%,
+    rgba(106, 134, 232, 0.08) 100%
+  );
+}
+.main-Carousel .slide-container {
+  outline: none;
 }
 
 .main-Carousel .variable-width .slick-slide p {
@@ -34,7 +42,6 @@
 
 .main-Carousel .slick-slide img {
   float: right;
-  border: 5px solid #fff;
   width: 40%;
   height: 500px;
 }
@@ -45,6 +52,11 @@
 
 .main-Carousel .slick-dots {
   margin-left: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(106, 134, 232, 0.08) 0%,
+    rgba(106, 134, 232, 0.08) 100%
+  );
 }
 
 @media (max-width: 768px) {
