@@ -11,6 +11,7 @@ const {
   updateProduct,
   getProducts,
   getProductById,
+  getProductsByRate,
   getProductsFilterParams,
   searchProducts
 } = require("../controllers/products");
@@ -79,6 +80,8 @@ router.put(
 // @desc    GET existing products
 // @access  Public
 router.get("/", getProducts);
+
+router.get('/rates/:rate', getProductsByRate);
 
 // @route   GET /products/filter
 // @desc    GET appropriate filtered products

@@ -170,3 +170,17 @@ exports.searchProducts = async (req, res, next) => {
 
   res.send(matchedProducts);
 };
+
+exports.getProductsByRate = (req, res, next) => {
+  Product.find({
+    rating: {$gt: Number(req.params.rate)}
+  })
+    .then(products => {
+      res.send(products);
+    })
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
