@@ -28,6 +28,7 @@ module.exports = {
     "linebreak-style": "off",
     "no-unused-vars": "off",
     "react/jsx-props-no-spreading": 0,
-    "no-nested-ternary": 0
+    "no-nested-ternary": 0,
+    "no-param-reassign": 0
   }
 };
