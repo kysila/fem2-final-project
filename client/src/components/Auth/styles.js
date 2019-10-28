@@ -125,5 +125,6 @@ export const useStyles = makeStyles((theme) => ({
     stroke: '#888888',
     width: '15px',
     height: '15px',
+    cursor: 'pointer',
   },
 }));

@@ -245,6 +245,7 @@ function RegisterForm(props) {
                 state.password
                   ? (
                     <PasswordIcon
+                      style={{ cursor: 'pointer' }}
                       onMouseDown={() => setPasswordVisible(false)}
                       onMouseUp={() => setPasswordVisible(true)}
                     />
