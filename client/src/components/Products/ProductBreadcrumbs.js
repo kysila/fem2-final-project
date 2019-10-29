@@ -20,7 +20,7 @@ function handleClick(event) {
   alert('You clicked a breadcrumb.');
 }
 
-export default function ProductsBreadcrumbs() {
+export default function ProductsBreadcrumbs({link}) {
   const classes = useStyles();
 
   return (
@@ -29,13 +29,14 @@ export default function ProductsBreadcrumbs() {
         <Breadcrumbs separator="›" aria-label="breadcrumb">
           <Link to="/" onClick={handleClick}>
                         Homepage
-          </Link>
-          {/* <Link color="inherit" href="/products" onClick={handleClick}> */}
-          {/*    All Products */}
-          {/* </Link> */}
-          <Typography color="textPrimary">All products</Typography>
-        </Breadcrumbs>
-      </Paper>
+                    </Link>
+                    {/*<Link color="inherit" href="/products" onClick={handleClick}>*/}
+                    {/*    All Products*/}
+                    {/*</Link>*/}
+                    <Typography color="textPrimary">All products</Typography>
+                    <Typography color="textPrimary">{link}</Typography>
+                </Breadcrumbs>
+            </Paper>
 
     </div>
   );
