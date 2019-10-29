@@ -22,8 +22,9 @@ const useStyles = makeStyles((theme) => ({
   space: {
     marginBottom: '40px',
   },
-  paddingTop: {
+  mainContainer: {
     paddingTop: '20px',
+    backgroundColor: '#fff',
   },
 
 }));
@@ -87,7 +88,7 @@ export const Products = () => {
   return (
     <React.Fragment>
       <Header callCenter="1-855-324-5387" />
-      <Container maxWidth="md" className={classes.paddingTop}>
+      <Container maxWidth="md" className={classes.mainContainer}>
         <ProductBreadcrumbs />
         <Title title="All products" />
         <Typography

@@ -17,6 +17,7 @@ const GlobalCss = withStyles({
     body: {
       fontFamily: "'Museo Sans 500'",
       color: '#444444',
+      backgroundColor: '#fff',
     },
 
     a: {
