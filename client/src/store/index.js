@@ -5,6 +5,8 @@ import Cookie from 'js-cookie';
 
 import authReducer from './auth/reducer';
 import modalReducer from './modal/reducer';
+import searchReducer from './search/searchReducer';
+
 
 export const initialStore = {
   auth: { user: null, token: Cookie.get('auth') },
@@ -17,6 +19,7 @@ axios.defaults.headers.common.Authorization = Cookie.get('auth');
 const rootReducer = combineReducers({
   auth: authReducer,
   modal: modalReducer,
+  searchReducer,
 });
 
 export default createStore(rootReducer, initialStore, applyMiddleware(thunk));
