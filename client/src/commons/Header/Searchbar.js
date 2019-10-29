@@ -7,6 +7,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { setSearchValue, setSearchProducts } from '../../store/search/searchReducer';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
 
@@ -27,7 +28,9 @@ const mapStateToProps = (state) => ({
 const Search = (props) => {
   const classes = useStyles();
   const clear = '';
-  const clearArray = [];
+  const clearArray = [<Grid item xs={12} sm={12} md={12} justify="center">
+    <Typography variant="h6" align="center" paragraph="true">No products were found based on search results</Typography>
+  </Grid>];
   let searchResult = [];
 
   const onRequestHandler = () => {

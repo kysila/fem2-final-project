@@ -12,6 +12,7 @@ import Preloader from '../Preloader/Preloader';
 
 import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch';
+import { ProductCard } from '..';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,26 +37,26 @@ const mapStateToProps = (state) => ({
 export const Search = connect(mapStateToProps)((props) => {
   const classes = useStyles();
   return (
-      <React.Fragment>
-        <Header />
-        <Container maxWidth="md" className={classes.paddingTop}>
-          <Title title="Search results" />
-          <Typography
-            variant="body1"
-            gutterBottom
-            align="center"
-            className={classes.space}
-          >
+    <React.Fragment>
+      <Header />
+      <Container maxWidth="md" className={classes.paddingTop}>
+        <Title title="Search results" />
+        <Typography
+          variant="body1"
+          gutterBottom
+          align="center"
+          className={classes.space}
+        >
                         Results of your searching:
-          </Typography>
-          <main>
-            <Grid container spacing={0}>
-              {props.searchProducts}
-            </Grid>
-          </main>
-        </Container>
-        <StayInTouch />
-      </React.Fragment>
+        </Typography>
+        <main>
+          <Grid container spacing={0}>
+            {props.searchProducts}
+          </Grid>
+        </main>
+      </Container>
+      <StayInTouch />
+    </React.Fragment>
 
   );
 });

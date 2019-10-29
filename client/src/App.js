@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import {
-  MainPage, Products, ProductDetails, NotFound, Search
+  MainPage, Products, ProductDetails, NotFound, Search,
 } from './components';
 
 import store from './store/index';
@@ -64,7 +64,6 @@ function App() {
     </Provider>
   );
 }
-
 
 
 export default App;

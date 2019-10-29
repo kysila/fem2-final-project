@@ -1,10 +1,16 @@
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import React from 'react';
+
 const SET_SEARCHVALUE = 'SET_SEARCHVALUE';
 const SET_SEARCHPRODUCTS = 'SET_SEARCHPRODUCTS';
 
 // Initial state
 const initialState = {
   searchValue: '',
-  searchProducts: [],
+  searchProducts: [<Grid item xs={12} sm={12} md={12} justify="center">
+    <Typography variant="h6" align="center" paragraph="true">No products were found based on search results</Typography>
+  </Grid>],
 };
 
 // ACTIONS
