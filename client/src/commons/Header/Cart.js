@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -71,7 +70,7 @@ export const Cart = (props) => {
       >
         <Box p={2}>
           <h3>Cart</h3>
-          <ProductCard itemImg="img/products/e-unicycles/1/01.jpg" />
+          <ProductCard itemImg="img/products/image31.png" />
         </Box>
       </Drawer>
 

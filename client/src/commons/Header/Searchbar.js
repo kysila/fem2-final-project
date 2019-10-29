@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SearchBar from 'material-ui-search-bar';
@@ -6,10 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { setSearchValue, setSearchProducts } from '../../store/search/searchReducer';
-import { ProductCard } from '../../components/ProductCard/ProductCard';
 
 const useStyles = makeStyles({
   search: {
@@ -25,13 +22,10 @@ const mapStateToProps = (state) => ({
 
 });
 
-const Search = (props) => {
+const Searches = (props) => {
   const classes = useStyles();
   const clear = '';
-  const clearArray = [<Grid item xs={12} sm={12} md={12} justify="center">
-    <Typography variant="h6" align="center" paragraph="true">No products were found based on search results</Typography>
-  </Grid>];
-  let searchResult = [];
+  const clearArray = [];
 
   const onRequestHandler = () => {
     const searchPhrases = {
@@ -40,20 +34,7 @@ const Search = (props) => {
     if (searchPhrases.query.length > 0) {
       axios.post('/products/search', searchPhrases)
         .then((result) => {
-          console.log(result.data);
-          searchResult = result.data.map((el) => (
-            <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
-              <ProductCard
-                className={classes.card}
-                name={el.name}
-                itemImg={el.imageUrls[0]}
-                price={el.currentPrice}
-                url={`products/${el.itemNo}`}
-                rating={el.rating}
-              />
-            </Grid>
-          ));
-          props.setSearchProducts(searchResult);
+          props.setSearchProducts(result.data);
           props.history.push('/search');
         })
         .catch((err) => {
@@ -80,4 +61,5 @@ const Search = (props) => {
   );
 };
 
-export default withRouter(connect(mapStateToProps, { setSearchValue, setSearchProducts })(Search));
+// eslint-disable-next-line max-len
+export default withRouter(connect(mapStateToProps, { setSearchValue, setSearchProducts })(Searches));
