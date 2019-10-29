@@ -46,7 +46,7 @@ export const Products = () => {
           name={el.name}
           itemImg={el.imageUrls[0]}
           price={el.currentPrice}
-          url={`products/${el.itemNo}`}
+          url={`/products/${el.itemNo}`}
           rating={el.rating}
         />
       </Grid>

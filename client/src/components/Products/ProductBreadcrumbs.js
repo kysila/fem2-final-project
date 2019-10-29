@@ -20,7 +20,7 @@ function handleClick(event) {
     alert('You clicked a breadcrumb.');
 }
 
-export default function ProductsBreadcrumbs() {
+export default function ProductsBreadcrumbs({link}) {
     const classes = useStyles();
 
     return (
@@ -34,6 +34,7 @@ export default function ProductsBreadcrumbs() {
                     {/*    All Products*/}
                     {/*</Link>*/}
                     <Typography color="textPrimary">All products</Typography>
+                    <Typography color="textPrimary">{link}</Typography>
                 </Breadcrumbs>
             </Paper>
 
