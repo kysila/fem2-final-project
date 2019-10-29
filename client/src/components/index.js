@@ -5,4 +5,4 @@ export { ProductDetails } from './Products/ProductDetails';
 export { ProductCard } from './ProductCard/ProductCard';
 export { NotFound } from './Notfound/NotFound';
 export { Title } from './Title/Title';
-export { Favorites } from './Favorites/Favorites';
+export { Favourites } from './Favourites/Favourites'
