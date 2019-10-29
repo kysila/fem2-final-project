@@ -9,6 +9,8 @@ import modalReducer from './modal/reducer';
 export const initialStore = {
   auth: { user: null, token: Cookie.get('auth') },
   modal: { opened: false, child: null },
+  filters: [],
+  selectedFilters: [],
   ...window.initialStore,
 };
 
