@@ -13,16 +13,17 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import '../MainCarousel/MainCarousel.css';
 
-export const Favourites = (props) => {
+export const Favorites = (props) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   let favoritesProducts;
 
   useEffect(() => {
-    axios.get('/products/rates/4.5').then((products) => {
+    axios.get('./products').then((data) => {
+      const products = data.data.filter((e) => e.rating >= 4.5);
       setLoading(false);
-      setList(products.data);
+      setList(products);
     });
   }, []);
 
@@ -47,7 +48,7 @@ export const Favourites = (props) => {
   };
 
   const carouselStyle = {
-    maxWidth: 920,
+    maxWidth: 690,
     margin: '50px auto',
   };
 
@@ -55,9 +56,11 @@ export const Favourites = (props) => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     initialSlide: 0,
+    // nextArrow: <SampleNextArrow />,
+    // prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -89,9 +92,8 @@ export const Favourites = (props) => {
   return (
     <section style={containerStyle}>
       <Title title="Choose from our Customer Favorites" />
-      <div
-        className="favor-slide-container"
-      >
+      <div className="favor-slide-container">
+
         <Slider
           {...settings}
           style={carouselStyle}
@@ -101,4 +103,4 @@ export const Favourites = (props) => {
       </div>
     </section>
   );
-};
+}

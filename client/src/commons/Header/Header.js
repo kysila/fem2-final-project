@@ -75,7 +75,6 @@ const useStyles = makeStyles(() => createStyles({
 
 }));
 
-
 const Header = (props) => {
   const classes = useStyles();
   const [cartIsOpen, setCartIsOpen] = useState(false);
