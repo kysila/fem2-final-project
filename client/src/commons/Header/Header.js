@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-
 import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
@@ -14,11 +13,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ArrowRightOutlinedIcon from '@material-ui/core/SvgIcon/SvgIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Drawer from '@material-ui/core/Drawer';
-import { Cart } from './Cart';
-import { NavBar } from './Navbar';
-import { Search } from './Searchbar';
-import { dispatchModalOpen } from '../../store/modal/actions';
 import { dispatchLogout } from '../../store/auth/actions';
+import { dispatchModalOpen } from '../../store/modal/actions';
+import Searches from './Searchbar';
+import { NavBar } from './Navbar';
+import { Cart } from './Cart';
 
 const useStyles = makeStyles(() => createStyles({
   appBar: {
@@ -68,15 +67,12 @@ const useStyles = makeStyles(() => createStyles({
     top: '0px',
     right: '0px',
     fontSize: '11px',
-    color: '#FFFFFF',
+    color: ' #FFFFFF ',
   },
   call: {
-    color: '#6A86E8',
+    color: ' #6A86E8 ',
   },
-  profileLink: {
-    cursor: 'pointer',
-    textDecoration: 'underline',
-  },
+
 }));
 
 const Header = (props) => {
@@ -103,9 +99,8 @@ const Header = (props) => {
                 <img src="img/logo.svg" alt="Logo" />
               </Link>
             </Box>
-
             <Box className={classes.input}>
-              <Search />
+              <Searches />
             </Box>
 
             {
@@ -150,16 +145,12 @@ function mapStateToProps(state) {
     user: state.auth.user,
   };
 }
-
 function mapDispatchToProps(dispatch) {
   return {
     openModal: (child) => dispatch(dispatchModalOpen(child)),
     logout: () => dispatch(dispatchLogout()),
   };
 }
-
 const ConnectHeader = connect(mapStateToProps, mapDispatchToProps)(Header);
 
-export {
-  ConnectHeader as Header,
-};
+export { ConnectHeader as Header };
