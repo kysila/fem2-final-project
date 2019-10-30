@@ -38,15 +38,6 @@ const useStyles = makeStyles(theme => ({
 		backgroundColor: theme.palette.background.paper,
 		width: 499,
 	},
-	'.MuiTab-textColorPrimary.Mui-selected': {
-		color: '#6A86E8'
-	},
-	'.MuiTabs-indicator': {
-		backgroundColor: '#6A86E8'
-	},
-	'.MuiPaper-root': {
-		boxShadow: 'none',
-	},
 	styledTabs: {
 
 	},

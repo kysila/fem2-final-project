@@ -50,6 +50,15 @@ const GlobalCss = withStyles({
       color: '#444444',
       fontSize: '14px',
     },
+    '.MuiTab-textColorPrimary.Mui-selected': {
+      color: '#6A86E8'
+    },
+    '.MuiTabs-indicator': {
+      backgroundColor: '#6A86E8'
+    },
+    '.MuiPaper-root': {
+      boxShadow: 'none',
+    },
   },
 })(() => null);
 
