@@ -6,9 +6,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import authReducer from './auth/reducer';
 import modalReducer from './modal/reducer';
-import filterReducer from './filter/reducers';
+import searchReducer from './search/searchReducer';
 
-import { getProductsThunk } from '../components/Products/Filter';
+import filterReducer from './filter/reducers';
 
 export const initialStore = {
   auth: { user: null, token: Cookie.get('auth') },
@@ -22,6 +22,7 @@ axios.defaults.headers.common.Authorization = Cookie.get('auth');
 const rootReducer = combineReducers({
   auth: authReducer,
   modal: modalReducer,
+  searchReducer,
   filter: filterReducer,
 
 });
