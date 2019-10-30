@@ -6,15 +6,11 @@ import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(() => ({
 	productGallery: {
+		marginBottom: 50,
 		border: '1px solid red',
-		width: 100,
+		width: 500,
 		height: 100,
 	},
-	test: {
-		display: 'block',
-		width: 100,
-		height: 100,
-	}
 }));
 
 export const ProductGallery = (props) => {

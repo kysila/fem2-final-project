@@ -44,6 +44,12 @@ const GlobalCss = withStyles({
     '.MuiCardMedia-root': {
       backgroundSize: 'contain',
     },
+    '.MuiTab-root': {
+      minWidth: 'auto',
+      padding: '6px 16.5px',
+      color: '#444444',
+      fontSize: '14px',
+    },
   },
 })(() => null);
 

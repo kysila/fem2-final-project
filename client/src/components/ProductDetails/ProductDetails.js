@@ -5,6 +5,7 @@ import { Header } from '../../commons';
 import StayInTouch from "../../commons/Footer/StayInTouch";
 
 import { ProductGallery } from "./ProductGallety";
+import { ProductDescription } from './ProductDescription'
 
 import {makeStyles} from "@material-ui/core";
 import Container from '@material-ui/core/Container';
@@ -18,6 +19,7 @@ const useStyles = makeStyles(() => ({
     paddingTop: '20px',
   },
   productPage: {
+    paddingTop: 20,
     display: 'flex',
   },
   productInfo: {
@@ -48,6 +50,7 @@ export const ProductDetails = (props) => {
         <div className={classes.productPage}>
           <div className={classes.productInfo}>
             <ProductGallery image={state.imageUrls}/>
+            <ProductDescription data={state} />
           </div>
         </div>
       </Container>
