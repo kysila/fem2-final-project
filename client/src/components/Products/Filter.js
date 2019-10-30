@@ -12,6 +12,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
+import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
 
 const mapStateToProps = (store) => {
   console.log(store);
@@ -21,7 +23,7 @@ const mapStateToProps = (store) => {
   };
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   filterBtn: {
     background: '#F5F5F5 !important',
     fontWeight: 600,
@@ -44,8 +46,11 @@ const useStyles = makeStyles((theme) => ({
   },
   filterForm: {
     width: '100%',
-    paddingTop: '53px',
+    paddingTop: '10px',
     paddingBottom: '53px',
+    '&>.MuiGrid-spacing-xs-3>.MuiGrid-item': {
+      paddingTop: '43px',
+    },
   },
   formControl: {
     padding: '7px 10px',
@@ -95,10 +100,6 @@ const useStyles = makeStyles((theme) => ({
 
   },
   applyBtnContainer: {
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
     textAlign: 'center',
     overflow: 'hidden',
     width: '100%',
@@ -106,7 +107,16 @@ const useStyles = makeStyles((theme) => ({
 
   },
 
-  filterSelect: {
+  priceLabel: {
+    color: '#888888',
+    fontSize: '11px',
+    lineHeight: '20px',
+    letterSpacing: '-0.02em',
+    textTransform: 'uppercase',
+    marginTop: '-30px',
+  },
+  colorItem: {
+    borderRadius: '50%',
   },
 
 
@@ -119,21 +129,63 @@ const categories = [
 const colors = [
   'red',
   'blue',
-  'green'
-]
+  'green',
+];
+const distances = [
+  '15 miles',
+  '10 miles',
+  '20 miles',
+];
+const speeds = [
+  '15mph',
+  '10mph',
+  '25mph',
+];
+const chargingTimes = [
+  '2 hrs',
+  '3-4 hrs',
+  '2-5 hrs',
+];
+function pricetext(value) {
+  return `$${value}`;
+}
 const Filter = () => {
   const classes = useStyles();
   // useEffect(() => {
   //
   // }, []);
   const [open, setOpen] = useState({ open: false });
-  const [category, setCategory] = React.useState([]);
+  const [category, setCategory] = useState([]);
+  const [distance, setDistance] = useState([]);
+  const [price, setPrice] = useState([100, 3000]);
+  const [maxSpeed, setMaxSpeed] = useState([]);
+  const [chargingTime, setChargingTime] = useState([]);
   const [color, setColor] = useState([]);
+
+  const handleFiltersClick = () => {
+    if (open.open) {
+      setOpen({ open: false });
+    } else {
+      setOpen({ open: true });
+    }
+  };
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
   };
+  const handleChangeDistance = (event) => {
+    setDistance(event.target.value);
+  };
+  const handleChangeMaxSpeed = (event) => {
+    setMaxSpeed(event.target.value);
+  };
+  const handleChangeChargingTime = (event) => {
+    setChargingTime(event.target.value);
+  };
   const handleChangeColor = (event) => {
     setColor(event.target.value);
+  };
+  const handleChangePrice = (event, newPrice) => {
+    setPrice(newPrice);
   };
 
 
@@ -157,35 +209,83 @@ const Filter = () => {
     }
     setColor(value);
   };
+  const handleChangeMultipleDistance = (event) => {
+    const { options } = event.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    setDistance(value);
+  };
+  const handleChangeMultipleChargingTime = (event) => {
+    const { options } = event.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    setChargingTime(value);
+  };
+  const handleChangeMultipleMaxSpeed = (event) => {
+    const { options } = event.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    setMaxSpeed(value);
+  };
 
   return (
     <div>
-      <Grid container spacing={3} className={classes.filterRow}>
+      <Grid container spacing={6} className={classes.filterRow}>
         <Grid item xs={6} sm={2} md={2}>
           <Button
             aria-controls="customized-menu"
             aria-haspopup="true"
             variant="contained"
             className={classes.filterBtn}
-            // onClick={handleClick}
+            onClick={handleFiltersClick}
           >
           Filter
           </Button>
         </Grid>
       </Grid>
+      {open.open && (
       <form
         autoComplete="off"
-        // onSubmit={setOpen(false)}
+        onSubmit={(event) => {
+          event.preventDefault();
+          setOpen({ open: false });
+        }}
         className={classes.filterForm}
       >
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={6}>
+          <Grid item xs={12} sm={6} md={4}>
+            <Typography id="range-slider" gutterBottom className={classes.priceLabel}>
+              Price
+            </Typography>
+            <Slider
+              value={price}
+              max={3000}
+              min={100}
+              step={50}
+              onChange={handleChangePrice}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+              getAriaValueText={pricetext}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.formControl}>
               <InputLabel id="category-select-label">Category</InputLabel>
               <Select
                 id="category-select"
                 multiple
-                className={classes.filterSelect}
                 value={category}
                 onChange={handleChangeCategory}
                 input={<Input />}
@@ -200,23 +300,85 @@ const Filter = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6} md={6}>
+
+          <Grid item xs={12} sm={6} md={4}>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="maxSpeed-select-label">MaxSpeed</InputLabel>
+              <Select
+                id="maxSpeed-select"
+                multiple
+                value={maxSpeed}
+                onChange={handleChangeMaxSpeed}
+                input={<Input />}
+                renderValue={(selected) => selected.join(', ')}
+              >
+                {speeds.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <Checkbox checked={maxSpeed.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="chargingTime-select-label">Charging Time</InputLabel>
+              <Select
+                id="chargingTime-select"
+                multiple
+                value={chargingTime}
+                onChange={handleChangeChargingTime}
+                input={<Input />}
+                renderValue={(selected) => selected.join(', ')}
+              >
+                {chargingTimes.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <Checkbox checked={chargingTime.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="distance-select-label">Distance</InputLabel>
+              <Select
+                id="distance-select"
+                multiple
+                value={distance}
+                onChange={handleChangeDistance}
+                input={<Input />}
+                renderValue={(selected) => selected.join(', ')}
+              >
+                {distances.map((name) => (
+                  <MenuItem key={name} value={name}>
+                    <Checkbox checked={distance.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.formControl}>
               <InputLabel id="color-select-label">Color</InputLabel>
               <Select
                 id="color-select"
                 multiple
-                className={classes.filterSelect}
                 value={color}
                 onChange={handleChangeColor}
                 input={<Input />}
                 renderValue={(selected) => selected.join(', ')}
               >
                 {colors.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    <Checkbox checked={color.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
-                  </MenuItem>
+                  <MenuItem
+                    key={name}
+                    value={name}
+                    className={classes.colorItem}
+                    style={{ backgroundColor: name }}
+                  />
                 ))}
               </Select>
             </FormControl>
@@ -228,11 +390,13 @@ const Filter = () => {
             align="center"
             className={classes.applyBtn}
           >
-          Apply Filters
+            Apply Filters
           </Button>
         </Box>
 
       </form>
+      )}
+
     </div>
   );
 };

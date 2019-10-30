@@ -61,6 +61,17 @@ const GlobalCss = withStyles({
     '.MuiInputBase-root': {
       fontFamily: "'Museo Sans 500'",
     },
+    '.MuiSlider-root': {
+      color: '#8F8DE2',
+    },
+    '.MuiGrid-spacing-xs-3': {
+      width: '100%',
+      margin: 'auto',
+    },
+    '.MuiGrid-spacing-xs-6 ': {
+      width: '100%',
+      margin: 'auto',
+    },
   },
 })(() => null);
 
