@@ -46,6 +46,19 @@ const GlobalCss = withStyles({
     '.MuiCardMedia-root': {
       backgroundSize: 'contain',
     },
+    '.MuiFormLabel-root': {
+      fontFamily: "'Museo Sans 500'",
+    },
+    '.MuiMenu-paper': {
+      maxHeight: '40vh',
+
+    },
+    '.sf-download-bar': {
+      fontFamily: "'Museo Sans 500'",
+    },
+    '.MuiInputBase-root': {
+      fontFamily: "'Museo Sans 500'",
+    },
   },
 })(() => null);
 
