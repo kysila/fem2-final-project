@@ -1,29 +1,36 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false;
-    setTimeout(cb, 100);
-  },
-};
+import '../../index.css';
 
-const Public = () => <h3>Public</h3>
 
-export const ClientProfile = () => {
+import { Header } from '../../commons';
+import StayInTouch from '../../commons/Footer/StayInTouch';
+
+export const ClientProfile = (props) => {
+
+  const [customerInfo, setCustomerInfo] = useState('customer');
+
+  useEffect(() => {
+    axios.get('/customers/customer')
+      .then((loggedInCustomer) => {
+        console.log(loggedInCustomer.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+  console.log(customerInfo);
+
+
   return (
-    <div>
-      React Router Course
-    </div>
+    <React.Fragment>
+      <Header callCenter="1-855-324-5387" />
+      <div>
+        Something will be here when designer finishes his work...
+      </div>
+      <StayInTouch />
+    </React.Fragment>
   );
 };

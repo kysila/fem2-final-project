@@ -4,8 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import Cookie from 'js-cookie';
 import {
-  MainPage, Products, ProductDetails, NotFound, Modal,
-// eslint-disable-next-line import/named
+  ClientProfile, MainPage, Products, ProductDetails, PrivateRoute,  NotFound, Modal,
+  // eslint-disable-next-line import/named
 } from './components';
 import './App.css';
 
@@ -50,6 +50,7 @@ const GlobalCss = withStyles({
   },
 })(() => null);
 
+
 function App() {
   if (Cookie.get('auth')) store.dispatch(dispatchGetCustomer());
   return (
@@ -59,6 +60,7 @@ function App() {
         <div className="App">
           <Switch>
             <Route path="/" exact component={MainPage} />
+            <Route path="/profile" exact component={ClientProfile} />
             <Route path="/products" exact component={Products} />
             <Route path="/products/:id" component={ProductDetails} />
             <Route path="/search" component={Search} />

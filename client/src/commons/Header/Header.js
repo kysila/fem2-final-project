@@ -76,6 +76,7 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 const Header = (props) => {
+  console.log('props', props); // TODO will be deleted before merge
   const classes = useStyles();
   const [cartIsOpen, setCartIsOpen] = useState(false);
 
@@ -110,16 +111,16 @@ const Header = (props) => {
                     {`Hello, ${props.user.firstName || props.user.login}`}
                   </Link>
                   <span> | </span>
-                  <a href="/logout" onClick={(e) => { e.preventDefault(); props.logout(); }}>
+                  <Link to="/logout" onClick={(e) => { e.preventDefault(); props.logout(); }}>
                     Logout
-                  </a>
+                  </Link>
                 </Box>
               ) : (
-                <Box className={classes.link}>
-                  <a href="/login" onClick={openLogin}>Login |</a>
-                  <a href="/register" onClick={openRegister}> Sign Up</a>
-                </Box>
-              )
+                  <Box className={classes.link}>
+                    <Link to="/login" onClick={openLogin}>Login |</Link>
+                    <Link to="/register" onClick={openRegister}> Sign Up</Link>
+                  </Box>
+                )
             }
             <Cart count={2} />
           </Box>
@@ -129,7 +130,7 @@ const Header = (props) => {
             </Box>
             <Box className={classes.call}>
               <p>
-                    Call or text us toll-free:
+                Call or text us toll-free:
                 {props.callCenter}
               </p>
             </Box>
