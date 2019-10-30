@@ -147,7 +147,7 @@ export function ProductCard({
             display="inline"
             component="h2"
           >
-						$4,010
+                        $4,010
           </Typography>
           <Typography
             className={classes.fontDesc}
@@ -189,8 +189,8 @@ export function ProductCard({
             <SvgIcon
               className="icon"
               style={{
-							  width: 30,
-							  height: 23,
+                width: 30,
+                height: 23,
               }}
               color="action"
             >
@@ -203,8 +203,8 @@ export function ProductCard({
             <SvgIcon
               className="icon"
               style={{
-							  width: 30,
-							  height: 23,
+                width: 30,
+                height: 23,
               }}
               color="action"
             >

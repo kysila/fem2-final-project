@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import axios from 'axios';
@@ -8,12 +8,10 @@ import Container from '@material-ui/core/Container';
 
 import Typography from '@material-ui/core/Typography';
 import { Header } from '../../commons';
-import Preloader from '../Preloader/Preloader';
 
 import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch';
 import { ProductCard } from '..';
-
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -36,6 +34,28 @@ const mapStateToProps = (state) => ({
 
 export const Search = connect(mapStateToProps)((props) => {
   const classes = useStyles();
+  let searchResult = [];
+  if (props.searchProducts.length) {
+    searchResult = props.searchProducts.map((el) => (
+      <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
+        <ProductCard
+          className={classes.card}
+          name={el.name}
+          itemImg={el.imageUrls[0]}
+          price={el.currentPrice}
+          url={`products/${el.itemNo}`}
+          rating={el.rating}
+        />
+      </Grid>
+    ));
+  } else {
+    searchResult = [
+      <Grid item xs={12} sm={12} md={12} justify="center">
+        <Typography variant="h6" align="center" paragraph="true">
+        No products were found based on search results
+        </Typography>
+      </Grid>];
+  }
   return (
     <React.Fragment>
       <Header />
@@ -51,7 +71,7 @@ export const Search = connect(mapStateToProps)((props) => {
         </Typography>
         <main>
           <Grid container spacing={0}>
-            {props.searchProducts}
+            {searchResult}
           </Grid>
         </main>
       </Container>

@@ -1,13 +1,17 @@
 import React from 'react';
-import './index.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
+import Cookie from 'js-cookie';
 import {
-  MainPage, Products, ProductDetails, NotFound, Search,
+  MainPage, Products, ProductDetails, NotFound, Modal,
+// eslint-disable-next-line import/named
 } from './components';
+import './App.css';
 
 import store from './store/index';
+import { dispatchGetCustomer } from './store/auth/actions';
+import { Search } from './components/Search/Search';
 
 const GlobalCss = withStyles({
   // @global is handled by jss-plugin-global.
@@ -43,10 +47,16 @@ const GlobalCss = withStyles({
     '.MuiCardMedia-root': {
       backgroundSize: 'contain',
     },
+    '.MuiButtonGroup-grouped': {
+      background: 'none',
+      padding: '2px',
+      color: '#444444',
+    }
   },
 })(() => null);
 
 function App() {
+  if (Cookie.get('auth')) store.dispatch(dispatchGetCustomer());
   return (
     <Provider store={store}>
       <Router>
@@ -60,10 +70,10 @@ function App() {
             <Route component={NotFound} />
           </Switch>
         </div>
+        <Modal />
       </Router>
     </Provider>
   );
 }
-
 
 export default App;

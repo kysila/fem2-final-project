@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-
 import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import Search from './Searchbar';
+import { dispatchLogout } from '../../store/auth/actions';
+import { dispatchModalOpen } from '../../store/modal/actions';
+import Searches from './Searchbar';
 import { NavBar } from './Navbar';
-import { Cart } from './Cart';
+import Cart from './Cart';
 
 const useStyles = makeStyles(() => createStyles({
   appBar: {
@@ -60,17 +62,26 @@ const useStyles = makeStyles(() => createStyles({
     top: '0px',
     right: '0px',
     fontSize: '11px',
-    color: '#FFFFFF',
+    color: ' #FFFFFF ',
   },
   call: {
-    color: '#6A86E8',
+    color: ' #6A86E8 ',
   },
 
 }));
 
-export const Header = (props) => {
+const Header = (props) => {
   const classes = useStyles();
   const [cartIsOpen, setCartIsOpen] = useState(false);
+
+  const openLogin = (e) => {
+    e.preventDefault();
+    props.openModal('login');
+  };
+  const openRegister = (e) => {
+    e.preventDefault();
+    props.openModal('register');
+  };
 
   return (
     <React.Fragment>
@@ -83,15 +94,28 @@ export const Header = (props) => {
                 <img src="img/logo.svg" alt="Logo" />
               </Link>
             </Box>
-
             <Box className={classes.input}>
-              <Search />
+              <Searches />
             </Box>
 
-            <Box className={classes.link}>
-              <Link to="/login">Login |</Link>
-              <Link to="/login"> Sign Up</Link>
-            </Box>
+            {
+              props.user ? (
+                <Box className={classes.link}>
+                  <Link className={classes.profileLink} to="/profile">
+                    {`Hello, ${props.user.firstName || props.user.login}`}
+                  </Link>
+                  <span> | </span>
+                  <a href="/logout" onClick={(e) => { e.preventDefault(); props.logout(); }}>
+                    Logout
+                  </a>
+                </Box>
+              ) : (
+                <Box className={classes.link}>
+                  <a href="/login" onClick={openLogin}>Login |</a>
+                  <a href="/register" onClick={openRegister}> Sign Up</a>
+                </Box>
+              )
+            }
             <Cart count={2} />
           </Box>
           <Box className={classes.container}>
@@ -100,16 +124,28 @@ export const Header = (props) => {
             </Box>
             <Box className={classes.call}>
               <p>
-Call or text us toll-free:
+                    Call or text us toll-free:
                 {props.callCenter}
               </p>
             </Box>
-
           </Box>
         </Container>
       </AppBar>
-
-
     </React.Fragment>
   );
 };
+
+function mapStateToProps(state) {
+  return {
+    user: state.auth.user,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    openModal: (child) => dispatch(dispatchModalOpen(child)),
+    logout: () => dispatch(dispatchLogout()),
+  };
+}
+const ConnectHeader = connect(mapStateToProps, mapDispatchToProps)(Header);
+
+export { ConnectHeader as Header };

@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { Header } from '../../commons';
-
+import ProductBreadcrumbs from './ProductBreadcrumbs';
 import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch';
 import Filter from './Filter';
@@ -35,7 +35,7 @@ export const Products = () => {
   const { state, setState } = useState({
     isDataFetching: false,
   });
-  console.log(state);
+
   let products;
   if (list.data) {
     products = list.data.map((el) => (
@@ -63,7 +63,7 @@ export const Products = () => {
     <>
       <Header callCenter="1-855-324-5387" />
       <Container maxWidth="md" className={classes.paddingTop}>
-
+        <ProductBreadcrumbs />
         <Title title="All products" />
         <Typography
           variant="body1"
@@ -71,7 +71,7 @@ export const Products = () => {
           align="center"
           className={classes.space}
         >
-                    Our full collection of electric devices
+          Our full collection of electric devices
         </Typography>
         <Filter />
         <main>

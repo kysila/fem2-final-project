@@ -4,26 +4,21 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import { Title } from '../Title/Title';
 import { ProductCard } from '../ProductCard/ProductCard';
-// import { SampleNextArrow } from './CarouselArrows/SampleNextArrow';
-// import { SamplePrevArrow } from './CarouselArrows/SamplePrevArrow';
 import Preloader from '../Preloader/Preloader';
 
-// import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+import './FavouriteCarousel.css';
 
-import '../MainCarousel/MainCarousel.css';
-
-export const Favorites = (props) => {
+export const Favourites = (props) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   let favoritesProducts;
 
   useEffect(() => {
-    axios.get('./products').then((data) => {
-      const products = data.data.filter((e) => e.rating >= 4.5);
+    axios.get('/products/rates/4.5').then((products) => {
       setLoading(false);
-      setList(products);
+      setList(products.data);
     });
   }, []);
 
@@ -48,7 +43,7 @@ export const Favorites = (props) => {
   };
 
   const carouselStyle = {
-    maxWidth: 690,
+    maxWidth: 920,
     margin: '50px auto',
   };
 
@@ -56,11 +51,9 @@ export const Favorites = (props) => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
-    // nextArrow: <SampleNextArrow />,
-    // prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -92,8 +85,8 @@ export const Favorites = (props) => {
   return (
     <section style={containerStyle}>
       <Title title="Choose from our Customer Favorites" />
-      <div className="favor-slide-container">
-
+      <div
+        className='favor-slide-container'>
         <Slider
           {...settings}
           style={carouselStyle}
