@@ -86,7 +86,7 @@ const Map = withGoogleMap((props) => (
 ));
 
 const ContactItem = (props = { icon: 'star', title: '', list: [] }) => (
-  <Box
+  <Container
     className={props.classes.item}
   >
     <Box>
@@ -116,7 +116,7 @@ const ContactItem = (props = { icon: 'star', title: '', list: [] }) => (
         }
       </Grid>
     </Box>
-  </Box>
+  </Container>
 );
 
 const Contacts = withTheme((props) => {
