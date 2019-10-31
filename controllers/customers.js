@@ -97,7 +97,7 @@ exports.loginCustomer = (req, res, next) => {
     .then(customer => {
       // Check for customer
       if (!customer) {
-        errors.loginOrEmail = "Customer not found";
+        errors.message = "Customer not found";
         return res.status(404).json(errors);
       }
 
@@ -124,7 +124,7 @@ exports.loginCustomer = (req, res, next) => {
             }
           );
         } else {
-          errors.password = "Password incorrect";
+          errors.message = "Password incorrect";
           return res.status(400).json(errors);
         }
       });
