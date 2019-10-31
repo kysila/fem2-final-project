@@ -7,14 +7,14 @@ import Container from '@material-ui/core/Container';
 
 import Typography from '@material-ui/core/Typography';
 import { ProductCard } from '../ProductCard/ProductCard';
-import { Header } from '../../commons';
-import ProductBreadcrumbs from './ProductBreadcrumbs';
+import { Footer, Header } from '../../commons';
+import AllBreadcrumbs from './AllBreadcrumbs';
 import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch';
 import Filter from './Filter';
 import Preloader from '../Preloader/Preloader';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   card: {
     marginBottom: 0,
     maxWidth: 'auto',
@@ -66,7 +66,7 @@ export const Products = () => {
       <React.Fragment>
         <Header callCenter="1-855-324-5387" />
         <Container maxWidth="md" className={classes.paddingTop}>
-          <ProductBreadcrumbs />
+          <AllBreadcrumbs />
           <Title title="All products" />
           <Typography
             variant="body1"
@@ -89,7 +89,7 @@ export const Products = () => {
     <React.Fragment>
       <Header callCenter="1-855-324-5387" />
       <Container maxWidth="md" className={classes.mainContainer}>
-        <ProductBreadcrumbs />
+        <AllBreadcrumbs />
         <Title title="All products" />
         <Typography
           variant="body1"
@@ -107,6 +107,7 @@ export const Products = () => {
         </main>
       </Container>
       <StayInTouch />
+      <Footer />
     </React.Fragment>
   );
 };

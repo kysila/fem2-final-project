@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
 }));
-export default function ProductsBreadcrumbs({ link }) {
+
+export default function AllBreadcrumbs() {
   const classes = useStyles();
 
   return (
@@ -27,10 +28,7 @@ export default function ProductsBreadcrumbs({ link }) {
           <Link href="/" className={classes.breadCrumbLink}>
           Homepage
           </Link>
-          <Link href="/products" className={classes.breadCrumbLink}>
-            All products
-          </Link>
-          <Typography color="textPrimary">{link}</Typography>
+          <Typography color="textPrimary">All products</Typography>
         </Breadcrumbs>
       </Paper>
 

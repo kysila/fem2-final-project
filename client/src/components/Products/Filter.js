@@ -1,5 +1,6 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,11 +16,13 @@ import Box from '@material-ui/core/Box';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 
-const mapStateToProps = (store) => {
-  console.log(store);
+import { getFilters } from '../../store/filter/actions';
+
+const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    filters: store.filters,
-    selectedFilters: store.selectedFilters,
+    filters: state.filters.colorFilters,
+    selectedFilters: state.filters.otherFilters,
   };
 };
 
@@ -116,6 +119,13 @@ const useStyles = makeStyles(() => ({
     marginTop: '-30px',
   },
   colorItem: {
+    margin: '10px 15px',
+    padding: '5px',
+    display: 'inline-flex',
+  },
+  colorDiv: {
+    width: '20px',
+    height: '20px',
     borderRadius: '50%',
   },
 
@@ -151,9 +161,7 @@ function pricetext(value) {
 }
 const Filter = () => {
   const classes = useStyles();
-  // useEffect(() => {
-  //
-  // }, []);
+
   const [open, setOpen] = useState({ open: false });
   const [category, setCategory] = useState([]);
   const [distance, setDistance] = useState([]);
@@ -166,6 +174,7 @@ const Filter = () => {
     if (open.open) {
       setOpen({ open: false });
     } else {
+      getFilters();
       setOpen({ open: true });
     }
   };
@@ -270,12 +279,13 @@ const Filter = () => {
               Price
             </Typography>
             <Slider
+
               value={price}
               max={3000}
               min={100}
               step={50}
               onChange={handleChangePrice}
-              valueLabelDisplay="auto"
+              valueLabelDisplay="on"
               aria-labelledby="range-slider"
               getAriaValueText={pricetext}
             />
@@ -374,11 +384,16 @@ const Filter = () => {
               >
                 {colors.map((name) => (
                   <MenuItem
+                    button
                     key={name}
                     value={name}
                     className={classes.colorItem}
-                    style={{ backgroundColor: name }}
-                  />
+                  >
+                    <div
+                      className={classes.colorDiv}
+                      style={{ backgroundColor: name }}
+                    />
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>

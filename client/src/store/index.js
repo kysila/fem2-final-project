@@ -8,12 +8,17 @@ import authReducer from './auth/reducer';
 import modalReducer from './modal/reducer';
 import searchReducer from './search/searchReducer';
 
-import filterReducer from './filter/reducers';
+import filters from './filter/reducers';
 
 export const initialStore = {
   auth: { user: null, token: Cookie.get('auth') },
   modal: { opened: false, child: null },
-  filter: { filters: [], selectedFilters: [] },
+  filters: {
+    isFilterFetching: false,
+    colorFilters: [],
+    otherFilters: [],
+    errorMsg: '',
+  },
   ...window.initialStore,
 };
 
@@ -23,7 +28,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   modal: modalReducer,
   searchReducer,
-  filter: filterReducer,
+  filters,
 
 });
 
