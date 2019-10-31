@@ -13,7 +13,6 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import '../MainCarousel/MainCarousel.css';
 
-
 export const Favorites = (props) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);

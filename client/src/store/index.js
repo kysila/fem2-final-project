@@ -1,11 +1,25 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import authReducer from './auth/reducer';
+import axios from 'axios';
+import Cookie from 'js-cookie';
 
-export const initialStore = { auth: { user: null }, ...window.initialStore };
+import authReducer from './auth/reducer';
+import modalReducer from './modal/reducer';
+import searchReducer from './search/searchReducer';
+
+
+export const initialStore = {
+  auth: { user: null, token: Cookie.get('auth') },
+  modal: { opened: false, child: null },
+  ...window.initialStore,
+};
+
+axios.defaults.headers.common.Authorization = Cookie.get('auth');
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  modal: modalReducer,
+  searchReducer,
 });
 
 export default createStore(rootReducer, initialStore, applyMiddleware(thunk));

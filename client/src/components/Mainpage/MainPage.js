@@ -9,7 +9,6 @@ import { Categories } from '../Categories/Categories';
 import { Contacts } from './Contacts';
 import StayInTouch from '../../commons/Footer/StayInTouch';
 
-
 export const MainPage = (props) => (
   <React.Fragment>
     <Header callCenter="1-855-324-5387" />
