@@ -12,7 +12,7 @@ import { dispatchLogout } from '../../store/auth/actions';
 import { dispatchModalOpen } from '../../store/modal/actions';
 import Searches from './Searchbar';
 import { NavBar } from './Navbar';
-import Cart from './Cart';
+import Cart from './Cart/Cart';
 
 const useStyles = makeStyles(() => createStyles({
   appBar: {
