@@ -138,8 +138,8 @@ export const NavBar = (props) => {
         </Link>
         <Link component="button" variant="body2" underline="none" className={classes.menuItem}>
                     Contact
-        </Link>
-      </Box>
-    </React.Fragment>
-  );
+                </Link>
+            </Box>
+        </React.Fragment>
+    )
 };

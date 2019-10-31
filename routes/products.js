@@ -99,4 +99,9 @@ router.post('/search', searchProducts);
 // @access  Public
 router.get('/:itemNo', getProductById);
 
+// @route   GET /products/:id
+// @desc    GET existing product by id
+// @access  Public
+router.get("/:itemNo", getProductById);
+
 module.exports = router;

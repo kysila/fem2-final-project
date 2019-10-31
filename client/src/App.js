@@ -51,7 +51,7 @@ const GlobalCss = withStyles({
       background: 'none',
       padding: '2px',
       color: '#444444',
-    }
+    },
   },
 })(() => null);
 
