@@ -47,6 +47,11 @@ const GlobalCss = withStyles({
     '.MuiCardMedia-root': {
       backgroundSize: 'contain',
     },
+    '.MuiButtonGroup-grouped': {
+      background: 'none',
+      padding: '2px',
+      color: '#444444',
+    },
   },
 })(() => null);
 

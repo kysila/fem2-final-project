@@ -150,12 +150,12 @@ const Cart = (props) => {
             <Grid item classes={{ root: classes.btn_grey }}>
 
               <Button fullWidth classes={{ root: classes.btn_grey }}>
-                                Continue Shopping
+                Continue Shopping
               </Button>
             </Grid>
             <Grid item>
               <Button fullWidth classes={{ root: classes.btn_main }}>
-                                CheCkout now
+                CheCkout now
               </Button>
             </Grid>
           </Grid>

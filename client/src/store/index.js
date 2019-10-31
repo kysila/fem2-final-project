@@ -6,6 +6,7 @@ import Cookie from 'js-cookie';
 import authReducer from './auth/reducer';
 import modalReducer from './modal/reducer';
 import searchReducer from './search/searchReducer';
+import cartReducer from './cart/cartReducer';
 
 
 export const initialStore = {
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   modal: modalReducer,
   searchReducer,
+  cartReducer,
 });
 
 export default createStore(rootReducer, initialStore, applyMiddleware(thunk));
