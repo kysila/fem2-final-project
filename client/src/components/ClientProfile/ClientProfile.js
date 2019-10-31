@@ -5,10 +5,8 @@ import '../../index.css';
 
 
 import { Header } from '../../commons';
-import StayInTouch from '../../commons/Footer/StayInTouch';
 
 export const ClientProfile = (props) => {
-
   const [customerInfo, setCustomerInfo] = useState('customer');
 
   useEffect(() => {
@@ -30,7 +28,6 @@ export const ClientProfile = (props) => {
       <div>
         Something will be here when designer finishes his work...
       </div>
-      <StayInTouch />
     </React.Fragment>
   );
 };
