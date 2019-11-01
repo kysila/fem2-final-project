@@ -1,6 +1,47 @@
+import React from 'react';
 import axios from 'axios';
+import Cookie from 'js-cookie';
+import CloseIcon from '@material-ui/icons/Close';
 import { ACTIONS } from './reducer';
 import { GET_CUSTOMER, LOGIN, REGISTER } from '../../axios/endpoints';
+import { enqueueSnackbar, closeSnackbar } from '../notification/actions';
+import { modalOpen, modalClose } from '../modal/actions';
+
+export function logout() {
+  return {
+    type: ACTIONS.GET_CUSTOMER_INFO,
+  };
+}
+
+export function dispatchLogout() {
+  return (dispatch) => {
+    dispatch(logout());
+    Cookie.remove('auth');
+    axios.defaults.headers.common.Authorization = null;
+    window.history.pushState(null, null, '/');
+  };
+}
+
+export function getCustomer(payload) {
+  return {
+    type: ACTIONS.GET_CUSTOMER_INFO,
+    payload,
+  };
+}
+
+export function dispatchGetCustomer() {
+  return (dispatch) => {
+    axios.get(GET_CUSTOMER)
+      .then(({ data }) => {
+        dispatch(getCustomer(data));
+      })
+      .catch((err) => {
+        dispatch(dispatchLogout());
+        console.log(err);
+        // TODO: Show error notification
+      });
+  };
+}
 
 export function login(payload) {
   return {
@@ -9,15 +50,26 @@ export function login(payload) {
   };
 }
 
-export function dispatchLogin(data) {
+export function dispatchLogin(payload) {
   return (dispatch) => {
-    axios.post(LOGIN, data)
-      .then((data) => {
+    axios.post(LOGIN, payload)
+      .then(({ data }) => {
+        Cookie.set('auth', data.token);
+        axios.defaults.headers.common.Authorization = data.token;
         dispatch(login(data));
+        dispatch(modalClose());
+        dispatch(dispatchGetCustomer());
       })
       .catch((err) => {
-        console.log(err);
-        // TODO: Show error notification
+        dispatch(enqueueSnackbar({
+          message: err.response.data.message,
+          options: {
+            variant: 'error',
+            action: (key) => (
+              <CloseIcon style={{ cursor: 'pointer' }} onClick={() => dispatch(closeSnackbar(key))} />
+            ),
+          },
+        }));
       });
   };
 }
@@ -29,47 +81,23 @@ export function register(payload) {
   };
 }
 
-export function dispatchRegister(data) {
+export function dispatchRegister(payload) {
   return (dispatch) => {
-    axios.post(REGISTER, data)
-      .then((data) => {
+    axios.post(REGISTER, payload, { withCredentials: true, headers: { 'Access-Control-Allow-Origin': '*' } })
+      .then(({ data }) => {
         dispatch(register(data));
+        dispatch(modalOpen('login'));
       })
       .catch((err) => {
-        console.log(err);
-        // TODO: Show error notification
+        dispatch(enqueueSnackbar({
+          message: err.response.data.message,
+          options: {
+            variant: 'error',
+            action: (key) => (
+              <CloseIcon style={{ cursor: 'pointer' }} onClick={() => dispatch(closeSnackbar(key))} />
+            ),
+          },
+        }));
       });
-  };
-}
-
-export function getCustomer(payload) {
-  return {
-    type: ACTIONS.GET_CUSTOMER_INFO,
-    payload,
-  };
-}
-
-export function dispatchGetCustomer(data) {
-  return (dispatch) => {
-    axios.post(GET_CUSTOMER, data)
-      .then((data) => {
-        dispatch(getCustomer(data));
-      })
-      .catch((err) => {
-        console.log(err);
-        // TODO: Show error notification
-      });
-  };
-}
-
-export function logout() {
-  return {
-    type: ACTIONS.GET_CUSTOMER_INFO,
-  };
-}
-
-export function dispatchLogout() {
-  return (dispatch) => {
-    dispatch(logout());
   };
 }

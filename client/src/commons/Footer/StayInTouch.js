@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -94,7 +95,6 @@ const StayInTouch = () => {
 
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <section className={classes.blueBG}>
       <Container maxWidth="md">
         <SubsectionTitle color="#6A86E8" title="Stay in touch" />
