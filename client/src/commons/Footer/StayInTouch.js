@@ -94,7 +94,6 @@ export const StayInTouch = () => {
     });
   };
 
-
   const formValidator = (value) => {
     const emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     if (!emailValid) {
