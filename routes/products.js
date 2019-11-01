@@ -83,6 +83,9 @@ router.put(
 router.get('/', getProducts);
 
 router.get('/rates/:rate', getProductsByRate);
+router.get('/', getProducts);
+
+router.get('/rates/:rate', getProductsByRate);
 
 // @route   GET /products/filter
 // @desc    GET appropriate filtered products
