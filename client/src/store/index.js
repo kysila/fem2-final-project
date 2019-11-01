@@ -2,12 +2,14 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import Cookie from 'js-cookie';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import modalReducer from './modal/reducer';
 import authReducer from './auth/reducer';
+import modalReducer from './modal/reducer';
 import notificationReducer from './notification/reducer';
 import searchReducer from './search/searchReducer';
 import cartReducer from './cart/cartReducer';
+import filters from './filter/reducers';
 
 export const initialStore = {
   auth: { user: null, token: Cookie.get('auth') },
@@ -23,7 +25,12 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   notification: notificationReducer,
   searchReducer,
+  filters,
   cartReducer,
 });
 
-export default createStore(rootReducer, initialStore, applyMiddleware(thunk));
+export default createStore(
+  rootReducer,
+  initialStore,
+  composeWithDevTools(applyMiddleware(thunk)),
+);

@@ -84,14 +84,11 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    linkItem: {
-      type: String,
-    },
     rating: {
       type: Number,
       required: true,
-      default: 0,
-    },
+      default: 0
+    }
   },
   { strict: false },
 );

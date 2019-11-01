@@ -19,6 +19,7 @@ const GlobalCss = withStyles({
     body: {
       fontFamily: "'Museo Sans 500'",
       color: '#444444',
+      backgroundColor: '#fff',
     },
 
     a: {
@@ -46,6 +47,49 @@ const GlobalCss = withStyles({
     },
     '.MuiCardMedia-root': {
       backgroundSize: 'contain',
+    },
+    '.MuiFormLabel-root': {
+      fontFamily: "'Museo Sans 500'",
+    },
+    '.MuiMenu-paper': {
+      maxHeight: '40vh',
+
+    },
+    '.sf-download-bar': {
+      fontFamily: "'Museo Sans 500'",
+    },
+    '.MuiInputBase-root': {
+      fontFamily: "'Museo Sans 500'",
+    },
+    '.MuiSlider-root': {
+      color: '#8F8DE2',
+      padding: '50px 0 0',
+    },
+    '.MuiSlider-valueLabel': {
+      transform: 'scale(1) translate(3px, -10px)',
+    },
+    '.MuiSlider-valueLabel>span': {
+      background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%) !important',
+      width: '25px',
+      height: '25px',
+      fontSize: '10px',
+    },
+    '.MuiGrid-spacing-xs-3': {
+      width: '100%',
+      margin: 'auto',
+    },
+    '.MuiGrid-spacing-xs-6 ': {
+      width: '100%',
+      margin: 'auto',
+    },
+    '.MuiListItemText-root': {
+      fontFamily: "'Museo Sans 500'",
+    },
+    '.MuiPopover-paper': {
+      minWidth: '20vw !important',
+    },
+    '.Mui-selected': {
+      boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.05)',
     },
     '.MuiButtonGroup-grouped': {
       background: 'none',
