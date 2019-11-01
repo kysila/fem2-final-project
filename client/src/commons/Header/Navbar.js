@@ -12,6 +12,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import TollIcon from '@material-ui/icons/Toll';
+import Modal from "@material-ui/core/Modal";
 
 
 const useStyles = makeStyles(() => createStyles({
@@ -101,7 +102,12 @@ export const NavBar = (props) => {
           paper: classes.paper,
         }}
         open={menuIsOpen}
-
+        BackdropProps={{
+          style: {
+            background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
+            opacity: '0.5',
+          },
+        }}
         onClose={(menuIsOpen) => {
           setMenuIsOpen(false);
         }}
@@ -132,8 +138,8 @@ export const NavBar = (props) => {
         </Link>
         <Link component="button" variant="body2" underline="none" className={classes.menuItem}>
                     Contact
-        </Link>
-      </Box>
-    </React.Fragment>
-  );
+                </Link>
+            </Box>
+        </React.Fragment>
+    )
 };

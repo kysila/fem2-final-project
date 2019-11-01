@@ -2,22 +2,17 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ArrowRightOutlinedIcon from '@material-ui/core/SvgIcon/SvgIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Drawer from '@material-ui/core/Drawer';
+
 import { dispatchLogout } from '../../store/auth/actions';
 import { dispatchModalOpen } from '../../store/modal/actions';
 import Searches from './Searchbar';
 import { NavBar } from './Navbar';
-import { Cart } from './Cart';
+import Cart from './Cart/Cart';
 
 const useStyles = makeStyles(() => createStyles({
   appBar: {

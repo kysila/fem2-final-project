@@ -17,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
 }));
-export default function ProductsBreadcrumbs({ link }) {
+
+export default function AllBreadcrumbs() {
   const classes = useStyles();
 
   return (
@@ -25,15 +26,28 @@ export default function ProductsBreadcrumbs({ link }) {
       <Paper elevation={0} className={classes.paper}>
         <Breadcrumbs separator="›" aria-label="breadcrumb">
           <Link href="/" className={classes.breadCrumbLink}>
-          Homepage
+            Homepage
           </Link>
-          <Link href="/products" className={classes.breadCrumbLink}>
-            All products
-          </Link>
-          <Typography color="textPrimary">{link}</Typography>
+          <Typography color="textPrimary">Profile</Typography>
         </Breadcrumbs>
       </Paper>
-
     </div>
   );
+}
+
+export const SideBreadcrumbs = () => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Paper elevation={0} className={classes.paper}>
+        <Breadcrumbs separator="›" aria-label="breadcrumb">
+          <Link href="/" className={classes.breadCrumbLink}>
+            Homepage
+          </Link>
+          <Typography color="textPrimary">Profile</Typography>
+        </Breadcrumbs>
+      </Paper>
+    </div>
+  )
 }

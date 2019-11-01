@@ -17,10 +17,12 @@ import {
 } from '@material-ui/core';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import CloseIcon from '@material-ui/icons/Close';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import CloseIcon from '@material-ui/icons/Close';
+
 import { dispatchLogin } from '../../store/auth/actions';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
+import { enqueueSnackbar } from '../../store/notification/actions';
 
 import { useStyles } from './styles';
 import Tungsten from '../../fonts/Tungsten-Book.woff';
@@ -94,12 +96,12 @@ function LoginForm(props) {
 
   const validate = () => {
     if (!state.loginOrEmail.trim()) {
-      // TODO:  Input notification about error
+      props.warning('Login or email input should be filled.');
       return false;
     }
 
     if (!state.password.trim() || state.password.trim().length < 8) {
-      // TODO:  Input notification about error
+      props.warning('Password should be at least 8 chars.');
       return false;
     }
 
@@ -113,9 +115,7 @@ function LoginForm(props) {
   const onSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
-      // TODO: send request onSubmit
       props.login(state);
-      props.closeModal();
     }
   };
 
@@ -332,6 +332,7 @@ const mapDispatchToProps = (dispatch) => ({
   login: (data) => dispatch(dispatchLogin(data)),
   registerModal: () => dispatch(dispatchModalOpen('register')),
   closeModal: () => dispatch(dispatchModalClose()),
+  warning: (message) => dispatch(enqueueSnackbar({ message, options: { variant: 'warning', preventDuplicate: true } })),
 });
 
 const ConnectLoginForm = withTheme(connect(mapStateToProps, mapDispatchToProps)(LoginForm));

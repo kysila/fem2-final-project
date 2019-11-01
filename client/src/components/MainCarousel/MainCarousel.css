@@ -1,5 +1,13 @@
 .main-Carousel .slick-slider {
   margin: 0 auto 50px;
+  background: linear-gradient(
+    180deg,
+    rgba(106, 134, 232, 0.08) 0%,
+    rgba(106, 134, 232, 0.08) 100%
+  );
+}
+.main-Carousel .slide-container {
+  outline: none;
 }
 
 .main-Carousel .variable-width .slick-slide p {
@@ -34,9 +42,15 @@
 
 .main-Carousel .slick-slide img {
   float: right;
-  border: 5px solid #fff;
   width: 40%;
   height: 500px;
+}
+@media (max-width: 480px) {
+  .main-Carousel .slick-slide img {
+    float: none;
+    width: 100%;
+    margin: 10px auto 0 auto;
+  }
 }
 
 .main-Carousel .slick-slide img.slick-loading {
@@ -44,6 +58,7 @@
 }
 
 .main-Carousel .slick-dots {
+  position: static;
   margin-left: 0;
 }
 
@@ -75,27 +90,61 @@
 }
 
 .main-Carousel .slide-information {
-  width: 40%;
-  margin-left: 200px;
+  width: 50%;
   margin-top: 170px;
+  margin-left: 100px;
   display: block;
 }
+
 .main-Carousel .slick-description {
-  font-size: 3rem;
+  width: 100%;
+  font-size: 3.5rem;
   text-transform: capitalize;
   color: #6a86e8;
 }
 .main-Carousel .slick-information__explanation {
-  width: 417px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 0 5px;
   font-size: 1rem;
-  margin: 0;
 }
+
+@media (max-width: 768px) {
+  .main-Carousel .slide-information {
+    margin-top: 57px;
+    margin-left: 40px;
+  }
+
+  .main-Carousel .slick-description {
+    width: 100%;
+    font-size: 3rem;
+  }
+
+  .main-Carousel .slick-information__explanation {
+    width: 100%;
+    margin-top: 15px;
+    padding: 0;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-Carousel .slide-information {
+    margin: 20px;
+  }
+  .main-Carousel .slick-description {
+    width: 100%;
+    text-align: center;
+    font-size: 2.3rem;
+  }
+}
+
 /*BUTTONS for carousel*/
 
 .main-Carousel .slick-prev {
   position: absolute;
   display: block;
-  left: 112px;
+  left: 4vw;
   top: 237px;
   width: 48px;
   height: 48px;
@@ -139,7 +188,7 @@
 .main-Carousel .slick-next {
   position: absolute;
   display: block;
-  right: 112px;
+  right: 4vw;
   top: 237px;
   width: 48px;
   height: 48px;
