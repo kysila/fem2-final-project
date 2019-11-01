@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import SubsectionTitle from '../../components/Mainpage/SubsectionTitle';
-// import Subscriber from './Subscribe';
+import SubscribeLetter from './SubscribeLetter';
 
 const useStyles = makeStyles((theme) => ({
   blueBG: {
@@ -49,50 +51,92 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StayInTouch = () => {
+export const StayInTouch = () => {
   const classes = useStyles();
   const [mail, setMail] = useState('');
+  const [formError, setFormError] = useState(false);
+
+  const MySwal = withReactContent(Swal);
+
+  const showSwalSuccess = () => {
+    MySwal.fire({
+      title: <p>Thank You!</p>,
+      html: <p>You Have Successfully Subscribed</p>,
+      type: 'success',
+      confirmButtonColor: '#6A86E8',
+      onClose: () => {
+        window.location = '/';
+      },
+    });
+  };
+
+  const showSwalFailed = () => {
+    MySwal.fire({
+      title: <p>We are sorry!</p>,
+      html: <p>You Already Subscribed</p>,
+      type: 'warning',
+      confirmButtonColor: '#6A86E8',
+      onClose: () => {
+        window.location = '/';
+      },
+    });
+  };
+
+  const showSwalValidatorError = () => {
+    MySwal.fire({
+      title: <p>Sorry!</p>,
+      html: <p>Introduced Email is Incorrect</p>,
+      type: 'error',
+      confirmButtonColor: '#6A86E8',
+      onClose: () => {
+        setMail('');
+      },
+    });
+  };
+
+
+  const formValidator = (value) => {
+    const emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    if (!emailValid) {
+      setFormError(true);
+    } else {
+      setFormError(false);
+    }
+  };
 
   const onChangeHandle = (e) => {
     console.log(e.target.value);
     setMail(e.target.value);
+    formValidator(e.target.value);
   };
-
-  const mailBody = `<!DOCTYPE html> <html lang='en'><head> <meta charset='UTF-8' /> <meta name='viewport' content='width=device-width, initial-scale=1.0' /> <meta http-equiv='X-UA-Compatible' content='ie=edge' />
-        <title>Document</title>
-        <style> td { padding: 20px 50px; background-color: yellow; color: blueviolet; font-size: 20px; } </style> </head> <body>
-        <table>
-             <tr>
-                <td>
-                    <h1>Wellcome!</h1>
-                    <span>We are glad to see you in our store!</span>
-
-                </td>
-             </tr>
-         </table>
-         </body></html>`;
 
   const newSubscriber = {
     email: mail,
     letterSubject: 'Congratulations! You are new member of our community',
-    letterHtml: mailBody,
+    letterHtml: SubscribeLetter(),
   };
 
-
-  console.log(mail);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post('/subscribers', newSubscriber)
-      .then((subscriber) => {
-        console.log(subscriber);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!formError) {
+      axios
+        .post('/subscribers', newSubscriber)
+        .then((subscriber) => {
+          setMail('');
+          showSwalSuccess();
+        })
+        .catch((err) => {
+          if (err.response.status === 400) {
+            showSwalFailed();
+          }
+          console.log(err);
+        });
+    } else {
+      showSwalValidatorError();
+      setMail('');
+    }
   };
-
 
   return (
   // eslint-disable-next-line react/jsx-filename-extension
@@ -114,6 +158,7 @@ const StayInTouch = () => {
             margin="normal"
             variant="outlined"
             fullWidth
+            error={formError}
           />
           <Button type="submit" className={classes.subscribeBtn}>
             <svg className={classes.subscribeIcon} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

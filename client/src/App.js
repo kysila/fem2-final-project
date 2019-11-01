@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import {
   MainPage, Products, ProductDetails, NotFound,
 } from './components';
+import Unsubscribe from './components/Unsubscribe/Unsubscribe';
 
 import './App.css';
 
@@ -57,6 +58,7 @@ function App() {
             <Route path="/" exact component={MainPage} />
             <Route path="/products" exact component={Products} />
             <Route path="/products/:id" component={ProductDetails} />
+            <Route path="/unsubscribe" component={Unsubscribe} />
             <Route component={NotFound} />
           </Switch>
         </div>
