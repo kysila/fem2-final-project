@@ -1,5 +1,3 @@
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import React from 'react';
 
 const SET_SEARCHVALUE = 'SET_SEARCHVALUE';

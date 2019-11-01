@@ -1,7 +1,11 @@
+import React from 'react';
 import axios from 'axios';
 import Cookie from 'js-cookie';
+import CloseIcon from '@material-ui/icons/Close';
 import { ACTIONS } from './reducer';
 import { GET_CUSTOMER, LOGIN, REGISTER } from '../../axios/endpoints';
+import { enqueueSnackbar, closeSnackbar } from '../notification/actions';
+import { modalOpen, modalClose } from '../modal/actions';
 
 export function logout() {
   return {
@@ -53,11 +57,19 @@ export function dispatchLogin(payload) {
         Cookie.set('auth', data.token);
         axios.defaults.headers.common.Authorization = data.token;
         dispatch(login(data));
+        dispatch(modalClose());
         dispatch(dispatchGetCustomer());
       })
       .catch((err) => {
-        console.log(err);
-        // TODO: Show error notification
+        dispatch(enqueueSnackbar({
+          message: err.response.data.message,
+          options: {
+            variant: 'error',
+            action: (key) => (
+              <CloseIcon style={{ cursor: 'pointer' }} onClick={() => dispatch(closeSnackbar(key))} />
+            ),
+          },
+        }));
       });
   };
 }
@@ -74,10 +86,18 @@ export function dispatchRegister(payload) {
     axios.post(REGISTER, payload, { withCredentials: true, headers: { 'Access-Control-Allow-Origin': '*' } })
       .then(({ data }) => {
         dispatch(register(data));
+        dispatch(modalOpen('login'));
       })
       .catch((err) => {
-        console.log(err);
-        // TODO: Show error notification
+        dispatch(enqueueSnackbar({
+          message: err.response.data.message,
+          options: {
+            variant: 'error',
+            action: (key) => (
+              <CloseIcon style={{ cursor: 'pointer' }} onClick={() => dispatch(closeSnackbar(key))} />
+            ),
+          },
+        }));
       });
   };
 }
