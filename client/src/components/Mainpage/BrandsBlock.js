@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container';
 
 import Typography from '@material-ui/core/Typography';
 import { brandImg } from '../../img/brands';
-// import {brandImg} from '/img/brands';
 
 import SubsectionTitle from './SubsectionTitle';
 
@@ -75,8 +74,6 @@ const BrandsBlock = () => {
             </Grid>
 
           </Grid>
-
-
         </div>
       </Container>
     </section>

@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import SubsectionTitle from '../../components/Mainpage/SubsectionTitle';
-import SubscribeLetter from './SubscribeLetter';
 
 const useStyles = makeStyles((theme) => ({
   blueBG: {
@@ -93,7 +92,6 @@ export const StayInTouch = () => {
       },
     });
   };
-
 
   const formValidator = (value) => {
     const emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
