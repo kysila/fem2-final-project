@@ -99,6 +99,8 @@ const CartItem = (props) => {
           </p>
         </Grid>
       </Grid>
+
+
     </Paper>
   );
 };

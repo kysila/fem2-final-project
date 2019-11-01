@@ -27,6 +27,7 @@ const Counter = (props) => {
     <ButtonGroup variant="contained" size="small">
       <Button> - </Button>
       <Button variant="text">
+          {/* eslint-disable-next-line max-len */}
         <Input defaultValue={props.count} classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
       </Button>
       <Button> + </Button>

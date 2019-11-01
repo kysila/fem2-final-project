@@ -7,6 +7,7 @@ import Cookie from 'js-cookie';
 import {
   MainPage, Products, ProductDetails, NotFound, Modal, Notifier,
 } from './components';
+import Unsubscribe from "./components/Unsubscribe/Unsubscribe";
 import { Search } from './components/Search/Search';
 import './App.css';
 
@@ -95,6 +96,21 @@ const GlobalCss = withStyles({
       background: 'none',
       color: '#444444',
     },
+    '.MuiTab-root': {
+      minWidth: 'auto',
+      padding: '6px 16.5px',
+      color: '#444444',
+      fontSize: '14px',
+    },
+    '.MuiTab-textColorPrimary.Mui-selected': {
+      color: '#6A86E8'
+    },
+    '.MuiTabs-indicator': {
+      backgroundColor: '#6A86E8'
+    },
+    '.MuiPaper-root': {
+      boxShadow: 'none',
+    },
   },
 })(() => null);
 
@@ -119,6 +135,7 @@ function App() {
               <Route path="/products/:id" component={ProductDetails} />
               <Route path="/search" component={Search} />
               <Route component={NotFound} />
+              <Route path="/unsubscribe" components={Unsubscribe} />
             </Switch>
           </div>
         </Router>
