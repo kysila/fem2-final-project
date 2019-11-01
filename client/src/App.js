@@ -7,6 +7,7 @@ import Cookie from 'js-cookie';
 import {
   MainPage, Products, ProductDetails, NotFound, Modal, Notifier,
 } from './components';
+import Unsubscribe from "./components/Unsubscribe/Unsubscribe";
 import { Search } from './components/Search/Search';
 import './App.css';
 
@@ -134,6 +135,7 @@ function App() {
               <Route path="/products/:id" component={ProductDetails} />
               <Route path="/search" component={Search} />
               <Route component={NotFound} />
+              <Route path="/unsubscribe" components={Unsubscribe} />
             </Switch>
           </div>
         </Router>
