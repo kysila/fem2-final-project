@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => createStyles({
     // disableRipple: 'true',
     // disableFocusRipple: 'true',
     maxWidth: '40px',
-    paddingLeft: '35%',
+    paddingLeft: '25%',
     fontSize: '13px',
   },
 
@@ -26,9 +26,11 @@ const useStyles = makeStyles(() => createStyles({
 const Counter = (props) => {
   const classes = useStyles();
   return (
-    <ButtonGroup variant="contained" size="small" >
+    <ButtonGroup variant="contained" size="small">
       <Button> - </Button>
-      <Input defaultValue="1" classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
+      <Button variant="text">
+        <Input defaultValue="1" classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
+      </Button>
       <Button> + </Button>
     </ButtonGroup>
   );
