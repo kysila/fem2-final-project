@@ -13,7 +13,7 @@ const tungsten = {
   `,
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   subsectionTitle: {
     fontSize: '33px',
     fontWeight: '326',

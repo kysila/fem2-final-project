@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../index.css';
 
-import { Header } from '../../commons';
+import { Header, Footer } from '../../commons';
 import BrandsBlock from './BrandsBlock';
 import { MainCarousel } from '../MainCarousel';
 import { Favourites } from '../Favourites/Favourites';
@@ -19,5 +19,6 @@ export const MainPage = (props) => (
     <Categories />
     <Contacts />
     <StayInTouch />
+    <Footer />
   </React.Fragment>
 );
