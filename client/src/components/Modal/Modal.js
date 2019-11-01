@@ -1,18 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import Modal from '@material-ui/core/Modal';
 
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import { dispatchModalClose } from '../../store/modal/actions';
 
-function Modal() {
-  useEffect(() => {
+import { LoginForm } from '../Auth/LoginForm';
+import { RegisterForm } from '../Auth/RegisterForm';
 
-  });
+function ModalWindow(props) {
+  const onClose = () => props.closeModal();
+  const getChild = () => {
+    switch (props.child) {
+      case 'register':
+        return <RegisterForm />;
+      case 'login':
+      default:
+        return <LoginForm />;
+    }
+  };
+  return (
+    <Modal
+      open={props.opened}
+      BackdropProps={{
+        style: {
+          background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
+          opacity: '0.5',
+        },
+      }}
+      onClose={onClose}
+    >
+      <React.Fragment>
+        {getChild()}
+      </React.Fragment>
+    </Modal>
+  );
 }
 
-function mapStateToProps(state) {}
-function mapDispatchToProps(dispatch) {}
+const mapStateToProps = (state) => ({
+  opened: state.modal.opened,
+  child: state.modal.child,
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+const mapDispatchToProps = (dispatch) => ({
+  closeModal: () => dispatch(dispatchModalClose()),
+});
+
+const ModalConnect = connect(mapStateToProps, mapDispatchToProps)(ModalWindow);
+
+export {
+  ModalConnect as Modal,
+  ModalWindow as Mdl,
+};

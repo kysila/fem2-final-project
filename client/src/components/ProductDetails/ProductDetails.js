@@ -24,13 +24,12 @@ const useStyles = makeStyles(() => ({
   },
   productInfo: {
     maxWidth: 500,
-  }
+  },
 }));
 
 
 export const ProductDetails = (props) => {
-
-  const [ state, setState ] = useState({});
+  const [state, setState] = useState({});
 
   const classes = useStyles();
 

@@ -9,8 +9,12 @@ const useStyles = makeStyles(() => ({
 		marginBottom: 50,
 		border: '1px solid red',
 		width: 500,
-		height: 100,
+		height: 'auto',
 	},
+	test: {
+		width: '100%',
+		height: '100%'
+	}
 }));
 
 export const ProductGallery = (props) => {
@@ -21,7 +25,7 @@ export const ProductGallery = (props) => {
 
 	return (
 		<Box className={classes.productGallery}>
-			<img src="img/products/e-bikes/1/001.jpg" alt="" className={classes.test}/>
+			<img src="/img/products/e-bikes/1/001.jpg" alt="" className={classes.test}/>
 		</Box>
 	)
 };
