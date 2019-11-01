@@ -15,14 +15,12 @@ const useStyles = makeStyles(() => createStyles({
     },
   },
   input: {
-    // disableRipple: 'true',
-    // disableFocusRipple: 'true',
     maxWidth: '40px',
     paddingLeft: '25%',
     fontSize: '13px',
   },
-
 }));
+
 const Counter = (props) => {
   const classes = useStyles();
   return (

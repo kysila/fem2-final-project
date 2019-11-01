@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '12px',
     textDecoration: 'underline',
     color: '#444444',
+    paddingBottom: '7px',
   },
   main_block: {
     flexBasis: '50%',
@@ -40,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   button: {
-    paddingLeft: '7%',
-    paddingRight: '7%',
+    paddingLeft: '4px',
+    paddingRight: '4px',
     fontSize: '12px',
     display: 'block',
     color: '#888888',
