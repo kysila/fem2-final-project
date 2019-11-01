@@ -1,27 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+// Material UI
+import { Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+// Main style (fonts and so on)
+import '../../../index.css';
+import Preloader from '../../Preloader/Preloader';
 
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    alignItems: 'center',
+  },
+}));
 
 export const Information = (props) => {
   const [customerInfo, setCustomerInfo] = useState('customer');
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios.get('/customers/customer')
-      .then((loggedInCustomer) => {
-        console.log(loggedInCustomer.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
 
-  console.log(customerInfo);
+  // let mainCarouselInfo;
+
+  // if (customerInfo && !loading) {
+  //   mainCustomerInfo = 
+  // } else if (loading){
+  //   return <Preloader />
+  // }
+
+
+
+
+  const classes = useStyles();
 
   return (
     <React.Fragment>
-      <div>
-        Something will be here when designer finishes his work...
-      </div>
+      <Grid
+        className={classes.root}
+        container
+        spacing={3}
+
+      >
+        <Grid
+          item
+          xs={12}
+          sm={12}
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus natus aut sit autem eum cupiditate magni?
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };

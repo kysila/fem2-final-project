@@ -7,4 +7,4 @@ export { NotFound } from './Notfound/NotFound';
 export { Title } from './Title/Title';
 export { Favourites } from './Favourites/Favourites';
 export { Notifier } from './Notifier/Notifier';
-export { ClientProfile } from './ClientProfile/ClientProfile';
+export { ClientProfile } from './ClientProfile';

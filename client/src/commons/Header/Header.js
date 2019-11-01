@@ -71,7 +71,8 @@ const useStyles = makeStyles(() => createStyles({
 }));
 
 const Header = (props) => {
-  console.log('props', props); // TODO will be deleted before merge
+  // console.log('props', props);
+  // TODO will be deleted before merge
   const classes = useStyles();
   const [cartIsOpen, setCartIsOpen] = useState(false);
 
