@@ -81,6 +81,9 @@ router.put(
 // @access  Public
 router.get("/", getProducts);
 
+// @route   GET /products/rate/:rate
+// @desc    GET appropriate filtered products
+// @access  Public
 router.get('/rates/:rate', getProductsByRate);
 
 // @route   GET /products/filter
