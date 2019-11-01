@@ -73,6 +73,8 @@ const BrandsBlock = () => {
             </Grid>
 
           </Grid>
+
+
         </div>
       </Container>
     </section>

@@ -93,7 +93,6 @@ const GlobalCss = withStyles({
     },
     '.MuiButtonGroup-grouped': {
       background: 'none',
-      padding: '2px',
       color: '#444444',
     },
   },
