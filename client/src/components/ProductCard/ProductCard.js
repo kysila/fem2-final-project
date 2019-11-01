@@ -133,7 +133,6 @@ export function ProductCard({
           <Typography
             className={classes.newPrice}
             gutterBottom
-            colorPrimary
             variant="h5"
             display="inline"
             component="h2"
