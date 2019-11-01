@@ -107,7 +107,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const Filters = () => {
+const Filters = (props) => {
   const classes = useStyles();
 
   const [open, setOpen] = useState({ open: false });
@@ -117,8 +117,12 @@ const Filters = () => {
       setOpen({ open: false });
     } else {
       getFilters();
+
       setOpen({ open: true });
     }
+  };
+  const HandleApplyFilters = () => {
+    console.log(props);
   };
 
   return (
@@ -142,6 +146,7 @@ const Filters = () => {
         onSubmit={(event) => {
           event.preventDefault();
           setOpen({ open: false });
+          HandleApplyFilters();
         }}
         className={classes.filterForm}
       >
