@@ -27,7 +27,7 @@ const Counter = (props) => {
     <ButtonGroup variant="contained" size="small">
       <Button> - </Button>
       <Button variant="text">
-        <Input defaultValue="1" classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
+        <Input defaultValue={props.count} classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
       </Button>
       <Button> + </Button>
     </ButtonGroup>

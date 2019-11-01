@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -15,10 +15,34 @@ import { getProductsToBuy, deleteProductsToBuy } from '../../../store/cart/cartR
 import CartItem from './CartItem';
 import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle';
 
+
 const mapStateToProps = (state) => ({
   productsToBuy: state.cartReducer.productsToBuy,
   countOfProducts: state.cartReducer.countOfProducts,
+  user: state.auth.user,
 });
+
+// try to get cart from LS
+const cart = [
+  {
+    imageUrls: ['img/products/e-bikes/872426/003.jpg', 'img/products/e-bikes/773969/002.jpg'],
+    name: 'addmotor hithot h1 sport mountain e-bike',
+    itemNo: 773969,
+    currentPrice: 1899,
+    count: 1,
+  },
+  {
+    imageUrls: ['img/products/e-bikes/773969/006.jpg', 'img/products/e-bikes/773969/002.jpg'],
+    name: 'sport mountain e-bike',
+    itemNo: 872426,
+    currentPrice: 3299,
+    count: 2,
+  },
+];
+
+const serialCart = JSON.stringify(cart);
+localStorage.setItem('cart', serialCart);
+// / End
 
 const useStyles = makeStyles(() => createStyles({
   container: {
@@ -28,8 +52,9 @@ const useStyles = makeStyles(() => createStyles({
     alignItems: 'center',
   },
   drawer: {
-  },
+   },
   paper: {
+    width: '60%',
     background: '#f4efff',
     fontSize: '20px',
     color: '#9c80ff',
@@ -101,6 +126,20 @@ const useStyles = makeStyles(() => createStyles({
 const Cart = (props) => {
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const classes = useStyles();
+  let cartArray = [];
+
+  if (props.user === null) {
+    const getCart = JSON.parse(localStorage.getItem('cart'));
+    cartArray = getCart.map((el) => (
+      <CartItem
+        name={el.name}
+        currentPrice={el.currentPrice}
+        imgUrl={el.imageUrls[0]}
+        count={el.count}
+        id={el.itemNo}
+      />
+    ));
+  }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -111,7 +150,7 @@ const Cart = (props) => {
         }}
       >
         <Box>
-          <img src="img/basket.svg" alt="Logo" />
+          <img src="/img/basket.svg" alt="Logo" />
           <div className={classes.circle}>{props.countOfProducts}</div>
         </Box>
       </Box>
@@ -134,8 +173,8 @@ const Cart = (props) => {
       >
         <Container className={classes.cart_container}>
           <SubsectionTitle title="Your Cart" />
-          <CartItem />
-          <CartItem />
+          {cartArray}
+
           <Grid className={classes.price_block} container justify="space-between">
             <Grid item>
               {/* eslint-disable-next-line max-len */}
