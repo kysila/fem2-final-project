@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const ACTIONS = Object.seal({
   LOGIN: 'LOGIN',
   REGISTER: 'REGISTER',
