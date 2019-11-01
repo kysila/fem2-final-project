@@ -85,7 +85,9 @@ const Map = withGoogleMap((props) => (
   </GoogleMap>
 ));
 
-const ContactItem = (props = { icon: 'star', title: '', list: [] }) => (
+const ContactItem = (props = {
+  key: 'xJNdndwqiBIqwd', icon: 'star', title: '', list: [],
+}) => (
   <Box
     className={props.classes.item}
   >
@@ -105,11 +107,11 @@ const ContactItem = (props = { icon: 'star', title: '', list: [] }) => (
         container
         direction="column"
         justify="center"
-        alignItems="start"
+        alignItems="flex-start"
       >
         {
-          props.list.map((text) => (
-            <Typography style={museo} className={props.classes.item__text}>
+          props.list.map((text, idx) => (
+            <Typography key={idx} style={museo} className={props.classes.item__text}>
               {text}
             </Typography>
           ))
@@ -124,14 +126,17 @@ const Contacts = withTheme((props) => {
   const matchesMobile = useMediaQuery(props.theme.breakpoints.down(768));
 
   const contacts = [{
+    key: 'qweqwe1',
     icon: mobileSvg,
     title: 'Call or text us toll-free',
     list: ['1-855-324-5387', '1-855-324-5377', '1-855-324-5367'],
   }, {
+    key: 'qweqwe2',
     icon: mailSvg,
     title: 'Write to our Customer Support',
     list: ['support@electra.com'],
   }, {
+    key: 'qweqwe3',
     icon: markerSvg,
     title: 'Visit our Showroom',
     list: ['4804 Chicago Ave, Minneapolis,', ' MN 55417, United States', <br />, 'We work 24/7, not including', ' National Hollidays'],
@@ -149,26 +154,22 @@ const Contacts = withTheme((props) => {
         alignItems="center"
       >
         <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          lg="3"
-          md="5"
-          xs="12"
+          item
+          lg={3}
+          md={5}
+          xs={12}
         >
           <Box>
-            {contacts.map((data) => (<ContactItem classes={classes} {...data} />))}
+            {contacts.map(
+              ({ key, ...data }) => (<ContactItem key={key} classes={classes} {...data} />),
+            )}
           </Box>
         </Grid>
         <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          lg="7"
-          md="5"
-          xs="12"
+          item
+          lg={7}
+          md={5}
+          xs={12}
         >
           <Map
             containerElement={<div className={classes.map} />}

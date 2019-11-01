@@ -22,8 +22,9 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import { dispatchRegister } from '../../store/auth/actions';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
-import { useStyles } from './styles';
+import { enqueueSnackbar } from '../../store/notification/actions';
 
+import { useStyles } from './styles';
 import Tungsten from '../../fonts/Tungsten-Book.woff';
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
 import FacebookSvg from '../../img/auth/facebook.svg';
@@ -104,22 +105,22 @@ function RegisterForm(props) {
     }, {});
 
     if (!trimmed.email || !validator.isEmail(trimmed.email)) {
-      // TODO:  Input notification about error
+      props.warning('Email should be not empty, for example: example@domain.com');
       return false;
     }
 
     if (!trimmed.login || trimmed.login.length < 4) {
-      // TODO:  Input notification about error
+      props.warning('Login should be more than 3 chars.');
       return false;
     }
 
     if (!trimmed.password || trimmed.password.length < 8) {
-      // TODO:  Input notification about error
+      props.warning('Password should be at least 8 chars.');
       return false;
     }
 
     if (trimmed.password !== trimmed.repeatPassword) {
-      // TODO:  Input notification about error
+      props.warning('Passwords aren\'t equal each other.');
       return false;
     }
 
@@ -137,7 +138,6 @@ function RegisterForm(props) {
 
     if (validate()) {
       props.register({ email, login, password });
-      props.closeModal({ email, login, password });
     }
   };
 
@@ -387,6 +387,7 @@ const mapDispatchToProps = (dispatch) => ({
   register: (data) => dispatch(dispatchRegister(data)),
   loginModal: () => dispatch(dispatchModalOpen()),
   closeModal: () => dispatch(dispatchModalClose()),
+  warning: (message) => dispatch(enqueueSnackbar({ message, options: { variant: 'warning', preventDuplicate: true } })),
 });
 
 const ConnectRegisterForm = withTheme(connect(mapStateToProps, mapDispatchToProps)(RegisterForm));
