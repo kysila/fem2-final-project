@@ -12,6 +12,7 @@ export const GET_FILTERS_FAILED = 'GET_FILTERS_FAILED';
 
 // action:
 export const getFilters = () => (dispatch) => {
+  console.log('зашел в функцию getFilters');
   dispatch({
     type: GET_FILTERS_REQUESTED,
   });
