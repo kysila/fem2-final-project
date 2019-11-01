@@ -61,7 +61,7 @@ const CartItem = (props) => {
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
-      <Grid container justify="center" alignItems="center" alignContent="stretch" spacing={2}>
+      <Grid container justify="center" alignItems="center" alignContent="stretch" spacing={1}>
 
         <Grid item className={classes.image}>
           {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
@@ -87,9 +87,7 @@ const CartItem = (props) => {
           <Counter />
         </Grid>
         <Grid item>
-          {' '}
-          <p className={classes.price}> $1,699.99 </p>
-          {' '}
+           <p className={classes.price}> $1,699.99 </p>
         </Grid>
       </Grid>
 

@@ -4,6 +4,9 @@ import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+
+import Tungsten from '../../fonts/Tungsten-Book.woff';
+
 // Slick slider import
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
@@ -11,18 +14,24 @@ import './MainCarousel.css';
 //
 import Preloader from '../Preloader/Preloader';
 
+const tungsten = {
+  fontFamily: 'Tungsten Book',
+  fontStyle: 'normal',
+  src: `
+    local('Tungsten Book'),
+    url(${Tungsten}) format('woff')
+  `,
+};
+
 const useStyles = makeStyles((theme) => ({
-  blueBG: {
-    background:
-      'linear-gradient(180deg, rgba(102,134,255, .1) 0%, rgba(143, 141, 226, .1) 100%)',
-    paddingTop: '51px',
-    paddingBottom: '49px',
-  },
   showItemBtn: {
     display: 'block',
     marginTop: '30px',
     alignItems: 'center',
     padding: '15px 20px',
+    [theme.breakpoints.down(480)]: {
+      padding: '10px 15px',
+    },
     '&>span': {
       textTransform: 'uppercase',
       width: 'auto',
@@ -42,6 +51,14 @@ export const MainCarousel = () => {
     slidesToScroll: 1,
     autoplay: true,
     pauseOnHover: false,
+    responsive: [
+      {
+        breakpoint: 769,
+        settings: {
+          arrows: false,
+        },
+      },
+    ],
   };
   const [carousel, setCarousel] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -71,11 +88,16 @@ export const MainCarousel = () => {
           className="slick-image"
         />
         <div className="slide-information">
-          <Typography component="h2" className="slick-description">
+          <Typography
+            variant="h2"
+            className="slick-description"
+            /* align="center" */
+            style={tungsten}
+          >
             {item.title}
           </Typography>
           <Typography
-            component="body1"
+            variant="body1"
             className="slick-information__explanation"
           >
             {item.description}
