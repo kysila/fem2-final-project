@@ -67,7 +67,6 @@ const useStyles = makeStyles(() => createStyles({
   call: {
     color: ' #6A86E8 ',
   },
-
 }));
 
 const Header = (props) => {
