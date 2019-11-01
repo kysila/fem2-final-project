@@ -11,7 +11,7 @@ import { Footer, Header } from '../../commons';
 import AllBreadcrumbs from './AllBreadcrumbs';
 import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch';
-import Filter from './Filter';
+import Filters from './Filters/Filters';
 import Preloader from '../Preloader/Preloader';
 
 const useStyles = makeStyles(() => ({
@@ -76,7 +76,7 @@ export const Products = () => {
           >
                     Our full collection of electric devices
           </Typography>
-          <Filter />
+          <Filters />
           <main>
             <Preloader />
           </main>
@@ -99,7 +99,7 @@ export const Products = () => {
         >
                     Our full collection of electric devices
         </Typography>
-        <Filter />
+        <Filters />
         <main>
           <Grid container spacing={0}>
             {products}

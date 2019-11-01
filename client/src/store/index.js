@@ -13,12 +13,6 @@ import filters from './filter/reducers';
 export const initialStore = {
   auth: { user: null, token: Cookie.get('auth') },
   modal: { opened: false, child: null },
-  filters: {
-    isFilterFetching: false,
-    colorFilters: [],
-    otherFilters: [],
-    errorMsg: '',
-  },
   ...window.initialStore,
 };
 
