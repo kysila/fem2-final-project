@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
 import axios from 'axios';
-
-import { Header } from '../../commons';
-import StayInTouch from "../../commons/Footer/StayInTouch";
-
-import { ProductGallery } from "./ProductGallety";
-import { ProductDescription } from './ProductDescription'
 
 import {makeStyles} from "@material-ui/core";
 import Container from '@material-ui/core/Container';
+
+import { Header } from '../../commons';
+import StayInTouch from "../../commons/Footer/StayInTouch";
+import { ProductGallery } from "./ProductGallery";
+import { ProductDescription } from './ProductDescription'
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs';
 
 const useStyles = makeStyles(() => ({
@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '40px',
   },
   paddingTop: {
-    paddingTop: '20px',
+    paddingTop: '10px',
   },
   productPage: {
     paddingTop: 20,

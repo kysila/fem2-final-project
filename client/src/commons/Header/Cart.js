@@ -111,7 +111,7 @@ const Cart = (props) => {
         }}
       >
         <Box>
-          <img src="img/basket.svg" alt="Logo" />
+          <img src="/img/basket.svg" alt="Logo" />
           <div className={classes.circle}>{props.countOfProducts}</div>
         </Box>
       </Box>

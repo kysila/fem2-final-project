@@ -36,6 +36,9 @@ const GlobalCss = withStyles({
     '.MuiTypography-root': {
       fontFamily: "'Museo Sans 500'",
       color: '#444444',
+      '& p, li': {
+        fontSize: 14,
+      },
     },
     '.MuiTypography-body2': {
       fontFamily: "'Museo Sans 500'",
@@ -101,6 +104,7 @@ const GlobalCss = withStyles({
       padding: '6px 16.5px',
       color: '#444444',
       fontSize: '14px',
+      borderBottom: '1px solid #EAEAEA'
     },
     '.MuiTab-textColorPrimary.Mui-selected': {
       color: '#6A86E8'
@@ -108,9 +112,9 @@ const GlobalCss = withStyles({
     '.MuiTabs-indicator': {
       backgroundColor: '#6A86E8'
     },
-    '.MuiPaper-root': {
+    '.MuiButtonBase-root': {
       boxShadow: 'none',
-    },
+    }
   },
 })(() => null);
 

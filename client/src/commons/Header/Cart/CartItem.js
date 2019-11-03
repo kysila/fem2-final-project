@@ -66,7 +66,7 @@ const CartItem = (props) => {
 
         <Grid item className={classes.image}>
           {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-          <img className={classes.img} src="img/products/e-hoverboards/1/001.jpg" alt="Image of Product" />
+          <img className={classes.img} src="/img/products/e-hoverboards/1/001.jpg" alt="Image of Product" />
         </Grid>
 
         <Grid container className={classes.main_block}>
