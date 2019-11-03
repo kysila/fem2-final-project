@@ -1,11 +1,15 @@
 import React from 'react';
 
+import axios from 'axios';
+import StayInTouch from './StayInTouch';
 
-export const SubscribeLetter = () => {
+
+export const SubscribeLetter = (props) => {
   const redirectUrl = window.location.origin;
-  const unsubscribeUrl = `${window.location.origin}/unsubscribe`;
+  const unsubscribeUrl = `${window.location.origin}/subscribers/email/${props.email}`;
   const mailBody = `<!DOCTYPE html> <html lang='en'><head> <meta charset='UTF-8' /> <meta name='viewport' content='width=device-width, initial-scale=1.0' /> <meta http-equiv='X-UA-Compatible' content='ie=edge' />
         <title>Document</title>
+        
         <style> td { padding: 20px 50px; background:#E5E5E5; border-radius: 6px; color: #444444; font-size: 20px; } </style> </head> <body>
         <table>
              <tr>

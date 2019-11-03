@@ -114,13 +114,19 @@ export function ProductCard({
     });
   };
 
+  const checkViewedProduct = (item) => {
+    // localStorage.setItem('itemNo', item);
+    console.log(`you clicked ${item}`);
+  };
+
   const classes = useStyles();
 
   return (
     <Card
+      // onClick={checkViewedProduct(url)}
       className={classes.card}
-      onMouseOver={showButtonsPanel}
-      onMouseOut={hideButtonsPanel}
+      // onMouseOver={showButtonsPanel}
+      // onMouseOut={hideButtonsPanel}
     >
       <CardActionArea>
         <CardMedia

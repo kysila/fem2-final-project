@@ -48,6 +48,7 @@ export const Products = () => {
     }
     getList();
   }, []);
+
   if (list.data && !loading) {
     products = list.data.map((el) => (
       <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
