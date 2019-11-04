@@ -6,10 +6,11 @@ import {makeStyles} from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 
 import { Header } from '../../commons';
-import StayInTouch from "../../commons/Footer/StayInTouch";
 import { ProductGallery } from "./ProductGallery";
 import { ProductDescription } from './ProductDescription'
+import { ProductDetailsCard } from "./ProductDetailsCard";
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs';
+import StayInTouch from "../../commons/Footer/StayInTouch";
 
 const useStyles = makeStyles(() => ({
   space: {
@@ -17,10 +18,12 @@ const useStyles = makeStyles(() => ({
   },
   paddingTop: {
     paddingTop: '10px',
+    paddingBottom: '56px',
   },
   productPage: {
     paddingTop: 20,
     display: 'flex',
+    justifyContent: 'space-between',
   },
   productInfo: {
     maxWidth: 500,
@@ -37,6 +40,10 @@ export const ProductDetails = (props) => {
     axios.get(`/products/${props.match.params.id}`)
       .then(data => {
         setState(data.data);
+        axios.get(`/products/${props.name}`)
+          .then(data => {
+            console.log(data);
+          })
       })
   }, []);
 
@@ -51,6 +58,7 @@ export const ProductDetails = (props) => {
             <ProductGallery image={state.imageUrls}/>
             <ProductDescription data={state} />
           </div>
+          <ProductDetailsCard data={state}/>
         </div>
       </Container>
       <StayInTouch />

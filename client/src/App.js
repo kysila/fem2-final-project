@@ -95,10 +95,6 @@ const GlobalCss = withStyles({
     '.Mui-selected': {
       boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.05)',
     },
-    '.MuiButtonGroup-grouped': {
-      background: 'none',
-      color: '#444444',
-    },
     '.MuiTab-root': {
       minWidth: 'auto',
       padding: '6px 16.5px',

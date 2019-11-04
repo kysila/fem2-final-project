@@ -52,6 +52,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '12px',
     fontWeight: 'bold',
   },
+  buttons: {
+    '& > button': {
+      background: 'none',
+      color: '#444444',
+    }
+  }
 }));
 
 const mapStateToProps = (state) => ({
@@ -74,7 +80,7 @@ const CartItem = (props) => {
             <Link to="/products" className={classes.text}> Addmotor Hithot H1 Sport Mountain E-Hoverboard (green) </Link>
           </Grid>
           <Grid item>
-            <ButtonGroup variant="text" size="small" aria-label="small contained button group">
+            <ButtonGroup className={classes.buttons} variant="text" size="small" aria-label="small contained button group">
               <Button>
                 <span className={classes.button}> Delete </span>
               </Button>
