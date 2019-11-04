@@ -30,7 +30,8 @@ const colors = [
   'blue',
   'green',
 ];
-const ColorFilter = () => {
+const ColorFilter = (props) => {
+  console.log('props in ColorFilter child', props);
   const classes = useStyles();
   const [color, setColor] = useState([]);
   const handleChangeColor = (event) => {

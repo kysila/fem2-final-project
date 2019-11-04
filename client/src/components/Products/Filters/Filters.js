@@ -119,7 +119,7 @@ const Filters = (props) => {
     }
   };
   const HandleApplyFilters = () => {
-    // console.log(props);
+    console.log('props', props);
   };
 
   return (
@@ -173,7 +173,7 @@ const Filters = (props) => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.formControl}>
-              <ColorFilter />
+              <ColorFilter colors={props.filters} />
             </FormControl>
           </Grid>
         </Grid>
