@@ -7,7 +7,7 @@ import Cookie from 'js-cookie';
 import {
   MainPage, Products, ProductDetails, NotFound, Modal, Notifier,
 } from './components';
-import Unsubscribe from "./components/Unsubscribe/Unsubscribe";
+import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
 import { Search } from './components/Search/Search';
 import './App.css';
 
@@ -75,22 +75,11 @@ const GlobalCss = withStyles({
       height: '25px',
       fontSize: '10px',
     },
-    '.MuiGrid-spacing-xs-3': {
-      width: '100%',
-      margin: 'auto',
-    },
-    '.MuiGrid-spacing-xs-6 ': {
-      width: '100%',
-      margin: 'auto',
-    },
     '.MuiListItemText-root': {
       fontFamily: "'Museo Sans 500'",
     },
     '.MuiPopover-paper': {
       minWidth: '20vw !important',
-    },
-    '.Mui-selected': {
-      boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.05)',
     },
     '.MuiButtonGroup-grouped': {
       background: 'none',
@@ -103,13 +92,10 @@ const GlobalCss = withStyles({
       fontSize: '14px',
     },
     '.MuiTab-textColorPrimary.Mui-selected': {
-      color: '#6A86E8'
+      color: '#6A86E8',
     },
     '.MuiTabs-indicator': {
-      backgroundColor: '#6A86E8'
-    },
-    '.MuiPaper-root': {
-      boxShadow: 'none',
+      backgroundColor: '#6A86E8',
     },
   },
 })(() => null);
