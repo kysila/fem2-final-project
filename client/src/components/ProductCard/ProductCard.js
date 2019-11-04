@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
+
 const useStyles = makeStyles({
   card: {
     overflow: 'visible',
@@ -114,10 +115,27 @@ export function ProductCard({
     });
   };
 
+  // const viewedArr = [];
+  // localStorage.setItem('product', viewedArr);
+  localStorage.setItem('product', JSON.stringify([]));
+
+  const viewedItemListener = () => {
+    onmouseover = false;
+    console.log('e.target.itemNo', url);
+    // localStorage.setItem('product', JSON.stringify([]));
+    const product = JSON.parse(localStorage.getItem('product'));
+    console.log(product);
+    const newProductArr = product.concat([url]);
+    console.log(newProductArr);
+    localStorage.setItem('product', newProductArr);
+    console.log(newProductArr);
+  };
+
   const classes = useStyles();
 
   return (
     <Card
+      onClick={viewedItemListener}
       className={classes.card}
       onMouseOver={showButtonsPanel}
       onMouseOut={hideButtonsPanel}
