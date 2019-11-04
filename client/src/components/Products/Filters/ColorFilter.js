@@ -4,6 +4,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
+import { connect } from 'react-redux';
+import { selectFilters } from '../../../store/selectedFilters/actions';
 
 const useStyles = makeStyles(() => ({
   colorItem: {
@@ -13,9 +15,13 @@ const useStyles = makeStyles(() => ({
     '&:hover': {
       borderRadius: '50%',
     },
+    '&.MuiMenuItem-root': {
+      minHeight: 'auto',
+    },
     '&.Mui-selected': {
       boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.05)',
       borderRadius: '50%',
+      padding: '5px',
     },
   },
   colorDiv: {
@@ -25,17 +31,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const colors = [
-  'red',
-  'blue',
-  'green',
-];
 const ColorFilter = (props) => {
-  console.log('props in ColorFilter child', props);
   const classes = useStyles();
   const [color, setColor] = useState([]);
   const handleChangeColor = (event) => {
     setColor(event.target.value);
+    props.selectFilters(event, event.target.value, 'color');
   };
   const handleChangeMultipleColor = (event) => {
     const { options } = event.target;
@@ -46,6 +47,7 @@ const ColorFilter = (props) => {
       }
     }
     setColor(value);
+    props.selectFilters(event, event.target.value, 'color');
   };
 
   return (
@@ -59,7 +61,7 @@ const ColorFilter = (props) => {
         input={<Input />}
         renderValue={(selected) => selected.join(', ')}
       >
-        {colors.map((name) => (
+        {props.colors.map(({ name, cssValue }) => (
           <MenuItem
             button
             key={name}
@@ -68,7 +70,7 @@ const ColorFilter = (props) => {
           >
             <div
               className={classes.colorDiv}
-              style={{ backgroundColor: name }}
+              style={{ backgroundColor: cssValue }}
             />
           </MenuItem>
         ))}
@@ -76,5 +78,9 @@ const ColorFilter = (props) => {
     </React.Fragment>
   );
 };
+const mapStateToProps = (state) => ({
+  selectedFilters: state.filterReducer.selectedFilters,
+  filterType: state.filterReducer.filterType,
+});
 
-export default ColorFilter;
+export default connect(mapStateToProps, { selectFilters })(ColorFilter);

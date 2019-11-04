@@ -5,6 +5,7 @@ export const GET_FILTERS_REQUESTED = 'GET_FILTERS_REQUESTED';
 export const GET_FILTERS_SUCCEEDED = 'GET_FILTERS_SUCCEEDED';
 export const GET_FILTERS_FAILED = 'GET_FILTERS_FAILED';
 
+
 // action:
 export const getFilters = () => (dispatch) => {
   dispatch({
@@ -14,23 +15,20 @@ export const getFilters = () => (dispatch) => {
     [axios.get('/colors'), axios.get('/filters')],
   )
     .then(
-    // если через async то нужно оборачивать в try catch,
-    // в ответ получаем респонс где есть свойство data
-    // в then делаем dispatch и в аругументы payload
       axios.spread((colorFilters, otherFilters) => {
         const colorOptions = colorFilters.data.map((color) => ({
           name: color.name,
           cssValue: color.cssValue,
         }));
-        // colorOptions.unshift({
-        //   value: "all sizes",
-        //   label: "All sizes"
-        // });
-
+        const distanceOptions = otherFilters.data.filter((el) => (el.type === 'distance'));
+        const chargingTimeOptions = otherFilters.data.filter((el) => (el.type === 'chargingTime'));
+        const maxSpeedOptions = otherFilters.data.filter((el) => (el.type === 'maxSpeed'));
         dispatch({
           type: GET_FILTERS_SUCCEEDED,
           colors: colorOptions,
-          otherFilters: otherFilters.data,
+          distances: distanceOptions,
+          chargingTimes: chargingTimeOptions,
+          maxSpeeds: maxSpeedOptions,
         });
       }),
     ).catch((err) => {
@@ -40,3 +38,5 @@ export const getFilters = () => (dispatch) => {
       });
     });
 };
+
+

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -105,6 +104,7 @@ const useStyles = makeStyles(() => ({
 
 
 const Filters = (props) => {
+  console.log('general props', props);
   const classes = useStyles();
 
   const [open, setOpen] = useState({ open: false });
@@ -119,7 +119,7 @@ const Filters = (props) => {
     }
   };
   const HandleApplyFilters = () => {
-    console.log('props', props);
+    console.log('props ', props);
   };
 
   return (
@@ -153,27 +153,27 @@ const Filters = (props) => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.formControl}>
-              <CategoryFilter />
+              <CategoryFilter categories={props.categories} />
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.formControl}>
-              <MaxSpeedFilter />
+              <MaxSpeedFilter maxSpeeds={props.maxSpeeds} />
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.formControl}>
-              <ChargingTimeFilter />
+              <ChargingTimeFilter chargingTimes={props.chargingTimes} />
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.formControl}>
-              <DistanceFilter />
+              <DistanceFilter distances={props.distances} />
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.formControl}>
-              <ColorFilter colors={props.filters} />
+              <ColorFilter colors={props.colors} />
             </FormControl>
           </Grid>
         </Grid>
@@ -195,9 +195,11 @@ const Filters = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  filters: state.filterReducer.colorFilters,
+  colors: state.filterReducer.colorFilters,
+  distances: state.filterReducer.distanceFilters,
+  maxSpeeds: state.filterReducer.maxSpeedFilters,
+  chargingTimes: state.filterReducer.chargingTimeFilters,
   categories: state.categoryReducer.categories,
-  selectedFilters: state.filterReducer.otherFilters,
 });
 
 export default connect(mapStateToProps, { getFilters, getCategories })(Filters);

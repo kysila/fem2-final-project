@@ -11,6 +11,8 @@ import searchReducer from './search/searchReducer';
 import cartReducer from './cart/cartReducer';
 import filterReducer from './filter/filterReducer';
 import categoryReducer from './categories/categoryReducer';
+import selectFilterReducer from "./selectedFilters/selectedFilterReducer";
+
 
 export const initialStore = {
   auth: { user: null, token: Cookie.get('auth') },
@@ -28,6 +30,7 @@ const rootReducer = combineReducers({
   searchReducer,
   filterReducer,
   categoryReducer,
+  selectFilterReducer,
   cartReducer,
 });
 
