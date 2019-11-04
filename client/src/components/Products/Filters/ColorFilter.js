@@ -10,6 +10,13 @@ const useStyles = makeStyles(() => ({
     margin: '10px 15px',
     padding: '5px',
     display: 'inline-flex',
+    '&:hover': {
+      borderRadius: '50%',
+    },
+    '&.Mui-selected': {
+      boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.05)',
+      borderRadius: '50%',
+    },
   },
   colorDiv: {
     width: '20px',

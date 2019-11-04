@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
 
 import { getFilters } from '../../../store/filter/actions';
+import { getCategories } from '../../../store/categories/actions';
 import PriceFilter from './PriceFilter';
 import CategoryFilter from './CategoryFilter';
 import MaxSpeedFilter from './MaxSpeedFilter';
@@ -16,13 +17,6 @@ import DistanceFilter from './DistanceFilter';
 import ColorFilter from './ColorFilter';
 import ChargingTimeFilter from './ChargingTimeFilter';
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    filters: state.filters.colorFilters,
-    selectedFilters: state.filters.otherFilters,
-  };
-};
 
 const useStyles = makeStyles(() => ({
   filterBtn: {
@@ -40,10 +34,13 @@ const useStyles = makeStyles(() => ({
   filterRow: {
     backgroundColor: '#FAFAFA',
     width: '100%',
+    '&.MuiGrid-spacing-xs-6': {
+      width: '100%',
+      margin: 'auto',
+    },
     '&> .MuiGrid-item': {
       padding: 0,
     },
-
   },
   filterForm: {
     width: '100%',
@@ -116,13 +113,13 @@ const Filters = (props) => {
     if (open.open) {
       setOpen({ open: false });
     } else {
-      getFilters();
-
+      props.getFilters();
+      props.getCategories();
       setOpen({ open: true });
     }
   };
   const HandleApplyFilters = () => {
-    console.log(props);
+    // console.log(props);
   };
 
   return (
@@ -197,4 +194,10 @@ const Filters = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(Filters);
+const mapStateToProps = (state) => ({
+  filters: state.filterReducer.colorFilters,
+  categories: state.categoryReducer.categories,
+  selectedFilters: state.filterReducer.otherFilters,
+});
+
+export default connect(mapStateToProps, { getFilters, getCategories })(Filters);

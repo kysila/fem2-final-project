@@ -88,7 +88,10 @@ const ProductSchema = new Schema(
       type: Number,
       required: true,
       default: 0
-    }
+    },
+    features: {
+        type: Schema.Types.Mixed,
+    },
   },
   { strict: false },
 );

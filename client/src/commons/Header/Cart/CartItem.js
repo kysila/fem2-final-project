@@ -26,13 +26,14 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    width: '100%',
+    height: '100%',
   },
   text: {
     fontSize: '12px',
     textDecoration: 'underline',
     color: '#444444',
+    paddingBottom: '7px',
   },
   main_block: {
     flexBasis: '50%',
@@ -40,15 +41,16 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   button: {
-    paddingLeft: '7%',
-    paddingRight: '7%',
+    paddingLeft: '4px',
+    paddingRight: '4px',
     fontSize: '12px',
     display: 'block',
     color: '#888888',
     textTransform: 'none',
   },
   price: {
-    fontSize: '12px',
+    paddingLeft: '5px',
+    fontSize: '14px',
     fontWeight: 'bold',
   },
 }));
@@ -61,16 +63,19 @@ const CartItem = (props) => {
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
-      <Grid container justify="center" alignItems="center" alignContent="stretch" spacing={2}>
+      <Grid container justify="center" alignItems="center" alignContent="stretch" spacing={1}>
 
         <Grid item className={classes.image}>
           {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-          <img className={classes.img} src="img/products/e-hoverboards/1/001.jpg" alt="Image of Product" />
+          <img className={classes.img} src={props.imgUrl} alt="Image of Product" />
         </Grid>
 
         <Grid container className={classes.main_block}>
           <Grid item>
-            <Link to="/products" className={classes.text}> Addmotor Hithot H1 Sport Mountain E-Hoverboard (green) </Link>
+            {/* eslint-disable-next-line no-template-curly-in-string */}
+            <Link to="/products/`{props.itemNo}`" className={classes.text}>
+              {props.name}
+            </Link>
           </Grid>
           <Grid item>
             <ButtonGroup variant="text" size="small" aria-label="small contained button group">
@@ -84,12 +89,14 @@ const CartItem = (props) => {
           </Grid>
         </Grid>
         <Grid item>
-          <Counter />
+          <Counter
+            count={props.count}
+          />
         </Grid>
         <Grid item>
-          {' '}
-          <p className={classes.price}> $1,699.99 </p>
-          {' '}
+          <p className={classes.price}>
+            ${props.currentPrice}
+          </p>
         </Grid>
       </Grid>
 
