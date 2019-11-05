@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { makeStyles} from "@material-ui/core";
 import { Typography } from '@material-ui/core';
@@ -85,6 +86,9 @@ const weigherIcon = <path d="M17.5897 17.9076C18.0294 18.5131 18.6102 19.0157 19
 
 export const ProductDetailsCard = ({data}) => {
 
+	const obj = data.obj;
+	const colors = data.colors.data;
+
 	const classes = useStyles();
 
 	return (
@@ -92,25 +96,25 @@ export const ProductDetailsCard = ({data}) => {
 			<Typography
 				className={classes.categories}
 				variant='body1'>
-				{data.categories}
+				{obj.categories}
 			</Typography>
 			<Typography
 				className={classes.name}
 				variant='h2'>
-				{data.name}
+				{obj.name}
 			</Typography>
 			<Rating
 				name="half-rating"
 				size="large"
 				precision={0.5}
-				value={data.rating}
+				value={obj.rating}
 				readOnly />
 				<Box className={classes.otherColors}>
-
+					<Link to={colors ? `/products/${colors[1].itemNo}` : null }>{ colors ? colors[1].color : null }</Link>
 				</Box>
 				<Box className={classes.price}>
 					<Typography>
-						{`$${data.currentPrice}`}
+						{`$${obj.currentPrice}`}
 					</Typography>
 					<Typography className='oldPrice'>
 						$4000

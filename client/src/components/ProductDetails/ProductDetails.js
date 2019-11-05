@@ -32,26 +32,34 @@ const useStyles = makeStyles(() => ({
 
 
 export const ProductDetails = (props) => {
-  const [state, setState] = useState({});
-
-  console.log(state);
+  const [state, setState] = useState({
+    obj: {},
+    colors: {},
+  });
 
   const classes = useStyles();
 
   useEffect(() => {
-    axios.get(`/products/product/:${state.itemNo}`)
-      .then(data => {
-        console.log(data);
-      })
-  });
-
-  useEffect(() => {
     axios.get(`/products/${props.match.params.id}`)
       .then(data => {
-        setState(data.data);
+        setState(() => ({
+          ...state,
+          obj: data.data,
+        }))
       })
   }, []);
 
+  useEffect(() => {
+    axios.get(`/products/product/${state.obj.itemNo}`)
+      .then(data => {
+        setState({
+          ...state,
+          colors: data
+        });
+      });
+  }, [state.obj]);
+
+  console.log(state);
 
   return (
     <div>
@@ -60,8 +68,8 @@ export const ProductDetails = (props) => {
         <ProductBreadcrumbs link={state.name} />
         <div className={classes.productPage}>
           <div className={classes.productInfo}>
-            <ProductGallery image={state.imageUrls}/>
-            <ProductDescription data={state} />
+            <ProductGallery image={state.obj.imageUrls}/>
+            <ProductDescription data={state.obj} />
           </div>
           <ProductDetailsCard data={state}/>
         </div>
