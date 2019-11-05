@@ -185,9 +185,9 @@ exports.getProductsByRate = (req, res, next) => {
     );
 };
 
-exports.getProductByName = (req, res, next) => {
-  Product.find({
-    name: req.params.name
+exports.getProductsByName = (req, res, next) => {
+  Product.findOne({
+    itemNo: req.params.name
   })
     .then(data => {
       res.json(data);

@@ -86,7 +86,7 @@ const weigherIcon = <path d="M17.5897 17.9076C18.0294 18.5131 18.6102 19.0157 19
 export const ProductDetailsCard = ({data}) => {
 
 	const classes = useStyles();
-	console.log(data);
+
 	return (
 		<div className={classes.container}>
 			<Typography

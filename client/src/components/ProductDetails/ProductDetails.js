@@ -34,16 +34,21 @@ const useStyles = makeStyles(() => ({
 export const ProductDetails = (props) => {
   const [state, setState] = useState({});
 
+  console.log(state);
+
   const classes = useStyles();
+
+  useEffect(() => {
+    axios.get(`/products/product/:${state.itemNo}`)
+      .then(data => {
+        console.log(data);
+      })
+  });
 
   useEffect(() => {
     axios.get(`/products/${props.match.params.id}`)
       .then(data => {
         setState(data.data);
-        axios.get(`/products/${props.name}`)
-          .then(data => {
-            console.log(data);
-          })
       })
   }, []);
 
