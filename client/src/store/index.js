@@ -9,7 +9,8 @@ import modalReducer from './modal/reducer';
 import notificationReducer from './notification/reducer';
 import searchReducer from './search/searchReducer';
 import cartReducer from './cart/cartReducer';
-import filters from './filter/reducers';
+import filterReducer from './filter/filterReducer';
+import categoryReducer from './categories/categoryReducer';
 
 export const initialStore = {
   auth: { user: null, token: Cookie.get('auth') },
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   notification: notificationReducer,
   searchReducer,
-  filters,
+  filterReducer,
+  categoryReducer,
   cartReducer,
 });
 

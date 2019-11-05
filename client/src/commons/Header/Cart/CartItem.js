@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    width: '100%',
+    height: '100%',
   },
   text: {
     fontSize: '12px',
@@ -49,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
   },
   price: {
-    fontSize: '12px',
+    paddingLeft: '5px',
+    fontSize: '14px',
     fontWeight: 'bold',
   },
   buttons: {
@@ -77,7 +78,10 @@ const CartItem = (props) => {
 
         <Grid container className={classes.main_block}>
           <Grid item>
-            <Link to="/products" className={classes.text}> Addmotor Hithot H1 Sport Mountain E-Hoverboard (green) </Link>
+            {/* eslint-disable-next-line no-template-curly-in-string */}
+            <Link to="/products/`{props.itemNo}`" className={classes.text}>
+              {props.name}
+            </Link>
           </Grid>
           <Grid item>
             <ButtonGroup className={classes.buttons} variant="text" size="small" aria-label="small contained button group">
@@ -91,10 +95,14 @@ const CartItem = (props) => {
           </Grid>
         </Grid>
         <Grid item>
-          <Counter />
+          <Counter
+            count={props.count}
+          />
         </Grid>
         <Grid item>
-           <p className={classes.price}> $1,699.99 </p>
+          <p className={classes.price}>
+            ${props.currentPrice}
+          </p>
         </Grid>
       </Grid>
 

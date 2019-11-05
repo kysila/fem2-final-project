@@ -88,6 +88,11 @@ router.get('/', getProducts);
 // @access  Public
 router.get('/rates/:rate', getProductsByRate);
 
+// @route   GET /products/rate/:rate
+// @desc    GET appropriate filtered products
+// @access  Public
+router.get('/rates/:rate', getProductsByRate);
+
 // @route   GET /products/filter
 // @desc    GET appropriate filtered products
 // @access  Public
