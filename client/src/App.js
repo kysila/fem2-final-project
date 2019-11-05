@@ -36,6 +36,9 @@ const GlobalCss = withStyles({
     '.MuiTypography-root': {
       fontFamily: "'Museo Sans 500'",
       color: '#444444',
+      '& p, li': {
+        fontSize: 14,
+      },
     },
     '.MuiTypography-body2': {
       fontFamily: "'Museo Sans 500'",
@@ -81,21 +84,21 @@ const GlobalCss = withStyles({
     '.MuiPopover-paper': {
       minWidth: '20vw !important',
     },
-    '.MuiButtonGroup-grouped': {
-      background: 'none',
-      color: '#444444',
-    },
     '.MuiTab-root': {
       minWidth: 'auto',
       padding: '6px 16.5px',
       color: '#444444',
       fontSize: '14px',
+      borderBottom: '1px solid #EAEAEA',
     },
     '.MuiTab-textColorPrimary.Mui-selected': {
       color: '#6A86E8',
     },
     '.MuiTabs-indicator': {
       backgroundColor: '#6A86E8',
+    },
+    '.MuiButtonBase-root': {
+      boxShadow: 'none',
     },
   },
 })(() => null);
@@ -118,7 +121,7 @@ function App() {
             <Switch>
               <Route path="/" exact component={MainPage} />
               <Route path="/products" exact component={Products} />
-              <Route path="/products/:id" component={ProductDetails} />
+              <Route path="/products/:id" exact component={ProductDetails} />
               <Route path="/search" component={Search} />
               <Route component={NotFound} />
               <Route path="/unsubscribe" components={Unsubscribe} />
