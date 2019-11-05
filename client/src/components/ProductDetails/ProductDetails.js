@@ -41,7 +41,6 @@ export const ProductDetails = (props) => {
   useEffect(() => {
     axios.get(`/products/product/:${state.itemNo}`)
       .then(data => {
-        console.log(data);
       })
   });
 
