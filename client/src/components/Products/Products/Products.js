@@ -1,33 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { makeStyles } from '@material-ui/core/styles';
+
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
 import Typography from '@material-ui/core/Typography';
-import { ProductCard } from '../ProductCard/ProductCard';
-import { Footer, Header } from '../../commons';
-import AllBreadcrumbs from './AllBreadcrumbs';
-import { Title } from '../Title/Title';
-import { StayInTouch } from '../../commons/Footer/StayInTouch';
-import Filters from './Filters/Filters';
-import Preloader from '../Preloader/Preloader';
+import { ProductCard } from '../../ProductCard/ProductCard';
+import { Footer, Header } from '../../../commons';
+import AllBreadcrumbs from '../AllBreadcrumbs/AllBreadcrumbs';
+import { Title } from '../../Title/Title';
+import { StayInTouch } from '../../../commons/Footer/StayInTouch/StayInTouch';
+import Filters from '../Filters/Filters';
+import Preloader from '../../Preloader/Preloader';
+import { useStyles } from './style';
 
-const useStyles = makeStyles(() => ({
-  card: {
-    marginBottom: 0,
-    maxWidth: 'auto',
-  },
-  space: {
-    marginBottom: '40px',
-  },
-  mainContainer: {
-    paddingTop: '20px',
-    backgroundColor: '#fff',
-  },
-
-}));
 
 export const Products = () => {
   const classes = useStyles();

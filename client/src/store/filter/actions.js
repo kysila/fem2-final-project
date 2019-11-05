@@ -38,5 +38,3 @@ export const getFilters = () => (dispatch) => {
       });
     });
 };
-
-

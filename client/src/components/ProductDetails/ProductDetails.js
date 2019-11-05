@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { Header } from '../../commons';
-import StayInTouch from "../../commons/Footer/StayInTouch";
-
-import { ProductGallery } from "./ProductGallety";
-import { ProductDescription } from './ProductDescription'
-
-import {makeStyles} from "@material-ui/core";
+import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+import { Header } from '../../commons';
+import { StayInTouch } from '../../commons/Footer/StayInTouch/StayInTouch';
+
+import { ProductGallery } from './ProductGallety';
+import { ProductDescription } from './ProductDescription';
+
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs';
 
 const useStyles = makeStyles(() => ({
@@ -35,10 +35,10 @@ export const ProductDetails = (props) => {
 
   useEffect(() => {
     axios.get(`/products/${props.match.params.id}`)
-      .then(data => {
+      .then((data) => {
         setState(data.data);
-      })
-  }, []);
+      });
+  }, [props.match.params.id]);
 
 
   return (
@@ -48,12 +48,12 @@ export const ProductDetails = (props) => {
         <ProductBreadcrumbs link={state.name} />
         <div className={classes.productPage}>
           <div className={classes.productInfo}>
-            <ProductGallery image={state.imageUrls}/>
+            <ProductGallery image={state.imageUrls} />
             <ProductDescription data={state} />
           </div>
         </div>
       </Container>
       <StayInTouch />
     </div>
-  )
+  );
 };

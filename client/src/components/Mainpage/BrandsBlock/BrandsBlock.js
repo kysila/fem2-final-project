@@ -1,47 +1,13 @@
 import React from 'react';
 
 import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-import { brandImg } from '../../img/brands';
+import { brandImg } from '../../../img/brands';
 
-import SubsectionTitle from './SubsectionTitle';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    '&>div': {
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  },
-  box: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-  },
-  img: {
-    width: '100%',
-    filter: 'grayscale(100%)',
-    opacity: '.5',
-    transition: 'all 0.5s ease-out',
-    '&:hover': {
-      filter: 'none',
-      opacity: '1',
-    },
-  },
-  greyBG: {
-    paddingTop: '44px',
-    paddingBottom: '35px',
-    backgroundColor: '#F8F8F8',
-  },
-
-}));
+import SubsectionTitle from '../SubsectionTitle/SubsectionTitle';
+import { useStyles } from './style';
 
 
 const BrandsBlock = () => {
