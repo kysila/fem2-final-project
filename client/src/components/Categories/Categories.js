@@ -107,8 +107,8 @@ export const CategoryImages = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function getData() {
-      await axios.get('/catalog')
+    function getData() {
+      axios.get('/catalog')
         .then((catalog) => {
           setCategoryLink(catalog.data);
           setLoading(false);

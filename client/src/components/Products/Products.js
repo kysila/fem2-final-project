@@ -13,6 +13,7 @@ import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch';
 import Filters from './Filters/Filters';
 import Preloader from '../Preloader/Preloader';
+import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -81,6 +82,7 @@ export const Products = () => {
             <Preloader />
           </main>
         </Container>
+        <RecentlyViewed />
         <StayInTouch />
       </React.Fragment>
     );
@@ -106,6 +108,7 @@ export const Products = () => {
           </Grid>
         </main>
       </Container>
+      <RecentlyViewed />
       <StayInTouch />
       <Footer />
     </React.Fragment>

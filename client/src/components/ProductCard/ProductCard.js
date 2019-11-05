@@ -115,20 +115,15 @@ export function ProductCard({
     });
   };
 
-  // const viewedArr = [];
-  // localStorage.setItem('product', viewedArr);
-  localStorage.setItem('product', JSON.stringify([]));
-
   const viewedItemListener = () => {
     onmouseover = false;
-    console.log('e.target.itemNo', url);
-    // localStorage.setItem('product', JSON.stringify([]));
     const product = JSON.parse(localStorage.getItem('product'));
-    console.log(product);
-    const newProductArr = product.concat([url]);
-    console.log(newProductArr);
-    localStorage.setItem('product', newProductArr);
-    console.log(newProductArr);
+    if (!product) {
+      const newProduct = [].concat([url]);
+      localStorage.setItem('product', JSON.stringify(newProduct));
+    } else {
+      localStorage.setItem('product', JSON.stringify(product.concat([url])));
+    }
   };
 
   const classes = useStyles();
