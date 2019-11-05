@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import SwipeableViews from 'react-swipeable-views';
+import ReactDOMServer from 'react-dom/server';
+import HtmlToReact from 'html-to-react';
+
 import axios from 'axios';
 
-import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -37,18 +40,24 @@ const useStyles = makeStyles(theme => ({
 	root: {
 		backgroundColor: theme.palette.background.paper,
 		width: 499,
+		'& header': {
+			boxShadow: 'none !important',
+		},
 	},
 	styledTabs: {
-
+		fontSize: 20,
 	},
 	detailsName: {
 		display: 'inline-block',
-		width: 100,
+		width: 125,
+		fontSize: 14,
+		fontWeight: 'bold',
 	},
 	detailsDesc: {
 		display: 'inline-block',
 		width: 'auto',
-	}
+		fontSize: 14
+	},
 }));
 
 export const ProductDescription = ({data}) => {
@@ -59,6 +68,8 @@ export const ProductDescription = ({data}) => {
 	const classes = useStyles();
 	const theme = useTheme();
 
+	const HtmlToReactParser = HtmlToReact.Parser;
+	const htmlToReactParser = new HtmlToReactParser();
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -112,7 +123,7 @@ export const ProductDescription = ({data}) => {
 				onChangeIndex={handleChangeIndex}
 			>
 				<TabPanel value={value} index={0} dir={theme.direction}>
-					Item One!!!
+					{htmlToReactParser.parse(data.description)}
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
 					<div className="details">
@@ -136,12 +147,12 @@ export const ProductDescription = ({data}) => {
 					</div>
 				</TabPanel>
 				<TabPanel value={value} index={2} dir={theme.direction}>
-					Item Three
+					{htmlToReactParser.parse(data.warranty)}
 				</TabPanel>
 				<TabPanel value={value} index={3} dir={theme.direction}>
-					Item Three!
+					{htmlToReactParser.parse(data.shipping)}
 				</TabPanel>
 			</SwipeableViews>
 		</div>
 	);
-}
+};

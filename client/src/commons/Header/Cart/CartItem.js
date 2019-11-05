@@ -53,6 +53,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14px',
     fontWeight: 'bold',
   },
+  buttons: {
+    '& > button': {
+      background: 'none',
+      color: '#444444',
+    }
+  }
 }));
 
 const mapStateToProps = (state) => ({
@@ -67,7 +73,7 @@ const CartItem = (props) => {
 
         <Grid item className={classes.image}>
           {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-          <img className={classes.img} src={props.imgUrl} alt="Image of Product" />
+          <img className={classes.img} src="/img/products/e-hoverboards/1/001.jpg" alt="Image of Product" />
         </Grid>
 
         <Grid container className={classes.main_block}>
@@ -78,7 +84,7 @@ const CartItem = (props) => {
             </Link>
           </Grid>
           <Grid item>
-            <ButtonGroup variant="text" size="small" aria-label="small contained button group">
+            <ButtonGroup className={classes.buttons} variant="text" size="small" aria-label="small contained button group">
               <Button>
                 <span className={classes.button}> Delete </span>
               </Button>
