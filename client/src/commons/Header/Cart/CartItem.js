@@ -35,7 +35,7 @@ const CartItem = (props) => {
             </Link>
           </Grid>
           <Grid item>
-            <ButtonGroup classesName={classes.button_group} variant="text" size="small" aria-label="small contained button group">
+            <ButtonGroup className={classes.buttons} variant="text" size="small" aria-label="small contained button group">
               <Button>
                 <span className={classes.button}> Delete </span>
               </Button>

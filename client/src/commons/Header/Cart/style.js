@@ -129,7 +129,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     paddingLeft: '25%',
     fontSize: '13px',
   },
-  button_group: {
+  buttons: {
     '& > button': {
       background: 'none',
       color: '#444444',

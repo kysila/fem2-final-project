@@ -7,7 +7,7 @@ import { useStyles } from './style';
 const Counter = (props) => {
   const classes = useStyles();
   return (
-    <ButtonGroup classesName={classes.button_group} variant="contained" size="small" >
+    <ButtonGroup className={classes.buttons} variant="contained" size="small" >
       <Button> - </Button>
       <Button variant="text">
         <Input defaultValue={props.count} classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
