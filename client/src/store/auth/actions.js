@@ -55,7 +55,7 @@ export function dispatchLogin(payload) {
     axios.post(LOGIN, payload)
       .then(({ data }) => {
         Cookie.set('auth', data.token);
-        axios.defaults.headers.common.Authorization = data.token;
+        axios.defaults.headers.common['Authorization'] = data.token;
         dispatch(login(data));
         dispatch(modalClose());
         dispatch(dispatchGetCustomer());
