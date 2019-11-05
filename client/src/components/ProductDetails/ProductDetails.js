@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
-import {makeStyles} from "@material-ui/core";
+import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 
 import { Header } from '../../commons';
-import { ProductGallery } from "./ProductGallery";
-import { ProductDescription } from './ProductDescription'
-import { ProductDetailsCard } from "./ProductDetailsCard";
+import { ProductGallery } from './ProductGallery';
+import { ProductDescription } from './ProductDescription';
+import { ProductDetailsCard } from './ProductDetailsCard';
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs';
-import StayInTouch from "../../commons/Footer/StayInTouch";
+import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 
 const useStyles = makeStyles(() => ({
   space: {
@@ -40,17 +40,17 @@ export const ProductDetails = (props) => {
 
   useEffect(() => {
     axios.get(`/products/product/:${state.itemNo}`)
-      .then(data => {
+      .then((data) => {
         console.log(data);
-      })
+      });
   });
 
   useEffect(() => {
     axios.get(`/products/${props.match.params.id}`)
-      .then(data => {
+      .then((data) => {
         setState(data.data);
-      })
-  }, []);
+      });
+  }, [props.match.params.id]);
 
 
   return (
@@ -60,13 +60,13 @@ export const ProductDetails = (props) => {
         <ProductBreadcrumbs link={state.name} />
         <div className={classes.productPage}>
           <div className={classes.productInfo}>
-            <ProductGallery image={state.imageUrls}/>
+            <ProductGallery image={state.imageUrls} />
             <ProductDescription data={state} />
           </div>
-          <ProductDetailsCard data={state}/>
+          <ProductDetailsCard data={state} />
         </div>
       </Container>
       <StayInTouch />
     </div>
-  )
+  );
 };
