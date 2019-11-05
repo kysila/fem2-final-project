@@ -104,7 +104,6 @@ const useStyles = makeStyles(() => ({
 
 
 const Filters = (props) => {
-  console.log('general props', props);
   const classes = useStyles();
 
   const [open, setOpen] = useState({ open: false });
@@ -119,7 +118,7 @@ const Filters = (props) => {
     }
   };
   const HandleApplyFilters = () => {
-    console.log('props ', props);
+    console.log('props selected', props);
   };
 
   return (
@@ -200,6 +199,12 @@ const mapStateToProps = (state) => ({
   maxSpeeds: state.filterReducer.maxSpeedFilters,
   chargingTimes: state.filterReducer.chargingTimeFilters,
   categories: state.categoryReducer.categories,
+  colorSelectedFilters: state.selectFilterReducer.colorSelectedFilters,
+  maxSpeedSelectedFilters: state.selectFilterReducer.maxSpeedSelectedFilters,
+  distanceSelectedFilters: state.selectFilterReducer.distanceSelectedFilters,
+  chargingTimeSelectedFilters: state.selectFilterReducer.chargingTimeFilters,
+  categorySelectedFilters: state.selectFilterReducer.categorySelectedFilters,
+  priceSelectedFilters: state.selectFilterReducer.priceSelectedFilters,
 });
 
 export default connect(mapStateToProps, { getFilters, getCategories })(Filters);

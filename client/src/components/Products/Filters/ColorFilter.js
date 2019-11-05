@@ -35,8 +35,10 @@ const ColorFilter = (props) => {
   const classes = useStyles();
   const [color, setColor] = useState([]);
   const handleChangeColor = (event) => {
+    console.log('colorFilter props', props);
     setColor(event.target.value);
     props.selectFilters(event, event.target.value, 'color');
+    // props.selectFilters(event, 'colorSelectedFilters');
   };
   const handleChangeMultipleColor = (event) => {
     const { options } = event.target;
@@ -48,6 +50,7 @@ const ColorFilter = (props) => {
     }
     setColor(value);
     props.selectFilters(event, event.target.value, 'color');
+    // props.selectFilters(event, 'colorSelectedFilters');
   };
 
   return (
@@ -79,8 +82,8 @@ const ColorFilter = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  selectedFilters: state.filterReducer.selectedFilters,
-  filterType: state.filterReducer.filterType,
+  ...state,
+  colorSelectedFilters: state.selectFilterReducer.colorSelectedFilters,
 });
 
 export default connect(mapStateToProps, { selectFilters })(ColorFilter);

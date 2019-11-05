@@ -6,13 +6,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const ChargingTimeFilter = ({ chargingTimes }) => {
-  console.log('chargingTimes', chargingTimes);
+import { connect } from 'react-redux';
+import { selectFilters } from '../../../store/selectedFilters/actions';
+
+const ChargingTimeFilter = (props) => {
   const [chargingTime, setChargingTime] = useState([]);
 
   const handleChangeChargingTime = (event) => {
     setChargingTime(event.target.value);
-
+    props.selectFilters(event, event.target.value, 'chargingTime');
   };
   const handleChangeMultipleChargingTime = (event) => {
     const { options } = event.target;
@@ -23,6 +25,7 @@ const ChargingTimeFilter = ({ chargingTimes }) => {
       }
     }
     setChargingTime(value);
+    props.selectFilters(event, event.target.value, 'chargingTime');
   };
 
   return (
@@ -36,7 +39,7 @@ const ChargingTimeFilter = ({ chargingTimes }) => {
         input={<Input />}
         renderValue={(selected) => selected.join(', ')}
       >
-        {chargingTimes.map(({ _id, name }) => (
+        {props.chargingTimes.map(({ _id, name }) => (
           <MenuItem key={_id} value={name}>
             <Checkbox checked={chargingTime.indexOf(name) > -1} />
             <ListItemText primary={name} />
@@ -46,5 +49,10 @@ const ChargingTimeFilter = ({ chargingTimes }) => {
     </React.Fragment>
   );
 };
+const mapStateToProps = (state) => ({
+  ...state,
+  chargingTimeSelectedFilters: state.selectFilterReducer.chargingTimeSelectedFilters,
+});
 
-export default ChargingTimeFilter;
+
+export default connect(mapStateToProps, { selectFilters })(ChargingTimeFilter);

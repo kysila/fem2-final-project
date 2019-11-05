@@ -51,8 +51,8 @@ const CategoryFilter = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  selectedFilters: state.filterReducer.selectedFilters,
-  filterType: state.filterReducer.filterType,
+  ...state,
+  categorySelectedFilters: state.selectFilterReducer.categorySelectedFilters,
 });
 
 export default connect(mapStateToProps, { selectFilters })(CategoryFilter);

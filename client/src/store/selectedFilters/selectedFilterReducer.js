@@ -4,7 +4,12 @@ import {
 } from './actions';
 
 const initialState = {
-  selectedFilters: [],
+  colorSelectedFilters: [],
+  maxSpeedSelectedFilters: [],
+  distanceSelectedFilters: [],
+  chargingTimeSelectedFilters: [],
+  categorySelectedFilters: [],
+  priceSelectedFilters: [],
 };
 
 function selectFilterReducer(state = initialState, action) {
@@ -12,8 +17,12 @@ function selectFilterReducer(state = initialState, action) {
     case SELECT_FILTERS:
       return {
         ...state,
-        selectedFilters: action.selectedFilters,
-        filterType: action.filterType,
+        colorSelectedFilters: action.colorSelectedFilters,
+        maxSpeedSelectedFilters: action.maxSpeedSelectedFilters,
+        distanceSelectedFilters: action.distanceSelectedFilters,
+        chargingTimeSelectedFilters: action.chargingTimeSelectedFilters,
+        categorySelectedFilters: action.categorySelectedFilters,
+        priceSelectedFilters: action.priceSelectedFilters,
       };
 
     default:
