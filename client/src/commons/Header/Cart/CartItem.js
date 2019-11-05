@@ -4,56 +4,13 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import { setCountOfProducts } from '../../../store/cart/cartReducer';
 import Counter from './Counter';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(3, 2),
-    marginTop: '2%',
-  },
-  image: {
-    width: '99px',
-    height: '74px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  img: {
-    display: 'block',
-    width: '100%',
-    height: '100%',
-  },
-  text: {
-    fontSize: '12px',
-    textDecoration: 'underline',
-    color: '#444444',
-    paddingBottom: '7px',
-  },
-  main_block: {
-    flexBasis: '50%',
-    marginLeft: '2%',
-    flexDirection: 'column',
-  },
-  button: {
-    paddingLeft: '4px',
-    paddingRight: '4px',
-    fontSize: '12px',
-    display: 'block',
-    color: '#888888',
-    textTransform: 'none',
-  },
-  price: {
-    paddingLeft: '5px',
-    fontSize: '14px',
-    fontWeight: 'bold',
-  },
-}));
+import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
   countOfProducts: state.cartReducer.countOfProducts,
@@ -78,7 +35,7 @@ const CartItem = (props) => {
             </Link>
           </Grid>
           <Grid item>
-            <ButtonGroup variant="text" size="small" aria-label="small contained button group">
+            <ButtonGroup classesName={classes.button_group} variant="text" size="small" aria-label="small contained button group">
               <Button>
                 <span className={classes.button}> Delete </span>
               </Button>

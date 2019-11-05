@@ -7,7 +7,7 @@ import Cookie from 'js-cookie';
 import {
   MainPage, Products, ProductDetails, NotFound, Modal, Notifier,
 } from './components';
-import Unsubscribe from "./components/Unsubscribe/Unsubscribe";
+import Unsubscribe from './components/Unsubscribe/Unsubscribe';
 import { Search } from './components/Search/Search';
 import './App.css';
 
@@ -92,10 +92,10 @@ const GlobalCss = withStyles({
     '.Mui-selected': {
       boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.05)',
     },
-    '.MuiButtonGroup-grouped': {
-      background: 'none',
-      color: '#444444',
-    },
+    // '.MuiButtonGroup-grouped': {
+    //   background: 'none',
+    //   color: '#444444',
+    // },
     '.MuiTab-root': {
       minWidth: 'auto',
       padding: '6px 16.5px',
@@ -103,14 +103,14 @@ const GlobalCss = withStyles({
       fontSize: '14px',
     },
     '.MuiTab-textColorPrimary.Mui-selected': {
-      color: '#6A86E8'
+      color: '#6A86E8',
     },
     '.MuiTabs-indicator': {
       backgroundColor: '#6A86E8'
     },
-    '.MuiPaper-root': {
-      boxShadow: 'none',
-    },
+    // '.MuiPaper-root': {
+    //   boxShadow: 'none',
+    // },
   },
 })(() => null);
 
@@ -134,8 +134,8 @@ function App() {
               <Route path="/products" exact component={Products} />
               <Route path="/products/:id" component={ProductDetails} />
               <Route path="/search" component={Search} />
-              <Route component={NotFound} />
               <Route path="/unsubscribe" components={Unsubscribe} />
+              <Route component={NotFound} />
             </Switch>
           </div>
         </Router>
