@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -17,6 +16,7 @@ const mapStateToProps = (state) => ({
 });
 
 const CartItem = (props) => {
+  console.log('Props from CartItem', props);
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
@@ -48,6 +48,9 @@ const CartItem = (props) => {
         <Grid item>
           <Counter
             count={props.count}
+            quantity={props.quantity}
+            id={props.id}
+            itemNo={props.itemNo}
           />
         </Grid>
         <Grid item>

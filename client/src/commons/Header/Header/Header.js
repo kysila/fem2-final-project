@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -16,8 +16,6 @@ import { useStyles } from './style';
 
 const Header = (props) => {
   const classes = useStyles();
-  const [cartIsOpen, setCartIsOpen] = useState(false);
-
   const openLogin = (e) => {
     e.preventDefault();
     props.openModal('login');

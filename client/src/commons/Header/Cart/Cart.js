@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -23,25 +22,27 @@ const mapStateToProps = (state) => ({
 });
 
 // try to get cart from LS
-const cart = [
-  {
-    imageUrls: ['img/products/e-bikes/872426/001.jpg', 'img/products/e-bikes/773969/002.jpg'],
-    name: 'addmotor hithot h1 sport mountain e-bike',
-    itemNo: 773969,
-    currentPrice: 1899,
-    count: 1,
-  },
-  {
-    imageUrls: ['img/products/e-bikes/773969/006.jpg', 'img/products/e-bikes/773969/002.jpg'],
-    name: 'sport mountain e-bike',
-    itemNo: 872426,
-    currentPrice: 3299,
-    count: 2,
-  },
-];
-
-const serialCart = JSON.stringify(cart);
-localStorage.setItem('cart', serialCart);
+// const cart = [
+//   {
+//     imageUrls: ['img/products/e-bikes/872426/001.jpg', 'img/products/e-bikes/773969/002.jpg'],
+//     name: 'addmotor hithot h1 sport mountain e-bike',
+//     itemNo: 773969,
+//     currentPrice: 1899,
+//     cartQuantity: 1,
+//     quantity: 12,
+//   },
+//   {
+//     imageUrls: ['img/products/e-bikes/773969/006.jpg', 'img/products/e-bikes/773969/002.jpg'],
+//     name: 'sport mountain e-bike',
+//     itemNo: 872426,
+//     currentPrice: 3299,
+//     cartQuantity: 2,
+//     quantity: 5,
+//   },
+// ];
+//
+// const serialCart = JSON.stringify(cart);
+// localStorage.setItem('cart', serialCart);
 // / End
 
 const Cart = (props) => {
@@ -63,8 +64,10 @@ const Cart = (props) => {
             name={el.name}
             currentPrice={el.currentPrice}
             imgUrl={el.imageUrls[0]}
-            count={el.count}
-            id={el.itemNo}
+            count={el.cartQuantity}
+            itemNo={el.itemNo}
+            id={el._id}
+            quantity={el.quantity}
           />
         ))
       );
