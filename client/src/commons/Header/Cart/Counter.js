@@ -76,12 +76,12 @@ const Counter = (props) => {
   };
   return (
     <ButtonGroup className={classes.buttons} variant="contained" size="small">
-      <Button onClick={() => subtractCount(props.count, props.id)}> - </Button>
+      <Button onClick={() => subtractCount(counterStatus, props.id)}> - </Button>
       <Button variant="text">
         {/* eslint-disable-next-line max-len */}
         <Input value={counterStatus} classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
       </Button>
-      <Button onClick={() => addCount(props.count, props.quantity, props.id)}> + </Button>
+      <Button onClick={() => addCount(counterStatus, props.quantity, props.id)}> + </Button>
     </ButtonGroup>
   );
 };
