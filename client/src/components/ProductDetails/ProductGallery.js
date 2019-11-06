@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
 	img: {
 		display: 'block',
 		width: 'calc(100% / 6)',
-		height: 'auto',
+		height: '100%',
 		opacity: '.5',
 		cursor: 'pointer',
 		transition: 'all .5s linear',

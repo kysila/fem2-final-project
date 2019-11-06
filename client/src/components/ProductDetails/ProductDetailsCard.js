@@ -31,10 +31,19 @@ const useStyles = makeStyles({
 		marginBottom: 15,
 	},
 	otherColors: {
-		marginTop: 26,
+		marginTop: 20,
 		marginBottom: 20,
-		height: 40,
-		border: '1px solid black',
+		height: 24,
+		display: 'flex',
+	},
+	link: {
+		marginRight: '8px',
+		padding: '2px 7px 0px 7px',
+		display: 'inline-block',
+		textAlign: 'center',
+		border: '1px solid #444',
+		borderRadius: '3px',
+		textTransform: 'capitalize',
 	},
 	price: {
 		display: 'flex',
@@ -71,7 +80,7 @@ const useStyles = makeStyles({
 				fill: '#6686FF'
 			}
 		}
-	}
+	},
 });
 
 const heartIcon = (
@@ -110,7 +119,18 @@ export const ProductDetailsCard = ({data}) => {
 				value={obj.rating}
 				readOnly />
 				<Box className={classes.otherColors}>
-					<Link to={colors ? `/products/${colors[1].itemNo}` : null }>{ colors ? colors[1].color : null }</Link>
+					<Link
+						style={ colors ? {color: `${colors[0].color}`} : {color: 'black'}}
+						className={classes.link}
+						to={colors ? `/products/${colors[0].itemNo}` : null }>
+						{ colors ? colors[0].color : null }
+					</Link>
+					<Link
+						style={ colors ? {color: `${colors[1].color}`} : {color: 'black'}}
+						className={classes.link}
+						to={colors ? `/products/${colors[1].itemNo}` : null }>
+						{ colors ? colors[1].color : null }
+					</Link>
 				</Box>
 				<Box className={classes.price}>
 					<Typography>

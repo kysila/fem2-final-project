@@ -37,6 +37,8 @@ export const ProductDetails = (props) => {
     colors: {},
   });
 
+  let id = props.match.params.id;
+
   const classes = useStyles();
 
   useEffect(() => {
@@ -46,8 +48,9 @@ export const ProductDetails = (props) => {
           ...state,
           obj: data.data,
         }))
-      })
-  }, []);
+      });
+    return () => {}
+  }, [id]);
 
   useEffect(() => {
     axios.get(`/products/product/${state.obj.itemNo}`)
@@ -65,7 +68,7 @@ export const ProductDetails = (props) => {
     <div>
       <Header callCenter="1-855-324-5387" />
       <Container maxWidth="md" className={classes.paddingTop}>
-        <ProductBreadcrumbs link={state.name} />
+        <ProductBreadcrumbs link={state.obj.name} />
         <div className={classes.productPage}>
           <div className={classes.productInfo}>
             <ProductGallery image={state.obj.imageUrls}/>
