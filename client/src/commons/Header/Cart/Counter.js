@@ -14,21 +14,26 @@ const mapStateToProps = (state) => ({
 
 
 const Counter = (props) => {
+  const [disabledStatusSub, setDisabledStatusSub] = useState(false);
+  const [disabledStatusAdd, setDisabledStatusAdd] = useState(false);
   const [counterStatus, setCounterStatus] = useState(props.count);
   const classes = useStyles();
-  // console.log('Props From Counter', props);
+  console.log('Props From Counter =====>', props);
   let cartFromLS;
 
   const addCount = (a, b, id) => {
     if (a < b) {
+      setDisabledStatusAdd(false);
+      setDisabledStatusSub(false);
       if (props.user) {
+        setCounterStatus(counterStatus + 1)
         axios
           .put(`/cart/${id}`)
           .then((updatedCart) => {
             console.log('Updated cart after increase', updatedCart);
           })
           .catch((err) => {
-            console.log("Can't  add new product", err);
+            console.log("Can't  add new product", err.response.data);
           });
       } else {
         cartFromLS = JSON.parse(localStorage.getItem('cart'));
@@ -44,19 +49,23 @@ const Counter = (props) => {
       }
     } else {
       console.log("Can't  add new product");
+      setDisabledStatusAdd(true);
     }
   };
 
   const subtractCount = (a, id) => {
+    setDisabledStatusAdd(false);
+    setDisabledStatusSub(false);
     if (a > 0) {
       if (props.user) {
+        setCounterStatus(counterStatus - 1);
         axios
           .delete(`/cart/${id}`)
           .then((updatedCart) => {
-            console.log('Updated cart after decrease', updatedCart);
+            // console.log('Updated cart after decrease', updatedCart);
           })
           .catch((err) => {
-            console.log("Can't  add new product", err);
+            console.log("Can't  add new product", err.response.data);
           });
       } else {
         cartFromLS = JSON.parse(localStorage.getItem('cart'));
@@ -72,16 +81,19 @@ const Counter = (props) => {
       }
     } else {
       console.log("Can't  subtract new product");
+      setDisabledStatusSub(true);
     }
   };
   return (
     <ButtonGroup className={classes.buttons} variant="contained" size="small">
-      <Button onClick={() => subtractCount(counterStatus, props.id)}> - </Button>
+      {/* eslint-disable-next-line no-const-assign,max-len */}
+      <Button disabled={disabledStatusSub}  onClick={() => subtractCount(counterStatus, props.id)}> - </Button>
       <Button variant="text">
         {/* eslint-disable-next-line max-len */}
         <Input value={counterStatus} classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
       </Button>
-      <Button onClick={() => addCount(counterStatus, props.quantity, props.id)}> + </Button>
+      {/* eslint-disable-next-line max-len */}
+      <Button disabled={disabledStatusAdd} onClick={() => addCount(counterStatus, props.quantity, props.id)}> + </Button>
     </ButtonGroup>
   );
 };

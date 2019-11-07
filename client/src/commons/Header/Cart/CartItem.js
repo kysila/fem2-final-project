@@ -30,7 +30,7 @@ const CartItem = (props) => {
         <Grid container className={classes.main_block}>
           <Grid item>
             {/* eslint-disable-next-line no-template-curly-in-string */}
-            <Link to="/products/`{props.itemNo}`" className={classes.text}>
+            <Link to={`/products/${props.itemNo}`} className={classes.text}>
               {props.name}
             </Link>
           </Grid>
