@@ -4,17 +4,9 @@ import { connect } from 'react-redux';
 import SearchBar from 'material-ui-search-bar';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import { setSearchValue, setSearchProducts } from '../../store/search/searchReducer';
-
-const useStyles = makeStyles({
-  search: {
-    fontSize: '12px',
-    color: '#444444',
-    width: '100%',
-  },
-});
+import { useStyles } from './style';
+import { setSearchValue, setSearchProducts } from '../../../store/search/action';
 
 const mapStateToProps = (state) => ({
   searchValue: state.searchReducer.searchValue,

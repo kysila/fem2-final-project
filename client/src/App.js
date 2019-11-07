@@ -92,17 +92,17 @@ const GlobalCss = withStyles({
       padding: '6px 16.5px',
       color: '#444444',
       fontSize: '14px',
-      borderBottom: '1px solid #EAEAEA'
+      borderBottom: '1px solid #EAEAEA',
     },
     '.MuiTab-textColorPrimary.Mui-selected': {
-      color: '#6A86E8'
+      color: '#6A86E8',
     },
     '.MuiTabs-indicator': {
-      backgroundColor: '#6A86E8'
+      backgroundColor: '#6A86E8',
     },
     '.MuiButtonBase-root': {
       boxShadow: 'none',
-    }
+    },
   },
 })(() => null);
 
@@ -126,6 +126,7 @@ function App() {
               <Route path="/products" exact component={Products} />
               <Route path="/products/:id" component={ProductDetails} />
               <Route path="/search" component={Search} />
+              <Route path="/unsubscribe" components={Unsubscribe} />
               <Route component={NotFound} />
               <Route path="/unsubscribe" components={Unsubscribe} />
             </Switch>
