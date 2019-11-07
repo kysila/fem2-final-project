@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import { Header } from '../../commons';
 import { ProductGallery } from "./ProductGallery";
 import { ProductDescription } from './ProductDescription'
-import { ProductDetailsCard } from "./ProductDetailsCard";
+import ProductDetailsCard from "./ProductDetailsCard";
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs';
 import StayInTouch from "../../commons/Footer/StayInTouch";
 
@@ -32,36 +32,47 @@ const useStyles = makeStyles(() => ({
 
 
 export const ProductDetails = (props) => {
-  const [state, setState] = useState({});
+  const [state, setState] = useState({
+    obj: {},
+    colors: {},
+  });
 
-  console.log(state);
+  let id = props.match.params.id;
 
   const classes = useStyles();
 
   useEffect(() => {
-    axios.get(`/products/product/:${state.itemNo}`)
-      .then(data => {
-        console.log(data);
-      })
-  });
-
-  useEffect(() => {
     axios.get(`/products/${props.match.params.id}`)
       .then(data => {
-        setState(data.data);
-      })
-  }, []);
+        setState(() => ({
+          ...state,
+          obj: data.data,
+        }))
+      });
+    return () => {}
+  }, [id]);
 
+  useEffect(() => {
+    axios.get(`/products/product/${state.obj.itemNo}`)
+      .then(data => {
+        setState({
+          ...state,
+          colors: data
+        });
+      });
+  }, [state.obj]);
+
+  console.log(state);
 
   return (
     <div>
       <Header callCenter="1-855-324-5387" />
       <Container maxWidth="md" className={classes.paddingTop}>
-        <ProductBreadcrumbs link={state.name} />
+        <ProductBreadcrumbs link={state.obj.name} />
         <div className={classes.productPage}>
           <div className={classes.productInfo}>
-            <ProductGallery image={state.imageUrls}/>
-            <ProductDescription data={state} />
+            <ProductGallery image={state.obj.imageUrls}/>
+            <ProductDescription data={state.obj} />
           </div>
           <ProductDetailsCard data={state}/>
         </div>

@@ -124,10 +124,11 @@ function App() {
             <Switch>
               <Route path="/" exact component={MainPage} />
               <Route path="/products" exact component={Products} />
-              <Route path="/products/:id" exact component={ProductDetails} />
+              <Route path="/products/:id" component={ProductDetails} />
               <Route path="/search" component={Search} />
               <Route path="/unsubscribe" components={Unsubscribe} />
               <Route component={NotFound} />
+              <Route path="/unsubscribe" components={Unsubscribe} />
             </Switch>
           </div>
         </Router>
