@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import { Header } from '../../commons';
 import { ProductGallery } from "./ProductGallery";
 import { ProductDescription } from './ProductDescription'
-import { ProductDetailsCard } from "./ProductDetailsCard";
+import ProductDetailsCard from "./ProductDetailsCard";
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs';
 import StayInTouch from "../../commons/Footer/StayInTouch";
 
