@@ -10,7 +10,7 @@ import { ProductCard } from '../../ProductCard/ProductCard';
 import { Footer, Header } from '../../../commons';
 import AllBreadcrumbs from '../AllBreadcrumbs/AllBreadcrumbs';
 import { Title } from '../../Title/Title';
-import { StayInTouch } from '../../../commons/Footer/StayInTouch/StayInTouch';
+import StayInTouch from '../../../commons/Footer/StayInTouch/StayInTouch';
 import Filters from '../Filters/Filters';
 import Preloader from '../../Preloader/Preloader';
 import { useStyles } from './style';

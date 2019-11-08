@@ -124,7 +124,7 @@ function App() {
               <Route path="/products" exact component={Products} />
               <Route path="/products/:id" component={ProductDetails} />
               <Route path="/search" component={Search} />
-              <Route path="/unsubscribe" components={Unsubscribe} />
+              <Route path="/subscribers/email/:email" component={Unsubscribe} />
               <Route component={NotFound} />
             </Switch>
           </div>
