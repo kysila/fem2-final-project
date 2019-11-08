@@ -40,7 +40,6 @@ const Products = (props) => {
     }
   });
 
-  //
   const loadMoreAction = () => {
     setCount(count + 1);
   };
@@ -122,7 +121,7 @@ const Products = (props) => {
                     Our full collection of electric devices
         </Typography>
         <Filters />
-        <main>
+        <main className={classes.main}>
           <Grid container spacing={0}>
             {products}
           </Grid>

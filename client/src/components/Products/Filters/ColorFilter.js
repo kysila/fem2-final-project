@@ -1,44 +1,21 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import { connect } from 'react-redux';
 import { selectFilters } from '../../../store/selectedFilters/actions';
+import { useStyles } from './style';
 
-const useStyles = makeStyles(() => ({
-  colorItem: {
-    margin: '10px 15px',
-    padding: '5px',
-    display: 'inline-flex',
-    '&:hover': {
-      borderRadius: '50%',
-    },
-    '&.MuiMenuItem-root': {
-      minHeight: 'auto',
-    },
-    '&.Mui-selected': {
-      boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.05)',
-      borderRadius: '50%',
-      padding: '5px',
-    },
-  },
-  colorDiv: {
-    width: '20px',
-    height: '20px',
-    borderRadius: '50%',
-  },
-}));
 
 const ColorFilter = (props) => {
+
   const classes = useStyles();
   const [color, setColor] = useState([]);
   const handleChangeColor = (event) => {
-    console.log('colorFilter props', props);
     setColor(event.target.value);
-    props.selectFilters(event, event.target.value, 'color');
-    // props.selectFilters(event, 'colorSelectedFilters');
+    console.log('props.selectedFilters', props.selectedFilters);
+    props.selectFilters(event, event.target.value, 'colorSelected', {...props.selectedFilters});
   };
   const handleChangeMultipleColor = (event) => {
     const { options } = event.target;
@@ -49,7 +26,7 @@ const ColorFilter = (props) => {
       }
     }
     setColor(value);
-    props.selectFilters(event, event.target.value, 'color');
+    props.selectFilters(event, event.target.value, 'colorSelected',  {...props.selectedFilters});
     // props.selectFilters(event, 'colorSelectedFilters');
   };
 
@@ -83,7 +60,7 @@ const ColorFilter = (props) => {
 };
 const mapStateToProps = (state) => ({
   ...state,
-  colorSelectedFilters: state.selectFilterReducer.colorSelectedFilters,
+  selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
 export default connect(mapStateToProps, { selectFilters })(ColorFilter);

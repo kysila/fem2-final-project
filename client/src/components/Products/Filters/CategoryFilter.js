@@ -15,7 +15,7 @@ const CategoryFilter = (props) => {
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
-    props.selectFilters(event, event.target.value, 'category');
+    props.selectFilters(event, event.target.value, 'categorySelected', {...props.selectedFilters});
   };
 
   const handleChangeMultipleCategory = (event) => {
@@ -27,7 +27,7 @@ const CategoryFilter = (props) => {
       }
     }
     setCategory(value);
-    props.selectFilters(event, event.target.value, 'category');
+    props.selectFilters(event, event.target.value, 'categorySelected', {...props.selectedFilters});
   };
   return (
     <React.Fragment>
@@ -52,7 +52,7 @@ const CategoryFilter = (props) => {
 };
 const mapStateToProps = (state) => ({
   ...state,
-  categorySelectedFilters: state.selectFilterReducer.categorySelectedFilters,
+  selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
 export default connect(mapStateToProps, { selectFilters })(CategoryFilter);

@@ -12,6 +12,13 @@ export const useStyles = makeStyles(() => ({
     paddingTop: '20px',
     backgroundColor: '#fff',
   },
+  main:{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 100,
+  },
   productsContainer: {
     height: '700px',
     overflow: 'auto',

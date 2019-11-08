@@ -4,21 +4,15 @@ import {
 } from './actions';
 
 const initialState = {
-  colorSelectedFilters: [],
-  maxSpeedSelectedFilters: [],
-  distanceSelectedFilters: [],
-  chargingTimeSelectedFilters: [],
-  categorySelectedFilters: [],
-  priceSelectedFilters: [],
+  selectedFilters: {},
 };
 
-function selectFilterReducer(state = initialState, action, payload) {
+function selectFilterReducer(state = initialState, action) {
   switch (action.type) {
     case SELECT_FILTERS:
       return {
         ...state,
-        selectedFilters: action.payload
-        ,
+        selectedFilters: { ...action.selectedFilters },
 
       };
 
