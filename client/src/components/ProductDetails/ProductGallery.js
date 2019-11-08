@@ -16,7 +16,8 @@ const useStyles = makeStyles(() => ({
 	mainImage: {
 		margin: '10px 0',
 		width: '100%',
-		height: 'auto',
+		height: '376px',
+		objectFit: 'contain',
 	},
 	allImage: {
 		width: '100%',
@@ -29,10 +30,11 @@ const useStyles = makeStyles(() => ({
 	img: {
 		display: 'block',
 		width: 'calc(100% / 6)',
-		height: 'auto',
+		height: '62px',
 		opacity: '.5',
 		cursor: 'pointer',
 		transition: 'all .5s linear',
+		objectFit: 'contain',
 	},
 }));
 

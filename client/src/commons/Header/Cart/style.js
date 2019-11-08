@@ -88,6 +88,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     alignItems: 'center',
   },
   img: {
+    objectFit: 'contain',
     display: 'block',
     width: '100%',
     height: '100%',

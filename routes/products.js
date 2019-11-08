@@ -113,6 +113,6 @@ router.get('/:itemNo', getProductById);
 // @access  Public
 router.get('/:itemNo', getProductById);
 
-router.get('/product/:name', getProductsByName);
+router.get('/product/:itemNo', getProductsByName);
 
 module.exports = router;

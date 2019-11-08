@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -7,17 +7,40 @@ import Grid from '@material-ui/core/Grid';
 
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import { update } from 'sweetalert2';
 import { setCountOfProducts } from '../../../store/cart/cartReducer';
 import Counter from './Counter';
 import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
   countOfProducts: state.cartReducer.countOfProducts,
+  user: state.auth.user,
 });
 
+
 const CartItem = (props) => {
-  console.log('Props from CartItem', props);
   const classes = useStyles();
+  // console.log('Props from CartItem', props);
+
+  // let needUpdate = true;
+  const deleteProduct = () => {
+    if (props.user) {
+      axios.delete(`/cart/${props.id}`)
+        .then((result) => {
+          // console.log('After delete ====> ', result);
+          // needUpdate = !needUpdate;
+        })
+        .catch((err) => {
+          console.log('axios failed', err.response.data);
+        });
+    }
+  };
+
+  // useEffect(() => {
+  //
+  // }, [needUpdate]);
+
   return (
     <Paper className={classes.root}>
       <Grid container justify="center" alignItems="center" alignContent="stretch" spacing={1}>
@@ -36,7 +59,7 @@ const CartItem = (props) => {
           </Grid>
           <Grid item>
             <ButtonGroup className={classes.buttons} variant="text" size="small" aria-label="small contained button group">
-              <Button>
+              <Button onClick={deleteProduct}>
                 <span className={classes.button}> Delete </span>
               </Button>
               <Button>
@@ -51,11 +74,13 @@ const CartItem = (props) => {
             quantity={props.quantity}
             id={props.id}
             itemNo={props.itemNo}
+            currentPrice={props.currentPrice}
           />
         </Grid>
         <Grid item>
           <p className={classes.price}>
-            ${props.currentPrice}
+            $
+            {props.currentPrice}
           </p>
         </Grid>
       </Grid>
