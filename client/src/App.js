@@ -128,7 +128,6 @@ function App() {
               <Route path="/search" component={Search} />
               <Route path="/unsubscribe" components={Unsubscribe} />
               <Route component={NotFound} />
-              <Route path="/unsubscribe" components={Unsubscribe} />
             </Switch>
           </div>
         </Router>

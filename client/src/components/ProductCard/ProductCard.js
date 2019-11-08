@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
+
 const useStyles = makeStyles({
   card: {
     overflow: 'visible',
@@ -98,7 +99,7 @@ const bagIcon = <path d="M10 8H12V5H15V3H12V0H10V3H7V5H10V8ZM6 17C4.9 17 4.01 17
 
 
 export function ProductCard({
-  name, itemImg, price, url, rating,
+  name, itemImg, price, url, rating, key, itemNo,
 }) {
   const [state, setState] = useState({
     openButtons: false,
@@ -116,11 +117,30 @@ export function ProductCard({
     });
   };
 
+  const viewedItemListener = () => {
+    onmouseover = false;
+    const product = JSON.parse(localStorage.getItem('product'));
+    if (!product) {
+      const newProduct = [].concat([{
+        name, itemImg, price, url, rating, key, itemNo,
+      }]);
+      localStorage.setItem('product', JSON.stringify(newProduct));
+    } else {
+      localStorage.setItem('product', JSON.stringify(product.concat([{
+        name, itemImg, price, url, rating, key, itemNo,
+      }])));
+    }
+  };
+
+  const products = JSON.parse(localStorage.getItem('product'));
+
+
   const classes = useStyles();
 
   return (
     <Link to={url} className={classes.link}>
       <Card
+        onClick={viewedItemListener}
         className={classes.card}
         onMouseOver={showButtonsPanel}
         onMouseOut={hideButtonsPanel}
@@ -149,7 +169,7 @@ export function ProductCard({
               display="inline"
               component="h2"
             >
-							$4,010
+                $4,010
             </Typography>
             <Typography
               className={classes.fontDesc}
@@ -191,8 +211,8 @@ export function ProductCard({
               <SvgIcon
                 className="icon"
                 style={{
-								  width: 30,
-								  height: 23,
+                  width: 30,
+                  height: 23,
                 }}
                 color="action"
               >
@@ -205,8 +225,8 @@ export function ProductCard({
               <SvgIcon
                 className="icon"
                 style={{
-								  width: 30,
-								  height: 23,
+                  width: 30,
+                  height: 23,
                 }}
                 color="action"
               >
