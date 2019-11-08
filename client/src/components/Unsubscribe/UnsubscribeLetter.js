@@ -1,9 +1,8 @@
 import React from 'react';
 
 
-export const SubscribeLetter = (props) => {
+export const UnsubscribeLetter = () => {
   const redirectUrl = window.location.origin;
-  const unsubscribeUrl = `${window.location.origin}/subscribers/email/${props.email}`;
   const mailBody = `<!DOCTYPE html> <html lang='en'><head> <meta charset='UTF-8' /> <meta name='viewport' content='width=device-width, initial-scale=1.0' /> <meta http-equiv='X-UA-Compatible' content='ie=edge' />
         <title>Document</title>
         
@@ -11,7 +10,7 @@ export const SubscribeLetter = (props) => {
         <table>
              <tr>
                 <td>
-                    <img src='https://optinmonster.com/wp-content/uploads/2017/09/perfect-welcome-email-for-new-subscribers-1.jpg' alt="welcome" border="0" width="300" style="display:block;"/>
+                    <img src='https://st.depositphotos.com/1001911/4372/v/450/depositphotos_43725677-stock-illustration-wiping-tear-emoticon.jpg' alt="welcome" border="0" width="300" style="display:block;"/>
                     <a href=${redirectUrl} style="margin-top:20px; color: #333333; font: 10px Arial, sans-serif; line-height: 30px; -webkit-text-size-adjust:none; display: block;" target="_blank"><svg width="101" height="14" viewBox="0 0 101 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.8091 0C12.1025 0 12.353 0.1 12.5606 0.3C12.7753 0.493333 12.8827 0.726667 12.8827 1C12.8827 1.27333 12.7753 1.51 12.5606 1.71C12.353 1.90333 12.1025 2 11.8091 2H2.14711V6H9.66199C9.95543 6 10.2059 6.1 10.4135 6.3C10.6282 6.49333 10.7355 6.72667 10.7355 7C10.7355 7.27333 10.6282 7.51 10.4135 7.71C10.2059 7.90333 9.95543 8 9.66199 8H2.14711V12H11.8091C12.1025 12 12.353 12.1 12.5606 12.3C12.7753 12.4933 12.8827 12.7267 12.8827 13C12.8827 13.2733 12.7753 13.51 12.5606 13.71C12.353 13.9033 12.1025 14 11.8091 14H1.07355C0.780116 14 0.526042 13.9033 0.311331 13.71C0.103777 13.51 0 13.2733 0 13V1C0 0.726667 0.103777 0.493333 0.311331 0.3C0.526042 0.1 0.780116 0 1.07355 0H11.8091Z" fill="url(#paint0_linear)"/>
 <path d="M15.0298 1C15.0298 0.726667 15.1335 0.493333 15.3411 0.3C15.5558 0.1 15.8099 0 16.1033 0C16.3968 0 16.6473 0.1 16.8548 0.3C17.0695 0.493333 17.1769 0.726667 17.1769 1V12H26.8389C27.1323 12 27.3828 12.1 27.5903 12.3C27.8051 12.4933 27.9124 12.7267 27.9124 13C27.9124 13.2733 27.8051 13.51 27.5903 13.71C27.3828 13.9033 27.1323 14 26.8389 14H16.1033C15.8099 14 15.5558 13.9033 15.3411 13.71C15.1335 13.51 15.0298 13.2733 15.0298 13V1Z" fill="url(#paint1_linear)"/>
@@ -52,10 +51,9 @@ export const SubscribeLetter = (props) => {
 </defs>
 </svg>
 </a>
-                    <h1 style="margin:0 auto">Wellcome!</h1>
+                    <h1 style="margin:0 auto">Hope to see you again!</h1>
                     <span  style="color: #333333; font: 18px Arial, sans-serif; line-height: 30px; -webkit-text-size-adjust:none; display: block;">
-                    We are glad to see you in our store!</span>
-                    <a href=${unsubscribeUrl} style="color: #333333; font: 10px Arial, sans-serif; line-height: 30px; -webkit-text-size-adjust:none; display: block;" target="_blank">Unsubscribe</a>
+                   You unsubscribed successfully</span>
                 </td>
              </tr>
          </table>

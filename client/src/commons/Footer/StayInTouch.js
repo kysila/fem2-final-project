@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import SubsectionTitle from '../../components/Mainpage/SubsectionTitle';
-import SubscribeLetter from './SubscribeLetter';
+import { SubscribeLetter } from './SubscribeLetter';
 
 const useStyles = makeStyles((theme) => ({
   blueBG: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const StayInTouch = () => {
+const StayInTouch = () => {
   const classes = useStyles();
   const [mail, setMail] = useState('');
   const [formError, setFormError] = useState(false);
@@ -65,7 +65,7 @@ export const StayInTouch = () => {
       type: 'success',
       confirmButtonColor: '#6A86E8',
       onClose: () => {
-        window.location = '/';
+        TextField.value = '';
       },
     });
   };
@@ -77,7 +77,7 @@ export const StayInTouch = () => {
       type: 'warning',
       confirmButtonColor: '#6A86E8',
       onClose: () => {
-        window.location = '/';
+        TextField.value = '';
       },
     });
   };
@@ -112,7 +112,7 @@ export const StayInTouch = () => {
   const newSubscriber = {
     email: mail,
     letterSubject: 'Congratulations! You are new member of our community',
-    letterHtml: SubscribeLetter(),
+    letterHtml: SubscribeLetter({ email: mail }),
   };
 
 
@@ -138,7 +138,6 @@ export const StayInTouch = () => {
   };
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <section className={classes.blueBG}>
       <Container maxWidth="md">
         <SubsectionTitle color="#6A86E8" title="Stay in touch" />

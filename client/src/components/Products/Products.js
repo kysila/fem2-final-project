@@ -10,7 +10,7 @@ import { ProductCard } from '../ProductCard/ProductCard';
 import { Footer, Header } from '../../commons';
 import AllBreadcrumbs from './AllBreadcrumbs';
 import { Title } from '../Title/Title';
-import { StayInTouch } from '../../commons/Footer/StayInTouch';
+import StayInTouch from '../../commons/Footer/StayInTouch';
 import Filters from './Filters/Filters';
 import Preloader from '../Preloader/Preloader';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
@@ -49,6 +49,7 @@ export const Products = () => {
     }
     getList();
   }, []);
+
   if (list.data && !loading) {
     products = list.data.map((el) => (
       <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
