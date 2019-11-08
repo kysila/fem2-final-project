@@ -5,11 +5,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import Cookie from 'js-cookie';
 import {
-  MainPage, Products, ProductDetails, NotFound, Modal, Notifier,
+  MainPage, ProductDetails, NotFound, Modal, Notifier,
 } from './components';
 import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
 import { Search } from './components/Search/Search';
 import './App.css';
+import Products from './components/Products/Products/Products';
 
 import store from './store/index';
 import { dispatchGetCustomer } from './store/auth/actions';

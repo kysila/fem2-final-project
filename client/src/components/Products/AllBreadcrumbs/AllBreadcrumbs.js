@@ -3,7 +3,7 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 
 import { useStyles } from './style';
 
@@ -14,7 +14,7 @@ export default function AllBreadcrumbs() {
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
         <Breadcrumbs separator="›" aria-label="breadcrumb">
-          <Link href="/" className={classes.breadCrumbLink}>
+          <Link to="/" className={classes.breadCrumbLink}>
           Homepage
           </Link>
           <Typography color="textPrimary">All products</Typography>

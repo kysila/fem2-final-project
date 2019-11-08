@@ -12,6 +12,9 @@ export const useStyles = makeStyles(() => ({
     paddingTop: '20px',
     backgroundColor: '#fff',
   },
+  productsContainer: {
+    height: '700px',
+    overflow: 'auto',
+  },
 
 }));
-

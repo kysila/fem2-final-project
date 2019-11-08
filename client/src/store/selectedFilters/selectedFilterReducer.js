@@ -12,17 +12,14 @@ const initialState = {
   priceSelectedFilters: [],
 };
 
-function selectFilterReducer(state = initialState, action) {
+function selectFilterReducer(state = initialState, action, payload) {
   switch (action.type) {
     case SELECT_FILTERS:
       return {
         ...state,
-        colorSelectedFilters: action.colorSelectedFilters,
-        maxSpeedSelectedFilters: action.maxSpeedSelectedFilters,
-        distanceSelectedFilters: action.distanceSelectedFilters,
-        chargingTimeSelectedFilters: action.chargingTimeSelectedFilters,
-        categorySelectedFilters: action.categorySelectedFilters,
-        priceSelectedFilters: action.priceSelectedFilters,
+        selectedFilters: action.payload
+        ,
+
       };
 
     default:

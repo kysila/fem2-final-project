@@ -11,7 +11,8 @@ import searchReducer from './search/searchReducer';
 import cartReducer from './cart/cartReducer';
 import filterReducer from './filter/filterReducer';
 import categoryReducer from './categories/categoryReducer';
-import selectFilterReducer from "./selectedFilters/selectedFilterReducer";
+import selectFilterReducer from './selectedFilters/selectedFilterReducer';
+import productsReducer from './products/productsReducer';
 
 
 export const initialStore = {
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   categoryReducer,
   selectFilterReducer,
   cartReducer,
+  productsReducer,
 });
 
 export default createStore(

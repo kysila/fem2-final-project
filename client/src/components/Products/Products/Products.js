@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
+import { connect } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { ProductCard } from '../../ProductCard/ProductCard';
 import { Footer, Header } from '../../../commons';
 import AllBreadcrumbs from '../AllBreadcrumbs/AllBreadcrumbs';
@@ -15,39 +15,74 @@ import Filters from '../Filters/Filters';
 import Preloader from '../../Preloader/Preloader';
 import { useStyles } from './style';
 
+import { getProducts } from '../../../store/products/actions';
 
-export const Products = () => {
+let displayedProductsArray = [];
+let arrays = [];
+const Products = (props) => {
   const classes = useStyles();
-
-  const [list, setList] = useState({
-  });
-  const [loading, setLoading] = useState(true);
   let products;
-
+  const [count, setCount] = useState(0);
+  const [active, setActive] = useState(true);
+  useEffect(() => {
+    props.getProducts();
+  }, []);
 
   useEffect(() => {
-    function getList() {
-      axios.get('/products').then((data) => {
-        setList(data);
-        setLoading(false);
-      })
-        .catch((err) => { console.log(err); });
+    arrays.shift();
+    if (arrays.length) {
+      displayedProductsArray = [...displayedProductsArray, ...arrays[0]];
     }
-    getList();
-  }, []);
-  if (list.data && !loading) {
-    products = list.data.map((el) => (
-      <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
-        <ProductCard
-          className={classes.card}
-          name={el.name}
-          itemImg={el.imageUrls[0]}
-          price={el.currentPrice}
-          url={`/products/${el.itemNo}`}
-          rating={el.rating}
-        />
-      </Grid>
-    ));
+    if (props.allProductsArrays) {
+      if (!arrays.length && count){
+        setActive(false);
+      }
+    }
+  });
+
+  //
+  const loadMoreAction = () => {
+    setCount(count + 1);
+  };
+
+
+  if (props.allProductsArrays && !props.isProductsFetching && count === 0) {
+
+    displayedProductsArray = [...props.allProductsArrays[0]];
+    arrays = [...props.allProductsArrays];
+    products = displayedProductsArray.flat().map((el) => {
+      if (el) {
+        return (
+          <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
+            <ProductCard
+              className={classes.card}
+              name={el.name}
+              itemImg={el.itemImg}
+              price={el.currentPrice}
+              url={el.url}
+              rating={el.rating}
+            />
+          </Grid>
+        );
+      }
+    });
+  } else if (props.allProductsArrays && !props.isProductsFetching) {
+    products = displayedProductsArray.flat().map((el) => {
+      if (el) {
+        return (
+          <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
+            <ProductCard
+              className={classes.card}
+              name={el.name}
+              itemImg={el.itemImg}
+              price={el.currentPrice}
+              url={el.url}
+              rating={el.rating}
+            />
+          </Grid>
+        );
+      }
+    });
   } else {
     return (
       <React.Fragment>
@@ -91,6 +126,7 @@ export const Products = () => {
           <Grid container spacing={0}>
             {products}
           </Grid>
+          {active && <Button onClick={() => { loadMoreAction(); }}>Load More ...</Button> }
         </main>
       </Container>
       <StayInTouch />
@@ -98,3 +134,11 @@ export const Products = () => {
     </React.Fragment>
   );
 };
+const mapStateToProps = (state) => ({
+  ...state,
+  isProductsFetching: state.productsReducer.isProductsFetching,
+  allProducts: state.productsReducer.allProducts,
+  allProductsArrays: state.productsReducer.allProductsArrays,
+});
+
+export default connect(mapStateToProps, { getProducts })(Products);
