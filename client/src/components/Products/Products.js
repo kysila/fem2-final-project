@@ -10,7 +10,7 @@ import { ProductCard } from '../ProductCard/ProductCard';
 import { Footer, Header } from '../../commons';
 import AllBreadcrumbs from './AllBreadcrumbs';
 import { Title } from '../Title/Title';
-import StayInTouch from '../../commons/Footer/StayInTouch';
+import { StayInTouch } from '../../commons/Footer/StayInTouch';
 import Filters from './Filters/Filters';
 import Preloader from '../Preloader/Preloader';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
@@ -59,6 +59,7 @@ export const Products = () => {
           price={el.currentPrice}
           url={`/products/${el.itemNo}`}
           rating={el.rating}
+          itemNo={el.itemNo}
         />
       </Grid>
     ));

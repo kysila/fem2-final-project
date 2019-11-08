@@ -90,7 +90,7 @@ const Header = (props) => {
           <Box className={classes.container}>
             <Box className={classes.link}>
               <Link to="/">
-                <img src="img/logo.svg" alt="Logo" />
+                <img src="/img/logo.svg" alt="Logo" />
               </Link>
             </Box>
             <Box className={classes.input}>

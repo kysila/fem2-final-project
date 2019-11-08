@@ -19,15 +19,22 @@ const useStyles = makeStyles(() => createStyles({
     paddingLeft: '25%',
     fontSize: '13px',
   },
+  buttons: {
+    '& > button': {
+      background: 'none',
+      color: '#444444',
+    }
+  }
 }));
 
 const Counter = (props) => {
   const classes = useStyles();
   return (
-    <ButtonGroup variant="contained" size="small">
+    <ButtonGroup className={classes.buttons} variant="contained" size="small">
       <Button> - </Button>
       <Button variant="text">
-        <Input defaultValue="1" classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
+          {/* eslint-disable-next-line max-len */}
+        <Input defaultValue={props.count} classes={{ underline: classes.underline, root: classes.input, input: classes.input }} />
       </Button>
       <Button> + </Button>
     </ButtonGroup>
