@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,10 +24,10 @@ export default function ProductsBreadcrumbs({ link }) {
     <div className={classes.root}>
       <Paper elevation={0} className={classes.paper}>
         <Breadcrumbs separator="›" aria-label="breadcrumb">
-          <Link href="/" className={classes.breadCrumbLink}>
+          <Link to="/" className={classes.breadCrumbLink}>
           Homepage
           </Link>
-          <Link href="/products" className={classes.breadCrumbLink}>
+          <Link to="/products" className={classes.breadCrumbLink}>
             All products
           </Link>
           <Typography color="textPrimary">{link}</Typography>

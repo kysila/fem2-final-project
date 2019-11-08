@@ -10,7 +10,7 @@ import { ProductGallery } from './ProductGallery';
 import { ProductDescription } from './ProductDescription'
 import ProductDetailsCard from './ProductDetailsCard';
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs';
-import StayInTouch from '../../commons/Footer/StayInTouch';
+import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 
 const useStyles = makeStyles(() => ({

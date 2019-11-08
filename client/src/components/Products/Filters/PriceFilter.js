@@ -2,17 +2,8 @@ import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core';
+import { useStyles } from './style';
 
-const useStyles = makeStyles(() => ({
-  priceLabel: {
-    color: '#888888',
-    fontSize: '11px',
-    lineHeight: '20px',
-    letterSpacing: '-0.02em',
-    textTransform: 'uppercase',
-    marginTop: '-30px',
-  },
-}));
 
 function pricetext(value) {
   return `$${value}`;
