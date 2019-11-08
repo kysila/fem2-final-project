@@ -4,7 +4,6 @@ export const useStyles = makeStyles({
   mainContainer: {
     paddingTop: 50,
     paddingBottom: 70,
-    backgroundColor: '#FFF',
   },
   card: {
     marginBottom: 0,
@@ -12,5 +11,8 @@ export const useStyles = makeStyles({
   },
   paddingTop: {
     marginTop: 52,
+  },
+  sectionBackground: {
+    backgroundColor: '#FAFAFA',
   },
 });

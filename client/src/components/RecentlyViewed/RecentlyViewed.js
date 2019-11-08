@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 
-import Grid from '@material-ui/core/Grid';
+
 import Container from '@material-ui/core/Container';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { Title } from '../Title/Title';
@@ -11,25 +11,6 @@ export const RecentlyViewed = () => {
   const classes = useStyles();
   const [productsList, setProductsList] = useState([]);
   let products;
-
-  const getDuplicateProduct = (arr) => {
-    const result = {};
-    arr.forEach((el) => {
-      if (result[el.url] !== undefined) {
-        ++result[el.url];
-      } else {
-        result[el.url] = 1;
-      }
-    });
-    const key = Object.keys(result).find((key) => result[key] !== 1);
-    console.log('twince', key);
-    arr.forEach((el) => {
-      const duplicate = arr.indexOf((el.url === key));
-      console.log('duplicate', duplicate);
-      arr.splice(duplicate, 1);
-    });
-    console.log(arr);
-  };
 
   const adjustingLength = (arr) => {
     while (arr.length > 4) {
@@ -45,14 +26,6 @@ export const RecentlyViewed = () => {
   }
   const currentLocal = JSON.parse(localStorage.getItem('product'));
   console.log('currentLocal', currentLocal);
-  // const uniqueItems = [];
-  // currentLocal.forEach((el) => {
-  //   console.log(el.itemNo);
-  //   if (!uniqueItems.includes(el.itemNo)) {
-  //     uniqueItems.push(el.itemNo);
-  //   }
-  // });
-  // console.log('uniqueItems', uniqueItems);
 
   useEffect(() => {
     setProductsList(currentLocal);
@@ -112,11 +85,13 @@ export const RecentlyViewed = () => {
 
 
   return (
-    <Container maxWidth="md" className={classes.mainContainer}>
-      <Title title="You recently viewed" />
-      <Slider className={classes.paddingTop} {...settings}>
-        {products}
-      </Slider>
-    </Container>
+    <div className={classes.sectionBackground}>
+      <Container maxWidth="md" className={classes.mainContainer}>
+        <Title title="You recently viewed" />
+        <Slider className={classes.paddingTop} {...settings}>
+          {products}
+        </Slider>
+      </Container>
+    </div>
   );
 };
