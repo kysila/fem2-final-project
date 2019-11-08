@@ -5,8 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import Cookie from 'js-cookie';
 import {
-  MainPage, Products, ProductDetails, NotFound, Modal, Notifier, Unsubscribe,
+  MainPage, Products, ProductDetails, NotFound, Modal, Notifier,
 } from './components';
+import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
 import { Search } from './components/Search/Search';
 import './App.css';
 
@@ -35,6 +36,9 @@ const GlobalCss = withStyles({
     '.MuiTypography-root': {
       fontFamily: "'Museo Sans 500'",
       color: '#444444',
+      '& p, li': {
+        fontSize: 14,
+      },
     },
     '.MuiTypography-body2': {
       fontFamily: "'Museo Sans 500'",
@@ -74,14 +78,6 @@ const GlobalCss = withStyles({
       height: '25px',
       fontSize: '10px',
     },
-    '.MuiGrid-spacing-xs-3': {
-      width: '100%',
-      margin: 'auto',
-    },
-    '.MuiGrid-spacing-xs-6 ': {
-      width: '100%',
-      margin: 'auto',
-    },
     '.MuiListItemText-root': {
       fontFamily: "'Museo Sans 500'",
     },
@@ -91,9 +87,21 @@ const GlobalCss = withStyles({
     '.Mui-selected': {
       boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.05)',
     },
-    '.MuiButtonGroup-grouped': {
-      background: 'none',
+    '.MuiTab-root': {
+      minWidth: 'auto',
+      padding: '6px 16.5px',
       color: '#444444',
+      fontSize: '14px',
+      borderBottom: '1px solid #EAEAEA',
+    },
+    '.MuiTab-textColorPrimary.Mui-selected': {
+      color: '#6A86E8',
+    },
+    '.MuiTabs-indicator': {
+      backgroundColor: '#6A86E8',
+    },
+    '.MuiButtonBase-root': {
+      boxShadow: 'none',
     },
   },
 })(() => null);

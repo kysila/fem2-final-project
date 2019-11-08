@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import Slider from 'react-slick';
+
 import axios from 'axios';
 
-import Slider from 'react-slick';
 import { Title } from '../Title/Title';
 import { ProductCard } from '../ProductCard/ProductCard';
 import Preloader from '../Preloader/Preloader';

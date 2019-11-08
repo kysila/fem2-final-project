@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -10,6 +12,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import SvgIcon from '@material-ui/core/SvgIcon';
+
 
 const useStyles = makeStyles({
   card: {
@@ -96,7 +99,7 @@ const bagIcon = <path d="M10 8H12V5H15V3H12V0H10V3H7V5H10V8ZM6 17C4.9 17 4.01 17
 
 
 export function ProductCard({
-  name, itemImg, price, url, rating,
+  name, itemImg, price, url, rating, key, itemNo,
 }) {
   const [state, setState] = useState({
     openButtons: false,
@@ -114,110 +117,125 @@ export function ProductCard({
     });
   };
 
-  const checkViewedProduct = (item) => {
-    // localStorage.setItem('itemNo', item);
-    console.log(`you clicked ${item}`);
+  const viewedItemListener = () => {
+    onmouseover = false;
+    const product = JSON.parse(localStorage.getItem('product'));
+    if (!product) {
+      const newProduct = [].concat([{
+        name, itemImg, price, url, rating, key, itemNo,
+      }]);
+      localStorage.setItem('product', JSON.stringify(newProduct));
+    } else {
+      localStorage.setItem('product', JSON.stringify(product.concat([{
+        name, itemImg, price, url, rating, key, itemNo,
+      }])));
+    }
   };
+
+  const products = JSON.parse(localStorage.getItem('product'));
+
 
   const classes = useStyles();
 
   return (
-    <Card
-      // onClick={checkViewedProduct(url)}
-      className={classes.card}
-      // onMouseOver={showButtonsPanel}
-      // onMouseOut={hideButtonsPanel}
-    >
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={`${itemImg}`}
-        />
-        <CardContent
-          className={classes.cardContent}
-        >
-          <Typography
-            className={classes.newPrice}
-            gutterBottom
-            variant="h5"
-            display="inline"
-            component="h2"
-          >
-            {price}
-          </Typography>
-          <Typography
-            className={classes.oldPrice}
-            gutterBottom
-            variant="h5"
-            display="inline"
-            component="h2"
-          >
-                        $4,010
-          </Typography>
-          <Typography
-            className={classes.fontDesc}
-            variant="body2"
-            component="p"
-          >
-            {name}
-          </Typography>
-          <Rating
-            name="half-rating"
-            precision={0.5}
-            value={rating}
-            readOnly
-          />
-        </CardContent>
-      </CardActionArea>
-      <CardActions
-        className={classes.buttonField}
-        style={state.openButtons ? { bottom: '-49px', opacity: 1, boxShadow: '0px 5px 10px 0px rgba(0,0,0,0.25)' } : null}
+    <Link to={url} className={classes.link}>
+      <Card
+        onClick={viewedItemListener}
+        className={classes.card}
+        onMouseOver={showButtonsPanel}
+        onMouseOut={hideButtonsPanel}
       >
-        <ButtonGroup
-          className={classes.buttonGroup}
-          variant="contained"
-          aria-label="full-width contained primary button group"
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={`${itemImg}`}
+          />
+          <CardContent
+            className={classes.cardContent}
+          >
+            <Typography
+              className={classes.newPrice}
+              gutterBottom
+              variant="h5"
+              display="inline"
+              component="h2"
+            >
+              {price}
+            </Typography>
+            <Typography
+              className={classes.oldPrice}
+              gutterBottom
+              variant="h5"
+              display="inline"
+              component="h2"
+            >
+                $4,010
+            </Typography>
+            <Typography
+              className={classes.fontDesc}
+              variant="body2"
+              component="p"
+            >
+              {name}
+            </Typography>
+            <Rating
+              name="half-rating"
+              precision={0.5}
+              value={rating}
+              readOnly
+            />
+          </CardContent>
+        </CardActionArea>
+        <CardActions
+          className={classes.buttonField}
+          style={state.openButtons ? { bottom: '-49px', opacity: 1, boxShadow: '0px 5px 10px 0px rgba(0,0,0,0.25)' } : null}
         >
-          <Button
-            className={classes.buttonStyle}
+          <ButtonGroup
+            className={classes.buttonGroup}
+            variant="contained"
+            aria-label="full-width contained primary button group"
           >
-            <SvgIcon
-              className="icon"
-              color="action"
+            <Button
+              className={classes.buttonStyle}
             >
-              {heartIcon}
-            </SvgIcon>
-          </Button>
-          <Button
-            className={classes.buttonStyle}
-          >
-            <SvgIcon
-              className="icon"
-              style={{
-                width: 30,
-                height: 23,
-              }}
-              color="action"
+              <SvgIcon
+                className="icon"
+                color="action"
+              >
+                {heartIcon}
+              </SvgIcon>
+            </Button>
+            <Button
+              className={classes.buttonStyle}
             >
-              {weigherIcon}
-            </SvgIcon>
-          </Button>
-          <Button
-            className={classes.buttonStyle}
-          >
-            <SvgIcon
-              className="icon"
-              style={{
-                width: 30,
-                height: 23,
-              }}
-              color="action"
+              <SvgIcon
+                className="icon"
+                style={{
+                  width: 30,
+                  height: 23,
+                }}
+                color="action"
+              >
+                {weigherIcon}
+              </SvgIcon>
+            </Button>
+            <Button
+              className={classes.buttonStyle}
             >
-              {bagIcon}
-            </SvgIcon>
-          </Button>
-        </ButtonGroup>
-      </CardActions>
-    </Card>
+              <SvgIcon
+                className="icon"
+                style={{
+                  width: 30,
+                  height: 23,
+                }}
+                color="action"
+              >
+                {bagIcon}
+              </SvgIcon>
+            </Button>
+          </ButtonGroup>
+        </CardActions>
+      </Card>
+    </Link>
   );
 }

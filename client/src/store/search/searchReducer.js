@@ -1,25 +1,14 @@
-import React from 'react';
+import { setSearchProducts, setSearchValue } from './action';
 
-const SET_SEARCHVALUE = 'SET_SEARCHVALUE';
-const SET_SEARCHPRODUCTS = 'SET_SEARCHPRODUCTS';
+
+export const SET_SEARCHVALUE = 'SET_SEARCHVALUE';
+export const SET_SEARCHPRODUCTS = 'SET_SEARCHPRODUCTS';
 
 // Initial state
 const initialState = {
   searchValue: '',
   searchProducts: [],
 };
-
-// ACTIONS
-export const setSearchValue = (payload) => ({
-  type: SET_SEARCHVALUE,
-  payload,
-});
-
-export const setSearchProducts = (payload) => ({
-  type: SET_SEARCHPRODUCTS,
-  payload,
-});
-
 // REDUCER
 function searchReducer(state = initialState, { type, payload }) {
   switch (type) {
