@@ -12,6 +12,7 @@ import { dispatchModalOpen } from '../../../store/modal/actions';
 import Searches from '../Searchbar/Searchbar';
 import { NavBar } from '../Navbar/Navbar';
 import Cart from '../Cart/Cart';
+import { Logo } from '../../Logo/Logo';
 import { useStyles } from './style';
 
 const Header = (props) => {
@@ -34,9 +35,7 @@ const Header = (props) => {
         <Container maxWidth="md">
           <Box className={classes.container}>
             <Box className={classes.link}>
-              <Link to="/">
-                <img src="/img/logo.svg" alt="Logo" />
-              </Link>
+              <Logo />
             </Box>
             <Box className={classes.input}>
               <Searches />
