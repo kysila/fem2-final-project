@@ -138,7 +138,6 @@ const StayInTouch = () => {
   };
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <section className={classes.blueBG}>
       <Container maxWidth="md">
         <SubsectionTitle color="#6A86E8" title="Stay in touch" />
