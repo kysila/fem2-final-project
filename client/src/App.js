@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import Cookie from 'js-cookie';
 import {
-  ClientProfile, MainPage, Products, ProductDetails, NotFound, Modal, Notifier, Checkout,
+  ClientProfile, MainPage, ProductDetails, NotFound, Modal, Notifier, Checkout,
 } from './components';
 import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
 import { Search } from './components/Search/Search';
