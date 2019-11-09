@@ -1,1 +1,0 @@
-export { ClientProfile } from './ClientProfile';
