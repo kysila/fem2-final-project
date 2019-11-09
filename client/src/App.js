@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import Cookie from 'js-cookie';
 import {
-  MainPage, ProductDetails, NotFound, Modal, Notifier, Checkout,
+  ClientProfile, MainPage, ProductDetails, NotFound, Modal, Notifier, Checkout,
 } from './components';
 import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
 import { Search } from './components/Search/Search';
@@ -121,6 +121,7 @@ function App() {
           <div className="App">
             <Switch>
               <Route path="/" exact component={MainPage} />
+              <Route path="/profile" exact component={ClientProfile} />
               <Route path="/products" exact component={Products} />
               <Route path="/products/:id" component={ProductDetails} />
               <Route path="/checkout" component={Checkout} />

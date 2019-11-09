@@ -51,11 +51,20 @@ const CustomerSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  haveChildren: {
+    type: String,
+  },
+  haveCar: {
+    type: String,
+  },
+  eBicycle: {
+    type: String,
+  },
 });
 
-CustomerSchema.methods.comparePassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+CustomerSchema.methods.comparePassword = function (candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
     if (err) return cb(err);
     cb(null, isMatch);
   });

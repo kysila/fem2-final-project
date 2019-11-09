@@ -46,7 +46,7 @@ exports.createCustomer = (req, res, next) => {
         }
       }
 
-      // Create query object for qustomer for saving him to DB
+      // Create query object for customer for saving him to DB
       const newCustomer = new Customer(queryCreator(initialQuery));
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -136,11 +136,6 @@ exports.loginCustomer = (req, res, next) => {
     );
 };
 
-// Controller for getting current customer
-exports.getCustomer = (req, res) => {
-  res.json(req.user);
-};
-
 // Controller for editing customer personal info
 exports.editCustomerInfo = (req, res) => {
   // Clone query object, because validator module mutates req.body, adding other fields to object
@@ -162,39 +157,51 @@ exports.editCustomerInfo = (req, res) => {
 
       const currentEmail = customer.email;
       const currentLogin = customer.login;
-      const newEmail = req.body.email;
-      const newLogin = req.body.login;
+      let newEmail;
+      let newLogin;
 
-      if (currentEmail !== newEmail) {
-        Customer.findOne({ email: newEmail }).then(customer => {
-          if (customer) {
-            errors.email = `Email ${newEmail} is already exists`;
-            res.status(400).json(errors);
-          }
-        });
-      } else if (currentLogin !== newLogin) {
-        Customer.findOne({ login: newLogin }).then(customer => {
-          if (customer) {
-            errors.login = `Login ${newLogin} is already exists`;
-            res.status(400).json(errors);
-          }
-        });
-      } else {
-        // Create query object for qustomer for saving him to DB
-        const updatedCustomer = queryCreator(initialQuery);
+      if (req.body.email) {
+        newEmail = req.body.email;
 
-        Customer.findOneAndUpdate(
-          { _id: req.user.id },
-          { $set: updatedCustomer },
-          { new: true }
-        )
-          .then(customer => res.json(customer))
-          .catch(err =>
-            res.status(400).json({
-              message: `Error happened on server: "${err}" `
-            })
-          );
+        if (currentEmail !== newEmail) {
+          Customer.findOne({ email: newEmail }).then(customer => {
+            if (customer) {
+              errors.email = `Email ${newEmail} is already exists`;
+              res.status(400).json(errors);
+              return;
+            }
+          });
+        }
       }
+
+      if (req.body.login) {
+        newLogin = req.body.login;
+
+        if (currentLogin !== newLogin) {
+          Customer.findOne({ login: newLogin }).then(customer => {
+            if (customer) {
+              errors.login = `Login ${newLogin} is already exists`;
+              res.status(400).json(errors);
+              return;
+            }
+          });
+        }
+      }
+
+      // Create query object for customer for saving him to DB
+      const updatedCustomer = queryCreator(initialQuery);
+
+      Customer.findOneAndUpdate(
+        { _id: req.user.id },
+        { $set: updatedCustomer },
+        { new: true }
+      )
+        .then(customer => res.json(customer))
+        .catch(err =>
+          res.status(400).json({
+            message: `Error happened on server: "${err}" `
+          })
+        );
     })
     .catch(err =>
       res.status(400).json({
@@ -203,8 +210,13 @@ exports.editCustomerInfo = (req, res) => {
     );
 };
 
-// Controller for editing customer password
 
+// Controller for getting current customer
+exports.getCustomer = (req, res) => {
+  res.json(req.user);
+};
+
+// Controller for editing customer password
 exports.updatePassword = (req, res) => {
   // Check Validation
   const { errors, isValid } = validateRegistrationForm(req.body);
@@ -217,7 +229,7 @@ exports.updatePassword = (req, res) => {
   Customer.findOne({ _id: req.user.id }, (err, customer) => {
     let oldPassword = req.body.password;
 
-    customer.comparePassword(oldPassword, function(err, isMatch) {
+    customer.comparePassword(oldPassword, function (err, isMatch) {
       if (!isMatch) {
         errors.password = "Password does not match";
         res.json(errors);
