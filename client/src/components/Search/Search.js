@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { Header } from '../../commons';
 
 import { Title } from '../Title/Title';
-import StayInTouch from '../../commons/Footer/StayInTouch';
+import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { ProductCard } from '..';
 
 const useStyles = makeStyles((theme) => ({

@@ -2,64 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-
 import Link from '@material-ui/core/Link';
 import ExpandMoreSharpIcon from '@material-ui/icons/ExpandMoreSharp';
 import Box from '@material-ui/core/Box';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import TollIcon from '@material-ui/icons/Toll';
-import Modal from "@material-ui/core/Modal";
-
-
-const useStyles = makeStyles(() => createStyles({
-  menuItem: {
-    marginRight: '15px',
-    marginLeft: '15px',
-    color: ' #444444 ',
-    '&:hover': {
-      color: ' #6686FF ',
-    },
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  drawer: {},
-  paper: {
-    paddingRight: '0.5%',
-    paddingTop: '2%',
-    background: '#f4efff',
-    fontSize: '20px',
-    color: '#9c80ff',
-  },
-  list: {
-    marginRight: '50px',
-    divider: 'true',
-    width: '250px',
-  },
-  item: {
-    marginLeft: '2%',
-    marginRight: '2%',
-  },
-  text: {
-    display: 'inline-block',
-    paddingRight: '3%',
-    paddingLeft: '3%',
-    textTransform: 'uppercase',
-
-  },
-  logo: {
-    paddingLeft: '8%',
-    marginBottom: '5%',
-  },
-
-}));
+import { useStyles } from './style';
 
 export const NavBar = (props) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -138,8 +89,8 @@ export const NavBar = (props) => {
         </Link>
         <Link component="button" variant="body2" underline="none" className={classes.menuItem}>
                     Contact
-                </Link>
-            </Box>
-        </React.Fragment>
-    )
+        </Link>
+      </Box>
+    </React.Fragment>
+  );
 };

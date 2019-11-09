@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,105 +12,100 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { getProductsToBuy, deleteProductsToBuy } from '../../../store/cart/cartReducer';
 import CartItem from './CartItem';
-import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle';
+import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle/SubsectionTitle';
+// eslint-disable-next-line import/named
+import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
   productsToBuy: state.cartReducer.productsToBuy,
   countOfProducts: state.cartReducer.countOfProducts,
+  user: state.auth.user,
 });
 
-const useStyles = makeStyles(() => createStyles({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+// try to get cart from LS
+const cart = [
+  {
+    imageUrls: ['img/products/e-bikes/872426/001.jpg', 'img/products/e-bikes/773969/002.jpg'],
+    name: 'addmotor hithot h1 sport mountain e-bike',
+    itemNo: 773969,
+    currentPrice: 1899,
+    count: 1,
   },
-  drawer: {
+  {
+    imageUrls: ['img/products/e-bikes/773969/006.jpg', 'img/products/e-bikes/773969/002.jpg'],
+    name: 'sport mountain e-bike',
+    itemNo: 872426,
+    currentPrice: 3299,
+    count: 2,
   },
-  paper: {
-    background: '#f4efff',
-    fontSize: '20px',
-    color: '#9c80ff',
-  },
-  basket: {
-    position: 'relative',
-    borderRadius: '50%',
-    border: '1px solid #6A86E8',
-    width: '50px',
-    height: '50px',
-    textAlign: 'center',
-    paddingTop: '14px',
-  },
-  circle: {
-    backgroundColor: ' #6A86E8 ',
-    borderRadius: '50%',
-    height: '15px',
-    width: '15px',
-    position: 'absolute',
-    top: '0px',
-    right: '0px',
-    fontSize: '11px',
-    color: ' #FFFFFF ',
-  },
-  cart_container: {
-    paddingTop: '3%',
-    paddingRight: '6%',
-    padding: '3%',
-    background: '#FFFFFF',
-    margin: '2%',
-    borderRadius: '10px',
-    boxShadow: '3px 6px 5px -1px rgba(185,163,196,0.72)',
-    overflowX: 'hidden',
-  },
-  ship_text: {
-    fontSize: '12px',
-    color: '#888888',
-    lineHeight: '20px',
-    letterSpacing: '-0.02em',
-  },
-  subtotal_text: {
-    fontSize: '20px',
-    lineHeight: '20px',
-    textTransform: ' capitalize',
-    color: '#444444',
-  },
-  subtotal_price: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    color: '#444444',
-  },
-  price_block: {
-    justify: 'space-between',
-    paddingTop: '2%',
-  },
-  btn_grey: {
-    background: '#F8F8F8 !important',
-    color: '#6A86E8 !important',
-    borderRadius: '4px',
-    textAlign: 'center',
-    width: '200px',
-  },
-  btn_main: {
-    width: '200px',
-  },
+];
 
-}));
+const serialCart = JSON.stringify(cart);
+localStorage.setItem('cart', serialCart);
+// / End
 
 const Cart = (props) => {
   const [cartIsOpen, setCartIsOpen] = useState(false);
+  const [cartStatus, setCartStatus] = useState(['No products are added in your cart']);
   const classes = useStyles();
+
+  let cartArrayFromLS = [];
+  let cartArrayFromDB = [];
+
+  let getCartFromDB;
+  let getCartFromLS;
+  const cartRender = (array) => {
+    if (array) {
+      return (
+        array.map((el) => (
+          <CartItem
+            key={el.itemNo}
+            name={el.name}
+            currentPrice={el.currentPrice}
+            imgUrl={el.imageUrls[0]}
+            count={el.count}
+            id={el.itemNo}
+          />
+        ))
+      );
+    }
+    return 'No products are added in your cart';
+  };
+
+  const getCartAxios = () => {
+    setCartIsOpen(true);
+    if (props.user) {
+      axios
+        .get('/cart')
+        .then((result) => {
+          getCartFromDB = result.data.products;
+        }).then(() => {
+          cartArrayFromDB = cartRender(getCartFromDB);
+        })
+        .then(() => {
+          setCartStatus(cartArrayFromDB);
+        })
+        .catch((err) => {
+          console.log('Axios Cart Get error', err);
+        });
+    } else {
+      getCartFromLS = JSON.parse(localStorage.getItem('cart'));
+
+      if (getCartFromLS) {
+        cartArrayFromLS = cartRender(getCartFromLS);
+        setCartStatus(cartArrayFromLS);
+      }
+    }
+  };
   return (
     <React.Fragment>
       <CssBaseline />
       <Box
         className={classes.basket}
-        onClick={() => {
-          setCartIsOpen(true);
-        }}
+        onClick={getCartAxios}
       >
         <Box>
-          <img src="img/basket.svg" alt="Logo" />
+          <img src="/img/basket.svg" alt="Logo" />
           <div className={classes.circle}>{props.countOfProducts}</div>
         </Box>
       </Box>
@@ -134,8 +128,7 @@ const Cart = (props) => {
       >
         <Container className={classes.cart_container}>
           <SubsectionTitle title="Your Cart" />
-          <CartItem />
-          <CartItem />
+          { cartStatus }
           <Grid className={classes.price_block} container justify="space-between">
             <Grid item>
               {/* eslint-disable-next-line max-len */}
@@ -155,7 +148,7 @@ const Cart = (props) => {
             </Grid>
             <Grid item>
               <Button fullWidth classes={{ root: classes.btn_main }}>
-                CheCkout now
+                Checkout now
               </Button>
             </Grid>
           </Grid>

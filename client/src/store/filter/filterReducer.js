@@ -8,10 +8,12 @@ import {
 const initialState = {
   isFilterFetching: false,
   colorFilters: [],
-  otherFilters: [],
+  distanceFilters: [],
+  maxSpeedFilters: [],
+  chargingTimeFilters: [],
   errorMsg: '',
 };
-function filters(state = initialState, action) {
+function filterReducer(state = initialState, action) {
   switch (action.type) {
     case GET_FILTERS_REQUESTED:
       return {
@@ -22,7 +24,9 @@ function filters(state = initialState, action) {
       return {
         ...state,
         colorFilters: action.colors,
-        otherFilters: action.otherFilters,
+        distanceFilters: action.distances,
+        maxSpeedFilters: action.maxSpeeds,
+        chargingTimeFilters: action.chargingTimes,
         isFilterFetching: false,
         errorMsg: '',
       };
@@ -32,30 +36,9 @@ function filters(state = initialState, action) {
         isFilterFetching: true,
         errorMsg: action.payload,
       };
-
     default:
       return { ...state };
   }
 }
 
-export default filters;
-//
-// function filterReducer(store = {}, { type, payload }) {
-//   switch (type) {
-//     case FILTER_ACTIONS.GET_FILTERS:
-//       return {
-//         ...store,
-//         filters: payload,
-//
-//       };
-//     case FILTER_ACTIONS.SET_FILTERS:
-//       return {
-//         ...store,
-//         selectedFilters: payload,
-//       };
-//     default:
-//       return store;
-//   }
-// }
-
-// export default filterReducer;
+export default filterReducer;

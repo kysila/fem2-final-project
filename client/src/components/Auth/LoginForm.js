@@ -6,9 +6,6 @@ import {
   Typography,
   Grid,
   Box,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
   Button,
   Link,
   useMediaQuery,
@@ -16,9 +13,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import CloseIcon from '@material-ui/icons/Close';
+import { InputField } from '../../commons/InputField/InputField';
 
 import { dispatchLogin } from '../../store/auth/actions';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
@@ -85,23 +81,38 @@ const useMobileStyles = makeStyles((theme) => ({
 function LoginForm(props) {
   const classes = useStyles();
   const classesMobile = useMobileStyles();
-
-  const [passwordHidden, setPasswordVisible] = useState(true);
-  const PasswordIcon = passwordHidden ? VisibilityIcon : VisibilityOffIcon;
   const [state, setState] = useState({
-    loginOrEmail: '',
-    password: '',
+    loginOrEmail: {
+      value: '',
+      error: null,
+    },
+    password: {
+      value: '',
+      error: null,
+    },
   });
   const matchMobile = useMediaQuery(props.theme.breakpoints.down(960));
 
   const validate = () => {
-    if (!state.loginOrEmail.trim()) {
-      props.warning('Login or email input should be filled.');
+    if (!state.loginOrEmail.value.trim()) {
+      setState({
+        ...state,
+        loginOrEmail: {
+          ...state.loginOrEmail,
+          error: <Typography className={classes.toolTip} component="p" style={museo}>Login or email input should be filled.</Typography>,
+        },
+      });
       return false;
     }
 
-    if (!state.password.trim() || state.password.trim().length < 8) {
-      props.warning('Password should be at least 8 chars.');
+    if (!state.password.value.trim() || state.password.value.trim().length < 8) {
+      setState({
+        ...state,
+        password: {
+          ...state.password,
+          error: <Typography className={classes.toolTip} component="p" style={museo}>Password should be at least 8 chars.</Typography>,
+        },
+      });
       return false;
     }
 
@@ -109,13 +120,18 @@ function LoginForm(props) {
   };
 
   const onChange = (stateName) => (event) => {
-    setState({ ...state, [stateName]: event.target.value });
+    setState({ ...state, [stateName]: { error: null, value: event.target.value } });
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
-      props.login(state);
+      props.login(
+        Object.keys(state).reduce((memo, key) => {
+          memo[key] = state[key].value;
+          return memo;
+        }, {}),
+      );
     }
   };
 
@@ -164,51 +180,23 @@ function LoginForm(props) {
               ) : null
             }
           </Box>
-          <FormControl className={classes.formControl} variant="outlined">
-            <InputLabel classes={{ root: classes.label }} htmlFor="loginOrEmail">
-              Login or Email
-            </InputLabel>
-            <OutlinedInput
-              id="loginOrEmail"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.input,
-              }}
-              value={state.loginOrEmail}
-              onChange={onChange('loginOrEmail')}
-              labelWidth={105}
-              fullWidth
-            />
-          </FormControl>
-          <FormControl className={classes.formControl} variant="outlined">
-            <InputLabel classes={{ root: classes.label }} htmlFor="password">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="password"
-              type={passwordHidden ? 'password' : 'text'}
-              classes={{
-                root: classes.inputRoot,
-                input: classes.input,
-              }}
-              value={state.password}
-              onChange={onChange('password')}
-              labelWidth={105}
-              fullWidth
-              endAdornment={
-                state.password
-                  ? (
-                    <PasswordIcon
-                      style={{ cursor: 'pointer', userSelect: 'none' }}
-                      onTouchStart={() => setPasswordVisible(false)}
-                      onMouseDown={() => setPasswordVisible(false)}
-                      onTouchEnd={() => setPasswordVisible(true)}
-                      onMouseUp={() => setPasswordVisible(true)}
-                    />
-                  ) : null
-              }
-            />
-          </FormControl>
+          <InputField
+            id="loginOrEmail"
+            label="Login or Email"
+            onChange={onChange('loginOrEmail')}
+            labelWidth={105}
+            value={state.loginOrEmail.value}
+            error={state.loginOrEmail.error}
+          />
+          <InputField
+            id="password"
+            type="password"
+            label="Password"
+            onChange={onChange('password')}
+            labelWidth={70}
+            value={state.password.value}
+            error={state.password.error}
+          />
           <Button fullWidth className={classes.submitBtn} onClick={onSubmit}>
             login
           </Button>

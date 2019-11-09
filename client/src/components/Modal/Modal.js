@@ -6,16 +6,19 @@ import { dispatchModalClose } from '../../store/modal/actions';
 
 import { LoginForm } from '../Auth/LoginForm';
 import { RegisterForm } from '../Auth/RegisterForm';
+import { Map } from '../Map/Map';
 
 function ModalWindow(props) {
   const onClose = () => props.closeModal();
   const getChild = () => {
     switch (props.child) {
       case 'register':
-        return <RegisterForm />;
+        return <RegisterForm {...props.inject} />;
+      case 'map':
+        return <Map {...props.inject} />;
       case 'login':
       default:
-        return <LoginForm />;
+        return <LoginForm {...props.inject} />;
     }
   };
   return (
@@ -39,6 +42,7 @@ function ModalWindow(props) {
 const mapStateToProps = (state) => ({
   opened: state.modal.opened,
   child: state.modal.child,
+  inject: state.modal.inject,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -55,21 +55,23 @@ export function dispatchLogin(payload) {
     axios.post(LOGIN, payload)
       .then(({ data }) => {
         Cookie.set('auth', data.token);
-        axios.defaults.headers.common.Authorization = data.token;
+        axios.defaults.headers.common['Authorization'] = data.token;
         dispatch(login(data));
         dispatch(modalClose());
         dispatch(dispatchGetCustomer());
       })
       .catch((err) => {
-        dispatch(enqueueSnackbar({
-          message: err.response.data.message,
-          options: {
-            variant: 'error',
-            action: (key) => (
-              <CloseIcon style={{ cursor: 'pointer' }} onClick={() => dispatch(closeSnackbar(key))} />
-            ),
-          },
-        }));
+        Object.keys(err.response.data).forEach((field) => {
+          dispatch(enqueueSnackbar({
+            message: err.response.data[field],
+            options: {
+              variant: 'error',
+              action: (key) => (
+                <CloseIcon style={{ cursor: 'pointer' }} onClick={() => dispatch(closeSnackbar(key))} />
+              ),
+            },
+          }));
+        });
       });
   };
 }

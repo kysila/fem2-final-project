@@ -1,33 +1,21 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
+import { connect } from 'react-redux';
+import { selectFilters } from '../../../store/selectedFilters/actions';
+import { useStyles } from './style';
 
-const useStyles = makeStyles(() => ({
-  colorItem: {
-    margin: '10px 15px',
-    padding: '5px',
-    display: 'inline-flex',
-  },
-  colorDiv: {
-    width: '20px',
-    height: '20px',
-    borderRadius: '50%',
-  },
-}));
 
-const colors = [
-  'red',
-  'blue',
-  'green',
-];
-const ColorFilter = () => {
+const ColorFilter = (props) => {
+
   const classes = useStyles();
   const [color, setColor] = useState([]);
   const handleChangeColor = (event) => {
     setColor(event.target.value);
+    console.log('props.selectedFilters', props.selectedFilters);
+    props.selectFilters(event, event.target.value, 'colorSelected', {...props.selectedFilters});
   };
   const handleChangeMultipleColor = (event) => {
     const { options } = event.target;
@@ -38,6 +26,8 @@ const ColorFilter = () => {
       }
     }
     setColor(value);
+    props.selectFilters(event, event.target.value, 'colorSelected',  {...props.selectedFilters});
+    // props.selectFilters(event, 'colorSelectedFilters');
   };
 
   return (
@@ -51,7 +41,7 @@ const ColorFilter = () => {
         input={<Input />}
         renderValue={(selected) => selected.join(', ')}
       >
-        {colors.map((name) => (
+        {props.colors.map(({ name, cssValue }) => (
           <MenuItem
             button
             key={name}
@@ -60,7 +50,7 @@ const ColorFilter = () => {
           >
             <div
               className={classes.colorDiv}
-              style={{ backgroundColor: name }}
+              style={{ backgroundColor: cssValue }}
             />
           </MenuItem>
         ))}
@@ -68,5 +58,9 @@ const ColorFilter = () => {
     </React.Fragment>
   );
 };
+const mapStateToProps = (state) => ({
+  ...state,
+  selectedFilters: state.selectFilterReducer.selectedFilters,
+});
 
-export default ColorFilter;
+export default connect(mapStateToProps, { selectFilters })(ColorFilter);

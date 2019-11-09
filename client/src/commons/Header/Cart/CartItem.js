@@ -4,54 +4,13 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import { setCountOfProducts } from '../../../store/cart/cartReducer';
 import Counter from './Counter';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(3, 2),
-    marginTop: '2%',
-  },
-  image: {
-    width: '99px',
-    height: '74px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  img: {
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
-  text: {
-    fontSize: '12px',
-    textDecoration: 'underline',
-    color: '#444444',
-  },
-  main_block: {
-    flexBasis: '50%',
-    marginLeft: '2%',
-    flexDirection: 'column',
-  },
-  button: {
-    paddingLeft: '7%',
-    paddingRight: '7%',
-    fontSize: '12px',
-    display: 'block',
-    color: '#888888',
-    textTransform: 'none',
-  },
-  price: {
-    fontSize: '12px',
-    fontWeight: 'bold',
-  },
-}));
+import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
   countOfProducts: state.cartReducer.countOfProducts,
@@ -61,19 +20,22 @@ const CartItem = (props) => {
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
-      <Grid container justify="center" alignItems="center" alignContent="stretch" spacing={2}>
+      <Grid container justify="center" alignItems="center" alignContent="stretch" spacing={1}>
 
         <Grid item className={classes.image}>
           {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-          <img className={classes.img} src="img/products/e-hoverboards/1/001.jpg" alt="Image of Product" />
+          <img className={classes.img} src={props.imgUrl} alt="Image of Product" />
         </Grid>
 
         <Grid container className={classes.main_block}>
           <Grid item>
-            <Link to="/products" className={classes.text}> Addmotor Hithot H1 Sport Mountain E-Hoverboard (green) </Link>
+            {/* eslint-disable-next-line no-template-curly-in-string */}
+            <Link to="/products/`{props.itemNo}`" className={classes.text}>
+              {props.name}
+            </Link>
           </Grid>
           <Grid item>
-            <ButtonGroup variant="text" size="small" aria-label="small contained button group">
+            <ButtonGroup className={classes.buttons} variant="text" size="small" aria-label="small contained button group">
               <Button>
                 <span className={classes.button}> Delete </span>
               </Button>
@@ -84,12 +46,14 @@ const CartItem = (props) => {
           </Grid>
         </Grid>
         <Grid item>
-          <Counter />
+          <Counter
+            count={props.count}
+          />
         </Grid>
         <Grid item>
-          {' '}
-          <p className={classes.price}> $1,699.99 </p>
-          {' '}
+          <p className={classes.price}>
+            ${props.currentPrice}
+          </p>
         </Grid>
       </Grid>
 
