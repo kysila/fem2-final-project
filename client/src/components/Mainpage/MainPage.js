@@ -2,7 +2,6 @@ import React from 'react';
 import '../../index.css';
 
 import { Header, Footer } from '../../commons';
-import BrandsBlock from './BrandsBlock';
 import { MainCarousel } from '../MainCarousel/MainCarousel';
 import BrandsBlock from './BrandsBlock/BrandsBlock';
 import { Favourites } from '../Favourites/Favourites';
