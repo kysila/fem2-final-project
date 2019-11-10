@@ -127,4 +127,9 @@ export const useStyles = makeStyles((theme) => ({
     height: '15px',
     cursor: 'pointer',
   },
+  toolTip: {
+    fontSize: '13px !important',
+    lineHeight: '20px !important',
+    color: 'white !important',
+  },
 }));

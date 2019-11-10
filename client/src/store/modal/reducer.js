@@ -3,15 +3,19 @@ export const ACTIONS = Object.seal({
   MODAL_CLOSE: 'MODAL_CLOSE',
 });
 
-export default function (state = {}, { type, payload }) {
+export default function (state = {}, { type, payload, inject }) {
   let newState = state;
 
   switch (type) {
     case ACTIONS.MODAL_OPEN:
-      newState = { ...newState, opened: true, child: payload };
+      newState = {
+        ...newState, opened: true, child: payload, inject,
+      };
       break;
     case ACTIONS.MODAL_CLOSE:
-      newState = { ...newState, opened: false, child: null };
+      newState = {
+        ...newState, opened: false, child: null, inject: null,
+      };
       break;
     default:
       break;
