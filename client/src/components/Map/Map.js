@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
 import { makeStyles } from '@material-ui/core';
@@ -12,21 +12,24 @@ Geocode.setLanguage('en');
 
 function getAddress({ lat, lng }) {
   return Geocode.fromLatLng(lat, lng).then(
-    (response) => {
-      const address = response.results[0].formatted_address;
-      console.log(address);
-      return address;
-    },
+    (response) => response.results[0].formatted_address,
     console.error,
   );
 }
 
-const useStyles = makeStyles((theme) => ({
+function getCoords(address) {
+  return Geocode.fromAddress(address).then(
+    (response) => response.results[0].geometry.location,
+    console.error,
+  );
+}
+
+const useStyles = makeStyles({
   root: {
     width: '600px',
     height: '342px',
   },
-}));
+});
 
 
 const WithoutMarkerMap = withGoogleMap(({
@@ -37,6 +40,14 @@ const WithoutMarkerMap = withGoogleMap(({
   <GoogleMap
     ref={mapRef}
     defaultZoom={16}
+    defaultOptions={{
+      zoomControl: true,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false,
+    }}
     {...props}
   >
     {marker}
@@ -48,14 +59,24 @@ export function Map(props) {
   const classes = useStyles(props);
   const [map, setMap] = useState(null);
   const [center, setCenter] = useState({ lat: 50.4287031, lng: 30.5911917 });
+  const [isMounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (props.address) {
+      getCoords(props.address).then((coords) => setCenter(coords));
+    }
+
+    setMounted(true);
+    return () => setMounted(false);
+  }, [props.address]);
 
   return (
     <WithoutMarkerMap
       containerElement={<div className={classNames(classes.root, props.className)} />}
-      mapElement={<div style={{ height: '100%' }} />}
-      onCenterChanged={() => map && setCenter(map.getCenter().toJSON())}
+      mapElement={<div className={classNames(props.mapElementClass)} style={{ height: '100%' }} />}
+      onCenterChanged={() => isMounted && map && setCenter(map.getCenter().toJSON())}
       onDragEnd={() => {
-        if (props.onChange) {
+        if (isMounted && props.onChange) {
           getAddress(center).then((value) => props.onChange({ target: { value } }));
         }
       }}
