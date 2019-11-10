@@ -15,6 +15,14 @@ function ModalWindow(props) {
       case 'register':
         return <RegisterForm {...props.inject} />;
       case 'map':
+        if (props.inject.Container) {
+          const { Container, ...injected } = props.inject;
+          return (
+            <Container>
+              <Map {...injected} />
+            </Container>
+          );
+        }
         return <Map {...props.inject} />;
       case 'login':
       default:
