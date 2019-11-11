@@ -7,12 +7,16 @@ import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import IconButton from '@material-ui/core/IconButton';
+import { NavHashLink as HashLink } from 'react-router-hash-link';
 import { dispatchLogout } from '../../../store/auth/actions';
 import { dispatchModalOpen } from '../../../store/modal/actions';
 import Searches from '../Searchbar/Searchbar';
 import { NavBar } from '../Navbar/Navbar';
 import Cart from '../Cart/Cart';
+import { Logo } from '../../Logo/Logo';
 import { useStyles } from './style';
+import MenuAdaptiveIcon from '../MenuAdaptiveIcon/MenuAdaptiveIcon';
 
 const Header = (props) => {
   const classes = useStyles();
@@ -28,13 +32,19 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar className={classes.appBar}>
+      <AppBar className={classes.appBar} id="header">
         <Container maxWidth="md">
+
           <Box className={classes.container}>
-            <Box className={classes.link}>
-              <Link to="/">
-                <img src="/img/logo.svg" alt="Logo" />
-              </Link>
+            <Box className={classes.menu_icon}>
+              <MenuAdaptiveIcon />
+            </Box>
+            <Box className={classes.logo}>
+              <HashLink to="#header">
+                {' '}
+                <Logo />
+                {' '}
+              </HashLink>
             </Box>
             <Box className={classes.input}>
               <Searches />
@@ -47,14 +57,14 @@ const Header = (props) => {
                     {`Hello, ${props.user.firstName || props.user.login}`}
                   </Link>
                   <span> | </span>
-                  <a href="/logout" onClick={(e) => { e.preventDefault(); props.logout(); }}>
+                  <Link to="/logout" onClick={(e) => { e.preventDefault(); props.logout(); }}>
                     Logout
-                  </a>
+                  </Link>
                 </Box>
               ) : (
                 <Box className={classes.link}>
-                  <a href="/login" onClick={openLogin}>Login |</a>
-                  <a href="/register" onClick={openRegister}> Sign Up</a>
+                  <Link to="/login" onClick={openLogin}>Login |</Link>
+                  <Link to="/register" onClick={openRegister}> Sign Up</Link>
                 </Box>
               )
             }
@@ -66,7 +76,7 @@ const Header = (props) => {
             </Box>
             <Box className={classes.call}>
               <p>
-                    Call or text us toll-free:
+                Call or text us toll-free:
                 {props.callCenter}
               </p>
             </Box>

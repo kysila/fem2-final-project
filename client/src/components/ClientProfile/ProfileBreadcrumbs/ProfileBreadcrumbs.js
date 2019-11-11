@@ -26,12 +26,28 @@ export default function AllBreadcrumbs() {
       <Paper elevation={0} className={classes.paper}>
         <Breadcrumbs separator="›" aria-label="breadcrumb">
           <Link href="/" className={classes.breadCrumbLink}>
-          Homepage
+            Homepage
           </Link>
-          <Typography color="textPrimary">All products</Typography>
+          <Typography color="textPrimary">Profile</Typography>
         </Breadcrumbs>
       </Paper>
-
     </div>
   );
+}
+
+export const SideBreadcrumbs = () => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Paper elevation={0} className={classes.paper}>
+        <Breadcrumbs separator="›" aria-label="breadcrumb">
+          <Link href="/" className={classes.breadCrumbLink}>
+            Homepage
+          </Link>
+          <Typography color="textPrimary">Profile</Typography>
+        </Breadcrumbs>
+      </Paper>
+    </div>
+  )
 }

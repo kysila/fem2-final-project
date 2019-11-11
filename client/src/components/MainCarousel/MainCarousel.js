@@ -1,43 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 // Material UI import
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-
-import Tungsten from '../../fonts/Tungsten-Book.woff';
-
+import {
+  Button, Container, Grid, Typography,
+} from '@material-ui/core';
+// import { makeStyles } from '@material-ui/core/styles';
 // Slick slider import
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import './MainCarousel.css';
-//
+// Fonts
+import Tungsten from '../../fonts/Tungsten-Book.woff';
+// Internal Components
+import { useStyles } from './style';
 import Preloader from '../Preloader/Preloader';
 
 const tungsten = {
   fontFamily: 'Tungsten Book',
   fontStyle: 'normal',
+  color: '#6a86e8',
   src: `
     local('Tungsten Book'),
     url(${Tungsten}) format('woff')
   `,
 };
-
-const useStyles = makeStyles((theme) => ({
-  showItemBtn: {
-    display: 'block',
-    marginTop: '30px',
-    alignItems: 'center',
-    padding: '15px 20px',
-    [theme.breakpoints.down(480)]: {
-      padding: '10px 15px',
-    },
-    '&>span': {
-      textTransform: 'uppercase',
-      width: 'auto',
-    },
-  },
-}));
 
 export const MainCarousel = () => {
   const classes = useStyles();
@@ -82,32 +68,61 @@ export const MainCarousel = () => {
         className="slide-container"
         key={item.customId}
       >
-        <img
-          src={item.imageUrl}
-          alt={item.title}
-          className="slick-image"
-        />
-        <div className="slide-information">
-          <Typography
-            variant="h2"
-            className="slick-description"
-            /* align="center" */
-            style={tungsten}
+        <Container
+          maxWidth="md"
+          className={classes.containerMD}
+        >
+          <Grid
+            container
+            className={classes.flexContainer}
           >
-            {item.title}
-          </Typography>
-          <Typography
-            variant="body1"
-            className="slick-information__explanation"
-          >
-            {item.description}
-          </Typography>
-          <Button
-            className={classes.showItemBtn}
-          >
-            <span>SHOP {item.htmlContent} &rarr;</span>
-          </Button>
-        </div>
+            <Grid
+              item
+              sm={4}
+              xs={12}
+              className={classes.slickDescription}
+            >
+              <Typography
+                variant="h2"
+                // eslint-disable-next-line no-sequences
+                style={tungsten}
+                className={classes.slickDescriptionText}
+              >
+                {item.title}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              sm={4}
+              xs={12}
+              className={classes.slickExplanation}
+            >
+              <Typography
+                variant="body1"
+                className={classes.slickExplanationText}
+              >
+                {item.description}
+              </Typography>
+
+              <Button
+                className={classes.showItemBtn}
+              >
+                <span>SHOP {item.htmlContent} &rarr;</span>
+              </Button>
+            </Grid>
+
+            <Grid
+              item
+              sm={12}
+              xs={12}
+            >
+              <img
+                src={item.imageUrl}
+                alt={item.title}
+              />
+            </Grid>
+          </Grid>
+        </Container>
       </div>
     ));
   } else if (loading) {
@@ -115,10 +130,10 @@ export const MainCarousel = () => {
   }
 
   return (
-    <div className="main-Carousel">
+    <section className="main-Carousel">
       <Slider {...settings}>
         {mainCarouselInfo}
       </Slider>
-    </div>
+    </section>
   );
 };

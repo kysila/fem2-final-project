@@ -1,22 +1,21 @@
-import React, {useState} from 'react';
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import Input from "@material-ui/core/Input";
-import MenuItem from "@material-ui/core/MenuItem";
-import Checkbox from "@material-ui/core/Checkbox";
-import ListItemText from "@material-ui/core/ListItemText";
-import FormControl from "@material-ui/core/FormControl";
+import React, { useState } from 'react';
 
-const categories = [
-  'e-bikes',
-  'e-scooters',
-  'e-skates',
-];
-const CategoryFilter = () => {
+import { connect } from 'react-redux';
+
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemText from '@material-ui/core/ListItemText';
+import { selectFilters } from '../../../store/selectedFilters/actions';
+
+const CategoryFilter = (props) => {
   const [category, setCategory] = useState([]);
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
+    props.selectFilters(event, event.target.value, 'categorySelected', {...props.selectedFilters});
   };
 
   const handleChangeMultipleCategory = (event) => {
@@ -28,6 +27,7 @@ const CategoryFilter = () => {
       }
     }
     setCategory(value);
+    props.selectFilters(event, event.target.value, 'categorySelected', {...props.selectedFilters});
   };
   return (
     <React.Fragment>
@@ -40,15 +40,19 @@ const CategoryFilter = () => {
         input={<Input />}
         renderValue={(selected) => selected.join(', ')}
       >
-        {categories.map((name) => (
-          <MenuItem key={name} value={name}>
-            <Checkbox checked={category.indexOf(name) > -1} />
-            <ListItemText primary={name} />
+        {props.categories.map(({ id }) => (
+          <MenuItem key={id} value={id}>
+            <Checkbox checked={category.indexOf(id) > -1} />
+            <ListItemText primary={id} />
           </MenuItem>
         ))}
       </Select>
     </React.Fragment>
   );
 };
+const mapStateToProps = (state) => ({
+  ...state,
+  selectedFilters: state.selectFilterReducer.selectedFilters,
+});
 
-export default CategoryFilter;
+export default connect(mapStateToProps, { selectFilters })(CategoryFilter);

@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
-import {makeStyles} from "@material-ui/core";
+import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 
 import { Header } from '../../commons';
-import { ProductGallery } from "./ProductGallery";
+import { ProductGallery } from './ProductGallery';
 import { ProductDescription } from './ProductDescription'
-import ProductDetailsCard from "./ProductDetailsCard";
+import ProductDetailsCard from './ProductDetailsCard';
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs';
-import StayInTouch from "../../commons/Footer/StayInTouch";
+import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
+import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 
 const useStyles = makeStyles(() => ({
   space: {
@@ -62,7 +63,6 @@ export const ProductDetails = (props) => {
       });
   }, [state.obj]);
 
-  console.log(state);
 
   return (
     <div>
@@ -74,10 +74,11 @@ export const ProductDetails = (props) => {
             <ProductGallery image={state.obj.imageUrls}/>
             <ProductDescription data={state.obj} />
           </div>
-          <ProductDetailsCard data={state}/>
+          <ProductDetailsCard data={state} />
         </div>
       </Container>
+      <RecentlyViewed />
       <StayInTouch />
     </div>
-  )
+  );
 };

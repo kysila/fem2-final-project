@@ -1,8 +1,9 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Tungsten from '../../fonts/Tungsten-Book.woff';
+import Tungsten from '../../../fonts/Tungsten-Book.woff';
+import { useStyles } from './style';
+
 
 const tungsten = {
   fontFamily: 'Tungsten Book',
@@ -12,18 +13,6 @@ const tungsten = {
     url(${Tungsten}) format('woff')
   `,
 };
-
-const useStyles = makeStyles(() => ({
-  subsectionTitle: {
-    fontSize: '33px',
-    fontWeight: '326',
-    textTransform: 'capitalize',
-    marginBottom: '20px',
-    color: (props) => props.color,
-  },
-
-}));
-
 const SubsectionTitle = (props) => {
   const classes = useStyles(props);
 

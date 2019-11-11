@@ -8,7 +8,9 @@ import {
 const initialState = {
   isFilterFetching: false,
   colorFilters: [],
-  otherFilters: [],
+  distanceFilters: [],
+  maxSpeedFilters: [],
+  chargingTimeFilters: [],
   errorMsg: '',
 };
 function filterReducer(state = initialState, action) {
@@ -22,7 +24,9 @@ function filterReducer(state = initialState, action) {
       return {
         ...state,
         colorFilters: action.colors,
-        otherFilters: action.otherFilters,
+        distanceFilters: action.distances,
+        maxSpeedFilters: action.maxSpeeds,
+        chargingTimeFilters: action.chargingTimes,
         isFilterFetching: false,
         errorMsg: '',
       };
@@ -32,7 +36,6 @@ function filterReducer(state = initialState, action) {
         isFilterFetching: true,
         errorMsg: action.payload,
       };
-
     default:
       return { ...state };
   }
