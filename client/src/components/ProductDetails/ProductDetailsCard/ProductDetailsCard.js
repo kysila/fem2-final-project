@@ -24,7 +24,7 @@ const ProductDetailsCard = (props) => {
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
 
-	const handlerLocalStorage = (name) => {
+	const handlerLocalStorage = () => {
 		let data = localStorage.getItem('cart');
 		if (!data) {
 			const productsCart = {
