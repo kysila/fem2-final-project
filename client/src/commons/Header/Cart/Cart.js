@@ -170,7 +170,6 @@ const Cart = (props) => {
           getCartFromDB = result.data.products;
         }).then(() => {
           cartArrayFromDB = cartRenderDB(getCartFromDB);
-          // console.log('Cart from DB =====>', getCartFromDB);
         })
         .then(() => {
           setCartStatus(cartArrayFromDB);

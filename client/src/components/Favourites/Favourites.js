@@ -24,13 +24,14 @@ export const Favourites = (props) => {
   }, []);
 
   if (list && !loading) {
-    favoritesProducts = list.map((el) => (
+    favoritesProducts = list.map((el, i) => (
       <ProductCard
         name={el.name}
         itemImg={el.imageUrls[0]}
         price={el.currentPrice}
         url={`products/${el.itemNo}`}
         rating={el.rating}
+        key={i}
       />
     ));
   } else if (loading) {
