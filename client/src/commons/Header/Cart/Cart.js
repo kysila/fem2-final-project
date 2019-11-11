@@ -23,25 +23,25 @@ const mapStateToProps = (state) => ({
 });
 
 // try to get cart from LS
-const cart = [
-  {
-    imageUrls: ['img/products/e-bikes/872426/001.jpg', 'img/products/e-bikes/773969/002.jpg'],
-    name: 'addmotor hithot h1 sport mountain e-bike',
-    itemNo: 773969,
-    currentPrice: 1899,
-    count: 1,
-  },
-  {
-    imageUrls: ['img/products/e-bikes/773969/006.jpg', 'img/products/e-bikes/773969/002.jpg'],
-    name: 'sport mountain e-bike',
-    itemNo: 872426,
-    currentPrice: 3299,
-    count: 2,
-  },
-];
-
-const serialCart = JSON.stringify(cart);
-localStorage.setItem('cart', serialCart);
+// const cart = [
+//   {
+//     imageUrls: ['img/products/e-bikes/872426/001.jpg', 'img/products/e-bikes/773969/002.jpg'],
+//     name: 'addmotor hithot h1 sport mountain e-bike',
+//     itemNo: 773969,
+//     currentPrice: 1899,
+//     count: 1,
+//   },
+//   {
+//     imageUrls: ['img/products/e-bikes/773969/006.jpg', 'img/products/e-bikes/773969/002.jpg'],
+//     name: 'sport mountain e-bike',
+//     itemNo: 872426,
+//     currentPrice: 3299,
+//     count: 2,
+//   },
+// ];
+//
+// const serialCart = JSON.stringify(cart);
+// localStorage.setItem('cart', serialCart);
 // / End
 
 const Cart = (props) => {

@@ -5,12 +5,14 @@ import HtmlToReact from 'html-to-react';
 
 import axios from 'axios';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+
+import { useTheme } from '@material-ui/core/styles';
+import { useStyles } from "./style";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -36,30 +38,6 @@ function a11yProps(index) {
 	};
 };
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		backgroundColor: theme.palette.background.paper,
-		width: 499,
-		'& header': {
-			boxShadow: 'none !important',
-		},
-	},
-	styledTabs: {
-		fontSize: 20,
-	},
-	detailsName: {
-		display: 'inline-block',
-		width: 125,
-		fontSize: 14,
-		fontWeight: 'bold',
-	},
-	detailsDesc: {
-		display: 'inline-block',
-		width: 'auto',
-		fontSize: 14
-	},
-}));
-
 export const ProductDescription = ({data}) => {
 
 	const [value, setValue] = useState(0);
@@ -84,9 +62,9 @@ export const ProductDescription = ({data}) => {
 	};
 
 	const renderFeatures = (obj) => {
-		return Object.keys(obj).map(key => {
+		return Object.keys(obj).map((key, i) => {
 			return (
-				<div>
+				<div key={i}>
 					<div className={classes.detailsName}>{capitalizeFirstLetter(key)}</div>
 					<div className={classes.detailsDesc}>{obj[key]}</div>
 				</div>
