@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
+import { NavHashLink as HashLink } from 'react-router-hash-link';
 import axios from 'axios';
 
 import Link from '@material-ui/core/Link';
@@ -84,11 +85,12 @@ export const NavBar = (props) => {
             <ExpandMoreSharpIcon fontSize="small" />
           </Box>
         </Link>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <Link component="button" variant="body2" underline="none" className={classes.menuItem}>
-                    Customer Favorites
+          <HashLink to="#favourites">  Customer Favorites </HashLink>
         </Link>
         <Link component="button" variant="body2" underline="none" className={classes.menuItem}>
-                    Contact
+          <HashLink to="#contact">  Contact</HashLink>
         </Link>
       </Box>
     </React.Fragment>

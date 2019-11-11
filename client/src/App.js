@@ -85,6 +85,9 @@ const GlobalCss = withStyles({
     '.MuiPopover-paper': {
       minWidth: '20vw !important',
     },
+    '.Mui-selected': {
+      boxShadow: '0px 3px 10px rgba(0, 0, 0, 0.05)',
+    },
     '.MuiTab-root': {
       minWidth: 'auto',
       padding: '6px 16.5px',
