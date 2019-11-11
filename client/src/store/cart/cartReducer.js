@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { ADD_PRODUCT_TO_CART } from './actions';
+
 const GET_PRODUCTSTOBUY = 'GET_PRODUCTSTOBUY';
 const DELETE_PRODUCTSTOBUY = 'DELETE_PRODUCTSTOBUY';
 const SET_COUNTOFPRODUCTS = 'SET_COUNTOFPRODUCTS';
@@ -7,6 +9,9 @@ const SET_COUNTOFPRODUCTS = 'SET_COUNTOFPRODUCTS';
 const initialState = {
   productsToBuy: [],
   countOfProducts: 0,
+  cart: {
+    products: [],
+  },
 };
 
 // ACTIONS
@@ -42,6 +47,13 @@ function cartReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         countOfProduct: payload,
+      };
+    case ADD_PRODUCT_TO_CART:
+      return {
+        ...state,
+        cart: {
+          products: payload,
+        }
       };
     default:
       return state;
