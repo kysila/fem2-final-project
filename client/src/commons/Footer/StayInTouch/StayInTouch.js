@@ -4,54 +4,53 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import {useStyles} from './style'
+import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle/SubsectionTitle';
+import { SubscribeLetter } from '../SubscribeLetter';
 
-import SubsectionTitle from '../../components/Mainpage/SubsectionTitle';
-import SubscribeLetter from './SubscribeLetter';
+// const useStyles = makeStyles((theme) => ({
+//   blueBG: {
+//     background: 'linear-gradient(180deg, rgba(102,134,255, .1) 0%, rgba(143, 141, 226, .1) 100%)',
+//     paddingTop: '51px',
+//     paddingBottom: '49px',
+//
+//   },
+//   textField: {
+//     width: '50%',
+//     '&>div>input': {
+//       backgroundColor: '#fff',
+//     },
+//
+//   },
+//   subscribeForm: {
+//     '&>div': {
+//       margin: '0',
+//     },
+//     margin: '0 auto',
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   subscribeBtn: {
+//     display: 'inline-flex',
+//     alignItems: 'center',
+//     padding: '15px 20px',
+//     '&>span': {
+//       width: 'auto',
+//     },
+//   },
+//   subscribeIcon: {
+//     marginRight: '4px',
+//   },
+//   text: {
+//     marginBottom: '24px',
+//   },
+// }));
 
-const useStyles = makeStyles((theme) => ({
-  blueBG: {
-    background: 'linear-gradient(180deg, rgba(102,134,255, .1) 0%, rgba(143, 141, 226, .1) 100%)',
-    paddingTop: '51px',
-    paddingBottom: '49px',
-
-  },
-  textField: {
-    width: '50%',
-    '&>div>input': {
-      backgroundColor: '#fff',
-    },
-
-  },
-  subscribeForm: {
-    '&>div': {
-      margin: '0',
-    },
-    margin: '0 auto',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  subscribeBtn: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    padding: '15px 20px',
-    '&>span': {
-      width: 'auto',
-    },
-  },
-  subscribeIcon: {
-    marginRight: '4px',
-  },
-  text: {
-    marginBottom: '24px',
-  },
-}));
-
-export const StayInTouch = () => {
+const StayInTouch = () => {
   const classes = useStyles();
   const [mail, setMail] = useState('');
   const [formError, setFormError] = useState(false);
@@ -65,7 +64,7 @@ export const StayInTouch = () => {
       type: 'success',
       confirmButtonColor: '#6A86E8',
       onClose: () => {
-        window.location = '/';
+        TextField.value = '';
       },
     });
   };
@@ -77,7 +76,7 @@ export const StayInTouch = () => {
       type: 'warning',
       confirmButtonColor: '#6A86E8',
       onClose: () => {
-        window.location = '/';
+        TextField.value = '';
       },
     });
   };
@@ -112,7 +111,7 @@ export const StayInTouch = () => {
   const newSubscriber = {
     email: mail,
     letterSubject: 'Congratulations! You are new member of our community',
-    letterHtml: SubscribeLetter(),
+    letterHtml: SubscribeLetter({ email: mail }),
   };
 
 
@@ -138,7 +137,6 @@ export const StayInTouch = () => {
   };
 
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <section className={classes.blueBG}>
       <Container maxWidth="md">
         <SubsectionTitle color="#6A86E8" title="Stay in touch" />

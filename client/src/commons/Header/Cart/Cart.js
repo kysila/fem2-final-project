@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { getProductsToBuy, deleteProductsToBuy } from '../../../store/cart/cartReducer';
 import CartItem from './CartItem';
-import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle';
+import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle/SubsectionTitle';
 // eslint-disable-next-line import/named
 import { useStyles } from './style';
 

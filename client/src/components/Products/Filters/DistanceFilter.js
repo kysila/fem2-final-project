@@ -5,15 +5,8 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles } from '@material-ui/core';
 
-
-const distances = [
-  '15 miles',
-  '10 miles',
-  '20 miles',
-];
-const DistanceFilter = () => {
+const DistanceFilter = ({ distances }) => {
   const [distance, setDistance] = useState([]);
 
   const handleChangeDistance = (event) => {
@@ -41,8 +34,8 @@ const DistanceFilter = () => {
         input={<Input />}
         renderValue={(selected) => selected.join(', ')}
       >
-        {distances.map((name) => (
-          <MenuItem key={name} value={name}>
+        {distances.map(({ _id, name }) => (
+          <MenuItem key={_id} value={name}>
             <Checkbox checked={distance.indexOf(name) > -1} />
             <ListItemText primary={name} />
           </MenuItem>

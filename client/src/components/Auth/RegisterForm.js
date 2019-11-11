@@ -14,11 +14,11 @@ import {
   Box,
   useMediaQuery, withTheme,
 } from '@material-ui/core';
+
 import classNames from 'classnames';
 
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import CloseIcon from '@material-ui/icons/Close';
+import { InputField } from '../../commons/InputField/InputField';
 
 import { dispatchRegister } from '../../store/auth/actions';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
@@ -86,41 +86,74 @@ const useMobileStyles = makeStyles((theme) => ({
 function RegisterForm(props) {
   const classes = useStyles();
   const classesMobile = useMobileStyles();
-
-  const [passwordHidden, setPasswordVisible] = useState(true);
-  const PasswordIcon = passwordHidden ? VisibilityIcon : VisibilityOffIcon;
   const [state, setState] = useState({
-    email: '',
-    login: '',
-    password: '',
-    repeatPassword: '',
+    email: {
+      value: '',
+      error: null,
+    },
+    login: {
+      value: '',
+      error: null,
+    },
+    password: {
+      value: '',
+      error: null,
+    },
+    repeatPassword: {
+      value: '',
+      error: null,
+    },
   });
 
   const matchMobile = useMediaQuery(props.theme.breakpoints.down(960));
 
   const validate = () => {
     const trimmed = Object.keys(state).reduce((trm, key) => {
-      trm[key] = state[key].trim();
+      trm[key] = state[key].value.trim();
       return trm;
     }, {});
 
     if (!trimmed.email || !validator.isEmail(trimmed.email)) {
-      props.warning('Email should be not empty, for example: example@domain.com');
+      setState({
+        ...state,
+        email: {
+          ...state.email,
+          error: <Typography className={classes.toolTip} component="p" style={museo}>Email should be not empty, for example: example@domain.com</Typography>,
+        },
+      });
       return false;
     }
 
     if (!trimmed.login || trimmed.login.length < 4) {
-      props.warning('Login should be more than 3 chars.');
+      setState({
+        ...state,
+        login: {
+          ...state.login,
+          error: <Typography className={classes.toolTip} component="p" style={museo}>Login should be more than 3 chars.</Typography>,
+        },
+      });
       return false;
     }
 
     if (!trimmed.password || trimmed.password.length < 8) {
-      props.warning('Password should be at least 8 chars.');
+      setState({
+        ...state,
+        password: {
+          ...state.password,
+          error: <Typography className={classes.toolTip} component="p" style={museo}>Password should be at least 8 chars.</Typography>,
+        },
+      });
       return false;
     }
 
     if (trimmed.password !== trimmed.repeatPassword) {
-      props.warning('Passwords aren\'t equal each other.');
+      setState({
+        ...state,
+        repeatPassword: {
+          ...state.repeatPassword,
+          error: <Typography className={classes.toolTip} component="p" style={museo}>Passwords aren&#39;t equal each other.</Typography>,
+        },
+      });
       return false;
     }
 
@@ -128,16 +161,19 @@ function RegisterForm(props) {
   };
 
   const onChange = (stateName) => (event) => {
-    setState({ ...state, [stateName]: event.target.value });
+    setState({ ...state, [stateName]: { error: null, value: event.target.value } });
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    const { email, login, password } = state;
-
     if (validate()) {
-      props.register({ email, login, password });
+      props.register(
+        Object.keys(state).reduce((memo, key) => {
+          memo[key] = state[key].value;
+          return memo;
+        }, {}),
+      );
     }
   };
 
@@ -192,84 +228,42 @@ function RegisterForm(props) {
               Create Account
             </Typography>
           </Box>
-          <FormControl className={classes.formControl} variant="outlined">
-            <InputLabel classes={{ root: classes.label }} htmlFor="email">
-              Email
-            </InputLabel>
-            <OutlinedInput
-              id="email"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.input,
-              }}
-              value={state.loginOrEmail}
-              onChange={onChange('email')}
-              labelWidth={40}
-              fullWidth
-            />
-          </FormControl>
-          <FormControl className={classes.formControl} variant="outlined">
-            <InputLabel classes={{ root: classes.label }} htmlFor="login">
-              Login
-            </InputLabel>
-            <OutlinedInput
-              id="login"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.input,
-              }}
-              value={state.login}
-              onChange={onChange('login')}
-              labelWidth={40}
-              fullWidth
-            />
-          </FormControl>
-          <FormControl className={classes.formControl} variant="outlined">
-            <InputLabel classes={{ root: classes.label }} htmlFor="password">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="password"
-              type={passwordHidden ? 'password' : 'text'}
-              classes={{
-                root: classes.inputRoot,
-                input: classes.input,
-              }}
-              value={state.password}
-              onChange={onChange('password')}
-              labelWidth={75}
-              fullWidth
-              endAdornment={
-                state.password
-                  ? (
-                    <PasswordIcon
-                      style={{ cursor: 'pointer', userSelect: 'none' }}
-                      onTouchStart={() => setPasswordVisible(false)}
-                      onMouseDown={() => setPasswordVisible(false)}
-                      onTouchEnd={() => setPasswordVisible(true)}
-                      onMouseUp={() => setPasswordVisible(true)}
-                    />
-                  ) : null
-              }
-            />
-          </FormControl>
-          <FormControl className={classes.formControl} variant="outlined">
-            <InputLabel classes={{ root: classes.label }} htmlFor="repeatPassword">
-              Repeat password
-            </InputLabel>
-            <OutlinedInput
-              id="repeatPassword"
-              type="password"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.input,
-              }}
-              value={state.repeatPassword}
-              onChange={onChange('repeatPassword')}
-              labelWidth={125}
-              fullWidth
-            />
-          </FormControl>
+          <InputField
+            id="email"
+            type="email"
+            label="Email"
+            value={state.email.value}
+            error={state.email.error}
+            onChange={onChange('email')}
+            labelWidth={40}
+          />
+          <InputField
+            id="login"
+            label="Login"
+            value={state.login.value}
+            error={state.login.error}
+            onChange={onChange('login')}
+            labelWidth={40}
+          />
+          <InputField
+            id="password"
+            type="password"
+            label="Password"
+            onChange={onChange('password')}
+            labelWidth={70}
+            value={state.password.value}
+            error={state.password.error}
+          />
+          <InputField
+            id="repeatPassword"
+            type="password"
+            label="Repeat password"
+            onChange={onChange('repeatPassword')}
+            labelWidth={125}
+            value={state.repeatPassword.value}
+            error={state.repeatPassword.error}
+            InputProps={{ endAdornment: null }}
+          />
           <Button fullWidth className={classes.submitBtn} onClick={onSubmit}>
             Sign up
           </Button>

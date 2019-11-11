@@ -2,16 +2,17 @@ import React from 'react';
 
 import { ACTIONS } from './reducer';
 
-export function modalOpen(payload) {
+export function modalOpen(payload, inject = {}) {
   return {
     type: ACTIONS.MODAL_OPEN,
     payload,
+    inject,
   };
 }
 
-export function dispatchModalOpen(payload = 'login') {
+export function dispatchModalOpen(payload = 'login', inject) {
   return (dispatch) => {
-    dispatch(modalOpen(payload));
+    dispatch(modalOpen(payload, inject));
   };
 }
 
