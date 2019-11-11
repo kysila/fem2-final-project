@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const cors = require('cors')
 const path = require("path");
+
 require("dotenv").config();
 
 const customers = require("./routes/customers");
@@ -20,6 +21,7 @@ const pages = require("./routes/pages");
 const slides = require("./routes/slides");
 const wishlist = require("./routes/wishlist");
 const comments = require("./routes/comments");
+const partners = require("./routes/partners");
 // const mainRoute = require("./routes/index");
 
 const app = express();
@@ -29,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cors('*'));
+
 
 // DB Config
 const db = require("./config/keys").mongoURI;
@@ -60,6 +63,7 @@ app.use("/pages", pages);
 app.use("/slides", slides);
 app.use("/wishlist", wishlist);
 app.use("/comments", comments);
+app.use("/partners", partners);
 // app.use("/", mainRoute);
 
 // Server static assets if in production

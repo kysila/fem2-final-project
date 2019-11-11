@@ -8,14 +8,15 @@ export const GET_PRODUCTS_FAILED = 'GET_PRODUCTS_FAILED';
 
 
 // action:
-export const getProducts = () => (dispatch) => {
+export const getProducts = (endpoint) => (dispatch) => {
 
   dispatch({
     type: GET_PRODUCTS_REQUESTED,
   });
-  axios.get('/products')
+  axios.get(endpoint)
     .then((data) => {
-      console.log('data in axios get in products actions.js', data);
+      console.log('endpoint', endpoint);
+      console.log(data, data);
       const allProducts = data.data.map((el) => ({
         itemNo: el.itemNo,
         name: el.name,
@@ -24,11 +25,9 @@ export const getProducts = () => (dispatch) => {
         url: `/products/${el.itemNo}`,
         rating: el.rating,
       }));
-      console.log('allProducts',allProducts);
       const loadMoreArrays = () => {
         const size = 8;
         const productLoadMoreArraysQuantity = Math.ceil(allProducts.length / size);
-        console.log('productLoadMoreArraysQuantity', productLoadMoreArraysQuantity);
         const loadMoreArray = [];
         for (let i = 0; i < productLoadMoreArraysQuantity; i++) {
           loadMoreArray[i] = allProducts.slice((i * size), (i * size) + size);

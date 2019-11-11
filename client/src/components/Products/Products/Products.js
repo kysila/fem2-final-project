@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
+// import queryString from 'query-string';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
@@ -24,9 +26,17 @@ const Products = (props) => {
   let products;
   const [count, setCount] = useState(0);
   const [active, setActive] = useState(true);
+
+  // const queryStringParse = () => queryString.parse(props.location.search, { arrayFormat: 'comma' });
+  // queryString.parse(this.props.location.search)
+  // props.location.search) // "?filter=top&origin=im"
   useEffect(() => {
-    props.getProducts();
-  }, []);
+    if (props.location.search) {
+      props.getProducts(`/products/filter${props.location.search}`);
+    } else {
+      props.getProducts('/products');
+    }
+  }, [props.location.search]);
 
   useEffect(() => {
     arrays.shift();
@@ -34,7 +44,7 @@ const Products = (props) => {
       displayedProductsArray = [...displayedProductsArray, ...arrays[0]];
     }
     if (props.allProductsArrays) {
-      if (!arrays.length && count){
+      if (!arrays.length && count) {
         setActive(false);
       }
     }
@@ -46,7 +56,6 @@ const Products = (props) => {
 
 
   if (props.allProductsArrays && !props.isProductsFetching && count === 0) {
-
     displayedProductsArray = [...props.allProductsArrays[0]];
     arrays = [...props.allProductsArrays];
     products = displayedProductsArray.flat().map((el) => {
@@ -103,6 +112,7 @@ const Products = (props) => {
           </main>
         </Container>
         <StayInTouch />
+        <Footer/>
       </React.Fragment>
     );
   }
@@ -140,4 +150,4 @@ const mapStateToProps = (state) => ({
   allProductsArrays: state.productsReducer.allProductsArrays,
 });
 
-export default connect(mapStateToProps, { getProducts })(Products);
+export default withRouter(connect(mapStateToProps, { getProducts })(Products));
