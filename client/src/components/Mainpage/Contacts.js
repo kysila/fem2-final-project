@@ -1,13 +1,13 @@
 import React from 'react';
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import {
   Typography, Grid, Box, Container, useMediaQuery, withTheme,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Map } from '../Map/Map';
 
 import Tungsten from '../../fonts/Tungsten-Book.woff';
-import MuseoSans from '../../fonts/MuseoSans-500.woff';
 
+import MuseoSans from '../../fonts/MuseoSans-500.woff';
 import mobileSvg from '../../img/contact/mobile.svg';
 import mailSvg from '../../img/contact/mail.svg';
 import markerSvg from '../../img/contact/marker.svg';
@@ -68,22 +68,13 @@ const useStyles = makeStyles((theme) => ({
       height: '327px',
       width: '344px',
     },
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(960)]: {
       marginTop: '16px',
       height: '150px',
       width: '280px',
     },
   },
 }));
-
-const Map = withGoogleMap((props) => (
-  <GoogleMap
-    defaultZoom={16}
-    defaultCenter={{ lat: 50.4287031, lng: 30.5911917 }}
-  >
-    <Marker position={{ lat: 50.4287031, lng: 30.5911917 }} />
-  </GoogleMap>
-));
 
 const ContactItem = (props = {
   key: 'xJNdndwqiBIqwd', icon: 'star', title: '', list: [],
@@ -123,7 +114,7 @@ const ContactItem = (props = {
 
 const Contacts = withTheme((props) => {
   const classes = useStyles();
-  const matchesMobile = useMediaQuery(props.theme.breakpoints.down(768));
+  const matchesMobile = useMediaQuery(props.theme.breakpoints.down(960));
 
   const contacts = [{
     key: 'qweqwe1',
@@ -171,10 +162,13 @@ const Contacts = withTheme((props) => {
           md={5}
           xs={12}
         >
-          <Map
-            containerElement={<div className={classes.map} />}
-            mapElement={<div style={{ height: '100%' }} />}
-          />
+          <Grid
+            container
+            justify="flex-end"
+            alignItems="flex-end"
+          >
+            <Map className={classes.map} />
+          </Grid>
         </Grid>
       </Grid>
     </Container>
@@ -183,5 +177,4 @@ const Contacts = withTheme((props) => {
 
 export {
   Contacts,
-  Map,
 };
