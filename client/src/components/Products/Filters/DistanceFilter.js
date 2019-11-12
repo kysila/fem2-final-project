@@ -6,11 +6,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const DistanceFilter = ({ distances }) => {
+import { connect } from 'react-redux';
+
+import { selectFilters } from '../../../store/selectedFilters/actions';
+
+const DistanceFilter = (props) => {
   const [distance, setDistance] = useState([]);
 
   const handleChangeDistance = (event) => {
     setDistance(event.target.value);
+    props.selectFilters(event, event.target.value, 'distance', { ...props.selectedFilters });
   };
   const handleChangeMultipleDistance = (event) => {
     const { options } = event.target;
@@ -21,6 +26,7 @@ const DistanceFilter = ({ distances }) => {
       }
     }
     setDistance(value);
+    props.selectFilters(event, event.target.value, 'distance', { ...props.selectedFilters });
   };
 
   return (
@@ -34,7 +40,7 @@ const DistanceFilter = ({ distances }) => {
         input={<Input />}
         renderValue={(selected) => selected.join(', ')}
       >
-        {distances.map(({ _id, name }) => (
+        {props.distances.map(({ _id, name }) => (
           <MenuItem key={_id} value={name}>
             <Checkbox checked={distance.indexOf(name) > -1} />
             <ListItemText primary={name} />
@@ -44,5 +50,8 @@ const DistanceFilter = ({ distances }) => {
     </React.Fragment>
   );
 };
-
-export default DistanceFilter;
+const mapStateToProps = (state) => ({
+  ...state,
+  selectedFilters: state.selectFilterReducer.selectedFilters,
+});
+export default connect(mapStateToProps, { selectFilters })(DistanceFilter);

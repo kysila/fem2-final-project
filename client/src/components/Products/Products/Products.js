@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import queryString from 'query-string';
 
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -17,74 +20,56 @@ import { RecentlyViewed} from '../../RecentlyViewed/RecentlyViewed';
 import { useStyles } from './style';
 
 import { getProducts } from '../../../store/products/actions';
+import { recentlySelectFilters } from '../../../store/selectedFilters/actions';
 
-let displayedProductsArray = [];
-let arrays = [];
+
+// let displayedProductsArray = [];
+// let arrays = [];
 const Products = (props) => {
   const classes = useStyles();
   let products;
-  const [count, setCount] = useState(0);
-  const [active, setActive] = useState(true);
+  let queryOptions = queryString.parse(props.location.search);
+  console.log('queryOptions', queryOptions);
+  const startPerPage = +queryOptions.perPage;
+  const [perPage, setPerPage] = useState(startPerPage);
+  // const queryStringParse = () => queryString.parse(props.location.search, { arrayFormat: 'comma' });
+  // queryString.parse(this.props.location.search)
+  // props.location.search) // "?filter=top&origin=im"
   useEffect(() => {
-    props.getProducts();
-  }, []);
+    props.getProducts(`/products/filter${props.location.search}`);
+    console.log('props.location.search', props.location.search);
+    if (!props.selectedFilters.length) {
+      const recentlySelected = queryString.parse(props.location.search);
+      delete recentlySelected.perPage;
+      delete recentlySelected.startPage;
+      props.recentlySelectFilters({ ...recentlySelected });
+    }
+  }, [ props.location.search ]);
 
   useEffect(() => {
-    arrays.shift();
-    if (arrays.length) {
-      displayedProductsArray = [...displayedProductsArray, ...arrays[0]];
-    }
-    if (props.allProductsArrays) {
-      if (!arrays.length && count){
-        setActive(false);
-      }
-    }
-  });
+    queryOptions.perPage = perPage;
+    const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
+    props.history.push(`/products/filter?${newQuery}`);
+  }, [ perPage ]);
 
   const loadMoreAction = () => {
-    setCount(count + 1);
+    queryOptions = queryString.parse(props.location.search);
+    setPerPage(perPage + 8);
   };
 
-
-  if (props.allProductsArrays && !props.isProductsFetching && count === 0) {
-
-    displayedProductsArray = [...props.allProductsArrays[0]];
-    arrays = [...props.allProductsArrays];
-    products = displayedProductsArray.flat().map((el) => {
-      if (el) {
-        return (
-          <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
-            <ProductCard
-              className={classes.card}
-              name={el.name}
-              itemImg={el.itemImg}
-              price={el.currentPrice}
-              url={el.url}
-              rating={el.rating}
-              itemNo={el.itemNo}
-            />
-          </Grid>
-        );
-      }
-    });
-  } else if (props.allProductsArrays && !props.isProductsFetching) {
-    products = displayedProductsArray.flat().map((el) => {
-      if (el) {
-        return (
-          <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
-            <ProductCard
-              className={classes.card}
-              name={el.name}
-              itemImg={el.itemImg}
-              price={el.currentPrice}
-              url={el.url}
-              rating={el.rating}
-              itemNo={el.itemNo}
-            />
-          </Grid>
-        );
-      }
-    });
+  if (props.allProducts && !props.isProductsFetching) {
+    products = props.allProducts.map((el) => (
+      <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
+        <ProductCard
+          className={classes.card}
+          name={el.name}
+          itemImg={el.itemImg}
+          price={el.currentPrice}
+          url={el.url}
+          rating={el.rating}
+        />
+      </Grid>
+    ));
   } else {
     return (
       <React.Fragment>
@@ -107,6 +92,7 @@ const Products = (props) => {
         </Container>
         <RecentlyViewed />
         <StayInTouch />
+        <Footer />
       </React.Fragment>
     );
   }
@@ -127,9 +113,19 @@ const Products = (props) => {
         <Filters />
         <main className={classes.main}>
           <Grid container spacing={0}>
-            {products}
+            {props.allProducts.length ? products : (
+              <Typography
+                variant="body1"
+                gutterBottom
+                align="center"
+                className={classes.space}
+              >
+              Sorry, no products matching your request were found.
+              </Typography>
+            )}
           </Grid>
-          {active && <Button onClick={() => { loadMoreAction(); }}>Load More ...</Button> }
+          {props.allProducts.length >= perPage
+          && <Button onClick={() => { loadMoreAction(); }}>Load More ...</Button>}
         </main>
       </Container>
       <RecentlyViewed />
@@ -142,7 +138,8 @@ const mapStateToProps = (state) => ({
   ...state,
   isProductsFetching: state.productsReducer.isProductsFetching,
   allProducts: state.productsReducer.allProducts,
-  allProductsArrays: state.productsReducer.allProductsArrays,
+  selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
-export default connect(mapStateToProps, { getProducts })(Products);
+export default withRouter(connect(mapStateToProps,
+  { getProducts, recentlySelectFilters })(Products));

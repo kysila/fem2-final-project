@@ -21,7 +21,6 @@ function productsReducer(state = initialState, action) {
       return {
         ...state,
         allProducts: action.allProducts,
-        allProductsArrays: action.allProductsArrays,
         isProductsFetching: false,
         errorMsg: '',
       };
