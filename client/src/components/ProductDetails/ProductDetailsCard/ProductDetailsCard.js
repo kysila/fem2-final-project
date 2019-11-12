@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 
+import { handlerLocalStorage } from "../../AddToCartFunc/script";
 import { useStyles } from "./style";
 
 const mapStateToProps = (store) => ({
@@ -24,52 +25,15 @@ const ProductDetailsCard = (props) => {
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
 
-	const handlerLocalStorage = (name) => {
-		let data = localStorage.getItem(name);
-		if (!data) {
-			const productsCart = {
-				products: [
-					{
-						cartQuantity: 1,
-						product: obj,
-					}
-				],
-			};
-			data = JSON.stringify(productsCart);
-			localStorage.setItem('cart', data);
-			props.getCartFromLS(data);
-		}
-		else if (data) {
-			addToLocalStorage(data)
-		}
+	const productItem = {
+		cartQuantity: 1,
+		product: obj
 	};
 
-	const addToLocalStorage = (data) => {
-		const cart = JSON.parse(data);
-		if (!filterCart(cart.products, obj)) {
-			const productItem = {
-				cartQuantity: 1,
-				product: obj
-			};
-			cart.products.push(productItem);
-		}
-		else {
-			cart.products.forEach(el => {
-				if (el.product.itemNo === obj.itemNo) {
-					el.cartQuantity += 1;
-				}
-			});
-		}
-		props.getCartFromLS(cart);
-		const test = JSON.stringify(cart);
-		localStorage.setItem('cart', test);
-
-	};
-
-	const filterCart = (arr, obj) => {
-		return arr.some(el => {
-			return el.product.itemNo === obj.itemNo
-		})
+	const productsCart = {
+		products: [
+			productItem
+		],
 	};
 
 	let links;
@@ -134,7 +98,7 @@ const ProductDetailsCard = (props) => {
 					onClick={e => {
 						props.user ?
 							props.addProductToCart(`/cart/${obj._id}`) :
-							handlerLocalStorage('cart');
+							handlerLocalStorage('cart', productsCart, obj.itemNo, productItem, props.getCartFromLS);
 					}}
 				>
 					<BagIcon

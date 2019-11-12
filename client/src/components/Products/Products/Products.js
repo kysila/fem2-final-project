@@ -58,15 +58,17 @@ const Products = (props) => {
   };
 
   if (props.allProducts && !props.isProductsFetching) {
+    console.log(props.allProducts);
     products = props.allProducts.map((el) => (
       <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
         <ProductCard
           className={classes.card}
           name={el.name}
           itemImg={el.itemImg}
-          price={el.currentPrice}
+          price={el.price}
           url={el.url}
           rating={el.rating}
+          itemNo={el.itemNo}
         />
       </Grid>
     ));
