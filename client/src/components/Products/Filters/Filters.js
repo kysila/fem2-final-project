@@ -41,7 +41,6 @@ const Filters = (props) => {
     props.history.push(`/products/filter?perPage=${perPage}&startPage=${startPage}&${query}`);
   };
 
-
   return (
     <div>
       <Grid container spacing={6} className={classes.filterRow}>
