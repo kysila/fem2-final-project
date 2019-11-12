@@ -3,11 +3,12 @@ import { createStyles, makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles((theme) => createStyles({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    // flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   base_container: {
+    gridTemplateColumns: '5fr 2fr 1fr 1fr',
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -19,7 +20,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     background: '#f4efff',
     fontSize: '20px',
     color: '#9c80ff',
-    [theme.breakpoints.down(480)]: {
+    [theme.breakpoints.down(710)]: {
       width: '80%',
     },
   },
@@ -112,7 +113,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     paddingBottom: '7px',
   },
   main_block: {
-    flexBasis: '40%',
+    // flexBasis: '40%',
     marginLeft: '2%',
     marginRight: '2%',
     flexDirection: 'column',
@@ -150,6 +151,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     },
   },
   counter: {
-    marginRight: '2%',
+    // flexGrow: '1',
+    marginRight: '1%',
   },
 }));

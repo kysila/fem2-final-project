@@ -5,7 +5,7 @@ import Input from '@material-ui/core/Input';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { useStyles } from './style';
-import { setTotalPrice } from '../../../store/cart/cartReducer';
+import { setTotalPrice } from '../../../store/cart/actions';
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
