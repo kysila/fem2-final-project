@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToCart } from "../../../store/cart/actions";
+import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
 import { HeartIcon, BagIcon, WeigherIcon } from "../../Icons/Icons";
 
 import axios from 'axios';
@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 
+import { handlerLocalStorage } from "../../AddToCartFunc/script";
 import { useStyles } from "./style";
 
 const mapStateToProps = (store) => ({
@@ -24,49 +25,15 @@ const ProductDetailsCard = (props) => {
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
 
-	const handlerLocalStorage = (name) => {
-		let data = localStorage.getItem(name);
-		if (!data) {
-			const productsCart = {
-				products: [
-					{
-						cartQuantity: 1,
-						product: obj,
-					}
-				],
-			};
-			data = JSON.stringify(productsCart);
-			localStorage.setItem('cart', data);
-		}
-		else if (data) {
-			addToLocalStorage(data)
-		}
+	const productItem = {
+		cartQuantity: 1,
+		product: obj
 	};
 
-	const addToLocalStorage = (data) => {
-		const cart = JSON.parse(data);
-		if (!filterCart(cart.products, obj)) {
-			const productItem = {
-				cartQuantity: 1,
-				product: obj
-			};
-			cart.products.push(productItem);
-		}
-		else {
-			cart.products.forEach(el => {
-				if (el.product.itemNo === obj.itemNo) {
-					el.cartQuantity += 1;
-				}
-			});
-		}
-		const test = JSON.stringify(cart);
-		localStorage.setItem('cart', test);
-	};
-
-	const filterCart = (arr, obj) => {
-		return arr.some(el => {
-			return el.product.itemNo === obj.itemNo
-		})
+	const productsCart = {
+		products: [
+			productItem
+		],
 	};
 
 	let links;
@@ -131,7 +98,7 @@ const ProductDetailsCard = (props) => {
 					onClick={e => {
 						props.user ?
 							props.addProductToCart(`/cart/${obj._id}`) :
-							handlerLocalStorage('cart');
+							handlerLocalStorage('cart', productsCart, obj.itemNo, productItem, props.getCartFromLS);
 					}}
 				>
 					<BagIcon
@@ -164,4 +131,4 @@ const ProductDetailsCard = (props) => {
 	)
 };
 
-export default connect(mapStateToProps, { addProductToCart })(ProductDetailsCard);
+export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCard);
