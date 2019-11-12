@@ -11,39 +11,39 @@ export const SET_TOTALPRICE = 'SET_TOTALPRICE';
 
 // ACTIONS
 export const setCountOfProducts = (payload) => ({
-	type: SET_COUNTOFPRODUCTS,
-	payload,
+  type: SET_COUNTOFPRODUCTS,
+  payload,
 });
 
 export const setTotalPrice = (payload) => ({
-	type: SET_TOTALPRICE,
-	payload,
+  type: SET_TOTALPRICE,
+  payload,
 });
 export const getCartFromLS = (payload) => ({
-	type: GET_PRODUCTS_FROM_LS,
-	payload,
+  type: GET_PRODUCTS_FROM_LS,
+  payload,
 });
 
 export const getCartFromDB = () => (dispatch) => {
-	axios
-		.get('/cart')
-		.then((cart) => {
-			dispatch({
-				type: GET_PRODUCTS_FROM_DB,
-				payload: cart.data,
-			});
-		})
-		.catch((err) => {
-			console.log('Axios request wqa failed', err.response.data);
-		});
+  axios
+    .get('/cart')
+    .then((cart) => {
+      dispatch({
+        type: GET_PRODUCTS_FROM_DB,
+        payload: cart.data,
+      });
+    })
+    .catch((err) => {
+      console.log('Axios request wqa failed', err.response.data);
+    });
 };
 
 export const addProductToCart = (url) => (dispatch) => {
-	axios.put(url)
-		.then(cart => {
-			dispatch({
-				type: ADD_PRODUCT_TO_CART,
-				payload: cart.data.products,
-			})
-		})
+  axios.put(url)
+    .then((cart) => {
+      dispatch({
+        type: ADD_PRODUCT_TO_CART,
+        payload: cart.data.products,
+      });
+    });
 };

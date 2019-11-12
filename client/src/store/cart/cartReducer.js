@@ -9,6 +9,7 @@ import {
 }
   from './actions';
 
+
 const initialState = {
   subTotal: 0,
   countOfProducts: 0,
@@ -17,8 +18,8 @@ const initialState = {
   },
 };
 
-// REDUCER
 
+// REDUCER
 function cartReducer(state = initialState, { type, payload }) {
   switch (type) {
     case SET_COUNTOFPRODUCTS:

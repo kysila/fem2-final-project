@@ -85,10 +85,12 @@ export const Favourites = (props) => {
   };
 
   return (
-    <section style={containerStyle}>
+    <section id="favourites" style={containerStyle}>
+
       <Title title="Choose from our Customer Favorites" />
       <div
-        className='favor-slide-container'>
+        className="favor-slide-container"
+      >
         <Slider
           {...settings}
           style={carouselStyle}
@@ -97,5 +99,6 @@ export const Favourites = (props) => {
         </Slider>
       </div>
     </section>
+
   );
-}
+};

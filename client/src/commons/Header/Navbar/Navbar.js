@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
+import { NavHashLink as HashLink } from 'react-router-hash-link';
 import axios from 'axios';
 
 import Link from '@material-ui/core/Link';
@@ -10,16 +11,22 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import TollIcon from '@material-ui/icons/Toll';
+import { connect } from 'react-redux';
 import { useStyles } from './style';
+import { getCategories } from '../../../store/categories/actions';
 
-export const NavBar = (props) => {
+const mapStateToProps = (state) => ({
+  categories: state.categoryReducer.categories,
+});
+
+const NavBar = (props) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [catalog, setCatalog] = useState({});
   let categories;
   const classes = useStyles();
 
-  if (catalog.data) {
-    categories = catalog.data.map((el) => (
+  if (props.categories) {
+    categories = props.categories.map((el) => (
       <ListItem
         divider="true"
         dense="true"
@@ -35,14 +42,8 @@ export const NavBar = (props) => {
   }
 
   useEffect(() => {
-    axios.get('/catalog')
-    // eslint-disable-next-line no-shadow
-      .then((catalog) => {
-        setCatalog(catalog);
-      })
-      .catch((err) => {
-        console.log('Unsuccessful axios', err);
-      });
+    props.getCategories();
+
   }, []);
 
   return (
@@ -73,7 +74,7 @@ export const NavBar = (props) => {
       </Drawer>
 
       <Box className={classes.container}>
-        <Link component="button" variant="body2" underline="none" className={classes.menuItem}>
+        <Link href="#" component="button" variant="body2" underline="none" className={classes.menuItem}>
           <Box
             onClick={(menuIsOpen) => {
               setMenuIsOpen(true);
@@ -84,13 +85,10 @@ export const NavBar = (props) => {
             <ExpandMoreSharpIcon fontSize="small" />
           </Box>
         </Link>
-        <Link component="button" variant="body2" underline="none" className={classes.menuItem}>
-                    Customer Favorites
-        </Link>
-        <Link component="button" variant="body2" underline="none" className={classes.menuItem}>
-                    Contact
-        </Link>
+        <HashLink to="/#favourites" className={classes.menuItem}>  Customer Favorites </HashLink>
+        <HashLink to="/#contact" className={classes.menuItem}> Contact</HashLink>
       </Box>
     </React.Fragment>
   );
 };
+export default connect(mapStateToProps, { getCategories })(NavBar);

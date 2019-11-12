@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import axios from 'axios';
 
 import Box from '@material-ui/core/Box';
@@ -10,99 +10,109 @@ import Container from '@material-ui/core/Container';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-// import { getProductsToBuy, deleteProductsToBuy } from '../../../store/cart/cartReducer';
+import {
+  setTotalPrice,
+  getCartFromDB,
+  addProductToCart,
+  getCartFromLS,
+}
+  from '../../../store/cart/actions';
 import CartItem from './CartItem';
 import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle/SubsectionTitle';
-// eslint-disable-next-line import/named
+
 import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
-  productsToBuy: state.cartReducer.productsToBuy,
-  countOfProducts: state.cartReducer.countOfProducts,
+  subTotal: state.cartReducer.subTotal,
   user: state.auth.user,
+  cart: state.cartReducer.cart.products,
 });
 
-// try to get cart from LS
-// const cart = [
-//   {
-//     imageUrls: ['img/products/e-bikes/872426/001.jpg', 'img/products/e-bikes/773969/002.jpg'],
-//     name: 'addmotor hithot h1 sport mountain e-bike',
-//     itemNo: 773969,
-//     currentPrice: 1899,
-//     count: 1,
-//   },
-//   {
-//     imageUrls: ['img/products/e-bikes/773969/006.jpg', 'img/products/e-bikes/773969/002.jpg'],
-//     name: 'sport mountain e-bike',
-//     itemNo: 872426,
-//     currentPrice: 3299,
-//     count: 2,
-//   },
-// ];
-//
-// const serialCart = JSON.stringify(cart);
-// localStorage.setItem('cart', serialCart);
-// / End
-
 const Cart = (props) => {
-  const [cartIsOpen, setCartIsOpen] = useState(false);
-  const [cartStatus, setCartStatus] = useState(['No products are added in your cart']);
   const classes = useStyles();
+  const [cartIsOpen, setCartIsOpen] = useState(false);
+  let cartStatus = ['No products are added in your cart'];
+  let totalPrice;
+  let subTotalArray;
 
-  let cartArrayFromLS = [];
-  let cartArrayFromDB = [];
-
-  let getCartFromDB;
-  let getCartFromLS;
-  const cartRender = (array) => {
-    if (array) {
-      return (
-        array.map((el) => (
-          <CartItem
-            key={el.itemNo}
-            name={el.name}
-            currentPrice={el.currentPrice}
-            imgUrl={el.imageUrls[0]}
-            count={el.count}
-            id={el.itemNo}
-          />
-        ))
-      );
-    }
-    return 'No products are added in your cart';
-  };
-
-  const getCartAxios = () => {
-    setCartIsOpen(true);
+  useEffect(() => {
     if (props.user) {
-      axios
-        .get('/cart')
-        .then((result) => {
-          getCartFromDB = result.data.products;
-        }).then(() => {
-          cartArrayFromDB = cartRender(getCartFromDB);
-        })
-        .then(() => {
-          setCartStatus(cartArrayFromDB);
-        })
-        .catch((err) => {
-          console.log('Axios Cart Get error', err);
-        });
+      props.getCartFromDB();
     } else {
-      getCartFromLS = JSON.parse(localStorage.getItem('cart'));
-
-      if (getCartFromLS) {
-        cartArrayFromLS = cartRender(getCartFromLS);
-        setCartStatus(cartArrayFromLS);
+      const data = localStorage.getItem('cart');
+      // console.log('From LS =====>', data);
+      if (data) {
+        const cartFromLS = JSON.parse(data);
+        // console.log('From LS =====>', cartFromLS);
+        props.getCartFromLS(cartFromLS);
       }
     }
-  };
+  }, [props.user]);
+
+  if (props.cart) {
+    cartStatus = props.cart.map((el) => (
+      <CartItem
+        key={el.product.itemNo}
+        name={el.product.name}
+        currentPrice={el.product.currentPrice}
+        imgUrl={el.product.imageUrls[0]}
+        count={el.cartQuantity}
+        itemNo={el.product.itemNo}
+        id={el.product._id}
+        quantity={el.product.quantity}
+      />
+    ));
+    subTotalArray = props.cart.map((el) => el.product.currentPrice * el.cartQuantity);
+    totalPrice = subTotalArray.reduce((sum, current) => sum + current, 0);
+  }
+
+
+  //
+
+  //
+
+  //
+  //   const setSubTotal = (array) => {
+  //     subTotalArray = array.map((el) => el.product.currentPrice * el.cartQuantity);
+  //     totalPrice = subTotalArray.reduce((sum, current) => sum + current, 0);
+  //     props.setTotalPrice(totalPrice);
+  //   };
+  //
+  //   const getCartAxios = () => {
+  //     setCartIsOpen(true);
+  //     if (props.user) {
+  //       axios
+  //         .get('/cart')
+  //         .then((result) => {
+  //           getCartFromDB = result.data.products;
+  //         }).then(() => {
+  //           cartArrayFromDB = cartRenderDB(getCartFromDB);
+  //         })
+  //         .then(() => {
+  //           setCartStatus(cartArrayFromDB);
+  //           setSubTotal(getCartFromDB);
+  //         })
+  //         .catch((err) => {
+  //           console.log('Axios Cart Get error', err);
+  //         });
+  //     } else {
+  //       getCartFromLS = JSON.parse(localStorage.getItem('cart'));
+  //
+  //       if (getCartFromLS) {
+  //         cartArrayFromLS = cartRenderLS(getCartFromLS);
+  //         subTotalArray = getCartFromLS.map((el) => el.currentPrice * el.cartQuantity);
+  //         setCartStatus(cartArrayFromLS);
+  //         totalPrice = subTotalArray.reduce((sum, current) => sum + current, 0);
+  //         props.setTotalPrice(totalPrice);
+  //       }
+  //     }
+  //   };
   return (
     <React.Fragment>
       <CssBaseline />
       <Box
         className={classes.basket}
-        onClick={getCartAxios}
+        onClick={() => setCartIsOpen(true)}
       >
         <Box>
           <img src="/img/basket.svg" alt="Logo" />
@@ -131,31 +141,38 @@ const Cart = (props) => {
           { cartStatus }
           <Grid className={classes.price_block} container justify="space-between">
             <Grid item>
-              {/* eslint-disable-next-line max-len */}
-              <span className={classes.ship_text}>FREE SHIPPING! Taxes calculated on next page.</span>
+              <span className={classes.ship_text}>
+                 FREE SHIPPING! Taxes calculated on next page.
+              </span>
             </Grid>
             <Grid item>
-              <span className={classes.subtotal_text}> Subtotal:</span>
-              <span className={classes.subtotal_price}> $3,999.98 </span>
+              <span className={classes.subtotal_text}> Subtotal: $ </span>
+              <span className={classes.subtotal_price}>
+                {' '}
+                {totalPrice.toFixed(2) }
+                {' '}
+              </span>
             </Grid>
-          </Grid>
-          <Grid className={classes.price_block} container justify="space-between">
-            <Grid item classes={{ root: classes.btn_grey }}>
+            </Grid>
+            <Grid className={classes.price_block} container justify="space-between">
+              <Grid item classes={{ root: classes.btn_grey }}>
 
-              <Button fullWidth classes={{ root: classes.btn_grey }}>
-                Continue Shopping
-              </Button>
+                <Button fullWidth classes={{ root: classes.btn_grey }}>
+                  Continue Shopping
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button fullWidth classes={{ root: classes.btn_main }}>
+                  Checkout now
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Button fullWidth classes={{ root: classes.btn_main }}>
-                Checkout now
-              </Button>
-            </Grid>
-          </Grid>
         </Container>
       </Drawer>
     </React.Fragment>
   );
 };
-// eslint-disable-next-line max-len
-export default connect(mapStateToProps, { getProductsToBuy, deleteProductsToBuy })(Cart);
+
+export default connect(mapStateToProps, {
+  setTotalPrice, addProductToCart, getCartFromDB, getCartFromLS,
+})(Cart);

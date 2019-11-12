@@ -133,7 +133,7 @@ const Contacts = withTheme((props) => {
     list: ['4804 Chicago Ave, Minneapolis,', ' MN 55417, United States', <br />, 'We work 24/7, not including', ' National Hollidays'],
   }];
   return (
-    <Container className={classes.wrapper}>
+    <Container id="contact" className={classes.wrapper}>
       <Typography className={classes.title} style={tungsten} variant="h3" color="textPrimary" align="center">
         Contact
       </Typography>
