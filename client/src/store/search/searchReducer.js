@@ -1,6 +1,3 @@
-import { setSearchProducts, setSearchValue } from './action';
-
-
 export const SET_SEARCHVALUE = 'SET_SEARCHVALUE';
 export const SET_SEARCHPRODUCTS = 'SET_SEARCHPRODUCTS';
 

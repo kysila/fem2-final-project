@@ -1,26 +1,48 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 import { setCountOfProducts } from '../../../store/cart/cartReducer';
 import Counter from './Counter';
 import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
   countOfProducts: state.cartReducer.countOfProducts,
+  user: state.auth.user,
 });
+
 
 const CartItem = (props) => {
   const classes = useStyles();
+  // console.log('Props from CartItem', props);
+
+  // let needUpdate = true;
+  const deleteProduct = () => {
+    if (props.user) {
+      axios.delete(`/cart/${props.id}`)
+        .then((result) => {
+          // console.log('After delete ====> ', result);
+          // needUpdate = !needUpdate;
+        })
+        .catch((err) => {
+          console.log('axios failed', err.response.data);
+        });
+    }
+  };
+
+  // useEffect(() => {
+  //
+  // }, [needUpdate]);
+
   return (
     <Paper className={classes.root}>
-      <Grid container justify="center" alignItems="center" alignContent="stretch" spacing={1}>
+      <Grid container className={classes.base_container} spacing={1}>
 
         <Grid item className={classes.image}>
           {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
@@ -30,13 +52,13 @@ const CartItem = (props) => {
         <Grid container className={classes.main_block}>
           <Grid item>
             {/* eslint-disable-next-line no-template-curly-in-string */}
-            <Link to="/products/`{props.itemNo}`" className={classes.text}>
+            <Link to={`/products/${props.itemNo}`} className={classes.text}>
               {props.name}
             </Link>
           </Grid>
           <Grid item>
             <ButtonGroup className={classes.buttons} variant="text" size="small" aria-label="small contained button group">
-              <Button>
+              <Button onClick={deleteProduct}>
                 <span className={classes.button}> Delete </span>
               </Button>
               <Button>
@@ -45,14 +67,19 @@ const CartItem = (props) => {
             </ButtonGroup>
           </Grid>
         </Grid>
-        <Grid item>
+        <Grid item className={classes.counter}>
           <Counter
             count={props.count}
+            quantity={props.quantity}
+            id={props.id}
+            itemNo={props.itemNo}
+            currentPrice={props.currentPrice}
           />
         </Grid>
         <Grid item>
           <p className={classes.price}>
-            ${props.currentPrice}
+            $
+            {props.currentPrice}
           </p>
         </Grid>
       </Grid>
