@@ -13,6 +13,7 @@ import { Title } from '../../Title/Title';
 import StayInTouch from '../../../commons/Footer/StayInTouch/StayInTouch';
 import Filters from '../Filters/Filters';
 import Preloader from '../../Preloader/Preloader';
+import { RecentlyViewed} from '../../RecentlyViewed/RecentlyViewed';
 import { useStyles } from './style';
 
 import { getProducts } from '../../../store/products/actions';
@@ -60,6 +61,7 @@ const Products = (props) => {
               price={el.currentPrice}
               url={el.url}
               rating={el.rating}
+              itemNo={el.itemNo}
             />
           </Grid>
         );
@@ -77,6 +79,7 @@ const Products = (props) => {
               price={el.currentPrice}
               url={el.url}
               rating={el.rating}
+              itemNo={el.itemNo}
             />
           </Grid>
         );
@@ -102,6 +105,7 @@ const Products = (props) => {
             <Preloader />
           </main>
         </Container>
+        <RecentlyViewed />
         <StayInTouch />
       </React.Fragment>
     );
@@ -128,6 +132,7 @@ const Products = (props) => {
           {active && <Button onClick={() => { loadMoreAction(); }}>Load More ...</Button> }
         </main>
       </Container>
+      <RecentlyViewed />
       <StayInTouch />
       <Footer />
     </React.Fragment>
