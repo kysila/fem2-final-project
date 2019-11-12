@@ -43,7 +43,7 @@ const Products = (props) => {
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
     }
-  }, [props.location.search]);
+  }, [ props.location.search ]);
 
   useEffect(() => {
     queryOptions.perPage = perPage;
@@ -138,4 +138,5 @@ const mapStateToProps = (state) => ({
   selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
-export default withRouter(connect(mapStateToProps, { getProducts, recentlySelectFilters })(Products));
+export default withRouter(connect(mapStateToProps,
+  { getProducts, recentlySelectFilters })(Products));
