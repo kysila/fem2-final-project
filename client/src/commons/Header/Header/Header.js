@@ -39,7 +39,7 @@ const Header = (props) => {
               <MenuAdaptiveIcon />
             </Box>
             <Box className={classes.logo}>
-              <HashLink to="/#header">
+              <HashLink to="/">
                 {' '}
                 <Logo />
                 {' '}
