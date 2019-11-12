@@ -58,7 +58,7 @@ export const ProductDetails = (props) => {
       .then(data => {
         setState({
           ...state,
-          colors: data
+          colors: data,
         });
       });
   }, [state.obj]);
