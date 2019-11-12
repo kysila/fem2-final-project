@@ -170,3 +170,37 @@ exports.searchProducts = async (req, res, next) => {
 
   res.send(matchedProducts);
 };
+
+exports.getProductsByRate = (req, res, next) => {
+  Product.find({
+    rating: {$gt: Number(req.params.rate)}
+  })
+    .then(products => {
+      res.send(products);
+    })
+    .catch(err =>
+      res.status(400).json({
+        message: `Error happened on server: "${err}" `
+      })
+    );
+};
+
+exports.getProductsByName = (req, res, next) => {
+  Product.findOne({
+    itemNo: req.params.itemNo
+  })
+    .then(data => {
+      Product.find({
+        name: data.name
+      })
+        .then(test => {
+          let arr = test.map(el => {
+            return {
+              color: el.color,
+              itemNo: el.itemNo
+            }
+          });
+          res.send(arr);
+        })
+    })
+};
