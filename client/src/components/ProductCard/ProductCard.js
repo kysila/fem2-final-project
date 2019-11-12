@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HeartIcon, BagIcon, WeigherIcon } from "../Icons/Icons";
 
@@ -33,23 +33,26 @@ export function ProductCard({
     });
   };
 
+  const filterCart = (arr, objParams) => arr.some((el) => el.itemNo === objParams);
+
   const viewedItemListener = () => {
     onmouseover = false;
     const product = JSON.parse(localStorage.getItem('product'));
-    if (!product) {
+    if (product) {
+      const item = itemNo;
+      console.log(item);
+      if (!filterCart(product, item)) {
+        localStorage.setItem('product', JSON.stringify(product.concat([{
+          name, itemImg, price, url, rating, key, itemNo,
+        }])));
+      }
+    } else {
       const newProduct = [].concat([{
         name, itemImg, price, url, rating, key, itemNo,
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
-    } else {
-      localStorage.setItem('product', JSON.stringify(product.concat([{
-        name, itemImg, price, url, rating, key, itemNo,
-      }])));
     }
   };
-
-  const products = JSON.parse(localStorage.getItem('product'));
-
 
   const classes = useStyles();
 
@@ -60,6 +63,7 @@ export function ProductCard({
         className={classes.card}
         onMouseOver={showButtonsPanel}
         onMouseOut={hideButtonsPanel}
+        itemNo={itemNo}
       >
         <CardActionArea>
           <CardMedia

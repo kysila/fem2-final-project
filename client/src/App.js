@@ -125,7 +125,8 @@ function App() {
             <Switch>
               <Route path="/" exact component={MainPage} />
               <Route path="/profile" exact component={ClientProfile} />
-              <Route path="/products" exact component={Products} />
+              { /* <Route path="/products" exact component={Products} /> */ }
+              <Route path="/products/filter" component={Products} />
               <Route path="/products/:id" component={ProductDetails} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/search" component={Search} />
