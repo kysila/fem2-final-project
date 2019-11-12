@@ -8,7 +8,6 @@ export const useStyles = makeStyles((theme) => createStyles({
     alignItems: 'center',
   },
   base_container: {
-    gridTemplateColumns: '5fr 2fr 1fr 1fr',
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -113,7 +112,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     paddingBottom: '7px',
   },
   main_block: {
-    // flexBasis: '40%',
+    flexBasis: '40%',
     marginLeft: '2%',
     marginRight: '2%',
     flexDirection: 'column',
