@@ -24,13 +24,14 @@ export const Favourites = (props) => {
   }, []);
 
   if (list && !loading) {
-    favoritesProducts = list.map((el) => (
+    favoritesProducts = list.map((el, i) => (
       <ProductCard
         name={el.name}
         itemImg={el.imageUrls[0]}
         price={el.currentPrice}
         url={`products/${el.itemNo}`}
         rating={el.rating}
+        key={i}
       />
     ));
   } else if (loading) {
@@ -84,10 +85,12 @@ export const Favourites = (props) => {
   };
 
   return (
-    <section style={containerStyle}>
+    <section id="favourites" style={containerStyle}>
+
       <Title title="Choose from our Customer Favorites" />
       <div
-        className='favor-slide-container'>
+        className="favor-slide-container"
+      >
         <Slider
           {...settings}
           style={carouselStyle}
@@ -96,5 +99,6 @@ export const Favourites = (props) => {
         </Slider>
       </div>
     </section>
+
   );
-}
+};

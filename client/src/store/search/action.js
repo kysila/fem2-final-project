@@ -1,11 +1,4 @@
-import React from 'react';
 import { SET_SEARCHPRODUCTS, SET_SEARCHVALUE } from './searchReducer';
-
-// Initial state
-const initialState = {
-  searchValue: '',
-  searchProducts: [],
-};
 
 // ACTIONS
 export const setSearchValue = (payload) => ({

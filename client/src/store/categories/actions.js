@@ -16,6 +16,7 @@ export const getCategories = () => (dispatch) => {
         id: category.id,
         name: category.name,
         imgUrl: category.imgUrl,
+        cols: category.cols,
       }));
       dispatch({
         type: GET_CATEGORIES_SUCCEEDED,

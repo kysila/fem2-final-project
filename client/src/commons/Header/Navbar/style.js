@@ -1,12 +1,15 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 
-export const useStyles = makeStyles(() => createStyles({
+export const useStyles = makeStyles((theme) => createStyles({
   menuItem: {
     marginRight: '15px',
     marginLeft: '15px',
     color: ' #444444 ',
     '&:hover': {
       color: ' #6686FF ',
+    },
+    [theme.breakpoints.down(480)]: {
+      display: 'none',
     },
   },
   container: {
