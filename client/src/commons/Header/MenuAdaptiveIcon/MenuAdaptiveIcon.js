@@ -27,7 +27,7 @@ const MenuAdaptiveIcon = (props) => {
         onClick={() => {
           setMenuIsOpen(true);
         }}
-        edge="false"
+        edge={false}
         className={classes.menu_icon}
       >
         <MenuIcon />

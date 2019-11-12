@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import { setCountOfProducts } from '../../../store/cart/cartReducer';
+import { setCountOfProducts } from '../../../store/cart/actions';
 import Counter from './Counter';
 import { useStyles } from './style';
 
@@ -22,23 +22,18 @@ const CartItem = (props) => {
   const classes = useStyles();
   // console.log('Props from CartItem', props);
 
-  // let needUpdate = true;
   const deleteProduct = () => {
-    if (props.user) {
-      axios.delete(`/cart/${props.id}`)
-        .then((result) => {
-          // console.log('After delete ====> ', result);
-          // needUpdate = !needUpdate;
-        })
-        .catch((err) => {
-          console.log('axios failed', err.response.data);
-        });
-    }
+    // if (props.user) {
+    //   axios.delete(`/cart/${props.id}`)
+    //     .then((result) => {
+    //       // console.log('After delete ====> ', result);
+    //       // needUpdate = !needUpdate;
+    //     })
+    //     .catch((err) => {
+    //       console.log('axios failed', err.response.data);
+    //     });
+    // }
   };
-
-  // useEffect(() => {
-  //
-  // }, [needUpdate]);
 
   return (
     <Paper className={classes.root}>
