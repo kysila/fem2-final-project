@@ -60,7 +60,6 @@ export const RecentlyViewed = () => {
 
   if (productsList) {
     const uniqueItems = [];
-    console.log('unique Items array', uniqueItems);
     products = productsList.map((el) => (
       <div key={el.itemNo}>
         <ProductCard
