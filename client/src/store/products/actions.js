@@ -17,7 +17,7 @@ export const getProducts = (endpoint) => (dispatch) => {
     .then((data) => {
       console.log('endpoint', endpoint);
       console.log(data, data);
-      const allProducts = data.data.map((el) => ({
+      const allProducts = data.data.products.map((el) => ({
         itemNo: el.itemNo,
         name: el.name,
         itemImg: el.imageUrls[0],
@@ -25,26 +25,26 @@ export const getProducts = (endpoint) => (dispatch) => {
         url: `/products/${el.itemNo}`,
         rating: el.rating,
       }));
-      const loadMoreArrays = () => {
-        const size = 8;
-        const productLoadMoreArraysQuantity = Math.ceil(allProducts.length / size);
-        const loadMoreArray = [];
-        for (let i = 0; i < productLoadMoreArraysQuantity; i++) {
-          loadMoreArray[i] = allProducts.slice((i * size), (i * size) + size);
-        }
-        return loadMoreArray;
-      };
-      const allProductsArrays = loadMoreArrays();
+      console.log('allProducts',allProducts);
+      // const loadMoreArrays = () => {
+      //   const size = 8;
+      //   const productLoadMoreArraysQuantity = Math.ceil(allProducts.length / size);
+      //   const loadMoreArray = [];
+      //   for (let i = 0; i < productLoadMoreArraysQuantity; i++) {
+      //     loadMoreArray[i] = allProducts.slice((i * size), (i * size) + size);
+      //   }
+      //   return loadMoreArray;
+      // };
+      // const allProductsArrays = loadMoreArrays();
       dispatch({
         type: GET_PRODUCTS_SUCCEEDED,
         allProducts,
-        allProductsArrays,
       });
     })
     .catch((err) => {
       dispatch({
         type: GET_PRODUCTS_FAILED,
-        // payload: err.response.data.message,
+        payload: err,
       });
     });
 };

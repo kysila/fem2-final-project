@@ -10,3 +10,12 @@ export const selectFilters = (event, value, type, selectedFilters) => (dispatch)
     },
   });
 };
+
+export const recentlySelectFilters = (selectedFilters) => (dispatch) => {
+  dispatch({
+    type: SELECT_FILTERS,
+    selectedFilters: {
+      ...selectedFilters,
+    },
+  });
+};
