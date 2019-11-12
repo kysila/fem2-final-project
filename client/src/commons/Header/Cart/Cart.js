@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import axios from 'axios';
-
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -32,7 +30,7 @@ const Cart = (props) => {
   const classes = useStyles();
   const [cartIsOpen, setCartIsOpen] = useState(false);
   let cartStatus = ['No products are added in your cart'];
-  let totalPrice;
+  let totalPrice = 0;
   let subTotalArray;
 
   useEffect(() => {

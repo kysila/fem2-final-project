@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 import { setCountOfProducts } from '../../../store/cart/actions';
 import Counter from './Counter';
 import { useStyles } from './style';
