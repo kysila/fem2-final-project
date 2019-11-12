@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
-import { setCountOfProducts } from '../../../store/cart/cartReducer';
+import { setCountOfProducts } from '../../../store/cart/actions';
 import Counter from './Counter';
 import { useStyles } from './style';
 
