@@ -24,8 +24,8 @@ const ProductDetailsCard = (props) => {
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
 
-	const handlerLocalStorage = () => {
-		let data = localStorage.getItem('cart');
+	const handlerLocalStorage = (name) => {
+		let data = localStorage.getItem(name);
 		if (!data) {
 			const productsCart = {
 				products: [
@@ -131,7 +131,7 @@ const ProductDetailsCard = (props) => {
 					onClick={e => {
 						props.user ?
 							props.addProductToCart(`/cart/${obj._id}`) :
-							handlerLocalStorage();
+							handlerLocalStorage('cart');
 					}}
 				>
 					<BagIcon
