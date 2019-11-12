@@ -7,12 +7,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import IconButton from '@material-ui/core/IconButton';
 import { NavHashLink as HashLink } from 'react-router-hash-link';
 import { dispatchLogout } from '../../../store/auth/actions';
 import { dispatchModalOpen } from '../../../store/modal/actions';
 import Searches from '../Searchbar/Searchbar';
-import { NavBar } from '../Navbar/Navbar';
+import NavBar from '../Navbar/Navbar';
 import Cart from '../Cart/Cart';
 import { Logo } from '../../Logo/Logo';
 import { useStyles } from './style';
@@ -40,7 +39,7 @@ const Header = (props) => {
               <MenuAdaptiveIcon />
             </Box>
             <Box className={classes.logo}>
-              <HashLink to="#header">
+              <HashLink to="/">
                 {' '}
                 <Logo />
                 {' '}

@@ -11,7 +11,7 @@ export const getCategories = () => (dispatch) => {
   });
   axios.get('/catalog')
     .then((categories) => {
-      console.log('categories', categories);
+      // console.log('categories', categories);
       const categoriesOptions = categories.data.map((category) => ({
         id: category.id,
         name: category.name,

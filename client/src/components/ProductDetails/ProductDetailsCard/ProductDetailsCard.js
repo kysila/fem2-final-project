@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToCart } from "../../../store/cart/actions";
+import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
 import { HeartIcon, BagIcon, WeigherIcon } from "../../Icons/Icons";
 
 import axios from 'axios';
@@ -24,8 +24,8 @@ const ProductDetailsCard = (props) => {
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
 
-	const handlerLocalStorage = () => {
-		let data = localStorage.getItem('cart');
+	const handlerLocalStorage = (name) => {
+		let data = localStorage.getItem(name);
 		if (!data) {
 			const productsCart = {
 				products: [
@@ -37,6 +37,7 @@ const ProductDetailsCard = (props) => {
 			};
 			data = JSON.stringify(productsCart);
 			localStorage.setItem('cart', data);
+			props.getCartFromLS(data);
 		}
 		else if (data) {
 			addToLocalStorage(data)
@@ -59,8 +60,10 @@ const ProductDetailsCard = (props) => {
 				}
 			});
 		}
+		props.getCartFromLS(cart);
 		const test = JSON.stringify(cart);
 		localStorage.setItem('cart', test);
+
 	};
 
 	const filterCart = (arr, obj) => {
@@ -131,7 +134,7 @@ const ProductDetailsCard = (props) => {
 					onClick={e => {
 						props.user ?
 							props.addProductToCart(`/cart/${obj._id}`) :
-							handlerLocalStorage();
+							handlerLocalStorage('cart');
 					}}
 				>
 					<BagIcon
@@ -164,4 +167,4 @@ const ProductDetailsCard = (props) => {
 	)
 };
 
-export default connect(mapStateToProps, { addProductToCart })(ProductDetailsCard);
+export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCard);
