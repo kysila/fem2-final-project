@@ -32,10 +32,10 @@ export const MainCarousel = () => {
     arrows: true,
     dots: true,
     infinite: true,
-    speed: 750,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     pauseOnHover: false,
     responsive: [
       {
