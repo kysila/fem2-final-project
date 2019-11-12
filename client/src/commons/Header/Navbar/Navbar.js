@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { NavHashLink as HashLink } from 'react-router-hash-link';
-import axios from 'axios';
 
 import Link from '@material-ui/core/Link';
 import ExpandMoreSharpIcon from '@material-ui/icons/ExpandMoreSharp';
@@ -21,7 +20,6 @@ const mapStateToProps = (state) => ({
 
 const NavBar = (props) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const [catalog, setCatalog] = useState({});
   let categories;
   const classes = useStyles();
 

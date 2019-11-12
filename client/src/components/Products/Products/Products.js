@@ -28,18 +28,13 @@ import { recentlySelectFilters } from '../../../store/selectedFilters/actions';
 const Products = (props) => {
   const classes = useStyles();
   let products;
-  let queryOptions = queryString.parse(props.location.search);
-  console.log('queryOptions', queryOptions);
+  let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
   const startPerPage = +queryOptions.perPage;
   const [perPage, setPerPage] = useState(startPerPage);
-  // const queryStringParse = () => queryString.parse(props.location.search, { arrayFormat: 'comma' });
-  // queryString.parse(this.props.location.search)
-  // props.location.search) // "?filter=top&origin=im"
   useEffect(() => {
     props.getProducts(`/products/filter${props.location.search}`);
-    console.log('props.location.search', props.location.search);
     if (!props.selectedFilters.length) {
-      const recentlySelected = queryString.parse(props.location.search);
+      const recentlySelected = queryString.parse(props.location.search, {arrayFormat: 'comma'});
       delete recentlySelected.perPage;
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
@@ -53,7 +48,7 @@ const Products = (props) => {
   }, [ perPage ]);
 
   const loadMoreAction = () => {
-    queryOptions = queryString.parse(props.location.search);
+    queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' } );
     setPerPage(perPage + 8);
   };
 
@@ -64,9 +59,10 @@ const Products = (props) => {
           className={classes.card}
           name={el.name}
           itemImg={el.itemImg}
-          price={el.currentPrice}
+          price={el.price}
           url={el.url}
           rating={el.rating}
+          itemNo={el.itemNo}
         />
       </Grid>
     ));
