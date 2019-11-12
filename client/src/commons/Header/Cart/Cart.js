@@ -32,7 +32,7 @@ const Cart = (props) => {
   const classes = useStyles();
   const [cartIsOpen, setCartIsOpen] = useState(false);
   let cartStatus = ['No products are added in your cart'];
-  let totalPrice;
+  let totalPrice = 0;
   let subTotalArray;
 
   useEffect(() => {

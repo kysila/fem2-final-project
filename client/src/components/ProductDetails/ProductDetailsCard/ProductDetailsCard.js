@@ -20,7 +20,6 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductDetailsCard = (props) => {
-
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
 
@@ -37,7 +36,7 @@ const ProductDetailsCard = (props) => {
 			};
 			data = JSON.stringify(productsCart);
 			localStorage.setItem('cart', data);
-			props.getCartFromLS(data);
+			props.getCartFromLS(productCart);
 		}
 		else if (data) {
 			addToLocalStorage(data)
