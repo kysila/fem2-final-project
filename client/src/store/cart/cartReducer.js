@@ -1,9 +1,10 @@
 import {
   ADD_PRODUCT_TO_CART,
   SET_COUNTOFPRODUCTS,
-  SET_TOTALPRICE,
   GET_PRODUCTS_FROM_DB,
-  GET_PRODUCTS_FROM_LS
+  GET_PRODUCTS_FROM_LS,
+  DECREASE_QUANTITY_OF_PRODUCTS,
+  DELETE_PRODUCT_OF_CART,
 }
   from './actions';
 
@@ -15,7 +16,6 @@ const initialState = {
   },
 };
 
-
 // REDUCER
 function cartReducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -23,11 +23,6 @@ function cartReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         countOfProduct: payload,
-      };
-    case SET_TOTALPRICE:
-      return {
-        ...state,
-        subTotal: state.subTotal + payload,
       };
     case ADD_PRODUCT_TO_CART:
       return {
@@ -48,6 +43,20 @@ function cartReducer(state = initialState, { type, payload }) {
         ...state,
         cart: {
           ...payload,
+        },
+      };
+    case DECREASE_QUANTITY_OF_PRODUCTS:
+      return {
+        ...state,
+        cart: {
+          products: payload,
+        },
+      };
+    case DELETE_PRODUCT_OF_CART:
+      return {
+        ...state,
+        cart: {
+          products: payload,
         },
       };
     default:

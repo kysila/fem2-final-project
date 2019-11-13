@@ -8,8 +8,8 @@ import Container from '@material-ui/core/Container';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 import {
-  setTotalPrice,
   getCartFromDB,
   addProductToCart,
   getCartFromLS,
@@ -21,7 +21,7 @@ import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle/Subsec
 import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
-  subTotal: state.cartReducer.subTotal,
+  // countOfProducts: state.cartReducer.countOfProducts,
   user: state.auth.user,
   cart: state.cartReducer.cart.products,
 });
@@ -30,6 +30,7 @@ const Cart = (props) => {
   const classes = useStyles();
   const [cartIsOpen, setCartIsOpen] = useState(false);
   let cartStatus = ['No products are added in your cart'];
+  let countOfProducts;
   let totalPrice = 0;
   let subTotalArray;
 
@@ -38,16 +39,14 @@ const Cart = (props) => {
       props.getCartFromDB();
     } else {
       const data = localStorage.getItem('cart');
-      // console.log('From LS =====>', data);
       if (data) {
         const cartFromLS = JSON.parse(data);
-        // console.log('From LS =====>', cartFromLS);
         props.getCartFromLS(cartFromLS);
       }
     }
   }, [props.user]);
 
-  if (props.cart) {
+  if (props.cart.length) {
     cartStatus = props.cart.map((el) => (
       <CartItem
         key={el.product.itemNo}
@@ -62,49 +61,9 @@ const Cart = (props) => {
     ));
     subTotalArray = props.cart.map((el) => el.product.currentPrice * el.cartQuantity);
     totalPrice = subTotalArray.reduce((sum, current) => sum + current, 0);
+    countOfProducts = props.cart.length;
   }
 
-
-  //
-
-  //
-
-  //
-  //   const setSubTotal = (array) => {
-  //     subTotalArray = array.map((el) => el.product.currentPrice * el.cartQuantity);
-  //     totalPrice = subTotalArray.reduce((sum, current) => sum + current, 0);
-  //     props.setTotalPrice(totalPrice);
-  //   };
-  //
-  //   const getCartAxios = () => {
-  //     setCartIsOpen(true);
-  //     if (props.user) {
-  //       axios
-  //         .get('/cart')
-  //         .then((result) => {
-  //           getCartFromDB = result.data.products;
-  //         }).then(() => {
-  //           cartArrayFromDB = cartRenderDB(getCartFromDB);
-  //         })
-  //         .then(() => {
-  //           setCartStatus(cartArrayFromDB);
-  //           setSubTotal(getCartFromDB);
-  //         })
-  //         .catch((err) => {
-  //           console.log('Axios Cart Get error', err);
-  //         });
-  //     } else {
-  //       getCartFromLS = JSON.parse(localStorage.getItem('cart'));
-  //
-  //       if (getCartFromLS) {
-  //         cartArrayFromLS = cartRenderLS(getCartFromLS);
-  //         subTotalArray = getCartFromLS.map((el) => el.currentPrice * el.cartQuantity);
-  //         setCartStatus(cartArrayFromLS);
-  //         totalPrice = subTotalArray.reduce((sum, current) => sum + current, 0);
-  //         props.setTotalPrice(totalPrice);
-  //       }
-  //     }
-  //   };
   return (
     <React.Fragment>
       <CssBaseline />
@@ -114,7 +73,11 @@ const Cart = (props) => {
       >
         <Box>
           <img src="/img/basket.svg" alt="Logo" />
-          <div className={classes.circle}>{props.countOfProducts}</div>
+          <div className={classes.circle}>
+            {' '}
+            {countOfProducts}
+            {' '}
+          </div>
         </Box>
       </Box>
       <Drawer
@@ -151,20 +114,26 @@ const Cart = (props) => {
                 {' '}
               </span>
             </Grid>
+          </Grid>
+          <Grid className={classes.price_block} container justify="space-between">
+            <Grid item classes={{ root: classes.btn_grey }}>
+              <Button
+                onClick={() => {
+                  setCartIsOpen(false);
+                }}
+                fullWidth
+                classes={{ root: classes.btn_grey }}>
+                Continue Shopping
+              </Button>
             </Grid>
-            <Grid className={classes.price_block} container justify="space-between">
-              <Grid item classes={{ root: classes.btn_grey }}>
-
-                <Button fullWidth classes={{ root: classes.btn_grey }}>
-                  Continue Shopping
-                </Button>
-              </Grid>
-              <Grid item>
+            <Grid item>
+              <Link to="/checkout">
                 <Button fullWidth classes={{ root: classes.btn_main }}>
                   Checkout now
                 </Button>
-              </Grid>
+              </Link>
             </Grid>
+          </Grid>
         </Container>
       </Drawer>
     </React.Fragment>
@@ -172,5 +141,7 @@ const Cart = (props) => {
 };
 
 export default connect(mapStateToProps, {
-  setTotalPrice, addProductToCart, getCartFromDB, getCartFromLS,
+  addProductToCart,
+  getCartFromDB,
+  getCartFromLS,
 })(Cart);
