@@ -1,0 +1,52 @@
+.title-class {
+  font-style: normal;
+  font-weight: 326;
+  font-size: 36px;
+  line-height: 100%;
+  text-transform: capitalize;
+}
+
+.content-class {
+  padding-bottom: 25px;
+}
+
+.confirm-button-class {
+  width: 180px;
+  height: 50px;
+  background: linear-gradient(180deg, #6686ff 0%, #8f8de2 100%) !important;
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  text-transform: uppercase;
+}
+
+.cancel-button-class {
+  width: 180px;
+  height: 50px;
+  color: #6a86e8 !important;
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  text-transform: uppercase;
+}
+
+.swal2-styled.swal2-confirm {
+  width: 180px;
+  height: 50px;
+  background: linear-gradient(180deg, #6686ff 0%, #8f8de2 100%) !important;
+  border-radius: 4px;
+  outline: none;
+  line-height: 100%;
+  text-transform: uppercase;
+}
+.swal2-container.swal2-shown {
+  background: linear-gradient(
+    180deg,
+    rgba(102, 134, 255, 0.5) 0%,
+    rgba(143, 141, 226, 0.5) 100%
+  );
+}

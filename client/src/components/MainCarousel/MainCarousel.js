@@ -4,7 +4,6 @@ import axios from 'axios';
 import {
   Button, Container, Grid, Typography,
 } from '@material-ui/core';
-// import { makeStyles } from '@material-ui/core/styles';
 // Slick slider import
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
@@ -125,7 +124,7 @@ export const MainCarousel = () => {
         </Container>
       </div>
     ));
-  } else if (loading) {
+  } else {
     return <Preloader />;
   }
 

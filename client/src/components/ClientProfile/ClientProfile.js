@@ -1,48 +1,56 @@
-import React, { useState } from 'react';
-// import axios from 'axios';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 // Material UI
 import {
   Container, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 // Local imports
 import { Footer, Header } from '../../commons';
 import ProfileBreadcrumbs from './ProfileBreadcrumbs/ProfileBreadcrumbs';
 import { Information } from './Information/Information';
 import { useStyles } from './style';
+import { dispatchGetCustomer } from '../../store/auth/actions';
 
-//   const [customerInfo, setCustomerInfo] = useState('customer');
-//   const [loading, setLoading] = useState(true);
-
-// useEffect(() => {
-//   axios.get('/customers/customer')
-//     .then((loggedInCustomer) => {
-//       console.log(loggedInCustomer.data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
-
-export function ClientProfile() {
+function ClientProfile(props) {
   const classes = useStyles();
+
   const [expanded, setExpanded] = useState('panel1');
+  const [state, setState] = useState({
+    redirect: false,
+  });
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  useEffect(() => {
+    if (!props.user) {
+      setState({ ...state, redirect: true });
+    }
+  }, [props]);
+
+  if (state.redirect) {
+    return <Redirect push to="/" />;
+  }
+
   return (
     <React.Fragment>
-      <Header callCenter="1-855-324-5387" />
-      <Container maxWidth="md" className={classes.mainContainer}>
+      <Header
+        callCenter="1-855-324-5387"
+      />
+      <Container
+        maxWidth="md"
+        className={classes.mainContainer}
+      >
         <ProfileBreadcrumbs />
         <Typography
           variant="h2"
           className={classes.h2Name}
           align="left"
-          style={{ fontFamily: 'Tungsten' }}
+          style={{ fontFamily: 'Tungsten Book' }}
         >
           My Account
         </Typography>
@@ -50,7 +58,10 @@ export function ClientProfile() {
           className={classes.contentSection}
         >
 
-          <Information />
+          <Information
+            user={props.user}
+            getCustomerInfo={props.getCustomerInfo}
+          />
           <ExpansionPanel
             expanded={expanded === 'panel2'}
             onChange={handleChange('panel2')}
@@ -181,3 +192,18 @@ export function ClientProfile() {
     </React.Fragment>
   );
 }
+
+function putStateToProps(state) {
+  return {
+    user: state.auth.user,
+  };
+}
+
+function putActionsToProps(dispatch) {
+  return {
+    getCustomerInfo: () => dispatch(dispatchGetCustomer()),
+  };
+}
+
+const Profile = connect(putStateToProps, putActionsToProps)(ClientProfile);
+export { Profile as ClientProfile };

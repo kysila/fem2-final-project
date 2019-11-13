@@ -1,10 +1,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import axios from 'axios';
-// import validator from 'validator';
-import classNames from 'classnames';
 import DateFnsUtils from '@date-io/date-fns';
 // Material UI
 import {
@@ -16,27 +13,34 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-// Local changes
+// Modal sweetalert2
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+// Local imports
 import { useStyles } from './style';
-import { dispatchGetCustomer } from '../../../store/auth/actions';
+import './styleModal.css';
+import Tungsten from '../../../fonts/Tungsten-Book.woff';
+import { UPDATE_PASSWORD, UPDATE_CUSTOMER } from '../../../axios/endpoints';
 
+const tungsten = {
+  fontFamily: 'Tungsten Book',
+  fontStyle: 'normal',
+  src: `
+    local('Tungsten Book'),
+    url(${Tungsten}) format('woff')
+  `,
+};
 
-export const Info = (props) => {
+export const Information = (props) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = useState('panel1');
-  const [customerInfo, setCustomerInfo] = useState('customer');
-  const [passwordHidden, setPasswordVisible] = useState(true);
-  const PasswordIcon = passwordHidden ? VisibilityIcon : VisibilityOffIcon;
-
   const inputLabel = React.useRef(null);
-
-  const [values, setValues] = useState({
+  const customerEmpty = {
     firstName: '',
     lastName: '',
-    phone: '',
+    telephone: '',
     email: '',
-    password: '',
-    repeatPassword: '',
+    newPassword: '',
+    oldPassword: '',
     address: '',
     birthdate: new Date(),
     gender: '',
@@ -44,67 +48,154 @@ export const Info = (props) => {
     haveCar: '',
     eBicycle: '',
     checkedSubscribe: true,
+  };
+
+  const [expanded, setExpanded] = useState('panel1');
+  const [passwordHidden, setPasswordVisible] = useState(true);
+  const PasswordIcon = passwordHidden ? VisibilityIcon : VisibilityOffIcon;
+  const [state, setState] = useState({
+    ...customerEmpty,
   });
 
   const preventDefault = (event) => event.preventDefault();
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  // TODO: complete validation
-
   const onChange = (stateName) => (event) => {
     if (stateName === 'checkedSubscribe') {
-      setValues({ ...values, [stateName]: event.target.checked });
+      setState({ ...state, [stateName]: event.target.checked });
     } else {
-      setValues({ ...values, [stateName]: event.target.value });
+      setState({ ...state, [stateName]: event.target.value.trim() });
     }
   };
-
   const handleDateChange = (date) => {
-    setValues({ ...values, dateOfBirth: date });
+    setState({ ...state, birthdate: date });
+  };
+  // Modal window
+  const successSwalSaveContactInfo = (event) => {
+    Swal.fire(
+      'Saved!',
+      'Your changes have been saved.',
+      'success',
+    );
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const errorSwalSaveContactInfo = (message) => {
+    Swal.fire({
+      title: 'Error...',
+      text: message,
+    });
+  };
 
+  const editCustomerInfo = () => {
+    const { getCustomerInfo } = props;
     const {
-      email, password, firstName,
-      lastName, phone, address, birthdate,
+      firstName, lastName, telephone,
+      email, oldPassword, newPassword, address, birthdate,
       gender, haveChildren, haveCar, eBicycle,
       checkedSubscribe,
-    } = values;
-    // TODO: complete validation
-    // console.log('%c⧭ values', 'color: #00ff73', values);
+    } = state;
+    const updatedCustomer = {
+      firstName,
+      lastName,
+      telephone,
+      email,
+      address,
+      birthdate,
+      gender,
+      haveChildren,
+      haveCar,
+      eBicycle,
+      checkedSubscribe,
+    };
+
+    const passwords = {
+      password: oldPassword,
+      newPassword,
+    };
+
+    Object.keys(passwords).forEach((key) => (passwords[key] == null || passwords[key] === '') && delete passwords[key]);
+    if (passwords.newPassword && passwords.password) {
+      axios
+        .put(UPDATE_PASSWORD, passwords)
+        // eslint-disable-next-line no-shadow
+        .then((updatedCustomer) => {
+          successSwalSaveContactInfo();
+          getCustomerInfo();
+        })
+        .catch((err) => {
+          const { data } = err.response;
+          const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
+            .replace(/,"/g, '; ');
+          errorSwalSaveContactInfo(message);
+        });
+    }
+
+    const reagexpTemplate = '[0-9]{9}';
+    // eslint-disable-next-line max-len
+    if (reagexpTemplate.toLocaleString(updatedCustomer.telephone) && updatedCustomer.telephone.length === 9) {
+      updatedCustomer.telephone = `+380${updatedCustomer.telephone}`;
+    }
+
+    // eslint-disable-next-line max-len
+    Object.keys(updatedCustomer).forEach((key) => (updatedCustomer[key] == null || updatedCustomer[key] === '') && delete updatedCustomer[key]);
+
+    axios
+      .put(UPDATE_CUSTOMER, updatedCustomer)
+      // eslint-disable-next-line no-shadow
+      .then((updatedCustomer) => {
+        successSwalSaveContactInfo();
+        getCustomerInfo();
+      })
+      .catch((err) => {
+        const { data } = err.response;
+        const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
+          .replace(/,"/g, '; ');
+        errorSwalSaveContactInfo(message);
+      });
   };
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+  const cancelToEditCustomerInfo = () => {
+    const { user } = props;
+    setState({
+      ...state, ...customerEmpty, ...user, newPassword: '', oldPassword: '',
+    });
   };
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  // const updatedCustomer = {
-  //   firstName: "Antonio",
-  //   lastName: "Front End Developer"
-  // };
-
-  // const showItToConsole = () => {
-  //   axios.put('/customers', updatedCustomer)
-  //     // eslint-disable-next-line no-shadow
-  //     .then((updatedCustomer) => {
-  //       console.log('%c⧭ updatedCustomer', 'color: #00e600', updatedCustomer);
-  //     })
-  //     .catch((err) => {
-  //       console.log('%c⧭ err', 'color: #00a3cc', err);
-  //     });
-  // };
-
 
   useEffect(() => {
     const { user } = props;
-    setValues({ ...values, ...user });
+    setState({
+      ...state, ...user, newPassword: '', oldPassword: '',
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
+
+  const MySwal = withReactContent(Swal);
+
+  const showSwalSaveContactInfo = (event) => {
+    event.preventDefault();
+    MySwal.fire({
+      customClass: {
+        cancelButton: 'cancel-button-class',
+        content: 'content-class',
+        confirmButton: 'confirm-button-class',
+        title: 'title-class',
+      },
+      title: <p style={tungsten}>Save changes?</p>,
+      text: 'You have made changes in Contact information section',
+      showCancelButton: true,
+      showConfirmButton: true,
+      cancelButtonColor: '#F8F8F8',
+      confirmButtonText: 'Yes, save',
+      cancelButtonText: 'No, discard',
+    }).then((result) => {
+      if (result.value) {
+        editCustomerInfo();
+      } else {
+        cancelToEditCustomerInfo();
+      }
+    });
+  };
 
   return (
     <React.Fragment>
@@ -166,7 +257,8 @@ export const Info = (props) => {
                     root: classes.inputRoot,
                     input: classes.input,
                   }}
-                  value={values.firstName}
+                  value={state.firstName}
+                  type="text"
                   onChange={onChange('firstName')}
                   labelWidth={80}
                   fullWidth
@@ -194,7 +286,8 @@ export const Info = (props) => {
                     root: classes.inputRoot,
                     input: classes.input,
                   }}
-                  value={values.lastName}
+                  type="text"
+                  value={state.lastName}
                   onChange={onChange('lastName')}
                   labelWidth={80}
                   fullWidth
@@ -222,7 +315,8 @@ export const Info = (props) => {
                     root: classes.inputRoot,
                     input: classes.input,
                   }}
-                  value={values.login}
+                  type="email"
+                  value={state.email}
                   onChange={onChange('email')}
                   labelWidth={40}
                   fullWidth
@@ -240,18 +334,21 @@ export const Info = (props) => {
               >
                 <InputLabel
                   classes={{ root: classes.label }}
-                  htmlFor="phone"
+                  htmlFor="telephone"
                 >
                   Phone
                 </InputLabel>
                 <OutlinedInput
-                  id="phone"
+                  id="telephone"
+                  type="tel"
                   classes={{
                     root: classes.inputRoot,
                     input: classes.input,
                   }}
-                  value={values.login}
-                  onChange={onChange('phone')}
+                  maxlength="16"
+                  placeholder="+380XX XXX XX XX"
+                  value={state.telephone}
+                  onChange={onChange('telephone')}
                   labelWidth={50}
                   fullWidth
                 />
@@ -262,23 +359,29 @@ export const Info = (props) => {
               xs={12}
               sm={6}
             >
-              <FormControl className={classes.formControl} variant="outlined">
-                <InputLabel classes={{ root: classes.label }} htmlFor="password">
-                  Password
+              <FormControl
+                className={classes.formControl}
+                variant="outlined"
+              >
+                <InputLabel
+                  classes={{ root: classes.label }}
+                  htmlFor="newPassword"
+                >
+                  New password
                 </InputLabel>
                 <OutlinedInput
-                  id="password"
+                  id="newPassword"
                   type={passwordHidden ? 'password' : 'text'}
                   classes={{
                     root: classes.inputRoot,
                     input: classes.input,
                   }}
-                  value={values.password}
-                  onChange={onChange('password')}
-                  labelWidth={75}
+                  value={state.newPassword}
+                  onChange={onChange('newPassword')}
+                  labelWidth={115}
                   fullWidth
                   endAdornment={
-                    values.password
+                    state.newPassword
                       ? (
                         <PasswordIcon
                           style={{ cursor: 'pointer', userSelect: 'none' }}
@@ -298,19 +401,19 @@ export const Info = (props) => {
               sm={6}
             >
               <FormControl className={classes.formControl} variant="outlined">
-                <InputLabel classes={{ root: classes.label }} htmlFor="repeatPassword">
-                  Repeat password
+                <InputLabel classes={{ root: classes.label }} htmlFor="oldPassword">
+                  Old password
                 </InputLabel>
                 <OutlinedInput
-                  id="repeatPassword"
+                  id="oldPassword"
                   type="password"
                   classes={{
                     root: classes.inputRoot,
                     input: classes.input,
                   }}
-                  value={values.repeatPassword}
-                  onChange={onChange('repeatPassword')}
-                  labelWidth={130}
+                  value={state.oldPassword}
+                  onChange={onChange('oldPassword')}
+                  labelWidth={105}
                   fullWidth
                 />
               </FormControl>
@@ -349,7 +452,8 @@ export const Info = (props) => {
                     root: classes.inputRoot,
                     input: classes.input,
                   }}
-                  value={values.lastName}
+                  type="text"
+                  value={state.address}
                   onChange={onChange('address')}
                   labelWidth={60}
                   fullWidth
@@ -374,7 +478,6 @@ export const Info = (props) => {
                 You have switched saving payment cards off.&ensp;
                 <Link
                   variant="body2"
-                  /* component="button" */
                   href="#"
                   onClick={preventDefault}
                   style={{ color: '#6A86E8' }}
@@ -413,9 +516,9 @@ export const Info = (props) => {
                   variant="inline"
                   inputVariant="outlined"
                   label="Date of Birth"
-                  format="MM/dd/yyyy"
+                  format="dd/MM/yyyy"
                   openTo="year"
-                  value={values.birthdate}
+                  value={state.birthdate}
                   InputAdornmentProps={{ position: 'end' }}
                   onChange={handleDateChange}
                 />
@@ -440,7 +543,7 @@ export const Info = (props) => {
                 </InputLabel>
                 <Select
                   native
-                  value={values.gender}
+                  value={state.gender}
                   onChange={onChange('gender')}
                   labelWidth={60}
                   fullWidth
@@ -475,7 +578,7 @@ export const Info = (props) => {
                 </InputLabel>
                 <Select
                   native
-                  value={values.haveChildren}
+                  value={state.haveChildren}
                   onChange={onChange('haveChildren')}
                   labelWidth={100}
                   fullWidth
@@ -509,7 +612,7 @@ export const Info = (props) => {
                 </InputLabel>
                 <Select
                   native
-                  value={values.haveCar}
+                  value={state.haveCar}
                   onChange={onChange('haveCar')}
                   labelWidth={90}
                   fullWidth
@@ -543,7 +646,7 @@ export const Info = (props) => {
                 </InputLabel>
                 <Select
                   native
-                  value={values.eBicycle}
+                  value={state.eBicycle}
                   onChange={onChange('eBicycle')}
                   labelWidth={190}
                   fullWidth
@@ -568,7 +671,7 @@ export const Info = (props) => {
                 control={(
                   <Checkbox
                     color="default"
-                    checked={values.checkedSubscribe}
+                    checked={state.checkedSubscribe}
                     onChange={onChange('checkedSubscribe')}
                     value="checkedSubscribe"
                     inputProps={{
@@ -586,13 +689,14 @@ export const Info = (props) => {
           <Button
             size="medium"
             color="primary"
-            onClick={onSubmit}
+            onClick={showSwalSaveContactInfo}
 
           >
             Save
           </Button>
           <Button
             size="medium"
+            onClick={cancelToEditCustomerInfo}
           >
             Cancel
           </Button>
@@ -601,17 +705,3 @@ export const Info = (props) => {
     </React.Fragment>
   );
 };
-
-function putStateToProps(state) {
-  return {
-    user: state.auth.user,
-  };
-}
-
-function putActionsToProps(dispatch) {
-  return {
-    getCustomerInfo: () => dispatch(dispatchGetCustomer()),
-  };
-}
-
-export const Information = connect(putStateToProps, putActionsToProps)(Info);

@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 import React from 'react';
 import axios from 'axios';
 import Cookie from 'js-cookie';
@@ -9,7 +10,7 @@ import { modalOpen, modalClose } from '../modal/actions';
 
 export function logout() {
   return {
-    type: ACTIONS.GET_CUSTOMER_INFO,
+    type: ACTIONS.LOGOUT,
   };
 }
 

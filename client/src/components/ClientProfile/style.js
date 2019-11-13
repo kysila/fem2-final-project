@@ -30,7 +30,7 @@ export const useStyles = makeStyles((theme) => ({
   h2Name: {
     marginLeft: '50px',
     fontStyle: 'normal',
-    fontHeight: '300',
+    fontWeight: '400',
     fontSize: '56px',
     textTransform: 'capitalize',
     [theme.breakpoints.down(768)]: {
