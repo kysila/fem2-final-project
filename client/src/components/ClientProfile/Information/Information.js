@@ -345,7 +345,6 @@ export const Information = (props) => {
                     root: classes.inputRoot,
                     input: classes.input,
                   }}
-                  maxlength="16"
                   placeholder="+380XX XXX XX XX"
                   value={state.telephone}
                   onChange={onChange('telephone')}
