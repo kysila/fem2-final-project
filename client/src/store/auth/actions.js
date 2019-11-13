@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import Cookie from 'js-cookie';
 import CloseIcon from '@material-ui/icons/Close';
@@ -9,7 +8,7 @@ import { modalOpen, modalClose } from '../modal/actions';
 
 export function logout() {
   return {
-    type: ACTIONS.GET_CUSTOMER_INFO,
+    type: ACTIONS.LOGOUT,
   };
 }
 
