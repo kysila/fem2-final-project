@@ -1,12 +1,20 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
-  mainContainer: {
+  mainContainerTop: {
     paddingTop: '20px',
+    backgroundColor: '#fff',
+    marginBottom: '20px',
+    [theme.breakpoints.down(600)]: {
+      padding: '10px 0 0 0',
+      marginBottom: '10px',
+    },
+  },
+  mainContainer: {
     backgroundColor: '#fff',
     marginBottom: '100px',
     [theme.breakpoints.down(600)]: {
-      padding: '20px 0 0 0',
+      padding: '0',
       marginBottom: '80px',
     },
   },

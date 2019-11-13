@@ -43,7 +43,7 @@ function ClientProfile(props) {
       />
       <Container
         maxWidth="md"
-        className={classes.mainContainer}
+        className={classes.mainContainerTop}
       >
         <ProfileBreadcrumbs />
         <Typography
@@ -54,6 +54,11 @@ function ClientProfile(props) {
         >
           My Account
         </Typography>
+      </Container>
+      <Container
+        maxWidth="md"
+        className={classes.mainContainer}
+      >
         <section
           className={classes.contentSection}
         >
