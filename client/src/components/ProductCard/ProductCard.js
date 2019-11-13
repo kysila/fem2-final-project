@@ -40,7 +40,6 @@ export function ProductCard({
     const product = JSON.parse(localStorage.getItem('product'));
     if (product) {
       const item = itemNo;
-      console.log(item);
       if (!filterCart(product, item)) {
         localStorage.setItem('product', JSON.stringify(product.concat([{
           name, itemImg, price, url, rating, key, itemNo,
@@ -63,7 +62,6 @@ export function ProductCard({
         className={classes.card}
         onMouseOver={showButtonsPanel}
         onMouseOut={hideButtonsPanel}
-        itemNo={itemNo}
       >
         <CardActionArea>
           <CardMedia

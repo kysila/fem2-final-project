@@ -6,11 +6,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const MaxSpeedFilter = ({ maxSpeeds }) => {
+import { connect } from 'react-redux';
+
+import { selectFilters } from '../../../store/selectedFilters/actions';
+
+const MaxSpeedFilter = (props) => {
   const [maxSpeed, setMaxSpeed] = useState([]);
 
   const handleChangeMaxSpeed = (event) => {
     setMaxSpeed(event.target.value);
+    props.selectFilters(event, event.target.value, 'maxSpeed', { ...props.selectedFilters });
   };
 
   const handleChangeMultipleMaxSpeed = (event) => {
@@ -22,6 +27,7 @@ const MaxSpeedFilter = ({ maxSpeeds }) => {
       }
     }
     setMaxSpeed(value);
+    props.selectFilters(event, event.target.value, 'maxSpeed', { ...props.selectedFilters });
   };
   return (
     <React.Fragment>
@@ -34,7 +40,7 @@ const MaxSpeedFilter = ({ maxSpeeds }) => {
         input={<Input />}
         renderValue={(selected) => selected.join(', ')}
       >
-        {maxSpeeds.map(({ _id, name }) => (
+        {props.maxSpeeds.map(({ _id, name }) => (
           <MenuItem key={_id} value={name}>
             <Checkbox checked={maxSpeed.indexOf(name) > -1} />
             <ListItemText primary={name} />
@@ -44,5 +50,8 @@ const MaxSpeedFilter = ({ maxSpeeds }) => {
     </React.Fragment>
   );
 };
-
-export default MaxSpeedFilter;
+const mapStateToProps = (state) => ({
+  ...state,
+  selectedFilters: state.selectFilterReducer.selectedFilters,
+});
+export default connect(mapStateToProps, { selectFilters })(MaxSpeedFilter);

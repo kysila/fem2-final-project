@@ -59,8 +59,6 @@ export const RecentlyViewed = () => {
   };
 
   if (productsList) {
-    const uniqueItems = [];
-    console.log('unique Items array', uniqueItems);
     products = productsList.map((el) => (
       <div key={el.itemNo}>
         <ProductCard
@@ -70,6 +68,7 @@ export const RecentlyViewed = () => {
           price={el.price}
           url={el.url}
           rating={el.rating}
+          itemNo={el.itemNo}
         />
       </div>
     ),

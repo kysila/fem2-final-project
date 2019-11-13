@@ -15,7 +15,7 @@ const CategoryFilter = (props) => {
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
-    props.selectFilters(event, event.target.value, 'categorySelected', {...props.selectedFilters});
+    props.selectFilters(event, event.target.value, 'categories', { ...props.selectedFilters });
   };
 
   const handleChangeMultipleCategory = (event) => {
@@ -27,7 +27,7 @@ const CategoryFilter = (props) => {
       }
     }
     setCategory(value);
-    props.selectFilters(event, event.target.value, 'categorySelected', {...props.selectedFilters});
+    props.selectFilters(event, event.target.value, 'categories', { ...props.selectedFilters });
   };
   return (
     <React.Fragment>

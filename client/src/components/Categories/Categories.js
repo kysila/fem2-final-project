@@ -20,7 +20,7 @@ const Categories = (props) => {
         <Title title="How do you ride?" />
         <CategoryImages categories={props.categories} />
         <Box mx="auto" mt="50px" className={classes.box}>
-          <Link to="/products" className={classes.link}>
+          <Link to="/products/filter?perPage=8&startPage=1" className={classes.link}>
             <Button className={classes.button}>shop all categories</Button>
           </Link>
         </Box>
