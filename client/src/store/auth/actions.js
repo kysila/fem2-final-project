@@ -95,9 +95,6 @@ export function dispatchRegister(payload) {
           message: err.response.data.message,
           options: {
             variant: 'error',
-            action: (key) => (
-              <CloseIcon style={{ cursor: 'pointer' }} onClick={() => dispatch(closeSnackbar(key))} />
-            ),
           },
         }));
       });
