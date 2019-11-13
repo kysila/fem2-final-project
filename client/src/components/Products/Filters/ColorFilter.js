@@ -14,8 +14,7 @@ const ColorFilter = (props) => {
   const [color, setColor] = useState([]);
   const handleChangeColor = (event) => {
     setColor(event.target.value);
-    console.log('props.selectedFilters', props.selectedFilters);
-    props.selectFilters(event, event.target.value, 'colorSelected', {...props.selectedFilters});
+    props.selectFilters(event, event.target.value, 'color', { ...props.selectedFilters });
   };
   const handleChangeMultipleColor = (event) => {
     const { options } = event.target;
@@ -26,7 +25,7 @@ const ColorFilter = (props) => {
       }
     }
     setColor(value);
-    props.selectFilters(event, event.target.value, 'colorSelected',  {...props.selectedFilters});
+    props.selectFilters(event, event.target.value, 'color',  { ...props.selectedFilters });
     // props.selectFilters(event, 'colorSelectedFilters');
   };
 

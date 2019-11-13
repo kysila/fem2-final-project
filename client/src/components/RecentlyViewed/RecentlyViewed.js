@@ -20,12 +20,11 @@ export const RecentlyViewed = () => {
   };
 
   const viewedProducts = JSON.parse(localStorage.getItem('product'));
-  // getDuplicateProduct(viewedProducts);
+
   if (viewedProducts) {
     adjustingLength(viewedProducts);
   }
   const currentLocal = JSON.parse(localStorage.getItem('product'));
-  console.log('currentLocal', currentLocal);
 
   useEffect(() => {
     setProductsList(currentLocal);
@@ -61,22 +60,20 @@ export const RecentlyViewed = () => {
 
   if (productsList) {
     const uniqueItems = [];
-    products = productsList.map((el) => {
-      if (!uniqueItems.includes(el.itemNo)) {
-        uniqueItems.push(el.itemNo);
-        return (
-          <ProductCard
-            key={el.itemNo}
-            className={classes.card}
-            name={el.name}
-            itemImg={el.itemImg}
-            price={el.price}
-            url={el.url}
-            rating={el.rating}
-          />
-        );
-      }
-    });
+    products = productsList.map((el) => (
+      <div key={el.itemNo}>
+        <ProductCard
+          className={classes.card}
+          name={el.name}
+          itemImg={el.itemImg}
+          price={el.price}
+          url={el.url}
+          rating={el.rating}
+        />
+      </div>
+    ),
+      // }
+    );
   } else {
     return (
       <Container maxWidth="md" className={classes.mainContainer} />

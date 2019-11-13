@@ -11,11 +11,11 @@ export const getCategories = () => (dispatch) => {
   });
   axios.get('/catalog')
     .then((categories) => {
-      console.log('categories', categories);
       const categoriesOptions = categories.data.map((category) => ({
         id: category.id,
         name: category.name,
         imgUrl: category.imgUrl,
+        cols: category.cols,
       }));
       dispatch({
         type: GET_CATEGORIES_SUCCEEDED,
@@ -25,7 +25,7 @@ export const getCategories = () => (dispatch) => {
     .catch((err) => {
       dispatch({
         type: GET_CATEGORIES_FAILED,
-        payload: err.response.data.message,
+        payload: err,
       });
     });
 };

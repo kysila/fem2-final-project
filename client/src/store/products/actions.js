@@ -8,15 +8,14 @@ export const GET_PRODUCTS_FAILED = 'GET_PRODUCTS_FAILED';
 
 
 // action:
-export const getProducts = () => (dispatch) => {
+export const getProducts = (endpoint) => (dispatch) => {
 
   dispatch({
     type: GET_PRODUCTS_REQUESTED,
   });
-  axios.get('/products')
+  axios.get(endpoint)
     .then((data) => {
-      console.log('data in axios get in products actions.js', data);
-      const allProducts = data.data.map((el) => ({
+      const allProducts = data.data.products.map((el) => ({
         itemNo: el.itemNo,
         name: el.name,
         itemImg: el.imageUrls[0],
@@ -24,28 +23,15 @@ export const getProducts = () => (dispatch) => {
         url: `/products/${el.itemNo}`,
         rating: el.rating,
       }));
-      console.log('allProducts',allProducts);
-      const loadMoreArrays = () => {
-        const size = 8;
-        const productLoadMoreArraysQuantity = Math.ceil(allProducts.length / size);
-        console.log('productLoadMoreArraysQuantity', productLoadMoreArraysQuantity);
-        const loadMoreArray = [];
-        for (let i = 0; i < productLoadMoreArraysQuantity; i++) {
-          loadMoreArray[i] = allProducts.slice((i * size), (i * size) + size);
-        }
-        return loadMoreArray;
-      };
-      const allProductsArrays = loadMoreArrays();
       dispatch({
         type: GET_PRODUCTS_SUCCEEDED,
         allProducts,
-        allProductsArrays,
       });
     })
     .catch((err) => {
       dispatch({
         type: GET_PRODUCTS_FAILED,
-        // payload: err.response.data.message,
+        payload: err,
       });
     });
 };

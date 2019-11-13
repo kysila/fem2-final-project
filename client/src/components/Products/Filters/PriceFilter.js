@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import { makeStyles } from '@material-ui/core';
-import { useStyles } from './style';
+import { connect } from 'react-redux';
 
+import { selectFilters } from '../../../store/selectedFilters/actions';
+
+import { useStyles } from './style';
 
 function pricetext(value) {
   return `$${value}`;
 }
 
 
-const PriceFilter = () => {
+const PriceFilter = (props) => {
   const classes = useStyles();
 
-  const [price, setPrice] = useState([100, 3000]);
+  const [price, setPrice] = useState([0, 3000]);
   const handleChangePrice = (event, newPrice) => {
     setPrice(newPrice);
+    const minPrice = newPrice[0];
+    props.selectFilters(event, minPrice, 'minPrice', { ...props.selectedFilters });
+    const maxPrice = newPrice[1];
+    props.selectFilters(event, maxPrice, 'maxPrice', { ...props.selectedFilters });
   };
   return (
     <React.Fragment>
@@ -26,7 +32,7 @@ const PriceFilter = () => {
 
         value={price}
         max={3000}
-        min={100}
+        min={0}
         step={50}
         onChange={handleChangePrice}
         valueLabelDisplay="on"
@@ -36,5 +42,8 @@ const PriceFilter = () => {
     </React.Fragment>
   );
 };
-
-export default PriceFilter;
+const mapStateToProps = (state) => ({
+  ...state,
+  selectedFilters: state.selectFilterReducer.selectedFilters,
+});
+export default connect(mapStateToProps, { selectFilters })(PriceFilter);

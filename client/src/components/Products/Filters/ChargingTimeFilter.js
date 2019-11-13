@@ -14,7 +14,7 @@ const ChargingTimeFilter = (props) => {
 
   const handleChangeChargingTime = (event) => {
     setChargingTime(event.target.value);
-    props.selectFilters(event, event.target.value, 'chargingTime');
+    props.selectFilters(event, event.target.value, 'chargingTime', { ...props.selectedFilters });
   };
   const handleChangeMultipleChargingTime = (event) => {
     const { options } = event.target;
@@ -25,7 +25,7 @@ const ChargingTimeFilter = (props) => {
       }
     }
     setChargingTime(value);
-    props.selectFilters(event, event.target.value, 'chargingTime');
+    props.selectFilters(event, event.target.value, 'chargingTime', { ...props.selectedFilters });
   };
 
   return (
@@ -51,7 +51,7 @@ const ChargingTimeFilter = (props) => {
 };
 const mapStateToProps = (state) => ({
   ...state,
-  chargingTimeSelectedFilters: state.selectFilterReducer.chargingTimeSelectedFilters,
+  selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
 

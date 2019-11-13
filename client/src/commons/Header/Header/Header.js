@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -10,15 +10,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { dispatchLogout } from '../../../store/auth/actions';
 import { dispatchModalOpen } from '../../../store/modal/actions';
 import Searches from '../Searchbar/Searchbar';
-import { NavBar } from '../Navbar/Navbar';
+import NavBar from '../Navbar/Navbar';
 import Cart from '../Cart/Cart';
 import { Logo } from '../../Logo/Logo';
 import { useStyles } from './style';
+import MenuAdaptiveIcon from '../MenuAdaptiveIcon/MenuAdaptiveIcon';
 
 const Header = (props) => {
   const classes = useStyles();
-  const [cartIsOpen, setCartIsOpen] = useState(false);
-
   const openLogin = (e) => {
     e.preventDefault();
     props.openModal('login');
@@ -31,11 +30,17 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar className={classes.appBar}>
+      <AppBar className={classes.appBar} id="header">
         <Container maxWidth="md">
+
           <Box className={classes.container}>
-            <Box className={classes.link}>
+            <Box className={classes.menu_icon}>
+              <MenuAdaptiveIcon />
+            </Box>
+            <Box className={classes.logo}>
+              {' '}
               <Logo />
+              {' '}
             </Box>
             <Box className={classes.input}>
               <Searches />
@@ -53,13 +58,13 @@ const Header = (props) => {
                   </Link>
                 </Box>
               ) : (
-                  <Box className={classes.link}>
-                    <Link to="/login" onClick={openLogin}>Login |</Link>
-                    <Link to="/register" onClick={openRegister}> Sign Up</Link>
-                  </Box>
-                )
+                <Box className={classes.link}>
+                  <Link to="/login" onClick={openLogin}>Login |</Link>
+                  <Link to="/register" onClick={openRegister}> Sign Up</Link>
+                </Box>
+              )
             }
-            <Cart count={2} />
+            <Cart />
           </Box>
           <Box className={classes.container}>
             <Box>

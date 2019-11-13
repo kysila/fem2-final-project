@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import queryString from 'query-string';
 
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -32,7 +35,10 @@ const Filters = (props) => {
     }
   };
   const HandleApplyFilters = () => {
-    console.log('props selected', props);
+    const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+    const { perPage, startPage } = queryOptions;
+    const query = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
+    props.history.push(`/products/filter?perPage=${perPage}&startPage=${startPage}&${query}`);
   };
 
   return (
@@ -95,7 +101,6 @@ const Filters = (props) => {
             type="submit"
             align="center"
             className={classes.applyBtn}
-            onClick={console.log(props.selectedFilters)}
           >
             Apply Filters
           </Button>
@@ -109,6 +114,7 @@ const Filters = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  ...state,
   colors: state.filterReducer.colorFilters,
   distances: state.filterReducer.distanceFilters,
   maxSpeeds: state.filterReducer.maxSpeedFilters,
@@ -117,4 +123,4 @@ const mapStateToProps = (state) => ({
   selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
-export default connect(mapStateToProps, { getFilters, getCategories })(Filters);
+export default withRouter(connect(mapStateToProps, { getFilters, getCategories })(Filters));
