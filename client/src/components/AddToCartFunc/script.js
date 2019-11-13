@@ -3,7 +3,7 @@ export const handlerLocalStorage = (keyLocalStorage, arrProductsCart, objParams,
 	if (!data) {
 		data = JSON.stringify(arrProductsCart);
 		localStorage.setItem(keyLocalStorage, data);
-		actions(data);
+		actions(JSON.parse(data));
 	}
 	else if (data) {
 		addToLocalStorage(data, objParams, cartItem, keyLocalStorage, actions)

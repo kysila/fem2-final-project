@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   ADD_PRODUCT_TO_CART,
   SET_COUNTOFPRODUCTS,
@@ -8,7 +6,6 @@ import {
   GET_PRODUCTS_FROM_LS
 }
   from './actions';
-
 
 const initialState = {
   subTotal: 0,
@@ -43,14 +40,14 @@ function cartReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         cart: {
-          ... payload,
+          ...payload,
         },
       };
     case GET_PRODUCTS_FROM_LS:
       return {
         ...state,
         cart: {
-          ... payload,
+          ...payload,
         },
       };
     default:

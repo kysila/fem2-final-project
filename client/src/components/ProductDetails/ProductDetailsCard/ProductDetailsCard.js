@@ -21,7 +21,6 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductDetailsCard = (props) => {
-
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
 
