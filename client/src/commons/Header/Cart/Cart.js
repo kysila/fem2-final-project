@@ -21,7 +21,6 @@ import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle/Subsec
 import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
-  // countOfProducts: state.cartReducer.countOfProducts,
   user: state.auth.user,
   cart: state.cartReducer.cart.products,
 });
@@ -47,7 +46,7 @@ const Cart = (props) => {
   }, [props.user]);
 
   if (props.cart.length) {
-    cartStatus = props.cart.map((el) => (
+    cartStatus = props.cart.map((el) =>
       <CartItem
         key={el.product.itemNo}
         name={el.product.name}
@@ -58,7 +57,7 @@ const Cart = (props) => {
         id={el.product._id}
         quantity={el.product.quantity}
       />
-    ));
+    )
     subTotalArray = props.cart.map((el) => el.product.currentPrice * el.cartQuantity);
     totalPrice = subTotalArray.reduce((sum, current) => sum + current, 0);
     countOfProducts = props.cart.length;
