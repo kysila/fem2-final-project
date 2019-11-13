@@ -21,7 +21,6 @@ import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle/Subsec
 import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
-  // countOfProducts: state.cartReducer.countOfProducts,
   user: state.auth.user,
   cart: state.cartReducer.cart.products,
 });

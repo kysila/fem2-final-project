@@ -18,7 +18,7 @@ export const getCartFromDB = () => (dispatch) => {
   axios
     .get('/cart')
     .then((cart) => {
-      console.log('0-----------------', cart.data);
+      // console.log('0-----------------', cart.data);
       if (cart.data) {
         dispatch({
           type: GET_PRODUCTS_FROM_DB,
