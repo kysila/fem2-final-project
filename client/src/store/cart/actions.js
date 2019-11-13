@@ -1,24 +1,14 @@
 import axios from 'axios';
 
 // ACTIONS WITH CART
-
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const GET_PRODUCTS_FROM_DB = 'GET_PRODUCTS_FROM_DB ';
 export const GET_PRODUCTS_FROM_LS = 'GET_PRODUCTS_FROM_LS ';
-export const DELETE_PRODUCTSTOBUY = 'DELETE_PRODUCTSTOBUY';
+export const DECREASE_QUANTITY_OF_PRODUCTS = 'DECREASE_QUANTITY_OF_PRODUCTS';
+export const DELETE_PRODUCT_OF_CART = 'DELETE_PRODUCT_OF_CART';
 export const SET_COUNTOFPRODUCTS = 'SET_COUNTOFPRODUCTS';
-export const SET_TOTALPRICE = 'SET_TOTALPRICE';
 
 // ACTIONS
-export const setCountOfProducts = (payload) => ({
-  type: SET_COUNTOFPRODUCTS,
-  payload,
-});
-
-export const setTotalPrice = (payload) => ({
-  type: SET_TOTALPRICE,
-  payload,
-});
 export const getCartFromLS = (payload) => ({
   type: GET_PRODUCTS_FROM_LS,
   payload,
@@ -28,13 +18,20 @@ export const getCartFromDB = () => (dispatch) => {
   axios
     .get('/cart')
     .then((cart) => {
-      dispatch({
-        type: GET_PRODUCTS_FROM_DB,
-        payload: cart.data,
-      });
-    })
-    .catch((err) => {
-      console.log('Axios request wqa failed', err.response.data);
+      // console.log('0-----------------', cart.data);
+      if (cart.data) {
+        dispatch({
+          type: GET_PRODUCTS_FROM_DB,
+          payload: cart.data,
+        });
+      } else {
+        dispatch({
+          type: GET_PRODUCTS_FROM_DB,
+          payload: { products: [] },
+        });
+      }
+    }).catch((err) => {
+      console.log('Axios request was failed', err.response.data.message);
     });
 };
 
@@ -43,6 +40,25 @@ export const addProductToCart = (url) => (dispatch) => {
     .then((cart) => {
       dispatch({
         type: ADD_PRODUCT_TO_CART,
+        payload: cart.data.products,
+      });
+    });
+};
+export const decreaseQuantityOfProducts = (url) => (dispatch) => {
+  axios.delete(url)
+    .then((cart) => {
+      dispatch({
+        type: DECREASE_QUANTITY_OF_PRODUCTS,
+        payload: cart.data.products,
+      });
+    });
+};
+
+export const deleteProductOfCart = (url) => (dispatch) => {
+  axios.delete(url)
+    .then((cart) => {
+      dispatch({
+        type: DELETE_PRODUCT_OF_CART,
         payload: cart.data.products,
       });
     });
