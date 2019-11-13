@@ -18,12 +18,19 @@ export const getCartFromDB = () => (dispatch) => {
   axios
     .get('/cart')
     .then((cart) => {
-      dispatch({
-        type: GET_PRODUCTS_FROM_DB,
-        payload: cart.data,
-      });
-    })
-    .catch((err) => {
+      console.log('0-----------------', cart.data);
+      if (cart.data) {
+        dispatch({
+          type: GET_PRODUCTS_FROM_DB,
+          payload: cart.data,
+        });
+      } else {
+        dispatch({
+          type: GET_PRODUCTS_FROM_DB,
+          payload: { products: [] },
+        });
+      }
+    }).catch((err) => {
       console.log('Axios request was failed', err.response.data.message);
     });
 };
