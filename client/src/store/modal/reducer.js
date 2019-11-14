@@ -3,7 +3,7 @@ export const ACTIONS = Object.seal({
   MODAL_CLOSE: 'MODAL_CLOSE',
 });
 
-export default function (state = {}, { type, payload, inject }) {
+export default function (state = { opened: false, child: null, inject: null }, { type, payload, inject }) {
   let newState = state;
 
   switch (type) {

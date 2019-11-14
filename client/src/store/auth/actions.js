@@ -1,5 +1,4 @@
 /* eslint-disable dot-notation */
-import React from 'react';
 import axios from 'axios';
 import Cookie from 'js-cookie';
 import CloseIcon from '@material-ui/icons/Close';
@@ -96,9 +95,6 @@ export function dispatchRegister(payload) {
           message: err.response.data.message,
           options: {
             variant: 'error',
-            action: (key) => (
-              <CloseIcon style={{ cursor: 'pointer' }} onClick={() => dispatch(closeSnackbar(key))} />
-            ),
           },
         }));
       });
