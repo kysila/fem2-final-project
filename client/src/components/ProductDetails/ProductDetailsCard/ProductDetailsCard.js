@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
-import { handlerLocalStorage } from "../../AddToCartFunc/script";
-import { HeartIcon, BagIcon, WeigherIcon } from "../../Icons/Icons";
+import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
+import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
+import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
 
 import axios from 'axios';
 
@@ -29,17 +30,6 @@ const ProductDetailsCard = (props) => {
 
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
-
-	const productItem = {
-		cartQuantity: 1,
-		product: obj
-	};
-
-	const productsCart = {
-		products: [
-			productItem
-		],
-	};
 
 	const checkProduct = () => {
 		setState({
@@ -106,41 +96,33 @@ const ProductDetailsCard = (props) => {
 				aria-label="large contained primary button group"
 				className={classes.buttons}
 			>
-				<Button
+				<AddToCartButton
 					disabled={state.disabled}
-					className='addToCardBtn'
-					onClick={e => {
-						if (obj.quantity >= 1) {
-							props.user ?
-								props.addProductToCart(`/cart/${obj._id}`) :
-								handlerLocalStorage('cart', productsCart, obj.itemNo, productItem, props.getCartFromLS, obj.quantity, checkProduct)
-						}
+					text={state.text}
+					obj={obj}
+					user={props.user}
+					addToCartFunc={props.addProductToCart}
+					actions={props.getCartFromLS}
+					checkProduct={checkProduct}
+					style={{
+						width: '250px', borderRadius: '4px'
 					}}
-				>
-					<BagIcon
-						style={{
-							width: 21,
-							height: 20,
-							fill: '#fff',
-							marginRight: 8
-						}}/>
-					{state.text}
-				</Button>
-				<Button
-					className='otherBtn'
-					onClick={e => {
-						if (props.user) {
-							// Место для логики добавления товара в Wish List
-							console.log(obj); // Объект товара
-							console.log(props); // Все входящие в компонент props
-						}
-					}}>
-					<HeartIcon
-						className='icon'
-						style={{
-							fill: '#AAA',
-						}}/>
-				</Button>
+					iconStyle={{
+						width: 21,
+						height: 20,
+						fill: '#fff',
+						marginRight: 8
+					}}
+				/>
+				<AddToWishListButton
+					obj={obj}
+					user={props.user}
+					allProps={props}
+					className={'otherBtn'}
+					iconStyle={{
+						fill: '#AAA',
+					}}
+				/>
 				<Button className='otherBtn'>
 					<WeigherIcon
 						className='icon'

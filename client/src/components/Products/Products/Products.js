@@ -108,6 +108,7 @@ const Products = (props) => {
       <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
         <ProductCard
           className={classes.card}
+          obj={el}
           name={el.name}
           itemImg={el.itemImg}
           price={el.price}
