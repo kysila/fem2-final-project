@@ -61,6 +61,15 @@ const CustomerSchema = new Schema({
   eBicycle: {
     type: String,
   },
+  address: {
+    type: String,
+  },
+  checkedSubscribe: {
+    type: Boolean,
+    required: true,
+    default: true
+  },
+
 });
 
 CustomerSchema.methods.comparePassword = function (candidatePassword, cb) {
