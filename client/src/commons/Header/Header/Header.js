@@ -7,7 +7,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { NavHashLink as HashLink } from 'react-router-hash-link';
 import { dispatchLogout } from '../../../store/auth/actions';
 import { dispatchModalOpen } from '../../../store/modal/actions';
 import Searches from '../Searchbar/Searchbar';
@@ -39,11 +38,9 @@ const Header = (props) => {
               <MenuAdaptiveIcon />
             </Box>
             <Box className={classes.logo}>
-              <HashLink to="/">
-                {' '}
-                <Logo />
-                {' '}
-              </HashLink>
+              {' '}
+              <Logo />
+              {' '}
             </Box>
             <Box className={classes.input}>
               <Searches />
@@ -67,7 +64,7 @@ const Header = (props) => {
                 </Box>
               )
             }
-            <Cart count={2} />
+            <Cart />
           </Box>
           <Box className={classes.container}>
             <Box>

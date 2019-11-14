@@ -3,7 +3,6 @@ import { createStyles, makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles((theme) => createStyles({
   container: {
     display: 'flex',
-    // flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -126,9 +125,11 @@ export const useStyles = makeStyles((theme) => createStyles({
     textTransform: 'none',
   },
   price: {
-    paddingLeft: '5px',
+    flexBasis: '10%',
+    paddingLeft: '1%',
     fontSize: '14px',
     fontWeight: 'bold',
+    textAlign: 'right',
   },
   underline: {
     '&::after': {
@@ -150,7 +151,6 @@ export const useStyles = makeStyles((theme) => createStyles({
     },
   },
   counter: {
-    // flexGrow: '1',
     marginRight: '1%',
   },
 }));
