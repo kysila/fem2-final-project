@@ -11,9 +11,30 @@ export const selectFilters = (event, value, type, selectedFilters) => (dispatch)
   });
 };
 
+export const priceSelectFilters = (event, minPrice, maxPrice, selectedFilters) => (dispatch) => {
+  dispatch({
+    type: SELECT_FILTERS,
+    selectedFilters: {
+      ...selectedFilters,
+      minPrice,
+      maxPrice
+    },
+  });
+};
+
 export const recentlySelectFilters = (selectedFilters) => (dispatch) => {
   dispatch({
     type: SELECT_FILTERS,
+    selectedFilters: {
+      ...selectedFilters,
+    },
+  });
+};
+
+export const deleteSelectedFilters = (event, type, selectedFilters) => (dispatch) => {
+  delete selectedFilters[type];
+  dispatch({
+    type: DELETE_SELECTED_FILTER,
     selectedFilters: {
       ...selectedFilters,
     },

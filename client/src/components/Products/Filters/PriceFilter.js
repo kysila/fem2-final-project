@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { connect } from 'react-redux';
 
-import { selectFilters } from '../../../store/selectedFilters/actions';
+import { priceSelectFilters } from '../../../store/selectedFilters/actions';
 
 import { useStyles } from './style';
 
@@ -18,10 +18,8 @@ const PriceFilter = (props) => {
   const [price, setPrice] = useState([0, 3000]);
   const handleChangePrice = (event, newPrice) => {
     setPrice(newPrice);
-    const minPrice = newPrice[0];
-    props.selectFilters(event, minPrice, 'minPrice', { ...props.selectedFilters });
-    const maxPrice = newPrice[1];
-    props.selectFilters(event, maxPrice, 'maxPrice', { ...props.selectedFilters });
+    props.priceSelectFilters(event, newPrice[0], newPrice[1], { ...props.selectedFilters });
+
   };
   return (
     <React.Fragment>
@@ -46,4 +44,4 @@ const mapStateToProps = (state) => ({
   ...state,
   selectedFilters: state.selectFilterReducer.selectedFilters,
 });
-export default connect(mapStateToProps, { selectFilters })(PriceFilter);
+export default connect(mapStateToProps, { priceSelectFilters })(PriceFilter);
