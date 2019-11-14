@@ -10,7 +10,7 @@ import { Footer, Header } from '../../commons';
 
 import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
-import { ProductCard } from '..';
+import ProductCard from '../ProductCard/ProductCard';
 
 const useStyles = makeStyles((theme) => ({
   card: {

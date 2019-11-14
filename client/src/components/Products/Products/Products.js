@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { ProductCard } from '../../ProductCard/ProductCard';
+import ProductCard from '../../ProductCard/ProductCard';
 import { Footer, Header } from '../../../commons';
 import AllBreadcrumbs from '../AllBreadcrumbs/AllBreadcrumbs';
 import { Title } from '../../Title/Title';
@@ -59,7 +59,7 @@ const Products = (props) => {
 
   if (props.allProducts && !props.isProductsFetching) {
     console.log(props.allProducts);
-    products = props.allProducts.map((el) => (
+    products = props.allProducts.map((el, i) => (
       <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
         <ProductCard
           className={classes.card}
@@ -69,6 +69,8 @@ const Products = (props) => {
           url={el.url}
           rating={el.rating}
           itemNo={el.itemNo}
+          id={el.id}
+          key={i}
         />
       </Grid>
     ));

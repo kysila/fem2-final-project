@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
+import { handlerLocalStorage } from "../../AddToCartFunc/script";
 import { HeartIcon, BagIcon, WeigherIcon } from "../../Icons/Icons";
 
 import axios from 'axios';
@@ -12,7 +13,6 @@ import Button from "@material-ui/core/Button";
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 
-import { handlerLocalStorage } from "../../AddToCartFunc/script";
 import { useStyles } from "./style";
 
 const mapStateToProps = (store) => ({
@@ -21,6 +21,11 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductDetailsCard = (props) => {
+
+	const [ state, setState ] = useState({
+		disabled: false,
+		text: 'ADD TO CART',
+	});
 
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
@@ -34,6 +39,14 @@ const ProductDetailsCard = (props) => {
 		products: [
 			productItem
 		],
+	};
+
+	const checkProduct = () => {
+		setState({
+			...state,
+			disabled: true,
+			text: 'UNAVALIABLE'
+		})
 	};
 
 	let links;
@@ -94,11 +107,14 @@ const ProductDetailsCard = (props) => {
 				className={classes.buttons}
 			>
 				<Button
+					disabled={state.disabled}
 					className='addToCardBtn'
 					onClick={e => {
-						props.user ?
-							props.addProductToCart(`/cart/${obj._id}`) :
-							handlerLocalStorage('cart', productsCart, obj.itemNo, productItem, props.getCartFromLS);
+						if (obj.quantity >= 1) {
+							props.user ?
+								props.addProductToCart(`/cart/${obj._id}`) :
+								handlerLocalStorage('cart', productsCart, obj.itemNo, productItem, props.getCartFromLS, obj.quantity, checkProduct)
+						}
 					}}
 				>
 					<BagIcon
@@ -108,7 +124,7 @@ const ProductDetailsCard = (props) => {
 							fill: '#fff',
 							marginRight: 8
 						}}/>
-					ADD TO CART
+					{state.text}
 				</Button>
 				<Button className='otherBtn'>
 					<HeartIcon

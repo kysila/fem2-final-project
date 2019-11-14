@@ -8,11 +8,12 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   flexContainer: {
+    paddingLeft: '12px',
     maxHeight: '480px',
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'stretch',
-    alignContent: 'space-evenly',
+    alignContent: 'space-between',
     wrap: 'wrap',
     [theme.breakpoints.down(768)]: {
       alignContent: 'space-evenly',
@@ -29,7 +30,9 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   slickDescription: {
-    marginTop: '50px',
+    marginTop: '100px',
+    marginBottom: '20px',
+    maxWidth: '50%',
     [theme.breakpoints.down(1000)]: {
       marginLeft: '20px',
     },
@@ -59,6 +62,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   slickExplanation: {
+    maxWidth: '50%',
     [theme.breakpoints.down(1000)]: {
       marginLeft: '20px',
     },
@@ -114,4 +118,7 @@ export const useStyles = makeStyles((theme) => ({
       width: 'auto',
     },
   },
+  mainImg: {
+    marginTop: '20px',
+  }
 }));

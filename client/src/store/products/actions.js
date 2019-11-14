@@ -24,6 +24,7 @@ export const getProducts = (endpoint) => (dispatch) => {
         price: el.currentPrice,
         url: `/products/${el.itemNo}`,
         rating: el.rating,
+        id: el._id,
       }));
       console.log('allProducts',allProducts);
       // const loadMoreArrays = () => {
