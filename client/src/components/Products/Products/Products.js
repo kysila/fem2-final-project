@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
-import { ProductCard } from '../../ProductCard/ProductCard';
+import ProductCard from '../../ProductCard/ProductCard';
 import { Footer, Header } from '../../../commons';
 import AllBreadcrumbs from '../AllBreadcrumbs/AllBreadcrumbs';
 import { Title } from '../../Title/Title';
@@ -114,6 +114,7 @@ const Products = (props) => {
           url={el.url}
           rating={el.rating}
           itemNo={el.itemNo}
+          id={el.id}
         />
       </Grid>
     ));
@@ -162,7 +163,6 @@ const Products = (props) => {
           {selectedFilterChips}
         </Grid>
         <main className={classes.main}>
-          {/* <Grid container spacing={0} ref={displayedProducts}> */}
           <Grid container spacing={0}>
             {props.allProducts.length ? products : (
               <Typography
@@ -195,6 +195,7 @@ const Products = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
+  ...state,
   isProductsFetching: state.productsReducer.isProductsFetching,
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,

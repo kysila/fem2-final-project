@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import axios from 'axios';
 
 import { Title } from '../Title/Title';
-import { ProductCard } from '../ProductCard/ProductCard';
+import ProductCard from '../ProductCard/ProductCard';
 import Preloader from '../Preloader/Preloader';
 
 import 'slick-carousel/slick/slick.css';
@@ -31,6 +31,8 @@ export const Favourites = (props) => {
         price={el.currentPrice}
         url={`products/${el.itemNo}`}
         rating={el.rating}
+        itemNo={el.itemNo}
+        id={el._id}
         key={i}
       />
     ));
