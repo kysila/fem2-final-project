@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 // Material UI import
 import {
@@ -50,16 +50,14 @@ export const MainCarousel = () => {
 
   let mainCarouselInfo;
 
-  useEffect(() => {
-    axios.get('/slides')
-      .then((slides) => {
-        setCarousel(slides.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  axios.get('/slides')
+    .then((slides) => {
+      setCarousel(slides.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   if (carousel && !loading) {
     mainCarouselInfo = carousel.map((item) => (

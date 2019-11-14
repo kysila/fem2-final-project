@@ -18,21 +18,13 @@ function ClientProfile(props) {
   const classes = useStyles();
 
   const [expanded, setExpanded] = useState('panel1');
-  const [state, setState] = useState({
-    redirect: false,
-  });
+
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  useEffect(() => {
-    if (!props.user) {
-      setState({ ...state, redirect: true });
-    }
-  }, [props]);
-
-  if (state.redirect) {
+  if (!props.user) {
     return <Redirect push to="/" />;
   }
 

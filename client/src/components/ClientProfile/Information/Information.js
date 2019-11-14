@@ -19,17 +19,7 @@ import withReactContent from 'sweetalert2-react-content';
 // Local imports
 import { useStyles } from './style';
 import './styleModal.css';
-import Tungsten from '../../../fonts/Tungsten-Book.woff';
 import { UPDATE_PASSWORD, UPDATE_CUSTOMER } from '../../../axios/endpoints';
-
-const tungsten = {
-  fontFamily: 'Tungsten Book',
-  fontStyle: 'normal',
-  src: `
-    local('Tungsten Book'),
-    url(${Tungsten}) format('woff')
-  `,
-};
 
 export const Information = (props) => {
   const classes = useStyles();
@@ -114,7 +104,6 @@ export const Information = (props) => {
       newPassword,
     };
 
-    Object.keys(passwords).forEach((key) => (passwords[key] == null || passwords[key] === '') && delete passwords[key]);
     if (passwords.newPassword && passwords.password) {
       axios
         .put(UPDATE_PASSWORD, passwords)
@@ -181,7 +170,7 @@ export const Information = (props) => {
         confirmButton: 'confirm-button-class',
         title: 'title-class',
       },
-      title: <p style={tungsten}>Save changes?</p>,
+      title: <p style={{ fontFamily: 'Tungsten Book' }}>Save changes?</p>,
       text: 'You have made changes in Contact information section',
       showCancelButton: true,
       showConfirmButton: true,

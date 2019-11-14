@@ -9,6 +9,10 @@
 .content-class {
   padding-bottom: 25px;
 }
+button:active,
+button:focus {
+  outline: 0;
+}
 
 .confirm-button-class {
   width: 180px;
@@ -20,6 +24,7 @@
   font-size: 14px;
   line-height: 100%;
   text-transform: uppercase;
+  border: none;
 }
 
 .cancel-button-class {
