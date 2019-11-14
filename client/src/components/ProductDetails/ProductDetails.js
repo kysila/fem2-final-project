@@ -52,10 +52,10 @@ export const ProductDetails = (props) => {
         <ProductBreadcrumbs link={state.obj.name} />
         <div className={classes.productPage}>
           <div className={classes.productInfo}>
-            <ProductGallery image={state.obj.imageUrls}/>
+            <ProductGallery image={state.obj.imageUrls} />
             <ProductDescription data={state.obj} />
           </div>
-          <ProductDetailsCard data={state}/>
+          <ProductDetailsCard data={state} />
         </div>
       </Container>
       <RecentlyViewed />

@@ -71,9 +71,7 @@ export const RecentlyViewed = () => {
           itemNo={el.itemNo}
         />
       </div>
-    ),
-      // }
-    );
+    ));
   } else {
     return (
       <Container maxWidth="md" className={classes.mainContainer} />

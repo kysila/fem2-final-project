@@ -18,8 +18,6 @@ const PriceFilter = (props) => {
   const [price, setPrice] = useState([0, 3000]);
   const handleChangePrice = (event, newPrice) => {
     setPrice(newPrice);
-    console.log('price', price);
-    console.log('newPrice', newPrice);
     const minPrice = newPrice[0];
     props.selectFilters(event, minPrice, 'minPrice', { ...props.selectedFilters });
     const maxPrice = newPrice[1];

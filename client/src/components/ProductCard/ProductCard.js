@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { HeartIcon, BagIcon, WeigherIcon } from "../Icons/Icons";
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -12,7 +11,8 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 
-import { useStyles } from "./style";
+import { HeartIcon, BagIcon, WeigherIcon } from '../Icons/Icons';
+import { useStyles } from './style';
 
 export function ProductCard({
   name, itemImg, price, url, rating, key, itemNo,
@@ -62,6 +62,7 @@ export function ProductCard({
         className={classes.card}
         onMouseOver={showButtonsPanel}
         onMouseOut={hideButtonsPanel}
+        // itemNo={itemNo}
       >
         <CardActionArea>
           <CardMedia

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
 import Typography from '@material-ui/core/Typography';
-import { Header } from '../../commons';
+import { Footer, Header } from '../../commons';
 
 import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
@@ -75,6 +75,7 @@ export const Search = connect(mapStateToProps)((props) => {
         </main>
       </Container>
       <StayInTouch />
+      <Footer />
     </React.Fragment>
 
   );

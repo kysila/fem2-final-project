@@ -9,3 +9,4 @@ export { Notifier } from './Notifier/Notifier';
 export { Unsubscribe } from './Unsubscribe/Unsubscribe';
 export { Checkout } from './Checkout/Checkout';
 export { ClientProfile } from './ClientProfile/ClientProfile';
+export { Compare } from './Compare/Compare';

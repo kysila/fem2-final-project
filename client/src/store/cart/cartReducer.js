@@ -1,11 +1,11 @@
-import React from 'react';
-
-import { ADD_PRODUCT_TO_CART } from './actions';
-
-const GET_PRODUCTSTOBUY = 'GET_PRODUCTSTOBUY';
-const DELETE_PRODUCTSTOBUY = 'DELETE_PRODUCTSTOBUY';
-const SET_COUNTOFPRODUCTS = 'SET_COUNTOFPRODUCTS';
-const SET_TOTALPRICE = 'SET_TOTALPRICE';
+import {
+  ADD_PRODUCT_TO_CART,
+  SET_COUNTOFPRODUCTS,
+  SET_TOTALPRICE,
+  GET_PRODUCTS_FROM_DB,
+  GET_PRODUCTS_FROM_LS
+}
+  from './actions';
 
 const initialState = {
   subTotal: 0,
@@ -15,15 +15,6 @@ const initialState = {
   },
 };
 
-// ACTIONS
-export const setCountOfProducts = (payload) => ({
-  type: SET_COUNTOFPRODUCTS,
-  payload,
-});
-export const setTotalPrice = (payload) => ({
-  type: SET_TOTALPRICE,
-  payload,
-});
 
 // REDUCER
 function cartReducer(state = initialState, { type, payload }) {
@@ -43,6 +34,20 @@ function cartReducer(state = initialState, { type, payload }) {
         ...state,
         cart: {
           products: payload,
+        },
+      };
+    case GET_PRODUCTS_FROM_DB:
+      return {
+        ...state,
+        cart: {
+          ...payload,
+        },
+      };
+    case GET_PRODUCTS_FROM_LS:
+      return {
+        ...state,
+        cart: {
+          ...payload,
         },
       };
     default:
