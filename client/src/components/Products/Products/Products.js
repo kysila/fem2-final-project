@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { ProductCard } from '../../ProductCard/ProductCard';
+import ProductCard from '../../ProductCard/ProductCard';
 import { Footer, Header } from '../../../commons';
 import AllBreadcrumbs from '../AllBreadcrumbs/AllBreadcrumbs';
 import { Title } from '../../Title/Title';
@@ -63,6 +63,7 @@ const Products = (props) => {
           url={el.url}
           rating={el.rating}
           itemNo={el.itemNo}
+          id={el.id}
         />
       </Grid>
     ));
