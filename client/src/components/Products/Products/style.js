@@ -12,7 +12,7 @@ export const useStyles = makeStyles(() => ({
     paddingTop: '20px',
     backgroundColor: '#fff',
   },
-  main:{
+  main: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -22,6 +22,39 @@ export const useStyles = makeStyles(() => ({
   productsContainer: {
     height: '700px',
     overflow: 'auto',
+  },
+  applyBtn: {
+    marginTop: '50px',
+    padding: '18px 26px',
+    position: 'relative',
+    '&:before': {
+      content: "''",
+      display: 'block',
+      width: '1000px',
+      height: '2px',
+      background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
+      position: 'absolute',
+      left: 'calc(100% + 30px)',
+      top: '50%',
+    },
+    '&:after': {
+      content: "''",
+      display: 'block',
+      width: '1000px',
+      height: '2px',
+      background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
+      position: 'absolute',
+      right: 'calc(100% + 30px)',
+      top: '50%',
+    },
+  },
+  chipsContainer: {
+    padding: '15px 0',
+  },
+  applyBtnContainer: {
+    textAlign: 'center',
+    overflow: 'hidden',
+    width: '100%',
   },
 
 }));

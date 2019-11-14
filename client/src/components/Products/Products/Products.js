@@ -6,54 +6,105 @@ import queryString from 'query-string';
 
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-
+import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { ProductCard } from '../../ProductCard/ProductCard';
+import Box from '@material-ui/core/Box';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
+import ProductCard from '../../ProductCard/ProductCard';
 import { Footer, Header } from '../../../commons';
 import AllBreadcrumbs from '../AllBreadcrumbs/AllBreadcrumbs';
 import { Title } from '../../Title/Title';
 import StayInTouch from '../../../commons/Footer/StayInTouch/StayInTouch';
 import Filters from '../Filters/Filters';
 import Preloader from '../../Preloader/Preloader';
-import { RecentlyViewed} from '../../RecentlyViewed/RecentlyViewed';
+import { RecentlyViewed } from '../../RecentlyViewed/RecentlyViewed';
 import { useStyles } from './style';
 
-import { getProducts } from '../../../store/products/actions';
-import { recentlySelectFilters } from '../../../store/selectedFilters/actions';
+import { getProducts, getMoreProducts } from '../../../store/products/actions';
+import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/selectedFilters/actions';
 
-
-// let displayedProductsArray = [];
-// let arrays = [];
+let displayedProductsArray = [];
 const Products = (props) => {
   const classes = useStyles();
   let products;
+  let newDisplayedProducts = [];
+  let selectedFilterChips;
+  let selectedFilterType;
   let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
   const startPerPage = +queryOptions.perPage;
   const [perPage, setPerPage] = useState(startPerPage);
+
   useEffect(() => {
     props.getProducts(`/products/filter${props.location.search}`);
     if (!props.selectedFilters.length) {
-      const recentlySelected = queryString.parse(props.location.search, {arrayFormat: 'comma'});
+      const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
       delete recentlySelected.perPage;
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
     }
-  }, [ props.location.search ]);
+  }, [props.location.search]);
 
   useEffect(() => {
-    queryOptions.perPage = perPage;
-    const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-    props.history.push(`/products/filter?${newQuery}`);
-  }, [ perPage ]);
+    if (+queryOptions.perPage !== perPage) {
+      queryOptions.perPage = perPage;
+      const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
+      props.history.push(`/products/filter?${newQuery}`);
+      const startPage = +queryOptions.perPage / 8;
+      queryOptions.startPage = startPage + 1;
+      queryOptions.perPage = 8;
+      const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
+      newDisplayedProducts = props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray])
+    }
+
+  }, [perPage]);
 
   const loadMoreAction = () => {
-    queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' } );
+    queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
     setPerPage(perPage + 8);
   };
 
+  const handleDelete = (event) => {
+    queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+    if(selectedFilterType === 'minPrice' || selectedFilterType === 'maxPrice'){
+      props.deleteSelectedFilters(event, 'minPrice', props.selectedFilters);
+      props.deleteSelectedFilters(event, 'maxPrice', props.selectedFilters);
+      delete queryOptions.minPrice;
+      delete queryOptions.maxPrice;
+    } else {
+      props.deleteSelectedFilters(event, selectedFilterType, props.selectedFilters);
+      delete queryOptions[selectedFilterType];
+    }
+    const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
+    props.history.push(`/products/filter?${newQuery}`);
+  };
+
   if (props.allProducts && !props.isProductsFetching) {
-    products = props.allProducts.map((el) => (
+    const selectedFiltersItems = Object.entries(props.selectedFilters);
+    selectedFilterChips = selectedFiltersItems.map((filter) => {
+      selectedFilterType = filter[0];
+      let options;
+      if (filter[1].isArray) {
+        options = filter[1].map((selectedFilter) => (`${selectedFilter}`));
+      } else {
+        options = filter[1];
+      }
+
+      return (
+        <Grid item key={filter[0]}>
+          <Chip
+            label={`${filter[0]}: ${options}`}
+            onDelete={handleDelete}
+            deleteIcon={<HighlightOffIcon />}
+            variant="outlined"
+          />
+        </Grid>
+      );
+    });
+
+    displayedProductsArray = [...props.allProducts];
+    products = displayedProductsArray.map((el) => (
       <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
         <ProductCard
           className={classes.card}
@@ -63,6 +114,7 @@ const Products = (props) => {
           url={el.url}
           rating={el.rating}
           itemNo={el.itemNo}
+          id={el.id}
         />
       </Grid>
     ));
@@ -107,6 +159,9 @@ const Products = (props) => {
                     Our full collection of electric devices
         </Typography>
         <Filters />
+        <Grid container spacing={1} className={classes.chipsContainer}>
+          {selectedFilterChips}
+        </Grid>
         <main className={classes.main}>
           <Grid container spacing={0}>
             {props.allProducts.length ? products : (
@@ -121,7 +176,16 @@ const Products = (props) => {
             )}
           </Grid>
           {props.allProducts.length >= perPage
-          && <Button onClick={() => { loadMoreAction(); }}>Load More ...</Button>}
+          && (
+          <Box className={classes.applyBtnContainer}>
+            <Button
+              className={classes.applyBtn}
+              onClick={() => { loadMoreAction(); }}
+            >
+              Load More ...
+            </Button>
+          </Box>
+          )}
         </main>
       </Container>
       <RecentlyViewed />
@@ -138,4 +202,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default withRouter(connect(mapStateToProps,
-  { getProducts, recentlySelectFilters })(Products));
+  { getProducts, recentlySelectFilters, getMoreProducts, deleteSelectedFilters })(Products));

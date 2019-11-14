@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 
 
 import Container from '@material-ui/core/Container';
-import { ProductCard } from '../ProductCard/ProductCard';
+import ProductCard from '../ProductCard/ProductCard';
 import { Title } from '../Title/Title';
 import { useStyles } from './Style';
 

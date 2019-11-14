@@ -63,7 +63,10 @@ export const useStyles = makeStyles({
 		},
 		'& .addToCardBtn': {
 			width: 250,
-			borderRadius: '4px'
+			borderRadius: '4px',
+		},
+		'& .Mui-disabled': {
+			background: '#b9b9b9',
 		},
 		'& .otherBtn': {
 			background: 'none',

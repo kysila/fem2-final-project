@@ -41,6 +41,9 @@ const GlobalCss = withStyles({
         fontSize: 14,
       },
     },
+    '.MuiChip-root':{
+      fontFamily: "'Museo Sans 500'",
+    },
     '.MuiTypography-body2': {
       fontFamily: "'Museo Sans 500'",
     },
