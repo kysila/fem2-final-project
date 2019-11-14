@@ -1,6 +1,5 @@
-import axios from 'axios';
 /* eslint-disable dot-notation */
-import React from 'react';
+import axios from 'axios';
 import Cookie from 'js-cookie';
 import CloseIcon from '@material-ui/icons/Close';
 import { ACTIONS } from './reducer';
