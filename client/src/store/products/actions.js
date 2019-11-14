@@ -22,6 +22,7 @@ export const getProducts = (endpoint) => (dispatch) => {
         price: el.currentPrice,
         url: `/products/${el.itemNo}`,
         rating: el.rating,
+        id: el._id,
       }));
       dispatch({
         type: GET_PRODUCTS_SUCCEEDED,
@@ -32,6 +33,35 @@ export const getProducts = (endpoint) => (dispatch) => {
       dispatch({
         type: GET_PRODUCTS_FAILED,
         payload: err,
+      });
+    });
+};
+
+export const getMoreProducts = (endpoint, existedProducts) => (dispatch) => {
+  dispatch({
+    type: GET_PRODUCTS_REQUESTED,
+  });
+  axios.get(endpoint)
+    .then((data) => {
+      const newProducts = data.data.products.map((el) => ({
+        itemNo: el.itemNo,
+        name: el.name,
+        itemImg: el.imageUrls[0],
+        price: el.currentPrice,
+        url: `/products/${el.itemNo}`,
+        rating: el.rating,
+        id: el._id,
+      }));
+      const allProducts = [...existedProducts, ...newProducts];
+      dispatch({
+        type: GET_PRODUCTS_SUCCEEDED,
+        allProducts,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: GET_PRODUCTS_FAILED,
+        payload: err.response.data,
       });
     });
 };

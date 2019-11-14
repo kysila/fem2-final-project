@@ -1,22 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import material
 import Paper from '@material-ui/core/Paper';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+// local import
+import { useStyles } from './style';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
-  paper: {
-    padding: theme.spacing(1, 2),
-  },
-  breadCrumbLink: {
-    cursor: 'pointer',
-  },
-}));
 
 export default function AllBreadcrumbs() {
   const classes = useStyles();

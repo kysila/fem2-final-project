@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
-import { HeartIcon, BagIcon, WeigherIcon } from "../../Icons/Icons";
+import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
+import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
+import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
 
 import axios from 'axios';
 
@@ -12,7 +14,6 @@ import Button from "@material-ui/core/Button";
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 
-import { handlerLocalStorage } from "../../AddToCartFunc/script";
 import { useStyles } from "./style";
 
 const mapStateToProps = (store) => ({
@@ -21,18 +22,21 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductDetailsCard = (props) => {
+
+	const [ state, setState ] = useState({
+		disabled: false,
+		text: 'ADD TO CART',
+	});
+
 	const obj = props.data.obj;
 	const colors = props.data.colors.data;
 
-	const productItem = {
-		cartQuantity: 1,
-		product: obj
-	};
-
-	const productsCart = {
-		products: [
-			productItem
-		],
+	const checkProduct = () => {
+		setState({
+			...state,
+			disabled: true,
+			text: 'UNAVALIABLE'
+		})
 	};
 
 	let links;
@@ -92,30 +96,33 @@ const ProductDetailsCard = (props) => {
 				aria-label="large contained primary button group"
 				className={classes.buttons}
 			>
-				<Button
-					className='addToCardBtn'
-					onClick={e => {
-						props.user ?
-							props.addProductToCart(`/cart/${obj._id}`) :
-							handlerLocalStorage('cart', productsCart, obj.itemNo, productItem, props.getCartFromLS);
+				<AddToCartButton
+					disabled={state.disabled}
+					text={state.text}
+					obj={obj}
+					user={props.user}
+					addToCartFunc={props.addProductToCart}
+					actions={props.getCartFromLS}
+					checkProduct={checkProduct}
+					style={{
+						width: '250px', borderRadius: '4px'
 					}}
-				>
-					<BagIcon
-						style={{
-							width: 21,
-							height: 20,
-							fill: '#fff',
-							marginRight: 8
-						}}/>
-					ADD TO CART
-				</Button>
-				<Button className='otherBtn'>
-					<HeartIcon
-						className='icon'
-						style={{
-							fill: '#AAA',
-						}}/>
-				</Button>
+					iconStyle={{
+						width: 21,
+						height: 20,
+						fill: '#fff',
+						marginRight: 8
+					}}
+				/>
+				<AddToWishListButton
+					obj={obj}
+					user={props.user}
+					allProps={props}
+					className={'otherBtn'}
+					iconStyle={{
+						fill: '#AAA',
+					}}
+				/>
 				<Button className='otherBtn'>
 					<WeigherIcon
 						className='icon'
