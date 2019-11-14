@@ -46,6 +46,9 @@ export const useStyles = makeStyles((theme) => createStyles({
     fontSize: '11px',
     color: ' #FFFFFF ',
   },
+  not_circle: {
+    display: 'none',
+  },
   cart_container: {
     paddingTop: '3%',
     paddingRight: '6%',
