@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,8 +17,15 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
 }));
-export default function ProductsBreadcrumbs({ link }) {
+export default function ProductsBreadcrumbs(props) {
   const classes = useStyles();
+  if (props.selectedFilters.length) {
+    props.recentlySelectFilters({ ...props.selectedFilters });
+    //
+    //     <Link to="/products/filter?perPage=8&startPage=1" className={classes.breadCrumbLink}>
+    // :
+    //   <Link to="/products/filter?perPage=8&startPage=1" className={classes.breadCrumbLink}>}}
+  }
 
   return (
     <div className={classes.root}>
@@ -27,10 +34,11 @@ export default function ProductsBreadcrumbs({ link }) {
           <Link to="/" className={classes.breadCrumbLink}>
           Homepage
           </Link>
-          <Link to="/products" className={classes.breadCrumbLink}>
+          <Link to="/products/filter?perPage=8&startPage=1" className={classes.breadCrumbLink}>
+
             All products
           </Link>
-          <Typography color="textPrimary">{link}</Typography>
+          <Typography color="textPrimary">{props.link}</Typography>
         </Breadcrumbs>
       </Paper>
 
