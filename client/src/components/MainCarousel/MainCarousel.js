@@ -31,7 +31,7 @@ export const MainCarousel = () => {
     arrows: true,
     dots: true,
     infinite: true,
-    speed: 1000,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -110,7 +110,6 @@ export const MainCarousel = () => {
 
             <Grid
               item
-              className={classes.mainImg}
               sm={12}
               xs={12}
             >

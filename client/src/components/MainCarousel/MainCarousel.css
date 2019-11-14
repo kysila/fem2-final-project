@@ -28,8 +28,8 @@
   width: 90%;
 }
 .main-Carousel .slick-slide img {
-  height: 400px;
   width: 400px;
+  height: 400px;
 }
 @media (max-width: 690px) {
   .main-Carousel .slick-slide img {
