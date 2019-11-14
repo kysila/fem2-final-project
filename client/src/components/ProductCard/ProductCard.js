@@ -60,7 +60,6 @@ const ProductCard = ({ name, itemImg, price, url, rating, key, itemNo, id, ...pr
     const product = JSON.parse(localStorage.getItem('product'));
     if (product) {
       const item = itemNo;
-      console.log(item);
       if (!filterCart(product, item)) {
         localStorage.setItem('product', JSON.stringify(product.concat([{
           name, itemImg, price, url, rating, key, itemNo,

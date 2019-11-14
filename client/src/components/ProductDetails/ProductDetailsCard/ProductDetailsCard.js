@@ -126,7 +126,15 @@ const ProductDetailsCard = (props) => {
 						}}/>
 					{state.text}
 				</Button>
-				<Button className='otherBtn'>
+				<Button
+					className='otherBtn'
+					onClick={e => {
+						if (props.user) {
+							// Место для логики добавления товара в Wish List
+							console.log(obj); // Объект товара
+							console.log(props); // Все входящие в компонент props
+						}
+					}}>
 					<HeartIcon
 						className='icon'
 						style={{

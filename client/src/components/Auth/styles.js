@@ -133,3 +133,36 @@ export const useStyles = makeStyles((theme) => ({
     color: 'white !important',
   },
 }));
+
+export const useMobileStyles = makeStyles((theme) => ({
+  container: {
+    [theme.breakpoints.down(769)]: {
+      width: '90%',
+    },
+  },
+  title: {
+    [theme.breakpoints.down(769)]: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+  },
+  separ: {
+    [theme.breakpoints.down(769)]: {
+      marginTop: '25px',
+    },
+  },
+  inactive: {
+    [theme.breakpoints.down(769)]: {
+      color: '#AAAAAA !important',
+      cursor: 'pointer',
+    },
+  },
+  socialIcon: {
+    [theme.breakpoints.down(769)]: {
+      backgroundColor: 'transparent',
+      width: '100%',
+    },
+  },
+}));

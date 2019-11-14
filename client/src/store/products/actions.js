@@ -15,8 +15,6 @@ export const getProducts = (endpoint) => (dispatch) => {
   });
   axios.get(endpoint)
     .then((data) => {
-      console.log('endpoint', endpoint);
-      console.log(data, data);
       const allProducts = data.data.products.map((el) => ({
         itemNo: el.itemNo,
         name: el.name,
@@ -26,17 +24,6 @@ export const getProducts = (endpoint) => (dispatch) => {
         rating: el.rating,
         id: el._id,
       }));
-      console.log('allProducts',allProducts);
-      // const loadMoreArrays = () => {
-      //   const size = 8;
-      //   const productLoadMoreArraysQuantity = Math.ceil(allProducts.length / size);
-      //   const loadMoreArray = [];
-      //   for (let i = 0; i < productLoadMoreArraysQuantity; i++) {
-      //     loadMoreArray[i] = allProducts.slice((i * size), (i * size) + size);
-      //   }
-      //   return loadMoreArray;
-      // };
-      // const allProductsArrays = loadMoreArrays();
       dispatch({
         type: GET_PRODUCTS_SUCCEEDED,
         allProducts,

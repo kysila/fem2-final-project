@@ -15,12 +15,7 @@ import selectFilterReducer from './selectedFilters/selectedFilterReducer';
 import productsReducer from './products/productsReducer';
 
 
-export const initialStore = {
-  auth: { user: null, token: Cookie.get('auth') },
-  notification: { notifications: [] },
-  modal: { opened: false, child: null },
-  ...window.initialStore,
-};
+export const initialStore = {};
 
 axios.defaults.headers.common.Authorization = Cookie.get('auth');
 

@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withSnackbar } from 'notistack';
-import { removeSnackbar } from '../../store/notification/actions';
+import CloseIcon from '@material-ui/core/SvgIcon/SvgIcon';
+import { closeSnackbar, removeSnackbar } from '../../store/notification/actions';
 
 function Notifier(props) {
   let displayed = [];
@@ -33,6 +34,9 @@ function Notifier(props) {
       props.enqueueSnackbar(message, {
         key,
         ...options,
+        action: (k) => (
+          <CloseIcon style={{ cursor: 'pointer' }} onClick={() => closeSnackbar(k)} />
+        ),
         onClose: (event, reason, k) => {
           if (options.onClose) {
             options.onClose(event, reason, k);
@@ -51,10 +55,13 @@ function Notifier(props) {
 }
 
 const mapStateToProps = (store) => ({
-  notifications: store.notification.notifications,
+  notifications: store.notification,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ removeSnackbar }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  closeSnackbar,
+  removeSnackbar,
+}, dispatch);
 
 const NotifierConnect = withSnackbar(connect(
   mapStateToProps,
