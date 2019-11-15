@@ -16,9 +16,9 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
-import Box from "@material-ui/core/Box";
+import Box from '@material-ui/core/Box';
 
-import { useStyles } from "./style";
+import { useStyles } from './style';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
