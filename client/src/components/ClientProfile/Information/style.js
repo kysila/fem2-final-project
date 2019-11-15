@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme) => ({
   heading: {
     fontWeight: '600',
     flexBasis: '66.66%',
-    flexShrink: 0,
+    // flexShrink: 0,
   },
   ordinaryText: {
     marginTop: '10px',

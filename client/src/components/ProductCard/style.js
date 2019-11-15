@@ -1,12 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
+	container: {
+		position: 'relative',
+	},
 	card: {
 		overflow: 'visible',
 		marginBottom: 50,
 		maxWidth: 251,
 		minHeight: 355,
-		position: 'relative',
 		boxSizing: 'border-box',
 		border: '1px solid #EAEAEA',
 		borderRadius: 0,
@@ -44,14 +46,15 @@ export const useStyles = makeStyles({
 		textTransform: 'capitalize',
 	},
 	buttonField: {
-		width: 'calc(100% + 2px)',
+		width: 'calc(100% + 1px)',
 		display: 'block',
 		position: 'absolute',
-		bottom: 0,
-		left: '-1px',
+		bottom: -49,
+		left: -1,
 		opacity: 0,
 		padding: 0,
 		height: 49,
+		transition: 'opacity 0.5s linear',
 	},
 	buttonStyle: {
 		margin: 0,

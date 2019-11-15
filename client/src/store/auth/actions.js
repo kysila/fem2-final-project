@@ -1,3 +1,5 @@
+/* eslint-disable dot-notation */
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import axios from 'axios';
 import Cookie from 'js-cookie';
@@ -9,7 +11,7 @@ import { modalOpen, modalClose } from '../modal/actions';
 
 export function logout() {
   return {
-    type: ACTIONS.GET_CUSTOMER_INFO,
+    type: ACTIONS.LOGOUT,
   };
 }
 
@@ -95,9 +97,6 @@ export function dispatchRegister(payload) {
           message: err.response.data.message,
           options: {
             variant: 'error',
-            action: (key) => (
-              <CloseIcon style={{ cursor: 'pointer' }} onClick={() => dispatch(closeSnackbar(key))} />
-            ),
           },
         }));
       });

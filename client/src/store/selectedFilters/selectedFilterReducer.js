@@ -1,6 +1,6 @@
-import React from 'react';
 import {
   SELECT_FILTERS,
+  DELETE_SELECTED_FILTER,
 } from './actions';
 
 const initialState = {
@@ -15,6 +15,11 @@ function selectFilterReducer(state = initialState, action) {
         selectedFilters: { ...action.selectedFilters },
 
       };
+    case DELETE_SELECTED_FILTER:
+      return {
+        ...state,
+        selectedFilters: { ...action.selectedFilters },
+      }
 
     default:
       return { ...state };

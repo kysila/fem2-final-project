@@ -24,7 +24,7 @@ import { dispatchRegister } from '../../store/auth/actions';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
 import { enqueueSnackbar } from '../../store/notification/actions';
 
-import { useStyles } from './styles';
+import { useStyles, useMobileStyles } from './styles';
 import Tungsten from '../../fonts/Tungsten-Book.woff';
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
 import FacebookSvg from '../../img/auth/facebook.svg';
@@ -47,41 +47,6 @@ const museo = {
     url(${MuseoSans}) format('woff')
   `,
 };
-
-
-const useMobileStyles = makeStyles((theme) => ({
-  container: {
-    [theme.breakpoints.down(769)]: {
-      width: '90%',
-    },
-  },
-  title: {
-    [theme.breakpoints.down(769)]: {
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-  },
-  separ: {
-    [theme.breakpoints.down(769)]: {
-      marginTop: '25px',
-    },
-  },
-  inactive: {
-    [theme.breakpoints.down(769)]: {
-      color: '#AAAAAA !important',
-      cursor: 'pointer',
-    },
-  },
-  socialIcon: {
-    [theme.breakpoints.down(769)]: {
-      backgroundColor: 'transparent',
-      width: '100%',
-    },
-  },
-}));
-
 
 function RegisterForm(props) {
   const classes = useStyles();
@@ -195,177 +160,191 @@ function RegisterForm(props) {
         alignItems="center"
       >
         <Grid
-          container
-          direction={matchMobile ? 'column' : 'row'}
-          justify="flex-start"
-          alignItems="center"
+          item
           lg={5}
           md={5}
           xs={12}
         >
-          <Box className={classesMobile.title}>
-            {
-              matchMobile ? (
-                <Typography
-                  onClick={() => props.loginModal()}
-                  className={classNames(classes.title, classesMobile.inactive)}
-                  style={tungsten}
-                  variant="h3"
-                  color="textPrimary"
-                  align="center"
-                >
-                  Log In
-                </Typography>
-              ) : null
-            }
-            <Typography
-              className={classNames(classes.title)}
-              style={tungsten}
-              variant="h3"
-              color="textPrimary"
-              align="center"
-            >
-              Create Account
+          <Grid
+            container
+            direction={matchMobile ? 'column' : 'row'}
+            justify="flex-start"
+            alignItems="center"
+          >
+            <Box className={classesMobile.title}>
+              {
+                matchMobile ? (
+                  <Typography
+                    onClick={() => props.loginModal()}
+                    className={classNames(classes.title, classesMobile.inactive)}
+                    style={tungsten}
+                    variant="h3"
+                    color="textPrimary"
+                    align="center"
+                  >
+                    Log In
+                  </Typography>
+                ) : null
+              }
+              <Typography
+                className={classNames(classes.title)}
+                style={tungsten}
+                variant="h3"
+                color="textPrimary"
+                align="center"
+              >
+                Create Account
+              </Typography>
+            </Box>
+            <InputField
+              id="email"
+              type="email"
+              label="Email"
+              value={state.email.value}
+              error={state.email.error}
+              onChange={onChange('email')}
+              labelWidth={40}
+            />
+            <InputField
+              id="login"
+              label="Login"
+              value={state.login.value}
+              error={state.login.error}
+              onChange={onChange('login')}
+              labelWidth={40}
+            />
+            <InputField
+              id="password"
+              type="password"
+              label="Password"
+              onChange={onChange('password')}
+              labelWidth={70}
+              value={state.password.value}
+              error={state.password.error}
+            />
+            <InputField
+              id="repeatPassword"
+              type="password"
+              label="Repeat password"
+              onChange={onChange('repeatPassword')}
+              labelWidth={125}
+              value={state.repeatPassword.value}
+              error={state.repeatPassword.error}
+              InputProps={{ endAdornment: null }}
+            />
+            <Button fullWidth className={classes.submitBtn} onClick={onSubmit}>
+              Sign up
+            </Button>
+            <Typography className={classes.agree}>
+              By continuing, you agree to
+              <Link className={classes.link} href="/conditions"> Electra&#39;s Conditions </Link>
+              of
+              <Link className={classes.link} href="/privacy"> Use and Privacy Notice.</Link>
             </Typography>
-          </Box>
-          <InputField
-            id="email"
-            type="email"
-            label="Email"
-            value={state.email.value}
-            error={state.email.error}
-            onChange={onChange('email')}
-            labelWidth={40}
-          />
-          <InputField
-            id="login"
-            label="Login"
-            value={state.login.value}
-            error={state.login.error}
-            onChange={onChange('login')}
-            labelWidth={40}
-          />
-          <InputField
-            id="password"
-            type="password"
-            label="Password"
-            onChange={onChange('password')}
-            labelWidth={70}
-            value={state.password.value}
-            error={state.password.error}
-          />
-          <InputField
-            id="repeatPassword"
-            type="password"
-            label="Repeat password"
-            onChange={onChange('repeatPassword')}
-            labelWidth={125}
-            value={state.repeatPassword.value}
-            error={state.repeatPassword.error}
-            InputProps={{ endAdornment: null }}
-          />
-          <Button fullWidth className={classes.submitBtn} onClick={onSubmit}>
-            Sign up
-          </Button>
-          <Typography className={classes.agree}>
-            By continuing, you agree to
-            <Link className={classes.link} href="/conditions"> Electra&#39;s Conditions </Link>
-            of
-            <Link className={classes.link} href="/privacy"> Use and Privacy Notice.</Link>
-          </Typography>
+          </Grid>
         </Grid>
         <Grid
           className={classesMobile.separ}
-          container
-          direction={matchMobile ? 'row' : 'column'}
-          justify="center"
-          alignItems="center"
+          item
           lg={2}
           md={2}
           xs={2}
         >
-          <Box className={classes.separ} style={matchMobile ? { left: 0, width: '40%', height: '1px' } : { top: 0 }} />
-          <Typography style={museo}>
-            OR
-          </Typography>
-          <Box className={classes.separ} style={matchMobile ? { right: 0, width: '40%', height: '1px' } : { bottom: 0 }} />
+          <Grid
+            container
+            direction={matchMobile ? 'row' : 'column'}
+            justify="center"
+            alignItems="center"
+          >
+            <Box className={classes.separ} style={matchMobile ? { left: 0, width: '40%', height: '1px' } : { top: 0 }} />
+            <Typography style={museo}>
+              OR
+            </Typography>
+            <Box className={classes.separ} style={matchMobile ? { right: 0, width: '40%', height: '1px' } : { bottom: 0 }} />
+          </Grid>
         </Grid>
         <Grid
-          container
-          direction={matchMobile ? 'row' : 'column'}
-          justify="center"
-          alignItems="center"
+          item
           lg={5}
           md={5}
           xs={12}
         >
-          <Typography className={classes.title} style={tungsten} variant="h3" color="textPrimary" align="center">
-            Enter With
-          </Typography>
           <Grid
             container
             direction={matchMobile ? 'row' : 'column'}
-            justify="space-around"
+            justify="center"
+            alignItems="center"
           >
+            <Typography className={classes.title} style={tungsten} variant="h3" color="textPrimary" align="center">
+              Enter With
+            </Typography>
             <Grid
-              lg={12}
-              md={12}
-              xs={5}
-              className={classNames(classes.socialButton, classes.socialFacebook)}
+              container
+              direction={matchMobile ? 'row' : 'column'}
+              justify="space-around"
             >
-              <img src={FacebookSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
-              {
-                !matchMobile ? (
-                  <Grid
-                    container
-                    justify="center"
-                    alignItems="center"
-                  >
-                    <Typography className={classes.socialText}>
-                      FACEBOOK
-                    </Typography>
-                  </Grid>
-                ) : null
-              }
+              <Grid
+                item
+                lg={12}
+                md={12}
+                xs={5}
+                className={classNames(classes.socialButton, classes.socialFacebook)}
+              >
+                <img src={FacebookSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
+                {
+                  !matchMobile ? (
+                    <Grid
+                      container
+                      justify="center"
+                      alignItems="center"
+                    >
+                      <Typography className={classes.socialText}>
+                        FACEBOOK
+                      </Typography>
+                    </Grid>
+                  ) : null
+                }
+              </Grid>
+              <Grid
+                item
+                lg={12}
+                md={12}
+                xs={5}
+                className={classNames(classes.socialButton, classes.socialGoogle)}
+              >
+                <img src={GoogleSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
+                {
+                  !matchMobile ? (
+                    <Grid
+                      container
+                      justify="center"
+                      alignItems="center"
+                    >
+                      <Typography className={classes.socialText}>
+                        GOOGLE
+                      </Typography>
+                    </Grid>
+                  ) : null
+                }
+              </Grid>
             </Grid>
-            <Grid
-              lg={12}
-              md={12}
-              xs={5}
-              className={classNames(classes.socialButton, classes.socialGoogle)}
-            >
-              <img src={GoogleSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
-              {
-                !matchMobile ? (
-                  <Grid
-                    container
-                    justify="center"
-                    alignItems="center"
+            {
+              !matchMobile ? (
+                <React.Fragment>
+                  <Typography className={classes.toLeft}>
+                    Already Have Account?
+                  </Typography>
+                  <Button
+                    fullWidth
+                    classes={{ root: classes.createButton, label: classes.createButtonLabel }}
+                    onClick={() => props.loginModal()}
                   >
-                    <Typography className={classes.socialText}>
-                      GOOGLE
-                    </Typography>
-                  </Grid>
-                ) : null
-              }
-            </Grid>
+                    Sign In
+                  </Button>
+                </React.Fragment>
+              ) : null
+            }
           </Grid>
-          {
-            !matchMobile ? (
-              <React.Fragment>
-                <Typography className={classes.toLeft}>
-                  Already Have Account?
-                </Typography>
-                <Button
-                  fullWidth
-                  classes={{ root: classes.createButton, label: classes.createButtonLabel }}
-                  onClick={() => props.loginModal()}
-                >
-                  Sign In
-                </Button>
-              </React.Fragment>
-            ) : null
-          }
         </Grid>
       </Grid>
       <Box className={classes.closeWrapper} onClick={props.closeModal}>
