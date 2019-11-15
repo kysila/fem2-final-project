@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   SELECT_FILTERS,
   DELETE_SELECTED_FILTER,

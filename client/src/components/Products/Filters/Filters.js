@@ -38,7 +38,7 @@ const Filters = (props) => {
     const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
     const { perPage, startPage } = queryOptions;
     const query = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
-    props.history.push(`/products/filter?perPage=${perPage}&startPage=${startPage}&${query}`);
+    props.history.push(`/products/filter?perPage=${+perPage}&startPage=${+startPage}&${query}`);
   };
 
   return (
