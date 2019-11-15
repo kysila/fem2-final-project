@@ -43,32 +43,12 @@ const Products = (props) => {
       delete recentlySelected.perPage;
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
-    } else {
-      const currentQuery = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-      const selectedFiltersQuery = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
-      const selectedFiltersFull = `/products/filter?perPage=${currentQuery.perPage}&startPage=${currentQuery.startPage}&${selectedFiltersQuery}`;
-      props.history.push(selectedFiltersFull);
-
     }
     // else {
-    //   const selectedFilterItems = Object.entries(props.selectedFilters);
-    //   const newQueryArr = selectedFilterItems.map((filter) => {
-    //     selectedFilterType = filter[0];
-    //     let options;
-    //     if (filter[1].isArray) {
-    //       options = filter[1].map((selectedFilter) => (`${selectedFilter}`));
-    //     } else {
-    //       options = filter[1];
-    //     }
-    //     return `${selectedFilterType}=${options}`;
-    //   });
-    //   const newQuery = newQueryArr.join('&');
-    //   const recentlySelectedFilters = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    //   recentlySelectedFilters.perPage = +perPage;
-    //   recentlySelectedFilters.startPage = 1;
-    //   const pages = queryString.stringify(recentlySelectedFilters, { arrayFormat: 'comma' });
-    //   console.log('pages', pages);
-    //   props.history.push(`/products/filter?${newQuery}`);
+    //   const currentQuery = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+    //   const selectedFiltersQuery = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
+    //   const selectedFiltersFull = `/products/filter?perPage=${currentQuery.perPage}&startPage=${currentQuery.startPage}&${selectedFiltersQuery}`;
+    //   props.history.push(selectedFiltersFull);
     // }
   }, [props.location.search]);
 

@@ -10,7 +10,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Preloader from '../Preloader/Preloader';
 import { useStyles } from './Style';
 import { getCategories } from '../../store/categories/actions';
-
+import { categorySelect } from '../../store/selectedFilters/actions';
 
 const CategoryImages = (props) => {
   const classes = useStyles();
@@ -20,14 +20,18 @@ const CategoryImages = (props) => {
 
   useEffect(() => {
     props.getCategories();
-  }, [])
+  }, []);
 
   if (props.categories && !props.isCatalogFetching) {
     categoryBlocks = props.categories.map((tile) => (
       <GridListTile key={tile.id} cols={+tile.cols || 1}>
         <Link
           to={`/products/filter?perPage=8&startPage=1&categories=${tile.id}`}
-          className={classes.hover}>
+          onClick={() => {
+            props.categorySelect(tile.id);
+          }}
+          className={classes.hover}
+        >
           <div className={classes.img} style={{ background: `rgb(0, 130, 67) url('${tile.imgUrl}')` }} />
           <GridListTileBar
             className={classes.titleBar}
@@ -60,4 +64,4 @@ const mapStateToProps = (state) => ({
   categories: state.categoryReducer.categories,
 });
 
-export default connect(mapStateToProps, { getCategories})(CategoryImages);
+export default connect(mapStateToProps, { getCategories, categorySelect })(CategoryImages);
