@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(1260)]: {
       margin: '31px 40px',
     },
-    [theme.breakpoints.down(768)]: {
+    [theme.breakpoints.down(769)]: {
       margin: '18px 20px',
     },
   },
@@ -26,9 +26,7 @@ export const useStyles = makeStyles((theme) => ({
   body: {
     marginTop: '60px',
   },
-  contact: {
-
-  },
+  contact: {},
   summary: {
     borderLeft: '0 solid #AAAAAA',
   },
@@ -176,5 +174,33 @@ export const useStyles = makeStyles((theme) => ({
     width: '15px',
     height: '15px',
     cursor: 'pointer',
+  },
+  cardContainer: {
+    position: 'relative',
+    transform: 'scale(.8)',
+    [theme.breakpoints.down(768)]: {
+      transform: 'scale(.5)',
+    },
+  },
+  cardFace: {
+    position: 'relative',
+    top: '-200px',
+    left: '-155px',
+    zIndex: '1',
+    width: '390px',
+    height: '250px',
+    borderRadius: '6px',
+    background: 'linear-gradient(45deg, #000000 30%, #555555, #333333)',
+    boxShadow: '5px 5px 5px black',
+  },
+  cardBack: {
+    position: 'relative',
+    top: '115px',
+    left: '50px',
+    width: '390px',
+    height: '250px',
+    borderRadius: '6px',
+    background: 'linear-gradient(235deg, #333333 30%, #555555, #000000)',
+    boxShadow: '5px 5px 5px black',
   },
 }));
