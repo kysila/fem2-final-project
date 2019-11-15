@@ -38,26 +38,51 @@ const Products = (props) => {
 
   useEffect(() => {
     props.getProducts(`/products/filter${props.location.search}`);
-    if (!props.selectedFilters.length) {
+    if (!Object.keys(props.selectedFilters).length) {
       const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
       delete recentlySelected.perPage;
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
+    } else {
+      const currentQuery = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+      const selectedFiltersQuery = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
+      const selectedFiltersFull = `/products/filter?perPage=${currentQuery.perPage}&startPage=${currentQuery.startPage}&${selectedFiltersQuery}`;
+      props.history.push(selectedFiltersFull);
+
     }
+    // else {
+    //   const selectedFilterItems = Object.entries(props.selectedFilters);
+    //   const newQueryArr = selectedFilterItems.map((filter) => {
+    //     selectedFilterType = filter[0];
+    //     let options;
+    //     if (filter[1].isArray) {
+    //       options = filter[1].map((selectedFilter) => (`${selectedFilter}`));
+    //     } else {
+    //       options = filter[1];
+    //     }
+    //     return `${selectedFilterType}=${options}`;
+    //   });
+    //   const newQuery = newQueryArr.join('&');
+    //   const recentlySelectedFilters = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+    //   recentlySelectedFilters.perPage = +perPage;
+    //   recentlySelectedFilters.startPage = 1;
+    //   const pages = queryString.stringify(recentlySelectedFilters, { arrayFormat: 'comma' });
+    //   console.log('pages', pages);
+    //   props.history.push(`/products/filter?${newQuery}`);
+    // }
   }, [props.location.search]);
 
   useEffect(() => {
-    if (+queryOptions.perPage !== perPage) {
-      queryOptions.perPage = perPage;
+    if (+queryOptions.perPage !== +perPage) {
+      queryOptions.perPage = +perPage;
       const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
       props.history.push(`/products/filter?${newQuery}`);
       const startPage = +queryOptions.perPage / 8;
       queryOptions.startPage = startPage + 1;
       queryOptions.perPage = 8;
       const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-      newDisplayedProducts = props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray])
+      newDisplayedProducts = props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
     }
-
   }, [perPage]);
 
   const loadMoreAction = () => {
@@ -67,7 +92,7 @@ const Products = (props) => {
 
   const handleDelete = (event) => {
     queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    if(selectedFilterType === 'minPrice' || selectedFilterType === 'maxPrice'){
+    if (selectedFilterType === 'minPrice' || selectedFilterType === 'maxPrice') {
       props.deleteSelectedFilters(event, 'minPrice', props.selectedFilters);
       props.deleteSelectedFilters(event, 'maxPrice', props.selectedFilters);
       delete queryOptions.minPrice;
@@ -195,11 +220,12 @@ const Products = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  ...state,
   isProductsFetching: state.productsReducer.isProductsFetching,
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
 export default withRouter(connect(mapStateToProps,
-  { getProducts, recentlySelectFilters, getMoreProducts, deleteSelectedFilters })(Products));
+  {
+    getProducts, recentlySelectFilters, getMoreProducts, deleteSelectedFilters,
+  })(Products));
