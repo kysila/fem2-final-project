@@ -21,6 +21,9 @@ export const useStyles = makeStyles((theme) => createStyles({
     [theme.breakpoints.down(710)]: {
       width: '80%',
     },
+    // [theme.breakpoints.down(480)]: {
+    //  maxWidth: '300px',
+    // },
   },
   basket: {
     position: 'relative',
@@ -155,5 +158,5 @@ export const useStyles = makeStyles((theme) => createStyles({
   },
   counter: {
     marginRight: '1%',
-  },
+  }
 }));

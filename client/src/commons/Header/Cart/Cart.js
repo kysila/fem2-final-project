@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
+
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -66,19 +67,23 @@ const Cart = (props) => {
   return (
     <React.Fragment>
       <CssBaseline />
+
       <Box
         className={classes.basket}
         onClick={() => setCartIsOpen(true)}
       >
         <Box>
           <img src="/img/basket.svg" alt="Logo" />
-          <div className={countOfProducts ? classes.circle : classes.not_circle}>
-            {' '}
-            {countOfProducts}
-            {' '}
-          </div>
+
+            <div className={countOfProducts ? classes.circle : classes.not_circle}>
+              {' '}
+              {countOfProducts}
+              {' '}
+            </div>
+
         </Box>
       </Box>
+
       <Drawer
         anchor="right"
         className={classes.drawer}

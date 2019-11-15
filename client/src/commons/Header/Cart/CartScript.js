@@ -15,6 +15,7 @@ const replaceCartFunction = (props) => {
       product: el.product._id,
     }
   ));
+  localStorage.removeItem('cart');
   props.replaceCart(newCart);
 };
 
