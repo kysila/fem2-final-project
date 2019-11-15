@@ -11,6 +11,7 @@ import CategoryImages from './CategoryImages';
 import { useStyles } from './Style';
 import { getCategories } from '../../store/categories/actions';
 
+
 const Categories = (props) => {
   const classes = useStyles();
 
