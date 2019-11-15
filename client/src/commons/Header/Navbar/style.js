@@ -21,8 +21,8 @@ export const useStyles = makeStyles((theme) => createStyles({
   drawer: {},
   paper: {
     paddingRight: '0.5%',
+    paddingLeft: '1%',
     paddingTop: '2%',
-    background: '#f4efff',
     fontSize: '20px',
     color: '#9c80ff',
   },
@@ -44,7 +44,7 @@ export const useStyles = makeStyles((theme) => createStyles({
   },
   logo: {
     paddingLeft: '8%',
-    marginBottom: '5%',
+    marginBottom: '7%',
   },
 
 }));
