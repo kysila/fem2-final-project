@@ -8,7 +8,7 @@ import { Header } from '../../commons';
 import { ProductGallery } from "./ProductGallery/ProductGallery";
 import { ProductDescription } from './ProductDescription/ProductDescription'
 import ProductDetailsCard from "./ProductDetailsCard/ProductDetailsCard";
-import ProductBreadcrumbs from '../Products/ProductBreadcrumbs';
+import ProductBreadcrumbs from '../Products/ProductBreadcrumbs/ProductBreadcrumbs';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 

@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 export const SubscribeLetter = (props) => {
   const redirectUrl = window.location.origin;
   const unsubscribeUrl = `${window.location.origin}/subscribers/email/${props.email}`;

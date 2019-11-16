@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -38,13 +38,9 @@ export const Unsubscribe = (props) => {
 
   const unsubscribeHandle = () => {
     const url = props.match.params.email;
-    console.log('props.match', props.match);
-    console.log('props.location', props.location);
-    console.log('props.mail', url);
     axios
       .put(`${url}`, updateSubscriber)
       .then((res) => {
-        console.log(res);
         showSwalUnsubscribed();
       })
       .catch((err) => {

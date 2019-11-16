@@ -18,17 +18,17 @@ const CategoryFilter = (props) => {
     props.selectFilters(event, event.target.value, 'categories', { ...props.selectedFilters });
   };
 
-  const handleChangeMultipleCategory = (event) => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setCategory(value);
-    props.selectFilters(event, event.target.value, 'categories', { ...props.selectedFilters });
-  };
+  // const handleChangeMultipleCategory = (event) => {
+  //   //   const { options } = event.target;
+  //   //   const value = [];
+  //   //   for (let i = 0, l = options.length; i < l; i += 1) {
+  //   //     if (options[i].selected) {
+  //   //       value.push(options[i].value);
+  //   //     }
+  //   //   }
+  //   //   setCategory(value);
+  //   //   props.selectFilters(event, event.target.value, 'categories', { ...props.selectedFilters });
+  //   // };
   return (
     <React.Fragment>
       <InputLabel id="category-select-label">Category</InputLabel>

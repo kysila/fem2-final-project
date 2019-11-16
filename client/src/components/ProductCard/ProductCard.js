@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import { Link } from 'react-router-dom';
 import { HeartIcon, BagIcon, WeigherIcon } from "../Icons/Icons";
 import { addProductToCart, getCartFromLS } from "../../store/cart/actions";
-import { handlerLocalStorage } from "../AddToCartFunc/script";
+import { handlerLocalStorage } from "../AddToCartButton/script";
 
 import axios from 'axios';
 
@@ -19,25 +19,26 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 
 import { useStyles } from './style';
+import { AddToWishListButton } from '../AddToWishListButton/AddToWishListButton';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
 });
 
-const ProductCard = ({ name, itemImg, price, url, rating, key, itemNo, id, ...props }) => {
+const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, ...props }) => {
 
   const [state, setState] = useState({
     openButtons: false,
   });
   const [ item, setItem ] = useState({
     cartQuantity: 1,
-    product: {}
+    product: {},
   });
 
   const initialProductsCart = {
     products: [
-      item
+      item,
     ],
   };
 
@@ -73,9 +74,13 @@ const ProductCard = ({ name, itemImg, price, url, rating, key, itemNo, id, ...pr
     }
   };
 
+  const addToCompare = () => {
+
+  }
+
   useEffect(() => {
     axios.get(url)
-      .then(data => {
+      .then((data) => {
         setItem({
           ...item,
           product: data.data,
@@ -148,17 +153,17 @@ const ProductCard = ({ name, itemImg, price, url, rating, key, itemNo, id, ...pr
           variant="contained"
           aria-label="full-width contained primary button group"
         >
-          <Button
+          <AddToWishListButton
+            obj={obj}
             className={classes.buttonStyle}
-          >
-            <HeartIcon
-              className="icon"
-              color="action"/>
-          </Button>
+            user={props.user}
+            allProps={props}
+          />
           <Button
             className={classes.buttonStyle}
           >
             <WeigherIcon
+              onClick={addToCompare}
               className="icon"
               style={{
                 width: 30,

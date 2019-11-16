@@ -9,9 +9,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { addProductToCart, getCartFromLS } from '../../store/cart/actions';
+import { addProductsToCompare } from '../../store/compare/compareReducer';
 import { useStyles } from './style';
 
-import { handlerLocalStorage } from '../AddToCartFunc/script';
 import { BagIcon } from '../Icons/Icons';
 
 
@@ -85,9 +85,10 @@ export const ProductForCompare = (props) => {
   );
 };
 
-// const mapStateToProps = (store) => ({
-//   user: store.auth.user,
-//   cart: store.cartReducer.cart,
-// });
-//
-// export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductForCompare);
+const mapStateToProps = (store) => ({
+  user: store.auth.user,
+  cart: store.cartReducer.cart,
+  // products: store.compare.producsToCompare,
+});
+
+export default connect(mapStateToProps, { addProductToCart, getCartFromLS, addProductsToCompare })(ProductForCompare);
