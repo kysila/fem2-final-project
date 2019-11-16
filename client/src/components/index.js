@@ -7,6 +7,6 @@ export { Title } from './Title/Title';
 export { Favourites } from './Favourites/Favourites';
 export { Notifier } from './Notifier/Notifier';
 export { Unsubscribe } from './Unsubscribe/Unsubscribe';
-export { Checkout } from './Checkout/Checkout';
+export { Checkout } from './Checkout';
 export { ClientProfile } from './ClientProfile/ClientProfile';
 export { Compare } from './Compare/Compare';

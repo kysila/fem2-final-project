@@ -35,7 +35,7 @@ const Header = (props) => {
 
           <Box className={classes.container}>
             <Box className={classes.menu_icon}>
-              <MenuAdaptiveIcon />
+              <MenuAdaptiveIcon callCenter={props.callCenter}/>
             </Box>
             <Box className={classes.logo}>
               {' '}

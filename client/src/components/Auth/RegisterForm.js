@@ -5,12 +5,8 @@ import validator from 'validator';
 import {
   Typography,
   Grid,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
   Button,
   Link,
-  makeStyles,
   Box,
   useMediaQuery, withTheme,
 } from '@material-ui/core';
