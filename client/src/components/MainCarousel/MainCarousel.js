@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 // Material UI import
 import {
   Button, Container, Grid, Typography,
@@ -34,7 +35,7 @@ export const MainCarousel = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     pauseOnHover: false,
     responsive: [
       {
@@ -49,15 +50,18 @@ export const MainCarousel = () => {
   const [loading, setLoading] = useState(true);
 
   let mainCarouselInfo;
+  useEffect(() => {
+    axios.get('/slides')
+      .then((slides) => {
+        setCarousel(slides.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-  axios.get('/slides')
-    .then((slides) => {
-      setCarousel(slides.data);
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }, []);
+
 
   if (carousel && !loading) {
     mainCarouselInfo = carousel.map((item) => (
@@ -100,12 +104,12 @@ export const MainCarousel = () => {
               >
                 {item.description}
               </Typography>
-
-              <Button
-                className={classes.showItemBtn}
+              <Link to={`/products/filter?perPage=8&startPage=1&categories=${item.category.id}`}
               >
-                <span>SHOP {item.htmlContent} &rarr;</span>
-              </Button>
+                <Button className={classes.showItemBtn}>
+                  <span>SHOP {item.htmlContent} &rarr;</span>
+                </Button>
+              </Link>
             </Grid>
 
             <Grid
@@ -119,8 +123,8 @@ export const MainCarousel = () => {
               />
             </Grid>
           </Grid>
-        </Container>
-      </div>
+        </Container >
+      </div >
     ));
   } else {
     return <Preloader />;

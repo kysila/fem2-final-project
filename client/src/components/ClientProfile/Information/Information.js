@@ -40,7 +40,7 @@ export const Information = (props) => {
     checkedSubscribe: true,
   };
 
-  const [expanded, setExpanded] = useState('panel1');
+  const [expanded, setExpanded] = useState('');
   const [passwordHidden, setPasswordVisible] = useState(true);
   const PasswordIcon = passwordHidden ? VisibilityIcon : VisibilityOffIcon;
   const [state, setState] = useState({

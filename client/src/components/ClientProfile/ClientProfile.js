@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
 // Material UI
 import {
   Container, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography,
@@ -11,18 +12,17 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Footer, Header } from '../../commons';
 import ProfileBreadcrumbs from './ProfileBreadcrumbs/ProfileBreadcrumbs';
 import { Information } from './Information/Information';
+import { Wishlist } from './Wishlist/Wishlist';
+import { OrderList } from './OrderList/OrderList';
+import { ViewedItems } from './ViewedItems/ViewedItems';
+import { Reviews } from './Reviews/Reviews';
+import { Bonuses } from './Bonuses/Bonuses';
+
 import { useStyles } from './style';
 import { dispatchGetCustomer } from '../../store/auth/actions';
 
 function ClientProfile(props) {
   const classes = useStyles();
-
-  const [expanded, setExpanded] = useState('panel1');
-
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
 
   if (!props.user) {
     return <Redirect push to="/" />;
@@ -54,135 +54,15 @@ function ClientProfile(props) {
         <section
           className={classes.contentSection}
         >
-
           <Information
             user={props.user}
             getCustomerInfo={props.getCustomerInfo}
           />
-          <ExpansionPanel
-            expanded={expanded === 'panel2'}
-            onChange={handleChange('panel2')}
-          >
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2bh-content"
-              id="panel2bh-header"
-            >
-              <Typography
-                className={classes.heading}
-                style={{ color: '#6A86E8' }}
-              >
-                My Order List
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Typography>
-                Donec placerat, lectus sed mattis semper,
-                neque lectus feugiat lectus, varius pulvinar
-                diam eros in elit. Pellentesque convallis laoreet laoreet.
-              </Typography>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-          <ExpansionPanel
-            expanded={expanded === 'panel3'}
-            onChange={handleChange('panel3')}
-          >
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel3bh-content"
-              id="panel3bh-header"
-            >
-              <Typography
-                className={classes.heading}
-                style={{ color: '#6A86E8' }}
-              >
-                My Favorite Items
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Typography>
-                Nunc vitae orci ultricies,
-                auctor nunc in, volutpat
-                nisl. Integer sit amet egestas eros,
-                vitae egestas augue. Duis vel est augue.
-              </Typography>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-          <ExpansionPanel
-            expanded={expanded === 'panel4'}
-            onChange={handleChange('panel4')}
-          >
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel4bh-content"
-              id="panel4bh-header"
-            >
-              <Typography
-                className={classes.heading}
-                style={{ color: '#6A86E8' }}
-              >
-                My Viewed Items
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Typography>
-                Nunc vitae orci ultricies,
-                auctor nunc in, volutpat nisl.
-                Integer sit amet egestas eros,
-                vitae egestas augue. Duis vel est augue.
-              </Typography>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-          <ExpansionPanel
-            expanded={expanded === 'panel5'}
-            onChange={handleChange('panel5')}
-          >
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel5bh-content"
-              id="panel5bh-header"
-            >
-              <Typography
-                className={classes.heading}
-                style={{ color: '#6A86E8' }}
-              >
-                My Reviews
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Typography>
-                Nunc vitae orci ultricies,
-                auctor nunc in, volutpat nisl.
-                Integer sit amet egestas eros,
-                vitae egestas augue. Duis vel est augue.
-              </Typography>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-          <ExpansionPanel
-            expanded={expanded === 'panel6'}
-            onChange={handleChange('panel6')}
-          >
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel6bh-content"
-              id="panel6bh-header"
-            >
-              <Typography
-                className={classes.heading}
-                style={{ color: '#6A86E8' }}
-              >
-                My Bonuses
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Typography>
-                Nunc vitae orci ultricies,
-                auctor nunc in, volutpat nisl.
-                Integer sit amet egestas eros,
-                vitae egestas augue. Duis vel est augue.
-              </Typography>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+          <OrderList />
+          <Wishlist />
+          <ViewedItems />
+          <Reviews />
+          <Bonuses />
         </section>
       </Container>
       <Footer />
