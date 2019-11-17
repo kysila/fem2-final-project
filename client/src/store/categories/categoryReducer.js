@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   GET_CATEGORIES_SUCCEEDED,
   GET_CATEGORIES_REQUESTED,

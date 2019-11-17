@@ -38,26 +38,31 @@ const Products = (props) => {
 
   useEffect(() => {
     props.getProducts(`/products/filter${props.location.search}`);
-    if (!props.selectedFilters.length) {
+    if (!Object.keys(props.selectedFilters).length) {
       const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
       delete recentlySelected.perPage;
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
     }
+    // else {
+    //   const currentQuery = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+    //   const selectedFiltersQuery = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
+    //   const selectedFiltersFull = `/products/filter?perPage=${currentQuery.perPage}&startPage=${currentQuery.startPage}&${selectedFiltersQuery}`;
+    //   props.history.push(selectedFiltersFull);
+    // }
   }, [props.location.search]);
 
   useEffect(() => {
-    if (+queryOptions.perPage !== perPage) {
-      queryOptions.perPage = perPage;
+    if (+queryOptions.perPage !== +perPage) {
+      queryOptions.perPage = +perPage;
       const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
       props.history.push(`/products/filter?${newQuery}`);
       const startPage = +queryOptions.perPage / 8;
       queryOptions.startPage = startPage + 1;
       queryOptions.perPage = 8;
       const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-      newDisplayedProducts = props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray])
+      newDisplayedProducts = props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
     }
-
   }, [perPage]);
 
   const loadMoreAction = () => {
@@ -67,7 +72,7 @@ const Products = (props) => {
 
   const handleDelete = (event) => {
     queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    if(selectedFilterType === 'minPrice' || selectedFilterType === 'maxPrice'){
+    if (selectedFilterType === 'minPrice' || selectedFilterType === 'maxPrice') {
       props.deleteSelectedFilters(event, 'minPrice', props.selectedFilters);
       props.deleteSelectedFilters(event, 'maxPrice', props.selectedFilters);
       delete queryOptions.minPrice;
@@ -108,6 +113,7 @@ const Products = (props) => {
       <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
         <ProductCard
           className={classes.card}
+          obj={el}
           name={el.name}
           itemImg={el.itemImg}
           price={el.price}
@@ -195,11 +201,12 @@ const Products = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  ...state,
   isProductsFetching: state.productsReducer.isProductsFetching,
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
 export default withRouter(connect(mapStateToProps,
-  { getProducts, recentlySelectFilters, getMoreProducts, deleteSelectedFilters })(Products));
+  {
+    getProducts, recentlySelectFilters, getMoreProducts, deleteSelectedFilters,
+  })(Products));

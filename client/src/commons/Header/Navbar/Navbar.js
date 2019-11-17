@@ -13,6 +13,7 @@ import TollIcon from '@material-ui/icons/Toll';
 import { connect } from 'react-redux';
 import { useStyles } from './style';
 import { getCategories } from '../../../store/categories/actions';
+import { Logo } from '../../Logo/Logo';
 
 const mapStateToProps = (state) => ({
   categories: state.categoryReducer.categories,
@@ -63,7 +64,7 @@ const NavBar = (props) => {
         }}
       >
         <div className={classes.logo}>
-          <img src="img/logo.svg" alt="Logo" />
+         <Logo />
         </div>
         <List>
           {categories}

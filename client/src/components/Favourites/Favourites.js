@@ -29,6 +29,7 @@ export const Favourites = (props) => {
         name={el.name}
         itemImg={el.imageUrls[0]}
         price={el.currentPrice}
+        obj={el}
         url={`products/${el.itemNo}`}
         rating={el.rating}
         itemNo={el.itemNo}
