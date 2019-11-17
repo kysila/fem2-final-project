@@ -24,7 +24,7 @@ export {
 };
 ```
 
-- After this moves you will have in component props `this.props.openLoginModal`.
+- After this moves you will have in component props `this.props.openYourComponentModal`.
 - Now you can use it in your component:
 ```js
 class YourComponent extends Component {
