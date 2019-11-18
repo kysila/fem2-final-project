@@ -44,13 +44,13 @@ const Products = (props) => {
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
     }
-    // else {
-    //   const currentQuery = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    //   const selectedFiltersQuery = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
-    //   const selectedFiltersFull = `/products/filter?perPage=${currentQuery.perPage}&startPage=${currentQuery.startPage}&${selectedFiltersQuery}`;
-    //   props.history.push(selectedFiltersFull);
-    // }
   }, [props.location.search]);
+
+  useEffect(() => {
+    return () => {
+      props.recentlySelectFilters({});
+    };
+  }, [])
 
   useEffect(() => {
     if (+queryOptions.perPage !== +perPage) {
