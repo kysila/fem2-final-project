@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React from 'react';
 
 // ACTIONS WITH OTHER FILTERS
 export const GET_PRODUCTS_REQUESTED = 'GET_PRODUCTS_REQUESTED';
@@ -9,7 +8,6 @@ export const GET_PRODUCTS_FAILED = 'GET_PRODUCTS_FAILED';
 
 // action:
 export const getProducts = (endpoint) => (dispatch) => {
-
   dispatch({
     type: GET_PRODUCTS_REQUESTED,
   });

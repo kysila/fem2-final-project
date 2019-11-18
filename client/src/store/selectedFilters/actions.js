@@ -10,14 +10,6 @@ export const selectFilters = (event, value, type, selectedFilters) => (dispatch)
     },
   });
 };
-export const categorySelect = (value) => (dispatch) => {
-  dispatch({
-    type: SELECT_FILTERS,
-    selectedFilters: {
-      categories: value,
-    },
-  });
-};
 export const priceSelectFilters = (event, minPrice, maxPrice, selectedFilters) => (dispatch) => {
   dispatch({
     type: SELECT_FILTERS,

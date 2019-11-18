@@ -19,7 +19,7 @@ function selectFilterReducer(state = initialState, action) {
       return {
         ...state,
         selectedFilters: { ...action.selectedFilters },
-      }
+      };
 
     default:
       return { ...state };

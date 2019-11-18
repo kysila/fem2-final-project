@@ -6,7 +6,6 @@ export const GET_FILTERS_SUCCEEDED = 'GET_FILTERS_SUCCEEDED';
 export const GET_FILTERS_FAILED = 'GET_FILTERS_FAILED';
 
 
-
 // action:
 export const getFilters = () => (dispatch) => {
   dispatch({
