@@ -14,7 +14,7 @@ const compareReducer = (state = initialState, action) => {
     case ADD_PRODUCTS_TO_COMPARE:
       return {
         ...state,
-        products: action.payload,
+        products: state.products.concat(action.products),
       };
     case DELETE_PRODUCTS_FROM_COMPARE:
       return {

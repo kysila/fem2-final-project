@@ -21,6 +21,7 @@ import { HeartIcon, BagIcon, WeigherIcon } from '../Icons/Icons';
 
 import { useStyles } from './style';
 import { AddToWishListButton } from '../AddToWishListButton/AddToWishListButton';
+import {dispatchModalClose} from "../../store/modal/actions";
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -78,10 +79,7 @@ const ProductCard = ({
   };
 
   const addToCompare = () => {
-    addProductsToCompare({
-      name, itemImg, price, url, rating, key, itemNo,
-    });
-    console.log({
+    props.addProductsToCompare({
       name, itemImg, price, url, rating, key, itemNo,
     });
   };

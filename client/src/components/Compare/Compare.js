@@ -19,11 +19,11 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-  createData('Price', 159, 6.0, 24, 4.0),
-  createData('Maximum speed', 237, 9.0, 37, 4.3),
-  createData('Distance', 262, 16.0, 24, 6.0),
-  createData('Charging time', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  createData('Price'),
+  createData('Maximum speed'),
+  createData('Distance'),
+  createData('Charging time'),
+  createData('Gingerbread'),
 ];
 
 export const Compare = () => {
@@ -37,10 +37,16 @@ export const Compare = () => {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell />
+              <TableCell>
+                <ProductForCompare />
+              </TableCell>
+              <TableCell>
+                <ProductForCompare />
+              </TableCell>
+              <TableCell>
+                <ProductForCompare />
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

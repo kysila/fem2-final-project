@@ -74,8 +74,9 @@ export const ShowOrderSummary = withTheme((props) => {
             <Typography>
               $
               {
-                props.products
-                  .reduce((total, { price }) => (Number(total) + Number(price)).toFixed(2), 0)
+                props.calculatedPrice.discountApplied && props.calculatedPrice.percent > 0
+                  ? props.calculatedPrice.discountedPrice
+                  : props.calculatedPrice.fullPrice
               }
             </Typography>
           ) : null
@@ -138,6 +139,7 @@ export const ShowOrderSummary = withTheme((props) => {
                           style={museo}
                           className={classes.discountButton}
                           variant="text"
+                          onClick={props.applyDiscountHandler}
                         >
                           Apply
                         </Button>
@@ -210,9 +212,9 @@ export const ShowOrderSummary = withTheme((props) => {
                     <Typography className={classes.total} style={museo}>
                       $
                       {
-                        props.products
-                          .reduce((total, { price }) => (Number(total) + Number(price))
-                            .toFixed(2), 0)
+                        props.calculatedPrice.discountApplied && props.calculatedPrice.percent > 0
+                          ? props.calculatedPrice.discountedPrice
+                          : props.calculatedPrice.fullPrice
                       }
                     </Typography>
                   </Grid>

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button, Grid, Typography, Divider, Radio, FormControlLabel, useMediaQuery, withTheme,
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Redirect, Link } from 'react-router-dom';
 import { useStyles } from './styles';
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
+import { MapContainer } from './MapContainer';
+import { ArrowTooltip } from '../../commons/Tooltip/Tooltip';
 
 const museo = {
   fontFamily: 'Museo Sans 500',
@@ -18,14 +20,42 @@ const museo = {
   `,
 };
 
-export const Shipping = connect(null, {
+export const Shipping = withRouter(connect(({ auth: { user } }) => ({ user }), {
   openMap: (inject) => dispatchModalOpen('map', inject),
   closeModal: () => dispatchModalClose(),
 })(withTheme((props) => {
-  const classes = useStyles(props);
+  const classes = useStyles();
   const mobile = useMediaQuery(props.theme.breakpoints.down(768));
 
   const [shippingMethod, setShippingMethod] = useState('free');
+  const [info, setInfo] = useState(JSON.parse(localStorage.getItem('/checkout/shipping'))
+    || JSON.parse(localStorage.getItem('/checkout/info'))
+    || {
+      email: { value: '' },
+      address: { value: '', error: null },
+    });
+
+  const validate = () => {
+    if (!info.address.value) {
+      setInfo({ ...info, address: { ...info.address, error: 'Please fill ship address.' } });
+      return false;
+    }
+
+    return true;
+  };
+
+  useEffect(() => {
+    if (props.user) {
+      setInfo({ ...info, email: { value: props.user.email } });
+    }
+  }, [info.email.value, props.user]);
+
+  const onSubmit = () => {
+    if (validate()) {
+      localStorage.setItem('/checkout/shipping', JSON.stringify(info));
+      props.history.push('/checkout/payment');
+    }
+  };
 
   return (
     <Grid
@@ -65,7 +95,7 @@ export const Shipping = connect(null, {
             xs={8}
           >
             <Typography style={{ fontSize: '14px' }}>
-              john.doe@gmail.com
+              {info.email.value}
             </Typography>
           </Grid>
           <Grid
@@ -74,9 +104,13 @@ export const Shipping = connect(null, {
             md={2}
             xs={2}
           >
-            <Link to="/checkout/info" style={{ fontSize: '14px', color: '#6A86E8', ...museo }}>
-              Change
-            </Link>
+            {
+              !props.user ? (
+                <Link to="/checkout/info" style={{ fontSize: '14px', color: '#6A86E8', ...museo }}>
+                  Change
+                </Link>
+              ) : null
+            }
           </Grid>
         </Grid>
         <Grid
@@ -116,19 +150,31 @@ export const Shipping = connect(null, {
               ...museo,
             }}
             >
-              165 Courtland St NE, Atlanta, GA 30303, United States
+              {info.address.value}
             </Typography>
           </Grid>
-          <Grid
-            item
-            lg={2}
-            md={2}
-            xs={2}
-          >
-            <Link to="/checkout/info" style={{ fontSize: '14px', color: '#6A86E8', ...museo }}>
-              Change
-            </Link>
-          </Grid>
+          <ArrowTooltip title={info.address.error}>
+            <Grid
+              item
+              lg={2}
+              md={2}
+              xs={2}
+            >
+              <Typography
+                onClick={() => props.openMap({
+                  onChange: ({ target: { value } }) => setInfo({ ...info, address: { value } }),
+                  className: classes.map,
+                  mapElementClass: classes.mapElement,
+                  address: info.address.value.trim(),
+                  marker: null,
+                  Container: (pps) => <MapContainer {...pps} onClick={props.closeModal} />,
+                })}
+                style={{ fontSize: '14px', color: '#6A86E8', ...museo }}
+              >
+                Change
+              </Typography>
+            </Grid>
+          </ArrowTooltip>
         </Grid>
         <Divider style={{ width: '100%', margin: '20px 0' }} />
         <Grid
@@ -165,7 +211,7 @@ export const Shipping = connect(null, {
                   Free Shipping
                 </Typography>
                 <Typography style={{ fontSize: '14px', color: '#888888', ...museo }}>
-                  You gonna be an ass choosing this method.
+                  Slow shipping to your destination address.
                 </Typography>
               </Grid>
             )}
@@ -188,7 +234,7 @@ export const Shipping = connect(null, {
                   Super high-cost shipping
                 </Typography>
                 <Typography style={{ fontSize: '14px', color: '#888888', ...museo }}>
-                  You gonna be an arse choosing this method.
+                  Really fast shipping to your destination address.
                 </Typography>
               </Grid>
             )}
@@ -210,12 +256,16 @@ export const Shipping = connect(null, {
             md={mobile ? 12 : 6}
             xs={mobile ? 12 : 6}
           >
-            <Link to="/checkout/info">
-              <Typography component="span" className={classes.editCart} style={museo}>
-                <ArrowBackIosIcon style={{ fontSize: '14px', lineHeight: '30px' }} />
-                Edit Information
-              </Typography>
-            </Link>
+            {
+              !props.user ? (
+                <Link to="/checkout/info">
+                  <Typography component="span" className={classes.editCart} style={museo}>
+                    <ArrowBackIosIcon style={{ fontSize: '14px', lineHeight: '30px' }} />
+                    Edit Information
+                  </Typography>
+                </Link>
+              ) : null
+            }
           </Grid>
           <Grid
             item
@@ -229,19 +279,18 @@ export const Shipping = connect(null, {
               alignItems={mobile ? null : 'center'}
               justify={mobile ? 'center' : 'flex-end'}
             >
-              <Link to="/checkout/payment">
-                <Button
-                  style={{
-                    padding: '13px 42px', fontSize: '14px', marginTop: '20px', fontWeight: 'bold', ...museo,
-                  }}
-                >
-                  Continue to Payment
-                </Button>
-              </Link>
+              <Button
+                onClick={onSubmit}
+                style={{
+                  padding: '13px 42px', fontSize: '14px', marginTop: '20px', fontWeight: 'bold', ...museo,
+                }}
+              >
+                Continue to Payment
+              </Button>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
     </Grid>
   );
-}));
+})));

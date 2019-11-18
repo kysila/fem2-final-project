@@ -14,11 +14,14 @@ import { useStyles } from './style';
 
 import { BagIcon } from '../Icons/Icons';
 
+const mapStateToProps = (store) => ({
+  products: store.compareReducer.products,
+});
 
-export const ProductForCompare = (props) => {
+const ProductForCompare = (props) => {
   const classes = useStyles();
-  const obj = props.data;
-  console.log('props', props);
+  const obj = props.products;
+  console.log('props', obj);
 
   return (
     <Link to={props.url} className={classes.link}>
@@ -68,9 +71,5 @@ export const ProductForCompare = (props) => {
     </Link>
   );
 };
-
-const mapStateToProps = (store) => ({
-  products: store.compareReducer.products,
-});
 
 export default connect(mapStateToProps, { compareReducer })(ProductForCompare);
