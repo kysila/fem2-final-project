@@ -8,7 +8,7 @@ import {
   ClientProfile, MainPage, ProductDetails, NotFound, Modal, Notifier, Checkout, TermsConditions, PrivacyPolicy, Order, Compare,
 } from './components';
 import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
-import { Search } from './components/Search/Search';
+import Search from './components/Search/Search';
 import './App.css';
 import Products from './components/Products/Products/Products';
 

@@ -5,12 +5,11 @@ import {
   GET_PRODUCTS_FROM_LS,
   DECREASE_QUANTITY_OF_PRODUCTS,
   DELETE_PRODUCT_OF_CART,
-  REPLACE_CART,
+  // REPLACE_CART,
 }
   from './actions';
 
 const initialState = {
-  subTotal: 0,
   countOfProducts: 0,
   cart: {
     products: [],
