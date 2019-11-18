@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   GET_PRODUCTS_REQUESTED,
   GET_PRODUCTS_SUCCEEDED,

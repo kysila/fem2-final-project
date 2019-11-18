@@ -21,6 +21,9 @@ export const useStyles = makeStyles((theme) => createStyles({
     [theme.breakpoints.down(710)]: {
       width: '80%',
     },
+    // [theme.breakpoints.down(480)]: {
+    //  maxWidth: '300px',
+    // },
   },
   basket: {
     position: 'relative',
@@ -45,6 +48,9 @@ export const useStyles = makeStyles((theme) => createStyles({
     right: '0px',
     fontSize: '11px',
     color: ' #FFFFFF ',
+  },
+  not_circle: {
+    display: 'none',
   },
   cart_container: {
     paddingTop: '3%',
@@ -152,5 +158,5 @@ export const useStyles = makeStyles((theme) => createStyles({
   },
   counter: {
     marginRight: '1%',
-  },
+  }
 }));

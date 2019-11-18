@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   GET_FILTERS_REQUESTED,
   GET_FILTERS_SUCCEEDED,

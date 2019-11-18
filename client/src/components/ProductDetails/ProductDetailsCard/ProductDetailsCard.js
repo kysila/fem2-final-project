@@ -17,124 +17,124 @@ import Box from "@material-ui/core/Box";
 import { useStyles } from "./style";
 
 const mapStateToProps = (store) => ({
-	user: store.auth.user,
-	cart: store.cartReducer.cart,
+  user: store.auth.user,
+  cart: store.cartReducer.cart,
 });
 
 const ProductDetailsCard = (props) => {
+  const [state, setState] = useState({
+    disabled: false,
+    text: 'ADD TO CART',
+  });
 
-	const [ state, setState ] = useState({
-		disabled: false,
-		text: 'ADD TO CART',
-	});
+  const obj = props.data.obj;
+  const colors = props.data.colors.data;
 
-	const obj = props.data.obj;
-	const colors = props.data.colors.data;
+  const checkProduct = () => {
+    setState({
+      ...state,
+      disabled: true,
+      text: 'UNAVALIABLE',
+    });
+  };
 
-	const checkProduct = () => {
-		setState({
-			...state,
-			disabled: true,
-			text: 'UNAVALIABLE'
-		})
-	};
+  let links;
+  if (colors) {
+    links = colors.map((el, i) => {
+      return (
+        <Link
+          style={obj.itemNo === el.itemNo
+            ? {color: '#444',
+              backgroundColor: '#FFF',
+              border: '1px solid #444',
+            }
+            : null}
+          key={i}
+          to={`/products/${el.itemNo}`}
+        >
+          {el.color}
+        </Link>
+      );
+    });
+  }
 
-	let links;
-	if (colors) {
-		links = colors.map((el, i) => {
-			return (
-				<Link
-					style={ obj.itemNo === el.itemNo
-						? { color: '#444',
-							backgroundColor: '#FFF',
-							border: '1px solid #444',
-						}
-						: null }
-					key={i}
-					to={`/products/${el.itemNo}`}>
-					{el.color}
-				</Link>
-			)
-		})
-	}
+  const classes = useStyles();
 
-	const classes = useStyles();
-
-	return (
-		<div className={classes.container}>
-			<Typography
-				className={classes.categories}
-				variant='body1'>
-				{obj.categories}
-			</Typography>
-			<Typography
-				className={classes.name}
-				variant='h2'>
-				{obj.name}
-			</Typography>
-			<Rating
-				name="half-rating"
-				size="large"
-				precision={0.5}
-				value={obj.rating}
-				readOnly />
-				<Box className={classes.otherColors}>
-					{links}
-				</Box>
-				<Box className={classes.price}>
-					<Typography>
-						{`$${obj.currentPrice}`}
-					</Typography>
-					<Typography className='oldPrice'>
-						$4000
-				</Typography>
-				</Box>
-			<ButtonGroup
-				variant="contained"
-				color="primary"
-				size="large"
-				aria-label="large contained primary button group"
-				className={classes.buttons}
-			>
-				<AddToCartButton
-					disabled={state.disabled}
-					text={state.text}
-					obj={obj}
-					user={props.user}
-					addToCartFunc={props.addProductToCart}
-					actions={props.getCartFromLS}
-					checkProduct={checkProduct}
-					style={{
-						width: '250px', borderRadius: '4px'
-					}}
-					iconStyle={{
-						width: 21,
-						height: 20,
-						fill: '#fff',
-						marginRight: 8
-					}}
-				/>
-				<AddToWishListButton
-					obj={obj}
-					user={props.user}
-					allProps={props}
-					className={'otherBtn'}
-					iconStyle={{
-						fill: '#AAA',
-					}}
-				/>
-				<Button className='otherBtn'>
-					<WeigherIcon
-						className='icon'
-						style={{
-							width: 30,
-							height: 23,
-							fill: '#AAA'
-						}}/>
-				</Button>
-			</ButtonGroup>
-		</div>
-	)
+  return (
+    <div className={classes.container}>
+      <Typography
+        className={classes.categories}
+        variant='body1'>
+        {obj.categories}
+      </Typography>
+      <Typography
+        className={classes.name}
+        variant='h2'>
+        {obj.name}
+      </Typography>
+      <Rating
+        name="half-rating"
+        size="large"
+        precision={0.5}
+        value={obj.rating}
+        readOnly />
+      <Box className={classes.otherColors}>
+        {links}
+      </Box>
+      <Box className={classes.price}>
+        <Typography>
+          {`$${obj.currentPrice}`}
+        </Typography>
+        <Typography className='oldPrice'>
+          $4000
+        </Typography>
+      </Box>
+      <ButtonGroup
+        variant="contained"
+        color="primary"
+        size="large"
+        aria-label="large contained primary button group"
+        className={classes.buttons}
+      >
+        <AddToCartButton
+          disabled={state.disabled}
+          text={state.text}
+          obj={obj}
+          user={props.user}
+          addToCartFunc={props.addProductToCart}
+          actions={props.getCartFromLS}
+          checkProduct={checkProduct}
+          style={{
+            width: '250px', borderRadius: '4px'
+          }}
+          iconStyle={{
+            width: 21,
+            height: 20,
+            fill: '#fff',
+            marginRight: 8
+          }}
+        />
+        <AddToWishListButton
+          obj={obj}
+          user={props.user}
+          allProps={props}
+          className={'otherBtn'}
+          iconStyle={{
+            fill: '#AAA',
+          }}
+        />
+        <Button className='otherBtn'>
+          <WeigherIcon
+            className='icon'
+            style={{
+              width: 30,
+              height: 23,
+              fill: '#AAA'
+            }}/>
+        </Button>
+      </ButtonGroup>
+    </div>
+  )
 };
 
 export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCard);

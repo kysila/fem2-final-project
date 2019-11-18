@@ -6,7 +6,9 @@ export const GET_PRODUCTS_FROM_DB = 'GET_PRODUCTS_FROM_DB ';
 export const GET_PRODUCTS_FROM_LS = 'GET_PRODUCTS_FROM_LS ';
 export const DECREASE_QUANTITY_OF_PRODUCTS = 'DECREASE_QUANTITY_OF_PRODUCTS';
 export const DELETE_PRODUCT_OF_CART = 'DELETE_PRODUCT_OF_CART';
-export const SET_COUNTOFPRODUCTS = 'SET_COUNTOFPRODUCTS';
+export const SET_COUNT_OF_PRODUCTS = 'SET_COUNT_OF_PRODUCTS';
+export const REPLACE_CART = 'REPLACE_CART';
+
 
 // ACTIONS
 export const getCartFromLS = (payload) => ({
@@ -18,7 +20,6 @@ export const getCartFromDB = () => (dispatch) => {
   axios
     .get('/cart')
     .then((cart) => {
-      // console.log('0-----------------', cart.data);
       if (cart.data) {
         dispatch({
           type: GET_PRODUCTS_FROM_DB,
@@ -61,5 +62,19 @@ export const deleteProductOfCart = (url) => (dispatch) => {
         type: DELETE_PRODUCT_OF_CART,
         payload: cart.data.products,
       });
+    });
+};
+
+
+export const replaceCart = (newCart) => (dispatch) => {
+  axios
+    .post('/cart', newCart)
+    .then((cart) => {
+      dispatch({
+        type: GET_PRODUCTS_FROM_DB,
+        payload: cart.data,
+      });
+    }).catch((err) => {
+      console.log('Axios request was failed', err.response.data.message);
     });
 };
