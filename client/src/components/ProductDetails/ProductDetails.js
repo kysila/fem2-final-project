@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
 
-import { Header } from '../../commons';
+import { Header, Footer } from '../../commons';
 import { ProductGallery } from './ProductGallery/ProductGallery';
 import { ProductDescription } from './ProductDescription/ProductDescription';
 import ProductDetailsCard from './ProductDetailsCard/ProductDetailsCard';
@@ -67,6 +67,7 @@ const ProductDetails = (props) => {
       </Container>
       <RecentlyViewed />
       <StayInTouch />
+      <Footer />
     </div>
   );
 };

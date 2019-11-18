@@ -5,12 +5,12 @@ import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
 import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
 import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
 import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
+import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
 
 import axios from 'axios';
 
 import { Typography } from '@material-ui/core';
 import { ButtonGroup } from '@material-ui/core';
-import Button from "@material-ui/core/Button";
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 
@@ -123,15 +123,17 @@ const ProductDetailsCard = (props) => {
             fill: '#AAA',
           }}
         />
-        <Button className='otherBtn'>
-          <WeigherIcon
-            className='icon'
-            style={{
-              width: 30,
-              height: 23,
-              fill: '#AAA'
-            }}/>
-        </Button>
+        <AddToFavouritesButton
+          obj={obj}
+          user={props.user}
+          allProps={props}
+          className={'otherBtn'}
+          iconStyle={{
+            fill: '#AAA',
+            width: '30px',
+            height: '23px',
+          }}
+        />
       </ButtonGroup>
     </div>
   )

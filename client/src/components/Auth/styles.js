@@ -44,19 +44,12 @@ export const useStyles = makeStyles((theme) => ({
   },
   link: {
     color: '#6A86E8 !important',
+    cursor: 'pointer',
   },
   agree: {
     marginTop: '12px',
     fontSize: '14px',
     letterSpacing: '-0.02em',
-  },
-  forgotPassword: {
-    marginTop: '16px',
-    color: '#6A86E8 !important',
-    fontSize: '14px',
-    letterSpacing: '-0.02em',
-    fontWeight: 'bold',
-    alignSelf: 'flex-start',
   },
   socialButton: {
     display: 'flex',

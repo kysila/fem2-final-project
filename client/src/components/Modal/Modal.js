@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
+import Fade from '@material-ui/core/Fade';
+import Box from '@material-ui/core/Box';
+import Backdrop from '@material-ui/core/Backdrop';
 
 import { dispatchModalClose } from '../../store/modal/actions';
 
@@ -29,20 +32,26 @@ function ModalWindow(props) {
         return <LoginForm {...props.inject} />;
     }
   };
+
   return (
     <Modal
+      closeAfterTransition
       open={props.opened}
+      BackdropComponent={Backdrop}
       BackdropProps={{
         style: {
           background: 'linear-gradient(180deg, #6686FF 0%, #8F8DE2 100%)',
           opacity: '0.5',
         },
+        timeout: 700,
       }}
       onClose={onClose}
     >
-      <React.Fragment>
-        {getChild()}
-      </React.Fragment>
+      <Fade in={props.opened} timeout={{ enter: 700, exit: 700 }}>
+        <Box>
+          {getChild()}
+        </Box>
+      </Fade>
     </Modal>
   );
 }
