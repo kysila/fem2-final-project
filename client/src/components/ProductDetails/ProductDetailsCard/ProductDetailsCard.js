@@ -5,12 +5,12 @@ import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
 import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
 import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
 import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
+import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
 
 import axios from 'axios';
 
 import { Typography } from '@material-ui/core';
 import { ButtonGroup } from '@material-ui/core';
-import Button from "@material-ui/core/Button";
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 
@@ -22,8 +22,7 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductDetailsCard = (props) => {
-
-  const [ state, setState ] = useState({
+  const [state, setState] = useState({
     disabled: false,
     text: 'ADD TO CART',
   });
@@ -35,8 +34,8 @@ const ProductDetailsCard = (props) => {
     setState({
       ...state,
       disabled: true,
-      text: 'UNAVALIABLE'
-    })
+      text: 'UNAVALIABLE',
+    });
   };
 
   let links;
@@ -44,18 +43,19 @@ const ProductDetailsCard = (props) => {
     links = colors.map((el, i) => {
       return (
         <Link
-          style={ obj.itemNo === el.itemNo
-            ? { color: '#444',
+          style={obj.itemNo === el.itemNo
+            ? {color: '#444',
               backgroundColor: '#FFF',
               border: '1px solid #444',
             }
-            : null }
+            : null}
           key={i}
-          to={`/products/${el.itemNo}`}>
+          to={`/products/${el.itemNo}`}
+        >
           {el.color}
         </Link>
-      )
-    })
+      );
+    });
   }
 
   const classes = useStyles();
@@ -123,15 +123,17 @@ const ProductDetailsCard = (props) => {
             fill: '#AAA',
           }}
         />
-        <Button className='otherBtn'>
-          <WeigherIcon
-            className='icon'
-            style={{
-              width: 30,
-              height: 23,
-              fill: '#AAA'
-            }}/>
-        </Button>
+        <AddToFavouritesButton
+          obj={obj}
+          user={props.user}
+          allProps={props}
+          className={'otherBtn'}
+          iconStyle={{
+            fill: '#AAA',
+            width: '30px',
+            height: '23px',
+          }}
+        />
       </ButtonGroup>
     </div>
   )

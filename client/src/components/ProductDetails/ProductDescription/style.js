@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.background.paper,
 		width: 499,
@@ -11,6 +11,20 @@ export const useStyles = makeStyles(theme => ({
 	},
 	styledTabs: {
 		fontSize: 20,
+		borderBottom: '1px solid #EAEAEA',
+		'& .MuiTabs-flexContainer': {
+			display: 'flex',
+			justifyContent: 'space-between',
+		},
+		"& .MuiTab-root": {
+			padding: '6px 0 !important',
+			border: 'none',
+		}
+	},
+	tab: {
+		'& .MuiBox-root': {
+			padding: '24px 24px 24px 0 !important',
+		}
 	},
 	detailsName: {
 		display: 'inline-block',
