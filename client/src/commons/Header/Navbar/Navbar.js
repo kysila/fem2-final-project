@@ -1,16 +1,18 @@
-/* eslint-disable no-shadow */
+/* eslint-disable no-shadow,react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { NavHashLink as HashLink } from 'react-router-hash-link';
+import { connect } from 'react-redux';
 
-import Link from '@material-ui/core/Link';
-import ExpandMoreSharpIcon from '@material-ui/icons/ExpandMoreSharp';
+
+// import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Drawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import TollIcon from '@material-ui/icons/Toll';
-import { connect } from 'react-redux';
+
+import { Link } from 'react-router-dom';
 import { useStyles } from './style';
 import { getCategories } from '../../../store/categories/actions';
 import { Logo } from '../../Logo/Logo';
@@ -27,22 +29,24 @@ const NavBar = (props) => {
   if (props.categories) {
     categories = props.categories.map((el) => (
       <ListItem
-        divider="true"
-        dense="true"
+        divider
+        dense
         button
         key={el.name}
         className={classes.list}
         classes={{ button: classes.item }}
+        onClick={() => setMenuIsOpen(false)}
       >
         <TollIcon />
-        <ListItemText classes={{ primary: classes.text }} primary={el.name} />
+        <Link to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}>
+          <ListItemText classes={{ primary: classes.text }} primary={el.name} />
+        </Link>
       </ListItem>
     ));
   }
 
   useEffect(() => {
     props.getCategories();
-
   }, []);
 
   return (
@@ -64,16 +68,19 @@ const NavBar = (props) => {
         }}
       >
         <div className={classes.logo}>
-         <Logo />
+          <Logo />
         </div>
-        <List>
-          {categories}
-        </List>
+        <Box className={classes.list_box}>
+          <List>
+            {categories}
+          </List>
+        </Box>
+
 
       </Drawer>
 
       <Box className={classes.container}>
-        <Link href="#" component="button" variant="body2" underline="none" className={classes.menuItem}>
+        <div className={classes.menuItem}>
           <Box
             onClick={(menuIsOpen) => {
               setMenuIsOpen(true);
@@ -81,11 +88,10 @@ const NavBar = (props) => {
             className={classes.container}
           >
             <p>Shop</p>
-            <ExpandMoreSharpIcon fontSize="small" />
           </Box>
-        </Link>
-        <HashLink to="/#favourites" className={classes.menuItem}>  Customer Favorites </HashLink>
-        <HashLink to="/#contact" className={classes.menuItem}> Contact</HashLink>
+        </div>
+        <HashLink smooth to="/#favourites" className={classes.menuItem}>  Customer Favorites </HashLink>
+        <HashLink smooth to="/#contact" className={classes.menuItem}> Contact</HashLink>
       </Box>
     </React.Fragment>
   );

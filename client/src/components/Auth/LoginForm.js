@@ -296,7 +296,7 @@ const mapDispatchToProps = (dispatch) => ({
   registerModal: () => dispatch(dispatchModalOpen('register')),
   closeModal: () => dispatch(dispatchModalClose()),
   warning: (message) => dispatch(enqueueSnackbar({ message, options: { variant: 'warning', preventDuplicate: true } })),
-});
+  });
 
 const ConnectLoginForm = withTheme(
     connect(mapStateToProps, mapDispatchToProps)(

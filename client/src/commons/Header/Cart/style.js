@@ -7,6 +7,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     alignItems: 'center',
   },
   base_container: {
+    width: '100%',
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -19,11 +20,8 @@ export const useStyles = makeStyles((theme) => createStyles({
     fontSize: '20px',
     color: '#9c80ff',
     [theme.breakpoints.down(710)]: {
-      width: '80%',
+      width: '90%',
     },
-    // [theme.breakpoints.down(480)]: {
-    //  maxWidth: '300px',
-    // },
   },
   basket: {
     position: 'relative',
@@ -98,29 +96,30 @@ export const useStyles = makeStyles((theme) => createStyles({
     marginTop: '2%',
   },
   image: {
-    width: '99px',
+    width: '12%',
     height: '74px',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    [theme.breakpoints.down(480)]: {
+      width: '25%',
+    },
   },
   img: {
     objectFit: 'contain',
-    display: 'block',
     width: '100%',
     height: '100%',
   },
   text: {
     fontSize: '12px',
-    textDecoration: 'underline',
     color: '#444444',
     paddingBottom: '7px',
+  },
+  main_block_text: {
+    flexDirection: 'column',
   },
   main_block: {
     flexBasis: '40%',
     marginLeft: '2%',
     marginRight: '2%',
-    flexDirection: 'column',
   },
   button: {
     paddingLeft: '4px',
@@ -131,11 +130,15 @@ export const useStyles = makeStyles((theme) => createStyles({
     textTransform: 'none',
   },
   price: {
-    flexBasis: '10%',
+    flexBasis: '35%',
     paddingLeft: '1%',
     fontSize: '14px',
     fontWeight: 'bold',
-    textAlign: 'right',
+    [theme.breakpoints.down(600)]: {
+      fontSize: '12px',
+      flexBasis: '0',
+      textAlign: 'center',
+    },
   },
   underline: {
     '&::after': {
@@ -151,12 +154,27 @@ export const useStyles = makeStyles((theme) => createStyles({
     fontSize: '13px',
   },
   buttons: {
+    marginRight: '5px',
     '& > button': {
+      padding: '3px 2px',
       background: 'none',
       color: '#444444',
     },
   },
   counter: {
     marginRight: '1%',
-  }
+  },
+  counter_price_box: {
+    flexBasis: '30%',
+  },
+  counter_price: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    flexDirection: 'row',
+    [theme.breakpoints.down(600)]: {
+      flexBasis: '30%',
+      flexDirection: 'column',
+    },
+  },
 }));

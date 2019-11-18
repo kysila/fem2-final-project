@@ -11,6 +11,7 @@ import { Footer, Header } from '../../commons';
 import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import ProductCard from '../ProductCard/ProductCard';
+import Preloader from '../Preloader/Preloader';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -29,9 +30,10 @@ const useStyles = makeStyles((theme) => ({
 const mapStateToProps = (state) => ({
   searchValue: state.searchReducer.searchValue,
   searchProducts: state.searchReducer.searchProducts,
+  isSearchFetching: state.searchReducer.isSearchFetching,
 });
 
-export const Search = connect(mapStateToProps)((props) => {
+const Search = (props) => {
   const classes = useStyles();
   let searchResult = [];
   if (props.searchProducts.length) {
@@ -49,7 +51,7 @@ export const Search = connect(mapStateToProps)((props) => {
     ));
   } else {
     searchResult = [
-      <Grid item xs={12} sm={12} md={12} justify="center">
+      <Grid item xs={12} sm={12} md={12} >
         <Typography variant="h6" align="center" paragraph="true">
         No products were found based on search results
         </Typography>
@@ -69,9 +71,12 @@ export const Search = connect(mapStateToProps)((props) => {
                         Results of your searching:
         </Typography>
         <main>
-          <Grid container spacing={0}>
-            {searchResult}
-          </Grid>
+          {props.isSearchFetching ? <Preloader />
+            : (
+              <Grid container spacing={0} alignItems="center">
+                { searchResult }
+              </Grid>
+            )}
         </main>
       </Container>
       <StayInTouch />
@@ -79,4 +84,6 @@ export const Search = connect(mapStateToProps)((props) => {
     </React.Fragment>
 
   );
-});
+};
+
+export default connect(mapStateToProps)(Search);
