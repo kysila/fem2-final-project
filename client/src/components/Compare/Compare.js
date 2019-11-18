@@ -10,7 +10,7 @@ import { useStyles } from './style';
 
 import { Header } from '../../commons/Header/Header/Header';
 import { Footer } from '../../commons/Footer/Footer/Footer';
-import { ProductForCompare } from './ProductForCompare';
+import ProductForCompare from './ProductForCompare';
 
 function createData(name, calories, fat, carbs, protein) {
   return {

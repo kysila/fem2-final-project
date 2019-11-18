@@ -18,20 +18,20 @@ const mapStateToProps = (store) => ({
   products: store.compareReducer.products,
 });
 
-const ProductForCompare = (props) => {
+export const ProductForCompare = (props) => {
   const classes = useStyles();
-  const obj = props.products;
+  const obj = props.products[0];
   console.log('props', obj);
 
   return (
-    <Link to={props.url} className={classes.link}>
+    <Link to={obj.url} className={classes.link}>
       <Card
         className={classes.card}
       >
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image={`${props.itemImg}`}
+            image={`${obj.itemImg}`}
           />
           <CardContent
             className={classes.cardContent}
@@ -43,14 +43,14 @@ const ProductForCompare = (props) => {
               display="inline"
               component="h2"
             >
-              {props.currentPrice}
+              {obj.currentPrice}
             </Typography>
             <Typography
               className={classes.fontDesc}
               variant="body2"
               component="p"
             >
-              {props.name}
+              {obj.name}
             </Typography>
           </CardContent>
         </CardActionArea>

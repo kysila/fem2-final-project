@@ -18,15 +18,16 @@ import { handlerLocalStorage } from '../AddToCartButton/script';
 import { addProductToCart, getCartFromLS } from '../../store/cart/actions';
 import { addProductsToCompare } from '../../store/compare/actions';
 import { HeartIcon, BagIcon, WeigherIcon } from '../Icons/Icons';
+import { Compare } from '../Compare/Compare';
 
 import { useStyles } from './style';
 import { AddToWishListButton } from '../AddToWishListButton/AddToWishListButton';
-import {dispatchModalClose} from "../../store/modal/actions";
+import { dispatchModalClose } from '../../store/modal/actions';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
-  products: store.compareReducer.comparableProducts,
+  products: store.compareReducer.products,
 });
 
 const ProductCard = ({
