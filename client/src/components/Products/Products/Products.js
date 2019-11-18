@@ -35,9 +35,12 @@ const Products = (props) => {
   let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
   const startPerPage = +queryOptions.perPage;
   const [perPage, setPerPage] = useState(startPerPage);
+  const selectedFiltersObjLength = Object.keys(props.selectedFilters).length;
 
   useEffect(() => {
+
     props.getProducts(`/products/filter${props.location.search}`);
+    console.log('Выполнилась снова полная загрузка товаров');
     if (!Object.keys(props.selectedFilters).length) {
       const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
       delete recentlySelected.perPage;
@@ -46,11 +49,9 @@ const Products = (props) => {
     }
   }, [props.location.search]);
 
-  useEffect(() => {
-    return () => {
-      props.recentlySelectFilters({});
-    };
-  }, [])
+  useEffect(() => () => {
+    props.recentlySelectFilters({});
+  }, []);
 
   useEffect(() => {
     if (+queryOptions.perPage !== +perPage) {
@@ -62,6 +63,7 @@ const Products = (props) => {
       queryOptions.perPage = 8;
       const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
       newDisplayedProducts = props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
+      console.log('Выполнилась снова дополнителная загрузка товаров');
     }
   }, [perPage]);
 
@@ -124,32 +126,8 @@ const Products = (props) => {
         />
       </Grid>
     ));
-  } else {
-    return (
-      <React.Fragment>
-        <Header callCenter="1-855-324-5387" />
-        <Container maxWidth="md" className={classes.paddingTop}>
-          <AllBreadcrumbs />
-          <Title title="All products" />
-          <Typography
-            variant="body1"
-            gutterBottom
-            align="center"
-            className={classes.space}
-          >
-                    Our full collection of electric devices
-          </Typography>
-          <Filters />
-          <main>
-            <Preloader />
-          </main>
-        </Container>
-        <RecentlyViewed />
-        <StayInTouch />
-        <Footer />
-      </React.Fragment>
-    );
   }
+
   return (
     <React.Fragment>
       <Header callCenter="1-855-324-5387" />
@@ -171,15 +149,17 @@ const Products = (props) => {
         <main className={classes.main}>
           <Grid container spacing={0}>
             {props.allProducts.length ? products : (
-              <Typography
-                variant="body1"
-                gutterBottom
-                align="center"
-                className={classes.space}
-              >
-              Sorry, no products matching your request were found.
-              </Typography>
-            )}
+              props.isProductsFetching ? <Preloader /> : (
+                <Typography
+                  variant="body1"
+                  gutterBottom
+                  align="center"
+                  className={classes.space}
+                >
+                Sorry, no products matching your request were found.
+                </Typography>
+              ))}
+
           </Grid>
           {props.allProducts.length >= perPage
           && (
