@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import { useTheme } from '@material-ui/core/styles';
-import { useStyles } from "./style";
+import { useStyles } from './style';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -100,10 +100,10 @@ export const ProductDescription = ({data}) => {
 				index={value}
 				onChangeIndex={handleChangeIndex}
 			>
-				<TabPanel value={value} index={0} dir={theme.direction}>
+				<TabPanel className={classes.tab} value={value} index={0} dir={theme.direction}>
 					{htmlToReactParser.parse(data.description)}
 				</TabPanel>
-				<TabPanel value={value} index={1} dir={theme.direction}>
+				<TabPanel className={classes.tab} value={value} index={1} dir={theme.direction}>
 					<div className="details">
 						<div>
 							<div className={classes.detailsName}>Color</div>
@@ -124,10 +124,10 @@ export const ProductDescription = ({data}) => {
 						{ data.features ? renderFeatures(data.features) : null }
 					</div>
 				</TabPanel>
-				<TabPanel value={value} index={2} dir={theme.direction}>
+				<TabPanel className={classes.tab} value={value} index={2} dir={theme.direction}>
 					{htmlToReactParser.parse(data.warranty)}
 				</TabPanel>
-				<TabPanel value={value} index={3} dir={theme.direction}>
+				<TabPanel className={classes.tab} value={value} index={3} dir={theme.direction}>
 					{htmlToReactParser.parse(data.shipping)}
 				</TabPanel>
 			</SwipeableViews>
