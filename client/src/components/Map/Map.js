@@ -13,14 +13,12 @@ Geocode.setLanguage('en');
 function getAddress({ lat, lng }) {
   return Geocode.fromLatLng(lat, lng).then(
     (response) => response.results[0].formatted_address,
-    console.error,
   );
 }
 
 function getCoords(address) {
   return Geocode.fromAddress(address).then(
     (response) => response.results[0].geometry.location,
-    console.error,
   );
 }
 
