@@ -5,12 +5,8 @@ import validator from 'validator';
 import {
   Typography,
   Grid,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
   Button,
   Link,
-  makeStyles,
   Box,
   useMediaQuery, withTheme,
 } from '@material-ui/core';
@@ -237,9 +233,9 @@ function RegisterForm(props) {
             </Button>
             <Typography className={classes.agree}>
               By continuing, you agree to
-              <Link className={classes.link} href="/conditions"> Electra&#39;s Conditions </Link>
+              <Link className={classes.link} href="/terms-and-conditions"> Electra&#39;s Conditions </Link>
               of
-              <Link className={classes.link} href="/privacy"> Use and Privacy Notice.</Link>
+              <Link className={classes.link} href="/privacy-policy"> Use and Privacy Notice.</Link>
             </Typography>
           </Grid>
         </Grid>

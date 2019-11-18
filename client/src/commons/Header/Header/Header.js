@@ -66,7 +66,7 @@ const Header = (props) => {
                     {`Hello, ${props.user.firstName || props.user.login}`}
                   </Link>
                   <span> | </span>
-                  <Link to="/logout" onClick={(e) => { e.preventDefault(); props.logout(); }}>
+                  <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout(); }}>
                     Logout
                   </Link>
                 </Box>
@@ -77,7 +77,11 @@ const Header = (props) => {
                 </Box>
               )
             }
-            <Cart />
+            {
+              props.hideCart ? null : (
+                <Cart />
+              )
+            }
           </Box>
           <Box className={classes.container}>
             <Box>
