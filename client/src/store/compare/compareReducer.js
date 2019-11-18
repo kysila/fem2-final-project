@@ -9,6 +9,6 @@ const initialState = {
   comparableProducts: [],
 }
 
-export const addProductsToCompare = (state, action) => {
-
-}
+// export const addProductsToCompare = (state = initialState, action) => {
+//
+// }
