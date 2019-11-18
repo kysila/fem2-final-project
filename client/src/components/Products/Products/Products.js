@@ -108,7 +108,7 @@ const Products = (props) => {
 
     displayedProductsArray = [...props.allProducts];
     products = displayedProductsArray.map((el) => (
-      <Grid item xs={12} sm={6} md={4} lg={3} key={el.itemNo}>
+      <Grid item xs={12} sm={6} md={3} key={el.itemNo}>
         <ProductCard
           className={classes.card}
           obj={el}
