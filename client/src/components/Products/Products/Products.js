@@ -29,18 +29,15 @@ let displayedProductsArray = [];
 const Products = (props) => {
   const classes = useStyles();
   let products;
-  let newDisplayedProducts = [];
   let selectedFilterChips;
   let selectedFilterType;
   let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
   const startPerPage = +queryOptions.perPage;
   const [perPage, setPerPage] = useState(startPerPage);
-  const selectedFiltersObjLength = Object.keys(props.selectedFilters).length;
 
   useEffect(() => {
 
     props.getProducts(`/products/filter${props.location.search}`);
-    console.log('Выполнилась снова полная загрузка товаров');
     if (!Object.keys(props.selectedFilters).length) {
       const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
       delete recentlySelected.perPage;
@@ -62,8 +59,7 @@ const Products = (props) => {
       queryOptions.startPage = startPage + 1;
       queryOptions.perPage = 8;
       const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-      newDisplayedProducts = props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
-      console.log('Выполнилась снова дополнителная загрузка товаров');
+      props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
     }
   }, [perPage]);
 
@@ -112,7 +108,7 @@ const Products = (props) => {
 
     displayedProductsArray = [...props.allProducts];
     products = displayedProductsArray.map((el) => (
-      <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
+      <Grid item xs={12} sm={6} md={4} lg={3} key={el.itemNo}>
         <ProductCard
           className={classes.card}
           obj={el}
@@ -147,7 +143,7 @@ const Products = (props) => {
           {selectedFilterChips}
         </Grid>
         <main className={classes.main}>
-          <Grid container spacing={0}>
+          <Grid container spacing={0} alignItems="center" justify="center">
             {props.allProducts.length ? products : (
               props.isProductsFetching ? <Preloader /> : (
                 <Typography
