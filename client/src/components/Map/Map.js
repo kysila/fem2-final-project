@@ -77,7 +77,7 @@ export function Map(props) {
       onCenterChanged={() => isMounted && map && setCenter(map.getCenter().toJSON())}
       onDragEnd={() => {
         if (isMounted && props.onChange) {
-          getAddress(center).then((value) => props.onChange({ target: { value } }));
+          getAddress(center).then((value) => props.onChange({ target: { type: 'text', value } }));
         }
       }}
       mapRef={(mapRef) => setMap(mapRef)}

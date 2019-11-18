@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-// TODO: Vallidation of bank card number, import luhn from 'luhn';
+import React, { useEffect, useState } from 'react';
+import validator from 'validator';
 import {
-  Button, Box, Grid, Typography, useMediaQuery, withTheme,
+  Button, Box, Grid, Typography, useMediaQuery, withTheme, FormControl,
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Mask from 'react-text-mask';
 import { useStyles } from './styles';
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
+import { ArrowTooltip } from '../../commons/Tooltip/Tooltip';
+import { cleanCart } from '../../store/cart/actions';
 
 const museo = {
   fontFamily: 'Museo Sans 500',
@@ -20,14 +22,15 @@ const museo = {
   `,
 };
 
-export const Payment = connect(null, {
+export const Payment = withRouter(connect(null, (dispatch) => ({
   openMap: (inject) => dispatchModalOpen('map', inject),
   closeModal: () => dispatchModalClose(),
-})(withTheme((props) => {
+  cleanCart: () => dispatch(cleanCart()),
+}))(withTheme((props) => {
   const classes = useStyles(props);
   const mobile = useMediaQuery(props.theme.breakpoints.down(768));
 
-  const [state, setState] = useState({
+  const initialState = {
     card: {
       value: '',
       error: null,
@@ -44,9 +47,82 @@ export const Payment = connect(null, {
       value: '',
       error: null,
     },
-  });
+  };
 
-  const onChange = (stateName) => (e) => setState({ ...state, [stateName]: { value: e.target.value, error: 'null' } });
+  const [state, setState] = useState(initialState);
+
+  const onChange = (stateName) => (e) => {
+    setState({ ...state, [stateName]: { value: e.target.value, error: null } });
+  };
+
+  const validate = () => {
+    const {
+      card: { value: card },
+      date: { value: date },
+      cvv: { value: cvv },
+      name: { value: name },
+    } = state;
+
+    const [month, year] = date.replace(/\s+/g, '').split('/');
+
+    const currentDate = new Date().getTime();
+    const cardDate = new Date(`${month}/01/${year}`).getTime();
+    const dateLeft = cardDate - currentDate;
+
+    if (!validator.isCreditCard(card)) {
+      setState({ ...state, card: { ...state.card, error: 'Credit card number is invalid, please check it.' } });
+      return false;
+    }
+
+    if (validator.isEmpty(name) || name.length < 5) {
+      setState({ ...state, name: { ...state.name, error: 'Your name & last name is to short.' } });
+      return false;
+    }
+
+    if (!parseInt(month, 10) || !parseInt(year, 10) || dateLeft <= 0) {
+      setState({ ...state, date: { ...state.date, error: 'Your card expired.' } });
+      return false;
+    }
+
+    if (!(/\d{3}/g).test(cvv)) {
+      setState({ ...state, cvv: { ...state.cvv, error: 'Your cvv code should be 3 digits. Please look at the back of your credit card.' } });
+      return false;
+    }
+
+    return true;
+  };
+
+  useEffect(() => {
+    const payment = JSON.parse(localStorage.getItem('/checkout/payment'));
+    if (payment) {
+      setState(payment);
+    }
+    return () => {
+      localStorage.setItem('/checkout/payment', JSON.stringify(state));
+    };
+  }, []); /* eslint-disable-line */
+
+  const onSubmit = () => {
+    if (validate()) {
+      setTimeout(() => {
+        localStorage.removeItem('/checkout/info');
+        localStorage.removeItem('/checkout/shipping');
+        localStorage.removeItem('/checkout/payment');
+        localStorage.removeItem('cart');
+        props.cleanCart();
+        props.history.push('/');
+      }, 8000);
+
+      props.history.push(`/order/${Math.round(Math.random() * 10000000000)}/${localStorage.getItem('/checkout/discount')}`);
+    }
+  };
+
+  useEffect(() => {
+    const card = JSON.parse(localStorage.getItem('/checkout/payment'));
+    if (card) {
+      setState(card);
+    }
+  }, []);
 
   return (
     <Grid
@@ -75,31 +151,34 @@ export const Payment = connect(null, {
                 background: '#111111',
               }}
             />
-            <Mask
-              mask={[/\d/, /\d/, /\d/]}
-              placeholderChar="X"
-              value={state.cvv.value}
-              placeholder="XXX"
-              onChange={onChange('cvv')}
-              type="text"
-              style={{
-                textAlign: 'center',
-                marginLeft: 'auto',
-                marginRight: '20px',
-                position: 'relative',
-                display: 'block',
-                top: '30px',
-                width: '50px',
-                height: '40px',
-                background: 'transparent',
-                border: 'none',
-                fontSize: '25px',
-                lineHeight: '35px',
-                outline: 'none',
-                color: 'white',
-                ...museo,
-              }}
-            />
+            <ArrowTooltip title={state.cvv.error}>
+              <Mask
+                mask={[/\d/, /\d/, /\d/]}
+                placeholderChar="X"
+                value={state.cvv.value}
+                placeholder="XXX"
+                onChange={onChange('cvv')}
+                tabIndex="4"
+                type="text"
+                style={{
+                  textAlign: 'center',
+                  marginLeft: 'auto',
+                  marginRight: '20px',
+                  position: 'relative',
+                  display: 'block',
+                  top: '30px',
+                  width: '50px',
+                  height: '40px',
+                  background: 'transparent',
+                  border: 'none',
+                  fontSize: '25px',
+                  lineHeight: '35px',
+                  outline: 'none',
+                  color: 'white',
+                  ...museo,
+                }}
+              />
+            </ArrowTooltip>
             <Box
               style={{
                 position: 'relative',
@@ -216,51 +295,57 @@ export const Payment = connect(null, {
                 borderRadius: '6px',
               }}
             />
-            <Mask
-              mask={[/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]}
-              placeholderChar="X"
-              value={state.card.value}
-              placeholder="XXXX XXXX XXXX XXXX"
-              onChange={onChange('card')}
-              type="tel"
-              style={{
-                textAlign: 'center',
-                position: 'relative',
-                display: 'block',
-                top: '60px',
-                left: '50px',
-                width: '80%',
-                height: '35px',
-                background: 'transparent',
-                border: 'none',
-                fontSize: '25px',
-                lineHeight: '35px',
-                outline: 'none',
-                color: 'white',
-                ...museo,
-              }}
-            />
-            <input
-              placeholder="Enter your name"
-              value={state.name.value}
-              onChange={onChange('name')}
-              style={{
-                textAlign: 'left',
-                position: 'relative',
-                display: 'block',
-                top: '70px',
-                left: '50px',
-                width: '210px',
-                height: '25px',
-                background: 'transparent',
-                border: 'none',
-                fontSize: '20px',
-                lineHeight: '25px',
-                outline: 'none',
-                color: 'white',
-                ...museo,
-              }}
-            />
+            <ArrowTooltip title={state.card.error}>
+              <Mask
+                mask={[/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]}
+                placeholderChar="X"
+                value={state.card.value}
+                tabIndex="1"
+                placeholder="XXXX XXXX XXXX XXXX"
+                onChange={onChange('card')}
+                type="tel"
+                style={{
+                  textAlign: 'center',
+                  position: 'relative',
+                  display: 'block',
+                  top: '60px',
+                  left: '50px',
+                  width: '80%',
+                  height: '35px',
+                  background: 'transparent',
+                  border: 'none',
+                  fontSize: '25px',
+                  lineHeight: '35px',
+                  outline: 'none',
+                  color: 'white',
+                  ...museo,
+                }}
+              />
+            </ArrowTooltip>
+            <ArrowTooltip title={state.name.error}>
+              <input
+                placeholder="Enter your name"
+                value={state.name.value}
+                onChange={onChange('name')}
+                tabIndex="2"
+                style={{
+                  textAlign: 'left',
+                  position: 'relative',
+                  display: 'block',
+                  top: '70px',
+                  left: '50px',
+                  width: '210px',
+                  height: '25px',
+                  background: 'transparent',
+                  border: 'none',
+                  fontSize: '20px',
+                  lineHeight: '25px',
+                  outline: 'none',
+                  color: 'white',
+                  ...museo,
+                }}
+              />
+            </ArrowTooltip>
             <Box
               style={{
                 display: 'inline-block',
@@ -270,30 +355,33 @@ export const Payment = connect(null, {
                 left: 'calc(80% - 80px)',
               }}
             >
-              <Mask
-                mask={[/\d/, /\d/, ' ', '/', ' ', /\d/, /\d/]}
-                value={state.date.value}
-                type="tel"
-                placeholder="XX / XX"
-                placeholderChar="X"
-                onChange={onChange('date')}
-                style={{
-                  textAlign: 'center',
-                  position: 'relative',
-                  display: 'inline-block',
-                  background: 'transparent',
-                  top: '70px',
-                  left: '50px',
-                  width: '80px',
-                  height: '25px',
-                  border: 'none',
-                  fontSize: '20px',
-                  lineHeight: '25px',
-                  outline: 'none',
-                  color: 'white',
-                  ...museo,
-                }}
-              />
+              <ArrowTooltip title={state.date.error}>
+                <Mask
+                  mask={[/\d/, /\d/, ' ', '/', ' ', /\d/, /\d/]}
+                  value={state.date.value}
+                  type="tel"
+                  placeholder="XX / XX"
+                  placeholderChar="X"
+                  tabIndex="3"
+                  onChange={onChange('date')}
+                  style={{
+                    textAlign: 'center',
+                    position: 'relative',
+                    display: 'inline-block',
+                    background: 'transparent',
+                    top: '70px',
+                    left: '50px',
+                    width: '80px',
+                    height: '25px',
+                    border: 'none',
+                    fontSize: '20px',
+                    lineHeight: '25px',
+                    outline: 'none',
+                    color: 'white',
+                    ...museo,
+                  }}
+                />
+              </ArrowTooltip>
             </Box>
           </Box>
         </Box>
@@ -330,6 +418,8 @@ export const Payment = connect(null, {
             justify={mobile ? 'center' : 'flex-end'}
           >
             <Button
+              onClick={onSubmit}
+              tabIndex="5"
               style={{
                 padding: '13px 42px', fontSize: '14px', marginTop: '20px', fontWeight: 'bold', ...museo,
               }}
@@ -341,4 +431,4 @@ export const Payment = connect(null, {
       </Grid>
     </Grid>
   );
-}));
+})));

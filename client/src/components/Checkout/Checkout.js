@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button, Checkbox, FormControlLabel, Grid, Typography, useMediaQuery, withTheme,
 } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { withProps } from 'recompose';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import validator from 'validator';
 import { InputField } from '../../commons/InputField/InputField';
 import { useStyles } from './styles';
 import { MapContainer } from './MapContainer';
@@ -22,11 +22,12 @@ const museo = {
   `,
 };
 
-export const Checkout = connect(null, {
+export const Checkout = withRouter(connect(({ auth: { user } }) => ({ user }), {
   openMap: (inject) => dispatchModalOpen('map', inject),
+  openLogin: () => dispatchModalOpen('login'),
   closeModal: () => dispatchModalClose(),
 })(withTheme((props) => {
-  const classes = useStyles(props);
+  const classes = useStyles();
   const mobile = useMediaQuery(props.theme.breakpoints.down(768));
 
   const [state, setState] = useState({
@@ -58,8 +59,72 @@ export const Checkout = connect(null, {
       value: '',
       error: null,
     },
-    promote: true,
+    promote: {
+      value: true,
+    },
   });
+
+  useEffect(() => {
+    const oldState = JSON.parse(localStorage.getItem('/checkout/info'));
+    if (oldState) {
+      setState(oldState);
+    }
+  }, []);
+
+  const validate = () => {
+    const {
+      email,
+      phone,
+      firstName,
+      lastName,
+      address,
+    } = Object.keys(state).reduce((memo, key) => {
+      if (typeof state[key] === 'object') {
+        memo[key] = state[key].value;
+      }
+      return memo;
+    }, {});
+
+    const isEmail = (value) => validator.isEmail(value);
+    const isEmpty = (value) => validator.isEmpty(value);
+    const isMobilePhone = (value) => validator.isMobilePhone(value);
+
+
+    if (isEmpty(email) || !isEmail(email)) {
+      setState({ ...state, email: { ...state.email, error: 'Email is invalid. Please fill right email. Example: john.doe@example.com' } });
+      return false;
+    }
+
+    if (isEmpty(phone) && !isMobilePhone(phone)) {
+      setState({ ...state, phone: { ...state.phone, error: 'Phone number is wrong, please fill write mobile phone to contact with you.' } });
+      return false;
+    }
+
+    if (isEmpty(firstName) && firstName.length <= 2) {
+      setState({ ...state, firstName: { ...state.firstName, error: 'Please fill your first name.' } });
+      return false;
+    }
+
+    if (isEmpty(lastName) && lastName.length <= 2) {
+      setState({ ...state, lastName: { ...state.lastName, error: 'Please fill your last name.' } });
+      return false;
+    }
+
+    if (isEmpty(address)) {
+      setState({ ...state, address: { ...state.address, error: 'Please add your shipping address.' } });
+      return false;
+    }
+
+    return true;
+  };
+
+  const onSubmit = (e) => {
+    if (e) e.preventDefault();
+    if (validate()) {
+      localStorage.setItem('/checkout/info', JSON.stringify(state));
+      props.history.push('/checkout/shipping');
+    }
+  };
 
   const onChange = (stateName) => (event) => {
     setState({
@@ -70,6 +135,10 @@ export const Checkout = connect(null, {
       },
     });
   };
+
+  if (props.user) {
+    props.history.push('/checkout/shipping');
+  }
 
   return (
     <Grid
@@ -84,6 +153,8 @@ export const Checkout = connect(null, {
         direction="column"
         alignItems="center"
         justify="center"
+        component="form"
+        onSubmit={onSubmit}
       >
         <Grid
           container
@@ -96,10 +167,16 @@ export const Checkout = connect(null, {
           </Typography>
           <Typography style={{ fontSize: '14px', ...museo }}>
             Already have an account?
-            <Typography component="span" style={{ color: '#8F8DE2', cursor: 'pointer' }} onClick={props.openLogin}>
+            <Typography
+              component="span"
+              style={{ color: '#8F8DE2', cursor: 'pointer' }}
+              onClick={() => {
+                props.history.push('/');
+                props.openLogin();
+              }}
+            >
               {' '}
-Log
-              In
+               Log In
             </Typography>
           </Typography>
         </Grid>
@@ -123,6 +200,7 @@ Log
               labelWidth={35}
               onChange={onChange('email')}
               value={state.email.value}
+              error={state.email.error}
             />
           </Grid>
           <Grid
@@ -138,6 +216,7 @@ Log
               labelWidth={40}
               onChange={onChange('phone')}
               value={state.phone.value}
+              error={state.phone.error}
             />
           </Grid>
           <Grid
@@ -148,7 +227,7 @@ Log
           >
             <FormControlLabel
               style={{ marginTop: mobile ? '20px' : 'auto' }}
-              control={<Checkbox color="default" checked={state.promote} onChange={onChange('promote')} value="" />}
+              control={<Checkbox color="default" checked={state.promote.value} onChange={onChange('promote')} value="" />}
               label="Keep me up to date on news and exclusive offers"
             />
           </Grid>
@@ -184,6 +263,7 @@ Log
               labelWidth={65}
               onChange={onChange('firstName')}
               value={state.firstName.value}
+              error={state.firstName.error}
             />
           </Grid>
           <Grid
@@ -199,6 +279,7 @@ Log
               labelWidth={65}
               onChange={onChange('lastName')}
               value={state.lastName.value}
+              error={state.lastName.error}
             />
           </Grid>
         </Grid>
@@ -222,6 +303,7 @@ Log
               labelWidth={130}
               onChange={onChange('company')}
               value={state.company.value}
+              error={state.company.error}
             />
           </Grid>
           <Grid
@@ -237,6 +319,7 @@ Log
               labelWidth={210}
               onChange={onChange('appartment')}
               value={state.appartment.value}
+              error={state.appartment.error}
             />
           </Grid>
         </Grid>
@@ -259,6 +342,7 @@ Log
               labelWidth={280}
               onChange={onChange('address')}
               value={state.address.value}
+              error={state.address.error}
               InputProps={{
                 endAdornment: (
                   <LocationOnIcon
@@ -269,8 +353,7 @@ Log
                       mapElementClass: classes.mapElement,
                       address: state.address.value.trim(),
                       marker: null,
-                      Container:
-                        withProps({ onClick: props.closeModal })(MapContainer),
+                      Container: (pps) => <MapContainer {...pps} onClick={props.closeModal} />,
                     })}
                   />),
               }}
@@ -307,19 +390,18 @@ Log
               alignItems={mobile ? null : 'center'}
               justify={mobile ? 'center' : 'flex-end'}
             >
-              <Link to="/checkout/shipping">
-                <Button
-                  style={{
-                    padding: '13px 42px', fontSize: '14px', marginTop: '20px', fontWeight: 'bold', ...museo,
-                  }}
-                >
+              <Button
+                type="submit"
+                style={{
+                  padding: '13px 42px', fontSize: '14px', marginTop: '20px', fontWeight: 'bold', ...museo,
+                }}
+              >
                   Continue to Shipping
-                </Button>
-              </Link>
+              </Button>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
     </Grid>
   );
-}));
+})));
