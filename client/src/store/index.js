@@ -30,6 +30,7 @@ const rootReducer = combineReducers({
   selectFilterReducer,
   cartReducer,
   productsReducer,
+  compareReducer,
 });
 
 export default createStore(

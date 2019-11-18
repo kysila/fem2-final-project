@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { addProductToCart, getCartFromLS } from '../../store/cart/actions';
-// import { addProductsToCompare } from '../../store/compare/compareReducer';
+import compareReducer from '../../store/compare/compareReducer';
 import { useStyles } from './style';
 
 import { BagIcon } from '../Icons/Icons';
@@ -18,18 +18,7 @@ import { BagIcon } from '../Icons/Icons';
 export const ProductForCompare = (props) => {
   const classes = useStyles();
   const obj = props.data;
-
-  // const productItem = {
-  //   cartQuantity: 1,
-  //   product: obj,
-  // };
-  //
-  // const productsCart = {
-  //   products: [
-  //     productItem,
-  //   ],
-  // };
-
+  console.log('props', props);
 
   return (
     <Link to={props.url} className={classes.link}>
@@ -65,11 +54,6 @@ export const ProductForCompare = (props) => {
       </Card>
       <Button
         className="addToCardBtn"
-        // onClick={() => {
-        //   props.user
-        //     ? props.addProductToCart(`/cart/${obj._id}`)
-        //     : handlerLocalStorage('cart', productsCart, obj.itemNo, productItem, props.getCartFromLS);
-        // }}
       >
         <BagIcon
           style={{
@@ -86,9 +70,7 @@ export const ProductForCompare = (props) => {
 };
 
 const mapStateToProps = (store) => ({
-  user: store.auth.user,
-  cart: store.cartReducer.cart,
-  // products: store.compare.producsToCompare,
+  products: store.compareReducer.products,
 });
 
-// export default connect(mapStateToProps, { addProductToCart, getCartFromLS, addProductsToCompare })(ProductForCompare);
+export default connect(mapStateToProps, { compareReducer })(ProductForCompare);

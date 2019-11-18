@@ -16,6 +16,7 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { handlerLocalStorage } from '../AddToCartButton/script';
 import { addProductToCart, getCartFromLS } from '../../store/cart/actions';
+import { addProductsToCompare } from '../../store/compare/actions';
 import { HeartIcon, BagIcon, WeigherIcon } from '../Icons/Icons';
 
 import { useStyles } from './style';
@@ -24,6 +25,7 @@ import { AddToWishListButton } from '../AddToWishListButton/AddToWishListButton'
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
+  products: store.compareReducer.comparableProducts,
 });
 
 const ProductCard = ({
@@ -75,8 +77,13 @@ const ProductCard = ({
     }
   };
 
-  const addToCompare = (e) => {
-    console.log(e.target.url);
+  const addToCompare = () => {
+    addProductsToCompare({
+      name, itemImg, price, url, rating, key, itemNo,
+    });
+    console.log({
+      name, itemImg, price, url, rating, key, itemNo,
+    });
   };
 
   useEffect(() => {
@@ -196,4 +203,4 @@ const ProductCard = ({
   );
 };
 
-export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductCard);
+export default connect(mapStateToProps, { addProductToCart, getCartFromLS, addProductsToCompare })(ProductCard);
