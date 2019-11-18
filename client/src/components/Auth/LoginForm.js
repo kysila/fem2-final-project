@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
 
 import {
   Typography,
@@ -171,16 +172,10 @@ function LoginForm(props) {
             </Button>
             <Typography className={classes.agree}>
               By continuing, you agree to
-              <Link className={classes.link} to="/conditions"> Electra&#39;s Conditions </Link>
+              <Link className={classes.link} href="/terms-and-conditions"> Electra&#39;s Conditions </Link>
               of
-              <Link className={classes.link} to="/privacy"> Use and Privacy Notice.</Link>
+              <Link className={classes.link} href="/privacy-policy"> Use and Privacy Notice.</Link>
             </Typography>
-            <Link
-              className={classes.forgotPassword}
-              href="/forgot-password"
-            >
-              Forgot your password?
-            </Link>
           </Grid>
         </Grid>
         <Grid
@@ -301,9 +296,13 @@ const mapDispatchToProps = (dispatch) => ({
   registerModal: () => dispatch(dispatchModalOpen('register')),
   closeModal: () => dispatch(dispatchModalClose()),
   warning: (message) => dispatch(enqueueSnackbar({ message, options: { variant: 'warning', preventDuplicate: true } })),
-  });
+});
 
-const ConnectLoginForm = withTheme(connect(mapStateToProps, mapDispatchToProps)(LoginForm));
+const ConnectLoginForm = withTheme(
+    connect(mapStateToProps, mapDispatchToProps)(
+      LoginForm,
+    ),
+  );
 
 export {
   ConnectLoginForm as LoginForm,
