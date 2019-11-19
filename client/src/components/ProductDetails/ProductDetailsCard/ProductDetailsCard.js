@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
-import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
-import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
-import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
 
 import axios from 'axios';
 
-import { Typography } from '@material-ui/core';
-import { ButtonGroup } from '@material-ui/core';
-import Button from "@material-ui/core/Button";
+import { Typography, ButtonGroup } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
-import Box from "@material-ui/core/Box";
+import Box from '@material-ui/core/Box';
+import { AddToCartButton } from '../../AddToCartButton/AddToCartButton';
+import { HeartIcon, WeigherIcon } from '../../Icons/Icons';
+import { addProductToCart, getCartFromLS } from '../../../store/cart/actions';
+import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
 
-import { useStyles } from "./style";
+import { useStyles } from './style';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,

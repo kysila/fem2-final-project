@@ -44,7 +44,6 @@ export function dispatchGetWishlist() {
       .get(GET_WISHLIST)
       .then(({ data }) => {
         console.log('%c⧭ data', 'color: #aa00ff', data);
-
         dispatch(getWishlist(data));
       })
       .catch((err) => {
@@ -67,16 +66,14 @@ export function dispatchCreateWishlist(payload) {
   return (dispatch) => {
     axios
       .post(CREATE_WISHLIST, payload)
-      .then((data) => {
+      .then(({ data }) => {
         dispatch(createWishlist(data));
         dispatch(dispatchGetWishlist());
-
       })
       .catch((err) => {
         console.log('%c⧭ err.response.data', 'color: #00a3cc', err.response.data);
         // TODO: delete console.log() and do notification of the user
       });
-    //
   };
 }
 
@@ -91,7 +88,7 @@ export function dispatchAddProductAndCreateWishlist(payload) {
   return (dispatch) => {
     axios
       .put(payload)
-      .then((data) => {
+      .then(({ data }) => {
         dispatch(addProductAndCreateWishlist(data));
         dispatch(dispatchGetWishlist());
       })

@@ -7,46 +7,46 @@ import { ADD_PRODUCT_AND_CREATE_WISHLIST } from '../../axios/endpoints';
 
 const AddToWishListBtn = ({
   obj, user, className, iconStyle, iconStyleChosen,
-  addProductToWishlist, cart, getWishlist, wishlist,
+  addProductToWishlist, getWishlist, wishlist,
 }) => {
-  const [state, setState] = useState({ inWishlist: true });
+  const isAddedToWishlist = { inWishlist: false };
+  const [state, setState] = useState({ ...isAddedToWishlist });
+
+  const checkExistence = () => {
+    if (wishlist && wishlist.products && obj) {
+      console.log('%c⧭ obj', 'color: #0088cc', obj);
+      const { _id } = obj;
+      const { products } = wishlist;
+      // eslint-disable-next-line no-underscore-dangle
+      const found = products.flat(Infinity).some((element) => element._id === _id);
+      setState({ ...state, inWishlist: found });
+    }
+  };
 
   const addedToWishlist = () => {
     if (user) {
       const { _id } = obj;
       const url = `${ADD_PRODUCT_AND_CREATE_WISHLIST}${_id}`;
       addProductToWishlist(url);
-      setState({ ...state, inWishlist: true });
+      checkExistence();
     }
   };
 
-  // const { inWishlist } = state;
-  let styleOfWishlistIcon;
+  // let styleOfWishlistIcon;
+  // if (state.inWishlist) {
+  //   styleOfWishlistIcon = iconStyleChosen;
+  // } else {
+  //   styleOfWishlistIcon = iconStyle;
+  // }
 
-  // useEffect(() => {
-  //   if (inWishlist) {
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //     styleOfWishlistIcon = iconStyleChosen;
-  //     console.log('%c⧭state', 'color: #00e600', state);
-  //   } else {
-  //     styleOfWishlistIcon = iconStyle;
-  //     console.log('%c⧭state', 'color: #00e600', state);
-  //   }
-  // }, [inWishlist]);
-
-  if (state.inWishlist) {
-    styleOfWishlistIcon = iconStyleChosen;
-  } else {
-    styleOfWishlistIcon = iconStyle;
-  }
-
-  // useEffect(() => {
-  //   if (user) {
-  //     getWishlist();
-  //   }
-  //   // return () => {}
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [wishlist, user]);
+  useEffect(() => {
+    if (user) {
+      getWishlist();
+      console.log('%c⧭ wishlist', 'color: #0088cc', wishlist);
+      checkExistence();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, obj]);
 
   return (
     <Button
@@ -56,7 +56,7 @@ const AddToWishListBtn = ({
       <HeartIcon
         color="action"
         className="icon"
-        style={styleOfWishlistIcon}
+        style={state.inWishlist ? iconStyleChosen : iconStyle}
       />
     </Button>
   );
