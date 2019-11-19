@@ -12,7 +12,7 @@ import { selectFilters } from '../../../store/selectedFilters/actions';
 const ChargingTimeFilter = (props) => {
   const [chargingTime, setChargingTime] = useState(() => {
     if (props.selectedFilters.chargingTime) {
-      return [...props.selectedFilters.chargingTime];
+      return [props.selectedFilters.chargingTime];
     }
     return [];
   });
@@ -21,17 +21,6 @@ const ChargingTimeFilter = (props) => {
     setChargingTime(event.target.value);
     props.selectFilters(event, event.target.value, 'chargingTime', { ...props.selectedFilters });
   };
-  // const handleChangeMultipleChargingTime = (event) => {
-  //   const { options } = event.target;
-  //   const value = [];
-  //   for (let i = 0, l = options.length; i < l; i += 1) {
-  //     if (options[i].selected) {
-  //       value.push(options[i].value);
-  //     }
-  //   }
-  //   setChargingTime(value);
-  //   props.selectFilters(event, event.target.value, 'chargingTime', { ...props.selectedFilters });
-  // };
 
   return (
     <React.Fragment>

@@ -15,6 +15,7 @@ import TollIcon from '@material-ui/icons/Toll';
 import { Link } from 'react-router-dom';
 import { useStyles } from './style';
 import { getCategories } from '../../../store/categories/actions';
+import { categorySelect } from '../../../store/selectedFilters/actions';
 import { Logo } from '../../Logo/Logo';
 
 const mapStateToProps = (state) => ({
@@ -38,7 +39,12 @@ const NavBar = (props) => {
         onClick={() => setMenuIsOpen(false)}
       >
         <TollIcon />
-        <Link to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}>
+        <Link
+          to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
+          onClick={() => {
+            props.categorySelect(el.id);
+          }}
+        >
           <ListItemText classes={{ primary: classes.text }} primary={el.name} />
         </Link>
       </ListItem>
@@ -96,4 +102,4 @@ const NavBar = (props) => {
     </React.Fragment>
   );
 };
-export default connect(mapStateToProps, { getCategories })(NavBar);
+export default connect(mapStateToProps, { getCategories, categorySelect })(NavBar);
