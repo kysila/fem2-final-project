@@ -53,7 +53,7 @@ const ProductDetails = (props) => {
   }, [state.obj]);
 
   return (
-    <div>
+    <div className={classes.mainWrapper}>
       <Header callCenter="1-855-324-5387" />
       <Container maxWidth="md" className={classes.paddingTop}>
         <ProductBreadcrumbs link={state.obj.name} />

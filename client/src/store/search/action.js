@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { enqueueSnackbar } from '../notification/actions';
 import {
   GET_SEARCH_REQUESTED,
   GET_SEARCH_SUCCEEDED,
@@ -27,5 +28,12 @@ export const setSearchProducts = (payload) => (dispatch) => {
       });
     }).then(() => dispatch({
       type: GET_SEARCH_SUCCEEDED,
-    }));
+    })).catch((err) => {
+      dispatch(enqueueSnackbar({
+        message: err.response.data.message,
+        options: {
+          variant: 'error',
+        },
+      }));
+    });
 };

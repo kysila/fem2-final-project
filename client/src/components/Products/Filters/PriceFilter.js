@@ -15,7 +15,12 @@ function pricetext(value) {
 const PriceFilter = (props) => {
   const classes = useStyles();
 
-  const [price, setPrice] = useState([0, 3000]);
+  const [price, setPrice] = useState(() => {
+    if (props.selectedFilters.minPrice) {
+      return [props.selectedFilters.minPrice, props.selectedFilters.maxPrice];
+    }
+    return [0, 3000];
+  });
   const handleChangePrice = (event, newPrice) => {
     setPrice(newPrice);
     props.priceSelectFilters(event, newPrice[0], newPrice[1], { ...props.selectedFilters });

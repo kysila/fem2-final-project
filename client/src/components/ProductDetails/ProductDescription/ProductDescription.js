@@ -10,9 +10,14 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails"
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTheme } from '@material-ui/core/styles';
+
 import { useStyles } from './style';
+
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -42,6 +47,11 @@ export const ProductDescription = ({data}) => {
 
 	const [value, setValue] = useState(0);
 	const [ state, setState] = useState({});
+	const [expanded, setExpanded] = React.useState(false);
+
+	const handleChangePanel = panel => (event, isExpanded) => {
+		setExpanded(isExpanded ? panel : false);
+	};
 
 	const classes = useStyles();
 	const theme = useTheme();
@@ -80,57 +90,129 @@ export const ProductDescription = ({data}) => {
 
 	return (
 		<div className={classes.root}>
-			<AppBar position="static" color="">
-				<Tabs
-					value={value}
-					onChange={handleChange}
-					indicatorColor="primary"
-					textColor="primary"
-					aria-label="simple tabs example"
-					className={classes.styledTabs}
+			<div className={classes.desktopTabs}>
+				<AppBar position="static" color="">
+					<Tabs
+						value={value}
+						onChange={handleChange}
+						indicatorColor="primary"
+						textColor="primary"
+						aria-label="simple tabs example"
+						className={classes.styledTabs}
+					>
+						<Tab label="Description" {...a11yProps(0)} />
+						<Tab label="Details" {...a11yProps(1)} />
+						<Tab label="Warranty" {...a11yProps(2)} />
+						<Tab label="Shipping" {...a11yProps(3)} />
+					</Tabs>
+				</AppBar>
+				<SwipeableViews
+					axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+					index={value}
+					onChangeIndex={handleChangeIndex}
 				>
-					<Tab label="Description" {...a11yProps(0)} />
-					<Tab label="Details" {...a11yProps(1)} />
-					<Tab label="Warranty" {...a11yProps(2)} />
-					<Tab label="Shipping" {...a11yProps(3)} />
-				</Tabs>
-			</AppBar>
-			<SwipeableViews
-				axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-				index={value}
-				onChangeIndex={handleChangeIndex}
-			>
-				<TabPanel className={classes.tab} value={value} index={0} dir={theme.direction}>
-					{htmlToReactParser.parse(data.description)}
-				</TabPanel>
-				<TabPanel className={classes.tab} value={value} index={1} dir={theme.direction}>
-					<div className="details">
-						<div>
-							<div className={classes.detailsName}>Color</div>
-							<div className={classes.detailsDesc}>{data.color}</div>
+					<TabPanel className={classes.tab} value={value} index={0} dir={theme.direction}>
+						{htmlToReactParser.parse(data.description)}
+					</TabPanel>
+					<TabPanel className={classes.tab} value={value} index={1} dir={theme.direction}>
+						<div className="details">
+							<div>
+								<div className={classes.detailsName}>Color</div>
+								<div className={classes.detailsDesc}>{data.color}</div>
+							</div>
+							<div>
+								<div className={classes.detailsName}>Max Speed</div>
+								<div className={classes.detailsDesc}>{data.maxSpeed}</div>
+							</div>
+							<div>
+								<div className={classes.detailsName}>Charging Time</div>
+								<div className={classes.detailsDesc}>{data.chargingTime}</div>
+							</div>
+							<div>
+								<div className={classes.detailsName}>Distance</div>
+								<div className={classes.detailsDesc}>{data.distance}</div>
+							</div>
+							{ data.features ? renderFeatures(data.features) : null }
 						</div>
-						<div>
-							<div className={classes.detailsName}>Max Speed</div>
-							<div className={classes.detailsDesc}>{data.maxSpeed}</div>
+					</TabPanel>
+					<TabPanel className={classes.tab} value={value} index={2} dir={theme.direction}>
+						{htmlToReactParser.parse(data.warranty)}
+					</TabPanel>
+					<TabPanel className={classes.tab} value={value} index={3} dir={theme.direction}>
+						{htmlToReactParser.parse(data.shipping)}
+					</TabPanel>
+				</SwipeableViews>
+			</div>
+			<div className={classes.mobileTabs}>
+				<ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChangePanel('panel1')}>
+					<ExpansionPanelSummary
+						expandIcon={<ExpandMoreIcon />}
+						aria-controls="panel1bh-content"
+						id="panel1bh-header"
+					>
+						<Typography className={classes.heading}>Description</Typography>
+					</ExpansionPanelSummary>
+					<ExpansionPanelDetails>
+						<Typography>
+							{htmlToReactParser.parse(data.description)}
+						</Typography>
+					</ExpansionPanelDetails>
+				</ExpansionPanel>
+				<ExpansionPanel expanded={expanded === 'panel2'} onChange={handleChangePanel('panel2')}>
+					<ExpansionPanelSummary
+						expandIcon={<ExpandMoreIcon />}
+						aria-controls="panel2bh-content"
+						id="panel2bh-header"
+					>
+						<Typography className={classes.heading}>Details</Typography>
+					</ExpansionPanelSummary>
+					<ExpansionPanelDetails>
+						<div className="details">
+							<div>
+								<div className={classes.detailsName}>Color</div>
+								<div className={classes.detailsDesc}>{data.color}</div>
+							</div>
+							<div>
+								<div className={classes.detailsName}>Max Speed</div>
+								<div className={classes.detailsDesc}>{data.maxSpeed}</div>
+							</div>
+							<div>
+								<div className={classes.detailsName}>Charging Time</div>
+								<div className={classes.detailsDesc}>{data.chargingTime}</div>
+							</div>
+							<div>
+								<div className={classes.detailsName}>Distance</div>
+								<div className={classes.detailsDesc}>{data.distance}</div>
+								{ data.features ? renderFeatures(data.features) : null }
+							</div>
 						</div>
-						<div>
-							<div className={classes.detailsName}>Charging Time</div>
-							<div className={classes.detailsDesc}>{data.chargingTime}</div>
-						</div>
-						<div>
-							<div className={classes.detailsName}>Distance</div>
-							<div className={classes.detailsDesc}>{data.distance}</div>
-						</div>
-						{ data.features ? renderFeatures(data.features) : null }
-					</div>
-				</TabPanel>
-				<TabPanel className={classes.tab} value={value} index={2} dir={theme.direction}>
-					{htmlToReactParser.parse(data.warranty)}
-				</TabPanel>
-				<TabPanel className={classes.tab} value={value} index={3} dir={theme.direction}>
-					{htmlToReactParser.parse(data.shipping)}
-				</TabPanel>
-			</SwipeableViews>
+					</ExpansionPanelDetails>
+				</ExpansionPanel>
+				<ExpansionPanel expanded={expanded === 'panel3'} onChange={handleChangePanel('panel3')}>
+					<ExpansionPanelSummary
+						expandIcon={<ExpandMoreIcon />}
+						aria-controls="panel3bh-content"
+						id="panel3bh-header"
+					>
+						<Typography className={classes.heading}>Warranty</Typography>
+					</ExpansionPanelSummary>
+					<ExpansionPanelDetails>
+						{htmlToReactParser.parse(data.warranty)}
+					</ExpansionPanelDetails>
+				</ExpansionPanel>
+				<ExpansionPanel expanded={expanded === 'panel4'} onChange={handleChangePanel('panel4')}>
+					<ExpansionPanelSummary
+						expandIcon={<ExpandMoreIcon />}
+						aria-controls="panel4bh-content"
+						id="panel4bh-header"
+					>
+						<Typography className={classes.heading}>Shipping</Typography>
+					</ExpansionPanelSummary>
+					<ExpansionPanelDetails>
+						{htmlToReactParser.parse(data.shipping)}
+					</ExpansionPanelDetails>
+				</ExpansionPanel>
+			</div>
 		</div>
 	);
 };

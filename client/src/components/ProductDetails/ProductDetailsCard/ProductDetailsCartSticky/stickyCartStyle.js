@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) => createStyles({
 		marginLeft: '50px',
 		maxWidth: 420,
 		minWidth: 287,
-		maxHeight: 370,
+		maxHeight: 430,
 		position: 'sticky',
 		top: 135,
 		[theme.breakpoints.down(769)]: {

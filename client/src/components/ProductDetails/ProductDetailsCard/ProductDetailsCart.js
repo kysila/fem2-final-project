@@ -12,8 +12,12 @@ import { Typography } from '@material-ui/core';
 import { ButtonGroup } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import MenuItem from "@material-ui/core/MenuItem";
 
-import { useStyles } from "./style";
+import { useStyles, BootstrapInput } from "./style";
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -28,6 +32,12 @@ const ProductDetailsCard = (props) => {
 
   const obj = props.data.obj;
   const colors = props.data.colors.data;
+
+  const [ color, setColor ] = useState(obj.color);
+
+  const handleChange = event => {
+    setColor(event.target.value);
+  };
 
   const checkProduct = () => {
     setState({
@@ -57,6 +67,17 @@ const ProductDetailsCard = (props) => {
     });
   }
 
+  let options;
+  if (colors) {
+    options = colors.map((el, i) => {
+      return (
+        <MenuItem value={`/products/${el.itemNo}`} key={i}>
+          {el.color}
+        </MenuItem>
+      );
+    });
+  }
+
   const classes = useStyles();
 
   return (
@@ -80,6 +101,19 @@ const ProductDetailsCard = (props) => {
       <Box className={classes.otherColors}>
         {links}
       </Box>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-customized-select-label">Age</InputLabel>
+        <Select
+          className={classes.select}
+          labelId="demo-customized-select-label"
+          id="demo-customized-select"
+          value={color}
+          onChange={handleChange}
+          input={<BootstrapInput />}
+        >
+          { options }
+        </Select>
+      </FormControl>
       <Box className={classes.price}>
         <Typography>
           {`$${obj.currentPrice}`}

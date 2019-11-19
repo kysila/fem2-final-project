@@ -8,6 +8,10 @@ export const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.down(769)]: {
 			maxWidth: 344,
 		},
+		[theme.breakpoints.down(481)]: {
+			maxWidth: '100%',
+			marginBottom: '20px',
+		}
 	},
 	mainImage: {
 		margin: '4px 0 10px 0',

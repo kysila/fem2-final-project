@@ -26,6 +26,12 @@ export const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.down(769)]: {
 			display: 'flex',
 			justifyContent: 'space-between'
+		},
+		[theme.breakpoints.down(481)]: {
+			flexDirection: 'column',
 		}
+	},
+	mainWrapper: {
+		marginBottom: 50,
 	}
 }));

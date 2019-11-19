@@ -18,14 +18,17 @@ export const useStyles = makeStyles((theme) => createStyles({
     marginLeft: '5%',
     marginRight: '5%',
   },
+  close_icon: {
+    marginTop: '7px',
+  },
   title: {
     fontSize: '28px',
     margin: '0',
-    fontFamily: 'Tungsten',
+    fontFamily: 'Tungsten Book',
   },
   call: {
     textAlign: 'center',
-    fontSize: '14px',
+    fontSize: '11px',
     color: '#6A86E8',
   },
   nested: {
@@ -33,5 +36,18 @@ export const useStyles = makeStyles((theme) => createStyles({
   list_icon: {
     display: 'flex',
     justifyContent: 'space-between',
-  }
+    alignItems: 'center',
+
+  },
+  menuItem: {
+    color: '#444444',
+  },
+  arrow_icon: {
+    marginTop: '8px',
+    fontSize: '16px',
+  },
+  link: {
+    fontSize: '16px',
+
+  },
 }));

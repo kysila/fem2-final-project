@@ -11,23 +11,16 @@ import { useStyles } from './style';
 const ColorFilter = (props) => {
 
   const classes = useStyles();
-  const [color, setColor] = useState([]);
+  const [color, setColor] = useState(() => {
+    if (props.selectedFilters.color) {
+      return [props.selectedFilters.color];
+    }
+    return [];
+  });
   const handleChangeColor = (event) => {
     setColor(event.target.value);
     props.selectFilters(event, event.target.value, 'color', { ...props.selectedFilters });
   };
-  // const handleChangeMultipleColor = (event) => {
-  //   const { options } = event.target;
-  //   const value = [];
-  //   for (let i = 0, l = options.length; i < l; i += 1) {
-  //     if (options[i].selected) {
-  //       value.push(options[i].value);
-  //     }
-  //   }
-  //   setColor(value);
-  //   props.selectFilters(event, event.target.value, 'color',  { ...props.selectedFilters });
-  //   // props.selectFilters(event, 'colorSelectedFilters');
-  // };
 
   return (
     <React.Fragment>
