@@ -144,15 +144,15 @@ const Products = (props) => {
         </Grid>
         <main className={classes.main}>
           <Grid container spacing={0} alignItems="center" justify="center">
-            {props.allProducts.length ? products : (
-              props.isProductsFetching ? <Preloader /> : (
+            { props.isProductsFetching ? <Preloader /> : (
+              props.allProducts.length ? products : (
                 <Typography
                   variant="body1"
                   gutterBottom
                   align="center"
                   className={classes.space}
                 >
-                Sorry, no products matching your request were found.
+                  Sorry, no products matching your request were found.
                 </Typography>
               ))}
 

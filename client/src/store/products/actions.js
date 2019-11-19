@@ -68,12 +68,12 @@ export const getMoreProducts = (endpoint, existedProducts) => (dispatch) => {
         type: GET_PRODUCTS_FAILED,
         payload: err.response.data,
       });
-      console.log('err', err);
-      dispatch(enqueueSnackbar({
-        message: err,
-        options: {
-          variant: 'error',
-        },
-      }));
+      // console.log('err', err);
+      // dispatch(enqueueSnackbar({
+      //   message: err,
+      //   options: {
+      //     variant: 'error',
+      //   },
+      // }));
     });
 };
