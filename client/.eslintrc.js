@@ -18,7 +18,7 @@ module.exports = {
     "react", "jsx-a11y", "import", "material-ui"
   ],
   "rules": {
-    "react-hooks/exhaustive-deps":0,
+    "react-hooks/exhaustive-deps": 0,
     "react/jsx-filename-extension": 0,
     "react/prop-types": 0,
     "import/prefer-default-export": 0,

@@ -11,7 +11,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { selectFilters } from '../../../store/selectedFilters/actions';
 
 const CategoryFilter = (props) => {
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState(() => {
+    if (props.selectedFilters.categories) {
+      return [...props.selectedFilters.categories];
+    }
+    return [];
+  });
+
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);

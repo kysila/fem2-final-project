@@ -11,7 +11,12 @@ import { connect } from 'react-redux';
 import { selectFilters } from '../../../store/selectedFilters/actions';
 
 const MaxSpeedFilter = (props) => {
-  const [maxSpeed, setMaxSpeed] = useState([]);
+  const [maxSpeed, setMaxSpeed] = useState(() => {
+    if (props.selectedFilters.maxSpeed) {
+      return [...props.selectedFilters.maxSpeed];
+    }
+    return [];
+  });
 
   const handleChangeMaxSpeed = (event) => {
     setMaxSpeed(event.target.value);
