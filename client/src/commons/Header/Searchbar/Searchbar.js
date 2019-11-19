@@ -23,12 +23,15 @@ const Searches = (props) => {
   const onRequestHandler = () => {
     props.history.push('/search');
     props.setSearchProducts(props.searchValue);
+    props.setSearchValue('');
   };
 
   return (
     <React.Fragment>
       <SearchBar
         value={props.searchValue}
+        cancelOnEscape
+        placeholder=" "
         onChange={(newValue) => props.setSearchValue(newValue)}
         onCancelSearch={() => {
           props.setSearchValue(clear);
