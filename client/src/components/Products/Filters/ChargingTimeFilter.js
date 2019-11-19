@@ -10,7 +10,12 @@ import { connect } from 'react-redux';
 import { selectFilters } from '../../../store/selectedFilters/actions';
 
 const ChargingTimeFilter = (props) => {
-  const [chargingTime, setChargingTime] = useState([]);
+  const [chargingTime, setChargingTime] = useState(() => {
+    if (props.selectedFilters.chargingTime) {
+      return [...props.selectedFilters.chargingTime];
+    }
+    return [];
+  });
 
   const handleChangeChargingTime = (event) => {
     setChargingTime(event.target.value);
@@ -50,7 +55,6 @@ const ChargingTimeFilter = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  ...state,
   selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 

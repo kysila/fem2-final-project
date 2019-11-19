@@ -11,7 +11,12 @@ import { useStyles } from './style';
 const ColorFilter = (props) => {
 
   const classes = useStyles();
-  const [color, setColor] = useState([]);
+  const [color, setColor] = useState(() => {
+    if (props.selectedFilters.color) {
+      return [...props.selectedFilters.color];
+    }
+    return [];
+  });
   const handleChangeColor = (event) => {
     setColor(event.target.value);
     props.selectFilters(event, event.target.value, 'color', { ...props.selectedFilters });

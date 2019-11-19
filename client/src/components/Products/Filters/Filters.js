@@ -24,7 +24,6 @@ const Filters = (props) => {
   const classes = useStyles();
 
   const [open, setOpen] = useState({ open: false });
-
   const handleFiltersClick = () => {
     if (open.open) {
       setOpen({ open: false });
