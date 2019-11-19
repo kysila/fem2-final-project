@@ -21,6 +21,9 @@ export const getProducts = (endpoint) => (dispatch) => {
         url: `/products/${el.itemNo}`,
         rating: el.rating,
         id: el._id,
+        distance: el.distance,
+        maxSpeed: el.maxSpeed,
+        chargingTime: el.chargingTime,
       }));
       dispatch({
         type: GET_PRODUCTS_SUCCEEDED,
@@ -49,6 +52,9 @@ export const getMoreProducts = (endpoint, existedProducts) => (dispatch) => {
         url: `/products/${el.itemNo}`,
         rating: el.rating,
         id: el._id,
+        distance: el.distance,
+        maxSpeed: el.maxSpeed,
+        chargingTime: el.chargingTime,
       }));
       const allProducts = [...existedProducts, ...newProducts];
       dispatch({

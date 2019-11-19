@@ -9,7 +9,6 @@ export { Notifier } from './Notifier/Notifier';
 export { Unsubscribe } from './Unsubscribe/Unsubscribe';
 export { Checkout } from './Checkout';
 export { ClientProfile } from './ClientProfile/ClientProfile';
-export { Compare } from './Compare/Compare';
 export { TermsConditions } from './TermsConditions/TermsConditions';
 export { PrivacyPolicy } from './PrivacyPolicy/PrivacyPolicy';
 export { Order } from './Order/Order';

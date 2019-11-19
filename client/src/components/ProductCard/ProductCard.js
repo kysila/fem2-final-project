@@ -16,7 +16,7 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { handlerLocalStorage } from '../AddToCartButton/script';
 import { addProductToCart, getCartFromLS } from '../../store/cart/actions';
-import { HeartIcon, BagIcon, WeigherIcon } from '../Icons/Icons';
+import { BagIcon } from '../Icons/Icons';
 
 import { useStyles } from './style';
 import { AddToWishListButton } from '../AddToWishListButton/AddToWishListButton';
@@ -28,7 +28,7 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductCard = ({
-  obj, name, itemImg, price, url, rating, key, itemNo, id, ...props
+  obj, name, itemImg, price, url, rating, key, itemNo, id, distance, maxSpeed, chargingTime, ...props
 }) => {
   const [state, setState] = useState({
     openButtons: false,
@@ -65,12 +65,12 @@ const ProductCard = ({
       const item = itemNo;
       if (!filterCart(product, item)) {
         localStorage.setItem('product', JSON.stringify(product.concat([{
-          name, itemImg, price, url, rating, key, itemNo,
+          name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
         }])));
       }
     } else {
       const newProduct = [].concat([{
-        name, itemImg, price, url, rating, key, itemNo,
+        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
     }
@@ -158,13 +158,22 @@ const ProductCard = ({
             allProps={props}
           />
           <AddToCompareButton
-            obj={obj}
             className={classes.buttonStyle}
             allProps={props}
             iconStyle={{
               width: '30px',
               height: '23px',
             }}
+            name={name}
+            itemNo={itemNo}
+            itemImg={itemImg}
+            price={price}
+            url={url}
+            rating={rating}
+            key={key}
+            distance={distance}
+            maxSpeed={props.maxSpeed}
+            chargingTime={chargingTime}
           />
           <Button
             onClick={(e) => {

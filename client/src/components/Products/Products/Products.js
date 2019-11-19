@@ -36,7 +36,6 @@ const Products = (props) => {
   const [perPage, setPerPage] = useState(startPerPage);
 
   useEffect(() => {
-
     props.getProducts(`/products/filter${props.location.search}`);
     if (!Object.keys(props.selectedFilters).length) {
       const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
@@ -119,6 +118,9 @@ const Products = (props) => {
           rating={el.rating}
           itemNo={el.itemNo}
           id={el.id}
+          distance={el.distance}
+          maxSpeed={el.maxSpeed}
+          chargingTime={el.chargingTime}
         />
       </Grid>
     ));

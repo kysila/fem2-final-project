@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -12,22 +13,83 @@ import { Header } from '../../commons/Header/Header/Header';
 import { Footer } from '../../commons/Footer/Footer/Footer';
 import ProductForCompare from './ProductForCompare';
 
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name, calories, fat, carbs, protein,
-  };
-}
+import compareReducer from '../../store/compare/compareReducer';
 
-const rows = [
-  createData('Price'),
-  createData('Maximum speed'),
-  createData('Distance'),
-  createData('Charging time'),
-  createData('Gingerbread'),
-];
+const mapStateToProps = (store) => ({
+  products: store.compareReducer.products,
+});
 
-export const Compare = () => {
+const Compare = ({
+  name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, ...props
+}) => {
+  const productsArray = props.products;
   const classes = useStyles();
+  const headerRow = ['Price', 'Maximum speed', 'Distance', 'Charging time'];
+
+  const PriceRow = () => {
+    const priceRow = productsArray.map((row) => (
+      <React.Fragment key={row.itemNo}>
+        <TableCell align="center">{row.price}</TableCell>
+      </React.Fragment>
+    ));
+    return (
+      <React.Fragment>
+        {priceRow}
+      </React.Fragment>
+    );
+  };
+
+  const MaxSpeedRow = () => {
+    if (maxSpeed !== undefined) {
+      const speedRow = productsArray.map((row) => (
+        <React.Fragment key={row.itemNo}>
+          <TableCell align="center">{row.maxSpeed}</TableCell>
+        </React.Fragment>
+      ));
+      return (
+        <React.Fragment>
+          {speedRow}
+        </React.Fragment>
+      );
+    }
+    const undefinedSpeed = productsArray.map((row) => (
+      <React.Fragment key={row.itemNo}>
+        <TableCell align="center">-</TableCell>
+      </React.Fragment>
+    ));
+    return (
+      <React.Fragment>
+        {undefinedSpeed}
+      </React.Fragment>
+    );
+  };
+
+  const DistanceRow = () => {
+    const distanceRow = productsArray.map((row) => (
+      <React.Fragment key={row.itemNo}>
+        <TableCell align="center">{row.distance}</TableCell>
+      </React.Fragment>
+    ));
+    return (
+      <React.Fragment>
+        {distanceRow}
+      </React.Fragment>
+    );
+  };
+
+  const ChargingTimeRow = () => {
+    const chTimeRow = productsArray.map((row) => (
+      <React.Fragment key={row.itemNo}>
+        <TableCell align="center">{row.chargingTime}</TableCell>
+      </React.Fragment>
+    ));
+    return (
+      <React.Fragment>
+        {chTimeRow}
+      </React.Fragment>
+    );
+  };
+
 
   return (
     <div>
@@ -37,30 +99,34 @@ export const Compare = () => {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell />
-              <TableCell>
-                <ProductForCompare />
-              </TableCell>
-              <TableCell>
-                <ProductForCompare />
-              </TableCell>
-              <TableCell>
-                <ProductForCompare />
-              </TableCell>
+              <ProductForCompare />
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
-            ))}
+            <TableRow>
+              <TableCell component="th" scope="row" className={classes.headerRow}>
+                {headerRow[0]}
+              </TableCell>
+              <PriceRow />
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row" className={classes.headerRow}>
+                {headerRow[1]}
+              </TableCell>
+              <MaxSpeedRow />
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row" className={classes.headerRow}>
+                {headerRow[2]}
+              </TableCell>
+              <DistanceRow />
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row" className={classes.headerRow}>
+                {headerRow[3]}
+              </TableCell>
+              <ChargingTimeRow />
+            </TableRow>
           </TableBody>
         </Table>
       </Paper>
@@ -68,3 +134,4 @@ export const Compare = () => {
     </div>
   );
 };
+export default connect(mapStateToProps, { compareReducer })(Compare);
