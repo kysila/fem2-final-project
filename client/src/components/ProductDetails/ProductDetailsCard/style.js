@@ -1,10 +1,9 @@
-import { makeStyles} from "@material-ui/core";
+import { makeStyles} from '@material-ui/core';
 
 export const useStyles = makeStyles({
 	container: {
-		marginBottom: 24,
 		width: 420,
-		maxHeight: 400,
+		maxHeight: 390,
 		position: 'sticky',
 		top: 135,
 		'& > p': {

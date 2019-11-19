@@ -8,3 +8,7 @@ export const addProductsToCompare = (product) => (dispatch) => {
     products: product,
   });
 };
+
+export const deleteProductsFromCompare = (product) => (dispatch) => {
+  console.log('delete', product);
+};

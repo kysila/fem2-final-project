@@ -16,18 +16,15 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { handlerLocalStorage } from '../AddToCartButton/script';
 import { addProductToCart, getCartFromLS } from '../../store/cart/actions';
-import { addProductsToCompare } from '../../store/compare/actions';
 import { HeartIcon, BagIcon, WeigherIcon } from '../Icons/Icons';
-import { Compare } from '../Compare/Compare';
 
 import { useStyles } from './style';
 import { AddToWishListButton } from '../AddToWishListButton/AddToWishListButton';
-import { dispatchModalClose } from '../../store/modal/actions';
+import AddToCompareButton from '../AddToCompareButton/AddToCompareButton';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
-  products: store.compareReducer.products,
 });
 
 const ProductCard = ({
@@ -77,12 +74,6 @@ const ProductCard = ({
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
     }
-  };
-
-  const addToCompare = () => {
-    props.addProductsToCompare({
-      name, itemImg, price, url, rating, key, itemNo,
-    });
   };
 
   useEffect(() => {
@@ -166,19 +157,15 @@ const ProductCard = ({
             user={props.user}
             allProps={props}
           />
-          <Button
+          <AddToCompareButton
+            obj={obj}
             className={classes.buttonStyle}
-          >
-            <WeigherIcon
-              onClick={addToCompare}
-              className="icon"
-              style={{
-                width: 30,
-                height: 23,
-              }}
-              color="action"
-            />
-          </Button>
+            allProps={props}
+            iconStyle={{
+              width: '30px',
+              height: '23px',
+            }}
+          />
           <Button
             onClick={(e) => {
               props.user
@@ -202,4 +189,4 @@ const ProductCard = ({
   );
 };
 
-export default connect(mapStateToProps, { addProductToCart, getCartFromLS, addProductsToCompare })(ProductCard);
+export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductCard);

@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
 
-import { Header } from '../../commons';
-import { ProductGallery } from "./ProductGallery/ProductGallery";
-import { ProductDescription } from './ProductDescription/ProductDescription'
-import ProductDetailsCard from "./ProductDetailsCard/ProductDetailsCard";
+import { Header, Footer } from '../../commons';
+import { ProductGallery } from './ProductGallery/ProductGallery';
+import { ProductDescription } from './ProductDescription/ProductDescription';
+import ProductDetailsCard from './ProductDetailsCard/ProductDetailsCard';
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs/ProductBreadcrumbs';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 
-import { useStyles } from "./style";
+import { useStyles } from './style';
+import {ProductCustomerReviews} from "./ProductCustomerReviews/ProductCustomerReviews";
 
-export const ProductDetails = (props) => {
+const mapStateToProps = (store) => ({
+  user: store.auth.user,
+});
+
+const ProductDetails = (props) => {
   const [state, setState] = useState({
     obj: {},
     colors: {},
@@ -26,18 +32,18 @@ export const ProductDetails = (props) => {
 
   useEffect(() => {
     axios.get(`/products/${props.match.params.id}`)
-      .then(data => {
+      .then((data) => {
         setState(() => ({
           ...state,
           obj: data.data,
-        }))
+        }));
       });
-    return () => {}
+    return () => {};
   }, [id]);
 
   useEffect(() => {
     axios.get(`/products/product/${state.obj.itemNo}`)
-      .then(data => {
+      .then((data) => {
         setState({
           ...state,
           colors: data,
@@ -54,12 +60,17 @@ export const ProductDetails = (props) => {
           <div className={classes.productInfo}>
             <ProductGallery image={state.obj.imageUrls} />
             <ProductDescription data={state.obj} />
+            <ProductCustomerReviews user={props.user} />
           </div>
           <ProductDetailsCard data={state} />
         </div>
       </Container>
       <RecentlyViewed />
       <StayInTouch />
+      <Footer />
     </div>
   );
 };
+
+export default connect(mapStateToProps)(ProductDetails);
+

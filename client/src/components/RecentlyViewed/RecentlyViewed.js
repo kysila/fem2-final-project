@@ -66,7 +66,7 @@ export const RecentlyViewed = () => {
           name={el.name}
           itemImg={el.itemImg}
           price={el.price}
-          url={el.url}
+          url={el.itemNo}
           rating={el.rating}
           itemNo={el.itemNo}
         />
