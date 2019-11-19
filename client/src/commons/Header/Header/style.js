@@ -93,4 +93,8 @@ export const useStyles = makeStyles((theme) => createStyles({
       display: 'inline-block',
     },
   },
+  profileLink: {
+    textDecoration: 'underline !important',
+    color: '#3f51b5',
+  },
 }));

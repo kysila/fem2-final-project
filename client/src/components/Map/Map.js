@@ -13,14 +13,12 @@ Geocode.setLanguage('en');
 function getAddress({ lat, lng }) {
   return Geocode.fromLatLng(lat, lng).then(
     (response) => response.results[0].formatted_address,
-    console.error,
   );
 }
 
 function getCoords(address) {
   return Geocode.fromAddress(address).then(
     (response) => response.results[0].geometry.location,
-    console.error,
   );
 }
 
@@ -77,7 +75,7 @@ export function Map(props) {
       onCenterChanged={() => isMounted && map && setCenter(map.getCenter().toJSON())}
       onDragEnd={() => {
         if (isMounted && props.onChange) {
-          getAddress(center).then((value) => props.onChange({ target: { value } }));
+          getAddress(center).then((value) => props.onChange({ target: { type: 'text', value } }));
         }
       }}
       mapRef={(mapRef) => setMap(mapRef)}

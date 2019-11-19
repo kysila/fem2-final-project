@@ -32,6 +32,7 @@ const Counter = (props) => {
           if (el.product.itemNo === props.itemNo) {
             el.cartQuantity += 1;
           }
+          return el;
         });
         props.getCartFromLS(cartFromLS);
         const serialCart = JSON.stringify(cartFromLS);
@@ -51,6 +52,7 @@ const Counter = (props) => {
           if (el.product.itemNo === props.itemNo) {
             el.cartQuantity -= 1;
           }
+          return el;
         });
         props.getCartFromLS(cartFromLS);
         const serialCart = JSON.stringify(cartFromLS);
@@ -72,7 +74,8 @@ const Counter = (props) => {
           classes={{
             underline: classes.underline,
             root: classes.input,
-            input: classes.input }}
+            input: classes.input,
+          }}
         />
       </Button>
       <Button

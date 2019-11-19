@@ -17,14 +17,17 @@ export const useStyles = makeStyles((theme) => createStyles({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignItems: 'center',
+    cursor: 'pointer',
   },
   drawer: {},
   paper: {
-    paddingRight: '0.5%',
-    paddingLeft: '1%',
+    minWidth: '20%',
     paddingTop: '2%',
     fontSize: '20px',
     color: '#9c80ff',
+  },
+  list_box: {
+    width: '100%',
   },
   list: {
     marginRight: '50px',
@@ -36,7 +39,6 @@ export const useStyles = makeStyles((theme) => createStyles({
     marginRight: '2%',
   },
   text: {
-    display: 'inline-block',
     paddingRight: '3%',
     paddingLeft: '3%',
     textTransform: 'uppercase',
@@ -46,5 +48,4 @@ export const useStyles = makeStyles((theme) => createStyles({
     paddingLeft: '8%',
     marginBottom: '7%',
   },
-
 }));

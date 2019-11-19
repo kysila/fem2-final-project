@@ -20,6 +20,7 @@ import Box from "@material-ui/core/Box";
 
 import { useStyles } from "./style";
 import {AddToWishListButton} from "../AddToWishListButton/AddToWishListButton";
+import {AddToFavouritesButton} from "../AddToFavouritesButton/AddToFavouritesButton";
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -155,17 +156,16 @@ const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, 
             user={props.user}
             allProps={props}
           />
-          <Button
+          <AddToFavouritesButton
+            obj={obj}
             className={classes.buttonStyle}
-          >
-            <WeigherIcon
-              className="icon"
-              style={{
-                width: 30,
-                height: 23,
-              }}
-              color="action"/>
-          </Button>
+            user={props.user}
+            allProps={props}
+            iconStyle={{
+              width: '30px',
+              height: '23px',
+            }}
+          />
           <Button
             onClick={e => {
               props.user ?

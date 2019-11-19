@@ -5,12 +5,13 @@ import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import Cookie from 'js-cookie';
 import {
-  ClientProfile, MainPage, ProductDetails, NotFound, Modal, Notifier, Checkout,
+  ClientProfile, MainPage, NotFound, Modal, Notifier, Checkout, TermsConditions, PrivacyPolicy, Order
 } from './components';
 import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
-import { Search } from './components/Search/Search';
+import Search from './components/Search/Search';
 import './App.css';
 import Products from './components/Products/Products/Products';
+import ProductDetails from './components/ProductDetails/ProductDetails';
 
 import store from './store/index';
 import { dispatchGetCustomer } from './store/auth/actions';
@@ -134,6 +135,9 @@ function App() {
               <Route path="/checkout" component={Checkout} />
               <Route path="/search" component={Search} />
               <Route path="/subscribers/email/:email" component={Unsubscribe} />
+              <Route path="/terms-and-conditions" component={TermsConditions} />
+              <Route path="/privacy-policy" component={PrivacyPolicy} />
+              <Route path="/order/:id/:discountCode?" component={Order} />
               <Route component={NotFound} />
             </Switch>
           </div>

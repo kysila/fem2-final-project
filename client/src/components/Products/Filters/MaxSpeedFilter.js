@@ -11,24 +11,18 @@ import { connect } from 'react-redux';
 import { selectFilters } from '../../../store/selectedFilters/actions';
 
 const MaxSpeedFilter = (props) => {
-  const [maxSpeed, setMaxSpeed] = useState([]);
+  const [maxSpeed, setMaxSpeed] = useState(() => {
+    if (props.selectedFilters.maxSpeed) {
+      return [props.selectedFilters.maxSpeed];
+    }
+    return [];
+  });
 
   const handleChangeMaxSpeed = (event) => {
     setMaxSpeed(event.target.value);
     props.selectFilters(event, event.target.value, 'maxSpeed', { ...props.selectedFilters });
   };
 
-  // const handleChangeMultipleMaxSpeed = (event) => {
-  //   const { options } = event.target;
-  //   const value = [];
-  //   for (let i = 0, l = options.length; i < l; i += 1) {
-  //     if (options[i].selected) {
-  //       value.push(options[i].value);
-  //     }
-  //   }
-  //   setMaxSpeed(value);
-  //   props.selectFilters(event, event.target.value, 'maxSpeed', { ...props.selectedFilters });
-  // };
   return (
     <React.Fragment>
       <InputLabel id="maxSpeed-select-label">MaxSpeed</InputLabel>

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -16,6 +18,15 @@ import { Logo } from '../../Logo/Logo';
 import { useStyles } from './style';
 import MenuAdaptiveIcon from '../MenuAdaptiveIcon/MenuAdaptiveIcon';
 
+function HideOnScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+  return (
+      <Slide appear={false} direction="down" in={!trigger}>
+        {children}
+      </Slide>
+  );
+}
 const Header = (props) => {
   const classes = useStyles();
   const openLogin = (e) => {
@@ -27,15 +38,17 @@ const Header = (props) => {
     props.openModal('register');
   };
 
+
   return (
     <React.Fragment>
       <CssBaseline />
+      <HideOnScroll {...props}>
       <AppBar className={classes.appBar} id="header">
         <Container maxWidth="md">
 
           <Box className={classes.container}>
             <Box className={classes.menu_icon}>
-              <MenuAdaptiveIcon callCenter={props.callCenter}/>
+              <MenuAdaptiveIcon callCenter={props.callCenter} />
             </Box>
             <Box className={classes.logo}>
               {' '}
@@ -53,7 +66,7 @@ const Header = (props) => {
                     {`Hello, ${props.user.firstName || props.user.login}`}
                   </Link>
                   <span> | </span>
-                  <Link to="/logout" onClick={(e) => { e.preventDefault(); props.logout(); }}>
+                  <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout(); }}>
                     Logout
                   </Link>
                 </Box>
@@ -64,7 +77,11 @@ const Header = (props) => {
                 </Box>
               )
             }
-            <Cart />
+            {
+              props.hideCart ? null : (
+                <Cart />
+              )
+            }
           </Box>
           <Box className={classes.container}>
             <Box>
@@ -79,6 +96,7 @@ const Header = (props) => {
           </Box>
         </Container>
       </AppBar>
+      </HideOnScroll>
     </React.Fragment>
   );
 };

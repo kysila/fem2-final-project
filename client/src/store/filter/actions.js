@@ -1,10 +1,10 @@
 import axios from 'axios';
+import { enqueueSnackbar } from '../notification/actions';
 
 // ACTIONS WITH OTHER FILTERS
 export const GET_FILTERS_REQUESTED = 'GET_FILTERS_REQUESTED';
 export const GET_FILTERS_SUCCEEDED = 'GET_FILTERS_SUCCEEDED';
 export const GET_FILTERS_FAILED = 'GET_FILTERS_FAILED';
-
 
 
 // action:
@@ -35,7 +35,13 @@ export const getFilters = () => (dispatch) => {
     ).catch((err) => {
       dispatch({
         type: GET_FILTERS_FAILED,
-        payload: err.response.data.message,
+        payload: err,
       });
+    // dispatch(enqueueSnackbar({
+    //     message: err.response.data.message,
+    //     options: {
+    //       variant: 'error',
+    //     },
+    //   }));
     });
 };

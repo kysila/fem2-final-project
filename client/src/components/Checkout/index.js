@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import {
   Grid, Typography, Button, Divider, Box, useMediaQuery, withTheme,
 } from '@material-ui/core';
@@ -27,34 +28,38 @@ const museo = {
   `,
 };
 
-const CheckoutProcess = withRouter(withTheme((props) => {
+const mapStateToProps = ({ cartReducer: { cart: { products } } }) => ({
+  products: products.map(({
+    cartQuantity: quantity,
+    product: {
+      name: title,
+      imageUrls: [src],
+      currentPrice: price,
+      _id: key,
+    },
+  }) => ({
+    key, src, title, price, quantity,
+  })),
+});
+
+const CheckoutProcess = connect(mapStateToProps)(withRouter(withTheme((props) => {
   const classes = useStyles(props);
   const tablet = useMediaQuery(props.theme.breakpoints.down(1024));
   const mobile = useMediaQuery(props.theme.breakpoints.down(768));
 
-  const [state, setState] = useState({
-    discount: {
-      value: '',
-      error: null,
+  const [discount, setDiscount] = useState({
+    value: '',
+    variants: {
+      KDT3X: 3,
+      MFNM8: 5,
+      B43T9: 10,
+      BM2MB: 15,
+      X4R9G: 20,
     },
+    error: null,
   });
 
-  const mockProducts = [
-    {
-      key: 'id-0',
-      src: '/img/products/e-bikes/872426/001.jpg',
-      title: 'Addmotor Hithot H1 Sport Mountain E-bike (green)',
-      quantity: 1,
-      price: '1699.99',
-    },
-    {
-      key: 'id-1',
-      src: '/img/products/e-bikes/872426/001.jpg',
-      title: 'Civi Bikes Cheetah Vintage-Style Electric Fat Bike (Night Black)',
-      quantity: 1,
-      price: '2299.99',
-    },
-  ];
+  const [discountApplied, setApplied] = useState(false);
 
   const steps = [
     {
@@ -79,15 +84,36 @@ const CheckoutProcess = withRouter(withTheme((props) => {
     },
   ];
 
-  const onChange = (stateName) => (event) => {
-    setState({
-      ...state,
-      [stateName]: {
-        value: event.target.checked || event.target.value,
-        error: null,
-      },
-    });
+  const calculatePrice = () => {
+    const fullPrice = props.products
+      .reduce((total, { price, quantity }) => Number(total) + (Number(price) * quantity), 0);
+    const percent = discount.variants[discount.value] || 0;
+
+    return {
+      discountApplied,
+      fullPrice: fullPrice.toFixed(2),
+      percent,
+      discountedPrice: discountApplied
+        ? (fullPrice - (fullPrice * (percent / 100))).toFixed(2)
+        : null,
+    };
   };
+
+  const calculated = calculatePrice();
+
+  const changeDiscount = ({ target: { value } }) => {
+    setDiscount({
+      ...discount,
+      value,
+    });
+    setApplied(false);
+  };
+
+  if (!props.products || !props.products.length) {
+    return (
+      <Redirect to="/" />
+    );
+  }
 
   return (
     <Grid
@@ -115,7 +141,15 @@ const CheckoutProcess = withRouter(withTheme((props) => {
         >
           {
             tablet ? (
-              <ShowOrderSummary products={mockProducts} DiscountProps={{ onChange: onChange('discount'), ...state.discount }} />
+              <ShowOrderSummary
+                products={props.products}
+                calculatedPrice={calculated}
+                applyDiscountHandler={() => setApplied(true)}
+                DiscountProps={{
+                  onChange: changeDiscount,
+                  value: discount.value,
+                }}
+              />
             ) : null
           }
           <Grid
@@ -126,7 +160,7 @@ const CheckoutProcess = withRouter(withTheme((props) => {
           >
             { /* https://reacttraining.com/react-router/web/api/Switch */ }
             { /* https://tylermcginnis.com/react-router-nested-routes/ */ }
-            <Route component={() => (
+            <Route>
               <Switch>
                 <Route exact path="/checkout/info">
                   <Checkout />
@@ -139,8 +173,7 @@ const CheckoutProcess = withRouter(withTheme((props) => {
                 </Route>
                 <Redirect to="/checkout/info" />
               </Switch>
-            )}
-            />
+            </Route>
           </Grid>
           <Grid
             item
@@ -173,15 +206,15 @@ const CheckoutProcess = withRouter(withTheme((props) => {
                     Order Summary
                   </Typography>
                 </Grid>
-                {mockProducts.map((item) => <CheckoutOrderProduct {...item} />)}
+                {props.products.map((item) => <CheckoutOrderProduct {...item} />)}
                 <Divider className={classes.divider} />
                 <InputField
                   id="discount"
                   type="text"
                   label="Discount code"
                   labelWidth={110}
-                  value={state.discount.value}
-                  onChange={onChange('discount')}
+                  value={discount.value}
+                  onChange={changeDiscount}
                   FormControlProps={{
                     className: classes.dividerFormControl,
                   }}
@@ -200,6 +233,10 @@ const CheckoutProcess = withRouter(withTheme((props) => {
                         style={museo}
                         className={classes.discountButton}
                         variant="text"
+                        onClick={() => {
+                          setApplied(true);
+                          localStorage.setItem('/checkout/discount', discount.value);
+                        }}
                       >
                         Apply
                       </Button>
@@ -225,9 +262,7 @@ const CheckoutProcess = withRouter(withTheme((props) => {
                     <Typography className={classes.afterDiscount} style={museo}>
                       $
                       {
-                        mockProducts
-                          .reduce((total, { price }) => (Number(total) + Number(price))
-                            .toFixed(2), 0)
+                        calculated.fullPrice
                       }
                     </Typography>
                   </Grid>
@@ -241,9 +276,29 @@ const CheckoutProcess = withRouter(withTheme((props) => {
                       Shipping
                     </Typography>
                     <Typography className={classes.afterDiscount} style={museo}>
-                      Calculated at next step
+                      $0.00
                     </Typography>
                   </Grid>
+                  {
+                    calculated.percent > 0 && discountApplied ? (
+                      <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justify="space-between"
+                      >
+                        <Typography className={classes.afterDiscount} style={museo}>
+                          Discount
+                        </Typography>
+                        <Typography className={classes.afterDiscount} style={museo}>
+                          {
+                            calculated.percent
+                          }
+                          %
+                        </Typography>
+                      </Grid>
+                    ) : null
+                  }
                 </Grid>
                 <Divider className={classes.divider} />
                 <Grid
@@ -256,10 +311,24 @@ const CheckoutProcess = withRouter(withTheme((props) => {
                     Total
                   </Typography>
                   <Typography className={classes.total} style={museo}>
+                    {
+                      discountApplied && calculated.percent > 0 ? (
+                        <React.Fragment>
+                          <Typography component="span" className={classes.total} style={{ textDecoration: 'line-through', color: '#888888', ...museo }}>
+                            $
+                            {
+                              calculated.fullPrice
+                            }
+                          </Typography>
+                          {' / '} {/* eslint-disable-line */}
+                        </React.Fragment>
+                      ) : null
+                    }
                     $
                     {
-                      mockProducts
-                        .reduce((total, { price }) => (Number(total) + Number(price)).toFixed(2), 0)
+                      discountApplied && calculated.percent > 0
+                        ? calculated.discountedPrice
+                        : calculated.fullPrice
                     }
                   </Typography>
                 </Grid>
@@ -277,7 +346,7 @@ const CheckoutProcess = withRouter(withTheme((props) => {
       </Box>
     </Grid>
   );
-}));
+})));
 
 export {
   CheckoutProcess as Checkout,

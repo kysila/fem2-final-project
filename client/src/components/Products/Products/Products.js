@@ -25,11 +25,11 @@ import { useStyles } from './style';
 import { getProducts, getMoreProducts } from '../../../store/products/actions';
 import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/selectedFilters/actions';
 
+
 let displayedProductsArray = [];
 const Products = (props) => {
   const classes = useStyles();
   let products;
-  let newDisplayedProducts = [];
   let selectedFilterChips;
   let selectedFilterType;
   let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
@@ -44,13 +44,11 @@ const Products = (props) => {
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
     }
-    // else {
-    //   const currentQuery = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    //   const selectedFiltersQuery = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
-    //   const selectedFiltersFull = `/products/filter?perPage=${currentQuery.perPage}&startPage=${currentQuery.startPage}&${selectedFiltersQuery}`;
-    //   props.history.push(selectedFiltersFull);
-    // }
   }, [props.location.search]);
+
+  useEffect(() => () => {
+    props.recentlySelectFilters({});
+  }, []);
 
   useEffect(() => {
     if (+queryOptions.perPage !== +perPage) {
@@ -61,7 +59,7 @@ const Products = (props) => {
       queryOptions.startPage = startPage + 1;
       queryOptions.perPage = 8;
       const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-      newDisplayedProducts = props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
+      props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
     }
   }, [perPage]);
 
@@ -110,7 +108,7 @@ const Products = (props) => {
 
     displayedProductsArray = [...props.allProducts];
     products = displayedProductsArray.map((el) => (
-      <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
+      <Grid item xs={12} sm={6} md={3} key={el.itemNo}>
         <ProductCard
           className={classes.card}
           obj={el}
@@ -124,32 +122,8 @@ const Products = (props) => {
         />
       </Grid>
     ));
-  } else {
-    return (
-      <React.Fragment>
-        <Header callCenter="1-855-324-5387" />
-        <Container maxWidth="md" className={classes.paddingTop}>
-          <AllBreadcrumbs />
-          <Title title="All products" />
-          <Typography
-            variant="body1"
-            gutterBottom
-            align="center"
-            className={classes.space}
-          >
-                    Our full collection of electric devices
-          </Typography>
-          <Filters />
-          <main>
-            <Preloader />
-          </main>
-        </Container>
-        <RecentlyViewed />
-        <StayInTouch />
-        <Footer />
-      </React.Fragment>
-    );
   }
+
   return (
     <React.Fragment>
       <Header callCenter="1-855-324-5387" />
@@ -169,17 +143,19 @@ const Products = (props) => {
           {selectedFilterChips}
         </Grid>
         <main className={classes.main}>
-          <Grid container spacing={0}>
-            {props.allProducts.length ? products : (
-              <Typography
-                variant="body1"
-                gutterBottom
-                align="center"
-                className={classes.space}
-              >
-              Sorry, no products matching your request were found.
-              </Typography>
-            )}
+          <Grid container spacing={0} alignItems="center" justify="center">
+            { props.isProductsFetching ? <Preloader /> : (
+              props.allProducts.length ? products : (
+                <Typography
+                  variant="body1"
+                  gutterBottom
+                  align="center"
+                  className={classes.space}
+                >
+                  Sorry, no products matching your request were found.
+                </Typography>
+              ))}
+
           </Grid>
           {props.allProducts.length >= perPage
           && (

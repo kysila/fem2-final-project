@@ -13,19 +13,24 @@ export const Footer = () => {
 
   return (
     <footer>
-      <Container maxWidth="md">
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={3} md={3}>
+      <Container maxWidth="md" className={classes.mainContainer}>
+        <Grid container spacing={3} className={classes.container}>
+          <Grid item xs={12} sm={4} md={4} className={classes.adaptive}>
             <Link to="/" className={classes.logo}>
               <img src="/img/logo.svg" alt="Logo" />
             </Link>
           </Grid>
-          <Grid item xs={12} sm={6} md={6} className={classes.copyContainer}>
+          <Grid
+            item
+            xs={12}
+            sm={4}
+            md={4}
+          >
             <Typography align="center" className={classes.copyright}>
               Copyright &copy; 2019 Electra.
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={3} md={3} className={classes.socialBlock}>
+          <Grid item xs={12} sm={4} md={4} className={classes.adaptive}>
             <a href="https://facebook.com" className={classes.socialLink}>
               <img src="/img/fb.svg" alt="Logo" />
             </a>

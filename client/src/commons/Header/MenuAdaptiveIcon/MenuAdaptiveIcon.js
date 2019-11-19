@@ -1,27 +1,38 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { NavHashLink as HashLink } from 'react-router-hash-link';
+
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
 import CloseIcon from '@material-ui/icons/Close';
 import Divider from '@material-ui/core/Divider';
-
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ListItem from '@material-ui/core/ListItem';
 import Collapse from '@material-ui/core/Collapse';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { Link } from 'react-router-dom';
-import { NavHashLink as HashLink } from 'react-router-hash-link';
+
+import Box from '@material-ui/core/Box';
 import Searches from '../Searchbar/Searchbar';
 import { useStyles } from './style';
+import { dispatchModalOpen } from '../../../store/modal/actions';
+import { dispatchLogout } from '../../../store/auth/actions';
 
 function mapStateToProps(state) {
   return {
     user: state.auth.user,
     categories: state.categoryReducer.categories,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    openModal: (child) => dispatch(dispatchModalOpen(child)),
+    logout: () => dispatch(dispatchLogout()),
   };
 }
 
@@ -33,6 +44,16 @@ const MenuAdaptiveIcon = (props) => {
 
   const handleClick = () => {
     setOpen(!open);
+  };
+  const openLogin = (e) => {
+    e.preventDefault();
+    props.openModal('login');
+    setMenuIsOpen(false);
+  };
+  const openRegister = (e) => {
+    e.preventDefault();
+    props.openModal('register');
+    setMenuIsOpen(false);
   };
 
   if (props.categories) {
@@ -77,7 +98,7 @@ const MenuAdaptiveIcon = (props) => {
       >
         <div className={classes.logo}>
           <CloseIcon
-            fontSize="large"
+            className={classes.close_icon}
             onClick={() => {
               setMenuIsOpen(false);
             }}
@@ -91,9 +112,11 @@ const MenuAdaptiveIcon = (props) => {
             {props.callCenter}
           </p>
         </div>
+
         <Searches />
 
         <List>
+
           <ListItem key="0" button onClick={handleClick}>
             <ListItemText primary="Shop" />
             {open ? <ExpandLess /> : <ExpandMore />}
@@ -115,8 +138,12 @@ const MenuAdaptiveIcon = (props) => {
             <HashLink to="/#favourites" className={classes.menuItem}>
               <ListItemText primary="Customer Favorites" />
             </HashLink>
-            <ArrowForwardIosIcon fontSize="small" />
+
+            <HashLink to="/#favourites" className={classes.menuItem}>
+              <ArrowForwardIosIcon className={classes.arrow_icon} />
+            </HashLink>
           </ListItem>
+
           <ListItem
             className={classes.list_icon}
             key="2"
@@ -128,27 +155,34 @@ const MenuAdaptiveIcon = (props) => {
             <HashLink to="/#contact" className={classes.menuItem}>
               <ListItemText primary="Contact" />
             </HashLink>
-            <ArrowForwardIosIcon fontSize="small" />
+            <HashLink to="/#contact" className={classes.menuItem}>
+              <ArrowForwardIosIcon className={classes.arrow_icon} />
+            </HashLink>
           </ListItem>
           <ListItem
             className={classes.list_icon}
             key="3"
             button
-            >
-            <Link to="/login">
-              <ListItemText primary="Log in | Sign Up" />
-            </Link>
-            <ArrowForwardIosIcon fontSize="small" />
-          </ListItem>
-          <ListItem
-            className={classes.list_icon}
-            key="4"
-            button
-            >
-            <Link to="/">
-              <ListItemText primary="Cart" />
-            </Link>
-            <ArrowForwardIosIcon fontSize="small" />
+          >
+            {
+              !props.user ? (
+                  <Box className={classes.link}>
+                    <Link to="/login" onClick={openLogin}>Login |</Link>
+                    <Link to="/register" onClick={openRegister}> Sign Up</Link>
+                  </Box>
+              ) : (
+                  <Box className={classes.link}>
+                    <Link className={classes.profileLink} to="/profile">
+                      {`Hello, ${props.user.firstName || props.user.login}`}
+                    </Link>
+                    <span> | </span>
+                    <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout();  setMenuIsOpen(false); }}>
+                      Logout
+                    </Link>
+                  </Box>
+              )
+            }
+
           </ListItem>
         </List>
       </Drawer>
@@ -156,4 +190,4 @@ const MenuAdaptiveIcon = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(MenuAdaptiveIcon);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuAdaptiveIcon);

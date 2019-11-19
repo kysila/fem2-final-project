@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { enqueueSnackbar } from '../notification/actions';
 
 // ACTIONS WITH CART
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
@@ -7,7 +8,8 @@ export const GET_PRODUCTS_FROM_LS = 'GET_PRODUCTS_FROM_LS ';
 export const DECREASE_QUANTITY_OF_PRODUCTS = 'DECREASE_QUANTITY_OF_PRODUCTS';
 export const DELETE_PRODUCT_OF_CART = 'DELETE_PRODUCT_OF_CART';
 export const SET_COUNT_OF_PRODUCTS = 'SET_COUNT_OF_PRODUCTS';
-export const REPLACE_CART = 'REPLACE_CART';
+// export const REPLACE_CART = 'REPLACE_CART';
+export const CLEAN_CART = 'CLEAN_CART';
 
 
 // ACTIONS
@@ -32,7 +34,12 @@ export const getCartFromDB = () => (dispatch) => {
         });
       }
     }).catch((err) => {
-      console.log('Axios request was failed', err.response.data.message);
+      dispatch(enqueueSnackbar({
+        message: err.response.data.message,
+        options: {
+          variant: 'error',
+        },
+      }));
     });
 };
 
@@ -52,6 +59,13 @@ export const decreaseQuantityOfProducts = (url) => (dispatch) => {
         type: DECREASE_QUANTITY_OF_PRODUCTS,
         payload: cart.data.products,
       });
+    }).catch((err) => {
+      dispatch(enqueueSnackbar({
+        message: err.response.data.message,
+        options: {
+          variant: 'error',
+        },
+      }));
     });
 };
 
@@ -75,6 +89,26 @@ export const replaceCart = (newCart) => (dispatch) => {
         payload: cart.data,
       });
     }).catch((err) => {
-      console.log('Axios request was failed', err.response.data.message);
+      dispatch(enqueueSnackbar({
+        message: err.response.data.message,
+        options: {
+          variant: 'error',
+        },
+      }));
+    });
+};
+
+export const cleanCart = () => (dispatch) => {
+  axios
+    .delete('/cart')
+    .then(() => {
+      dispatch({
+        type: CLEAN_CART,
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: CLEAN_CART,
+      });
     });
 };

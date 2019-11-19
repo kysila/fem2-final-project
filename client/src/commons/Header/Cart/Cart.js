@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
@@ -57,6 +58,7 @@ const Cart = (props) => {
         itemNo={el.product.itemNo}
         id={el.product._id}
         quantity={el.product.quantity}
+        color={el.product.color}
       />
     )
     subTotalArray = props.cart.map((el) => el.product.currentPrice * el.cartQuantity);
@@ -80,7 +82,6 @@ const Cart = (props) => {
               {countOfProducts}
               {' '}
             </div>
-
         </Box>
       </Box>
 

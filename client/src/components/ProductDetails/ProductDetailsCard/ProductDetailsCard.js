@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
+import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
+import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
+import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
+import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
 
 import axios from 'axios';
 
 import { Typography, ButtonGroup } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
-import { AddToCartButton } from '../../AddToCartButton/AddToCartButton';
-import { HeartIcon, WeigherIcon } from '../../Icons/Icons';
-import { addProductToCart, getCartFromLS } from '../../../store/cart/actions';
-import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
+import Box from "@material-ui/core/Box";
 
 import { useStyles } from './style';
 
@@ -21,7 +22,6 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductDetailsCard = (props) => {
-
   const [state, setState] = useState({
     disabled: false,
     text: 'ADD TO CART',
@@ -34,8 +34,8 @@ const ProductDetailsCard = (props) => {
     setState({
       ...state,
       disabled: true,
-      text: 'UNAVALIABLE'
-    })
+      text: 'UNAVALIABLE',
+    });
   };
 
   let links;
@@ -44,18 +44,18 @@ const ProductDetailsCard = (props) => {
       return (
         <Link
           style={obj.itemNo === el.itemNo
-            ? {
-              color: '#444',
+            ? {color: '#444',
               backgroundColor: '#FFF',
               border: '1px solid #444',
             }
-            : null}
+            : null }
           key={i}
-          to={`/products/${el.itemNo}`}>
+          to={`/products/${el.itemNo}`}
+        >
           {el.color}
         </Link>
-      )
-    })
+      );
+    });
   }
 
   const classes = useStyles();
@@ -127,15 +127,17 @@ const ProductDetailsCard = (props) => {
             fill: '#6686FF',
           }}
         />
-        <Button className='otherBtn'>
-          <WeigherIcon
-            className='icon'
-            style={{
-              width: 30,
-              height: 23,
-              fill: '#AAA'
-            }} />
-        </Button>
+        <AddToFavouritesButton
+          obj={obj}
+          user={props.user}
+          allProps={props}
+          className={'otherBtn'}
+          iconStyle={{
+            fill: '#AAA',
+            width: '30px',
+            height: '23px',
+          }}
+        />
       </ButtonGroup>
     </div>
   )

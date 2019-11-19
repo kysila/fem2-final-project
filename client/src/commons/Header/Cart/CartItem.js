@@ -33,50 +33,76 @@ const CartItem = (props) => {
 
   return (
     <Paper className={classes.root}>
+
       <Grid container className={classes.base_container} spacing={1}>
 
         <Grid item className={classes.image}>
           <img className={classes.img} src={props.imgUrl} alt="Product" />
         </Grid>
 
-        <Grid container className={classes.main_block}>
-          <Grid item>
-            <Link to={`/products/${props.itemNo}`} className={classes.text}>
-              {props.name}
-            </Link>
-          </Grid>
-          <Grid item>
-            <ButtonGroup
-              className={classes.buttons}
-              variant="text"
-              size="small"
-              aria-label="small contained button group"
-            >
-              <Button onClick={() => deleteProduct(props.id)}>
-                <span className={classes.button}> Delete </span>
-              </Button>
-              <Button>
-                <span className={classes.button}> Save for later </span>
-              </Button>
-            </ButtonGroup>
+        <Grid item className={classes.main_block}>
+
+          <Grid container className={classes.main_block_text}>
+
+            <Grid item>
+              <Link to={`/products/${props.itemNo}`} className={classes.text}>
+                <p>
+                  { props.name }
+                  {' '}
+                </p>
+                <p>
+(
+                  {props.color }
+)
+                </p>
+              </Link>
+            </Grid>
+
+            <Grid item>
+              <ButtonGroup
+                className={classes.buttons}
+                variant="text"
+                size="small"
+                aria-label="small contained button group"
+              >
+                <Button onClick={() => deleteProduct(props.id)}>
+                  <span className={classes.button}> Delete </span>
+                </Button>
+                <Button>
+                  <span className={classes.button}> Save for later </span>
+                </Button>
+              </ButtonGroup>
+            </Grid>
+
           </Grid>
         </Grid>
-        <Grid item className={classes.counter}>
-          <Counter
-            count={props.count}
-            quantity={props.quantity}
-            id={props.id}
-            itemNo={props.itemNo}
-            currentPrice={props.currentPrice}
-          />
-        </Grid>
-        <Grid item className={classes.price}>
-          <p>
+
+        <Grid item className={classes.counter_price_box}>
+
+          <Grid container className={classes.counter_price}>
+
+            <Grid item className={classes.counter}>
+              <Counter
+                count={props.count}
+                quantity={props.quantity}
+                id={props.id}
+                itemNo={props.itemNo}
+                currentPrice={props.currentPrice}
+              />
+            </Grid>
+
+            <Grid item className={classes.price}>
+              <p>
             $
-            {props.currentPrice}
-          </p>
+                {props.currentPrice}
+              </p>
+            </Grid>
+
+          </Grid>
         </Grid>
+
       </Grid>
+
     </Paper>
   );
 };
