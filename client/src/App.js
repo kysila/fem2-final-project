@@ -5,12 +5,13 @@ import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import Cookie from 'js-cookie';
 import {
-  ClientProfile, MainPage, ProductDetails, NotFound, Modal, Notifier, Checkout, TermsConditions, PrivacyPolicy, Order,
+  ClientProfile, MainPage, NotFound, Modal, Notifier, Checkout, TermsConditions, PrivacyPolicy, Order
 } from './components';
 import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
 import Search from './components/Search/Search';
 import './App.css';
 import Products from './components/Products/Products/Products';
+import ProductDetails from './components/ProductDetails/ProductDetails';
 
 import store from './store/index';
 import { dispatchGetCustomer } from './store/auth/actions';

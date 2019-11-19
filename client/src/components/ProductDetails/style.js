@@ -9,7 +9,7 @@ export const useStyles = makeStyles(() => ({
 		paddingBottom: '56px',
 	},
 	productPage: {
-		paddingTop: 20,
+		padding: '20px 16px',
 		display: 'flex',
 		justifyContent: 'space-between',
 	},
