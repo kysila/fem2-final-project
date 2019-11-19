@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 // Material UI
 import {
@@ -14,56 +13,42 @@ import {
   dispatchAddProductAndCreateWishlist, dispatchCreateWishlist,
 } from '../../../store/wishlist/actions';
 
-// export function workWithWishlist(props) {
-
 // const [stateWishList, setStateWishList] = useState({
 //   customerId: '', wishlist: [],
 // });
-// const newWishlist = {
-//   products: ["5db6fbeebfb42a414c724e7a", "5db6fc32bfb42a414c724e7b"]
-// };
-
-// useEffect(() => {
-//   axios
-//     .post('/wishlist', newWishlist)
-//     .then((newWishlist) => {
-//       console.log('%c⧭ newWishlist', 'color: #f2ceb6', newWishlist);
-//       /* Do something with newWishlist */
-//     })
-//     .catch((err) => {
-//       console.log('%c⧭ err', 'color: #00e600', err.response.data);
-//       /* Do something with error, e.g. show error to user */
-//     });
-// }, [stateWishList]);
-// }
 
 const Wishlist = (props) => {
+  const {
+    getWishlist, deleteWishlist, createWishlist, addProductToWishlist,
+    wishlist,
+  } = props;
+
   const classes = useStyles();
 
   const [expanded, setExpanded] = useState('panel3');
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  const {
-    getWishlist, deleteWishlist, createWishlist, addProductToWishlist, wishlist,
-  } = props;
+
 
   useEffect(() => {
-    getWishlist();
+    // getWishlist();
+    console.log('%c⧭ props', 'color: #12ce7f', props);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props]);
+  }, [props.wishlist]);
 
   // Wishlist handlers
   const getWishlistInfo = () => {
     if (wishlist.data) {
-      console.log('%c⧭ wishlist.data.products', 'color: #0ba062', wishlist.data.products);
+      getWishlist();
+      console.log('%c⧭ wishlist.data.products', 'color: #0ba062', props.wishlist.data.products);
     } else {
       console.log('%c⧭ У вас нет созданного Wishlist', 'color: #d30909');
     }
   };
   const deleteWishlistInfo = () => {
     deleteWishlist();
-    console.log('%c⧭ wishlist.result', 'color: #0a77b6', wishlist.result);
+    console.log('%c⧭ wishlist.result', 'color: #0a77b6', props.wishlist.result);
   };
 
   const createWishlistInfo = () => {
@@ -73,8 +58,9 @@ const Wishlist = (props) => {
     createWishlist(newWishlist);
   };
 
+  const link = '/wishlist/5db6fbeebfb42a414c724e7a';
   const addProductToWishlistInfo = () => {
-    addProductToWishlist();
+    addProductToWishlist(link);
   };
 
   return (
@@ -153,7 +139,7 @@ function putActionsToProps(dispatch) {
     getWishlist: () => dispatch(dispatchGetWishlist()),
     deleteWishlist: () => dispatch(dispatchDeleteWishlist()),
     createWishlist: (data) => dispatch(dispatchCreateWishlist(data)),
-    addProductToWishlist: () => dispatch(dispatchAddProductAndCreateWishlist()),
+    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
   };
 }
 

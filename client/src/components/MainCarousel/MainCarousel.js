@@ -9,21 +9,11 @@ import {
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import './MainCarousel.css';
-// Fonts
-import Tungsten from '../../fonts/Tungsten-Book.woff';
 // Internal Components
 import { useStyles } from './style';
 import Preloader from '../Preloader/Preloader';
+import { GET_SLIDES } from '../../axios/endpoints';
 
-const tungsten = {
-  fontFamily: 'Tungsten Book',
-  fontStyle: 'normal',
-  color: '#6a86e8',
-  src: `
-    local('Tungsten Book'),
-    url(${Tungsten}) format('woff')
-  `,
-};
 
 export const MainCarousel = () => {
   const classes = useStyles();
@@ -32,10 +22,10 @@ export const MainCarousel = () => {
     arrows: true,
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 700,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     pauseOnHover: false,
     responsive: [
       {
@@ -50,18 +40,30 @@ export const MainCarousel = () => {
   const [loading, setLoading] = useState(true);
 
   let mainCarouselInfo;
+
   useEffect(() => {
-    axios.get('/slides')
-      .then((slides) => {
-        setCarousel(slides.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-  }, []);
-
+    const { CancelToken } = axios;
+    const source = CancelToken.source();
+    const loadData = () => {
+      try {
+        axios.get(GET_SLIDES, { cancelToken: source.token })
+          .then((slides) => {
+            setCarousel(slides.data);
+            setLoading(false);
+          });
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          console.log('cancelled');
+        } else {
+          throw err;
+        }
+      }
+    };
+    loadData();
+    return () => {
+      source.cancel();
+    };
+  }, [loading]);
 
   if (carousel && !loading) {
     mainCarouselInfo = carousel.map((item) => (
@@ -86,7 +88,7 @@ export const MainCarousel = () => {
               <Typography
                 variant="h2"
                 // eslint-disable-next-line no-sequences
-                style={tungsten}
+                style={{ fontFamily: 'Tungsten Book', color: '#6a86e8' }}
                 className={classes.slickDescriptionText}
               >
                 {item.title}

@@ -1,13 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 // Material UI
 import {
-  Container, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography,
+  Container, Typography,
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // Local imports
 import { Footer, Header } from '../../commons';
 import ProfileBreadcrumbs from './ProfileBreadcrumbs/ProfileBreadcrumbs';
@@ -16,7 +14,6 @@ import { Wishlist } from './Wishlist/Wishlist';
 import { OrderList } from './OrderList/OrderList';
 import { ViewedItems } from './ViewedItems/ViewedItems';
 import { Reviews } from './Reviews/Reviews';
-import { Bonuses } from './Bonuses/Bonuses';
 
 import { useStyles } from './style';
 import { dispatchGetCustomer } from '../../store/auth/actions';
@@ -62,7 +59,6 @@ function ClientProfile(props) {
           <Wishlist />
           <ViewedItems />
           <Reviews />
-          <Bonuses />
         </section>
       </Container>
       <Footer />

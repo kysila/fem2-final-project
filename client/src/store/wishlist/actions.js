@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ACTIONS } from './reducer';
 import {
   CREATE_WISHLIST, UPDATE_WISHLIST, DELETE_WISHLIST,
-  ADD_PRODUCT_AND_CREATE_WISHLIST, DELETE_PRODUCT_FROM_WISHLIST,
+  DELETE_PRODUCT_FROM_WISHLIST,
   GET_WISHLIST,
 } from '../../axios/endpoints';
 // TODO: CREATE_WISHLIST, UPDATE_WISHLIST,
@@ -42,12 +42,14 @@ export function dispatchGetWishlist() {
   return (dispatch) => {
     axios
       .get(GET_WISHLIST)
-      .then((data) => {
+      .then(({ data }) => {
+        console.log('%c⧭ data', 'color: #aa00ff', data);
+
         dispatch(getWishlist(data));
       })
       .catch((err) => {
         dispatch(dispatchDeleteWishlist());
-        console.log('%c⧭ err.response.data', 'color: #00a3cc', err.response.data);
+        console.log('%c⧭ err.response.data', 'color: #00a3cc', err);
         // TODO: delete console.log() and do notification of the user
       });
     //
@@ -68,6 +70,7 @@ export function dispatchCreateWishlist(payload) {
       .then((data) => {
         dispatch(createWishlist(data));
         dispatch(dispatchGetWishlist());
+
       })
       .catch((err) => {
         console.log('%c⧭ err.response.data', 'color: #00a3cc', err.response.data);
@@ -77,16 +80,17 @@ export function dispatchCreateWishlist(payload) {
   };
 }
 
-export function addProductAndCreateWishlist() {
+export function addProductAndCreateWishlist(payload) {
   return {
     type: ACTIONS.ADD_PRODUCT_AND_CREATE_WISHLIST,
+    payload,
   };
 }
 
-export function dispatchAddProductAndCreateWishlist() {
+export function dispatchAddProductAndCreateWishlist(payload) {
   return (dispatch) => {
     axios
-      .put("/wishlist/5db6fbeebfb42a414c724e7a")
+      .put(payload)
       .then((data) => {
         dispatch(addProductAndCreateWishlist(data));
         dispatch(dispatchGetWishlist());

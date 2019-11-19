@@ -20,13 +20,15 @@ export default function (state = { wishlist: null }, { type, payload }) {
     case ACTIONS.GET_WISHLIST:
       newState = { ...newState, wishlist: payload };
       break;
-    case ACTIONS.ADD_PRODUCT_AND_CREATE_WISHLIST:
-      newState = { ...newState, wishlist: payload };
-      break;
     case ACTIONS.DELETE_WISHLIST:
       newState = { ...newState, wishlist: null };
       break;
-    // TODO: add DELETE_PRODUCT_FROM_WISHLIST
+    case ACTIONS.ADD_PRODUCT_AND_CREATE_WISHLIST:
+      newState = { ...newState, wishlist: payload };
+      break;
+    case ACTIONS.DELETE_PRODUCT_FROM_WISHLIST:
+      newState = { ...newState, wishlist: payload };
+      break;
     default:
       break;
   }

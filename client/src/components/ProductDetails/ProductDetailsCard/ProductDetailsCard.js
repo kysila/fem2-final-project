@@ -23,7 +23,7 @@ const mapStateToProps = (store) => ({
 
 const ProductDetailsCard = (props) => {
 
-  const [ state, setState ] = useState({
+  const [state, setState] = useState({
     disabled: false,
     text: 'ADD TO CART',
   });
@@ -44,12 +44,13 @@ const ProductDetailsCard = (props) => {
     links = colors.map((el, i) => {
       return (
         <Link
-          style={ obj.itemNo === el.itemNo
-            ? { color: '#444',
+          style={obj.itemNo === el.itemNo
+            ? {
+              color: '#444',
               backgroundColor: '#FFF',
               border: '1px solid #444',
             }
-            : null }
+            : null}
           key={i}
           to={`/products/${el.itemNo}`}>
           {el.color}
@@ -117,10 +118,14 @@ const ProductDetailsCard = (props) => {
         <AddToWishListButton
           obj={obj}
           user={props.user}
-          allProps={props}
-          className={'otherBtn'}
+          cart={props.cart}
+          /* allProps={props} */
+          className="otherBtn"
           iconStyle={{
             fill: '#AAA',
+          }}
+          iconStyleChosen={{
+            fill: '#6686FF',
           }}
         />
         <Button className='otherBtn'>
@@ -130,7 +135,7 @@ const ProductDetailsCard = (props) => {
               width: 30,
               height: 23,
               fill: '#AAA'
-            }}/>
+            }} />
         </Button>
       </ButtonGroup>
     </div>

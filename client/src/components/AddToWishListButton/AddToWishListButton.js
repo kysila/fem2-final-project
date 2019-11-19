@@ -1,25 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Button } from '@material-ui/core';
+import { HeartIcon } from '../Icons/Icons';
+import { dispatchAddProductAndCreateWishlist, dispatchGetWishlist } from '../../store/wishlist/actions';
+import { ADD_PRODUCT_AND_CREATE_WISHLIST } from '../../axios/endpoints';
 
-import { HeartIcon } from "../Icons/Icons";
+const AddToWishListBtn = ({
+  obj, user, className, iconStyle, iconStyleChosen,
+  addProductToWishlist, cart, getWishlist, wishlist,
+}) => {
+  const [state, setState] = useState({ inWishlist: true });
 
-import Button from "@material-ui/core/Button";
+  const addedToWishlist = () => {
+    if (user) {
+      const { _id } = obj;
+      const url = `${ADD_PRODUCT_AND_CREATE_WISHLIST}${_id}`;
+      addProductToWishlist(url);
+      setState({ ...state, inWishlist: true });
+    }
+  };
 
-export const AddToWishListButton = ({ obj, user, allProps, className, iconStyle }) => {
+  // const { inWishlist } = state;
+  let styleOfWishlistIcon;
 
-	return (
-		<Button
-			className={className}
-			onClick={e => {
-				if (user) {
-					// Место для логики добавления товара в Wish List
-					console.log(obj); // Объект товара
-					console.log(allProps); // Все входящие в компонент props
-				}
-			}}>
-			<HeartIcon
-				color='action'
-				className='icon'
-				style={iconStyle}/>
-		</Button>
-	)
+  // useEffect(() => {
+  //   if (inWishlist) {
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  //     styleOfWishlistIcon = iconStyleChosen;
+  //     console.log('%c⧭state', 'color: #00e600', state);
+  //   } else {
+  //     styleOfWishlistIcon = iconStyle;
+  //     console.log('%c⧭state', 'color: #00e600', state);
+  //   }
+  // }, [inWishlist]);
+
+  if (state.inWishlist) {
+    styleOfWishlistIcon = iconStyleChosen;
+  } else {
+    styleOfWishlistIcon = iconStyle;
+  }
+
+  // useEffect(() => {
+  //   if (user) {
+  //     getWishlist();
+  //   }
+  //   // return () => {}
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [wishlist, user]);
+
+  return (
+    <Button
+      className={className}
+      onClick={addedToWishlist}
+    >
+      <HeartIcon
+        color="action"
+        className="icon"
+        style={styleOfWishlistIcon}
+      />
+    </Button>
+  );
 };
+
+function putStateToProps(state) {
+  return {
+    wishlist: state.wishlist.wishlist,
+  };
+}
+
+function putActionsToProps(dispatch) {
+  return {
+    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
+    getWishlist: () => dispatch(dispatchGetWishlist()),
+  };
+}
+
+export const AddToWishListButton = connect(putStateToProps, putActionsToProps)(AddToWishListBtn);
