@@ -46,4 +46,8 @@ export const useStyles = makeStyles((theme) => createStyles({
     marginTop: '8px',
     fontSize: '16px',
   },
+  link: {
+    fontSize: '16px',
+
+  },
 }));

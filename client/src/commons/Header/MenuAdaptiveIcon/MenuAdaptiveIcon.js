@@ -16,13 +16,23 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
+import Box from '@material-ui/core/Box';
 import Searches from '../Searchbar/Searchbar';
 import { useStyles } from './style';
+import { dispatchModalOpen } from '../../../store/modal/actions';
+import { dispatchLogout } from '../../../store/auth/actions';
 
 function mapStateToProps(state) {
   return {
     user: state.auth.user,
     categories: state.categoryReducer.categories,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    openModal: (child) => dispatch(dispatchModalOpen(child)),
+    logout: () => dispatch(dispatchLogout()),
   };
 }
 
@@ -34,6 +44,16 @@ const MenuAdaptiveIcon = (props) => {
 
   const handleClick = () => {
     setOpen(!open);
+  };
+  const openLogin = (e) => {
+    e.preventDefault();
+    props.openModal('login');
+    setMenuIsOpen(false);
+  };
+  const openRegister = (e) => {
+    e.preventDefault();
+    props.openModal('register');
+    setMenuIsOpen(false);
   };
 
   if (props.categories) {
@@ -79,7 +99,6 @@ const MenuAdaptiveIcon = (props) => {
         <div className={classes.logo}>
           <CloseIcon
             className={classes.close_icon}
-            fontSize="medium"
             onClick={() => {
               setMenuIsOpen(false);
             }}
@@ -90,7 +109,7 @@ const MenuAdaptiveIcon = (props) => {
         <div className={classes.call}>
           <p>
                   Call or text us toll-free:
-                    {props.callCenter}
+            {props.callCenter}
           </p>
         </div>
 
@@ -145,10 +164,25 @@ const MenuAdaptiveIcon = (props) => {
             key="3"
             button
           >
-            <Link to="/login">
-              <ListItemText primary="Log in | Sign Up" />
-            </Link>
-            <ArrowForwardIosIcon className={classes.arrow_icon} />
+            {
+              !props.user ? (
+                  <Box className={classes.link}>
+                    <Link to="/login" onClick={openLogin}>Login |</Link>
+                    <Link to="/register" onClick={openRegister}> Sign Up</Link>
+                  </Box>
+              ) : (
+                  <Box className={classes.link}>
+                    <Link className={classes.profileLink} to="/profile">
+                      {`Hello, ${props.user.firstName || props.user.login}`}
+                    </Link>
+                    <span> | </span>
+                    <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout();  setMenuIsOpen(false); }}>
+                      Logout
+                    </Link>
+                  </Box>
+              )
+            }
+
           </ListItem>
         </List>
       </Drawer>
@@ -156,4 +190,4 @@ const MenuAdaptiveIcon = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(MenuAdaptiveIcon);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuAdaptiveIcon);
