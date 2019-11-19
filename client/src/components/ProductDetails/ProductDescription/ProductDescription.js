@@ -92,7 +92,7 @@ export const ProductDescription = ({data}) => {
 					<Tab label="Description" {...a11yProps(0)} />
 					<Tab label="Details" {...a11yProps(1)} />
 					<Tab label="Warranty" {...a11yProps(2)} />
-					<Tab label="Shipping & Return" {...a11yProps(3)} />
+					<Tab label="Shipping" {...a11yProps(3)} />
 				</Tabs>
 			</AppBar>
 			<SwipeableViews

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
-import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
 import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
 import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
 import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
@@ -105,7 +104,7 @@ const ProductDetailsCard = (props) => {
           actions={props.getCartFromLS}
           checkProduct={checkProduct}
           style={{
-            width: '250px', borderRadius: '4px'
+            width: '60%', borderRadius: '4px'
           }}
           iconStyle={{
             width: 21,
