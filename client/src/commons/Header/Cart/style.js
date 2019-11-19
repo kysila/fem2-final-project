@@ -102,6 +102,9 @@ export const useStyles = makeStyles((theme) => createStyles({
     [theme.breakpoints.down(480)]: {
       width: '25%',
     },
+    [theme.breakpoints.down(320)]: {
+      width: '30%',
+    },
   },
   img: {
     objectFit: 'contain',
@@ -128,6 +131,9 @@ export const useStyles = makeStyles((theme) => createStyles({
     display: 'block',
     color: '#888888',
     textTransform: 'none',
+    [theme.breakpoints.down(480)]: {
+      fontSize: '9px',
+    },
   },
   price: {
     flexBasis: '35%',
