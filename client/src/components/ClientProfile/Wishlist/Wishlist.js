@@ -33,7 +33,7 @@ const Wishlist = (props) => {
 
   useEffect(() => {
     // getWishlist();
-    console.log('%c⧭ props', 'color: #12ce7f', props);
+    // console.log('%c⧭ props', 'color: #12ce7f', props);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.wishlist]);
 
@@ -78,7 +78,7 @@ const Wishlist = (props) => {
             className={classes.heading}
             style={{ color: '#6A86E8' }}
           >
-            My Favorite Items
+            My Wishlist
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails

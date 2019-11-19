@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
 import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
 import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
-import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
+import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
 import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
 
 import axios from 'axios';
@@ -44,11 +44,12 @@ const ProductDetailsCard = (props) => {
       return (
         <Link
           style={obj.itemNo === el.itemNo
-            ? {color: '#444',
+            ? {
+              color: '#444',
               backgroundColor: '#FFF',
               border: '1px solid #444',
             }
-            : null }
+            : null}
           key={i}
           to={`/products/${el.itemNo}`}
         >
@@ -118,7 +119,6 @@ const ProductDetailsCard = (props) => {
           obj={obj}
           user={props.user}
           cart={props.cart}
-          /* allProps={props} */
           className="otherBtn"
           iconStyle={{
             fill: '#AAA',

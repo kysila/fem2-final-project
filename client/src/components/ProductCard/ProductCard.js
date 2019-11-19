@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { HeartIcon, BagIcon, WeigherIcon } from "../Icons/Icons";
 import { addProductToCart, getCartFromLS } from "../../store/cart/actions";
@@ -19,8 +19,8 @@ import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 
 import { useStyles } from "./style";
-import {AddToWishListButton} from "../AddToWishListButton/AddToWishListButton";
-import {AddToFavouritesButton} from "../AddToFavouritesButton/AddToFavouritesButton";
+import { AddToWishListButton } from "../AddToWishListButton/AddToWishListButton";
+import { AddToFavouritesButton } from "../AddToFavouritesButton/AddToFavouritesButton";
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -32,7 +32,7 @@ const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, 
   const [state, setState] = useState({
     openButtons: false,
   });
-  const [ item, setItem ] = useState({
+  const [item, setItem] = useState({
     cartQuantity: 1,
     product: {}
   });
@@ -154,7 +154,12 @@ const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, 
             obj={obj}
             className={classes.buttonStyle}
             user={props.user}
-            allProps={props}
+            iconStyle={{
+              fill: '#AAA',
+            }}
+            iconStyleChosen={{
+              fill: '#6686FF',
+            }}
           />
           <AddToFavouritesButton
             obj={obj}
@@ -181,7 +186,7 @@ const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, 
                 width: 30,
                 height: 23,
               }}
-              color="action"/>
+              color="action" />
           </Button>
         </ButtonGroup>
       </CardActions>

@@ -135,6 +135,17 @@ export const useStyles = makeStyles((theme) => createStyles({
       fontSize: '9px',
     },
   },
+  buttonSaved: {
+    paddingLeft: '4px',
+    paddingRight: '4px',
+    fontSize: '12px',
+    display: 'block',
+    color: '#6686FF',
+    textTransform: 'none',
+    [theme.breakpoints.down(480)]: {
+      fontSize: '9px',
+    },
+  },
   price: {
     flexBasis: '35%',
     paddingLeft: '1%',

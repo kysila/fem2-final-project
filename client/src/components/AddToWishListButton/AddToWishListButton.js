@@ -14,35 +14,41 @@ const AddToWishListBtn = ({
 
   const checkExistence = () => {
     if (wishlist && wishlist.products && obj) {
-      console.log('%c⧭ obj', 'color: #0088cc', obj);
-      const { _id } = obj;
       const { products } = wishlist;
-      // eslint-disable-next-line no-underscore-dangle
-      const found = products.flat(Infinity).some((element) => element._id === _id);
-      setState({ ...state, inWishlist: found });
+      if (obj._id) {
+        const { _id } = obj;
+        const found = products.flat(Infinity).some((element) => element._id === _id);
+        setState({ ...state, inWishlist: found });
+      }
+      if (obj.id) {
+        const { id } = obj;
+        // eslint-disable-next-line no-underscore-dangle
+        const found = products.flat(Infinity).some((element) => element._id === id);
+        setState({ ...state, inWishlist: found });
+      }
     }
   };
 
   const addedToWishlist = () => {
-    if (user) {
-      const { _id } = obj;
-      const url = `${ADD_PRODUCT_AND_CREATE_WISHLIST}${_id}`;
-      addProductToWishlist(url);
-      checkExistence();
+    if (user && obj) {
+      if (obj._id) {
+        const { _id } = obj;
+        const url = `${ADD_PRODUCT_AND_CREATE_WISHLIST}${_id}`;
+        addProductToWishlist(url);
+        checkExistence();
+      }
+      if (obj.id) {
+        const { id } = obj;
+        const url = `${ADD_PRODUCT_AND_CREATE_WISHLIST}${id}`;
+        addProductToWishlist(url);
+        checkExistence();
+      }
     }
   };
-
-  // let styleOfWishlistIcon;
-  // if (state.inWishlist) {
-  //   styleOfWishlistIcon = iconStyleChosen;
-  // } else {
-  //   styleOfWishlistIcon = iconStyle;
-  // }
 
   useEffect(() => {
     if (user) {
       getWishlist();
-      console.log('%c⧭ wishlist', 'color: #0088cc', wishlist);
       checkExistence();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

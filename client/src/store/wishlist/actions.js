@@ -7,8 +7,6 @@ import {
   DELETE_PRODUCT_FROM_WISHLIST,
   GET_WISHLIST,
 } from '../../axios/endpoints';
-// TODO: CREATE_WISHLIST, UPDATE_WISHLIST,
-// TODO: ADD_PRODUCT_AND_CREATE_WISHLIST, DELETE_PRODUCT_FROM_WISHLIST,
 
 export function deleteWishlist(payload) {
   return {
@@ -21,12 +19,11 @@ export function dispatchDeleteWishlist() {
   return (dispatch) => {
     axios
       .delete(DELETE_WISHLIST)
-      .then((result) => {
-        dispatch(deleteWishlist(result));
+      .then(({ data }) => {
+        dispatch(deleteWishlist(data));
       })
       .catch((err) => {
-        console.log('%c⧭ err.response.data', 'color: #00a3cc', err.response.data);
-        // TODO: delete console.log() and do notification of the user
+        // TODO: create notification of the user
       });
   };
 }
@@ -43,13 +40,12 @@ export function dispatchGetWishlist() {
     axios
       .get(GET_WISHLIST)
       .then(({ data }) => {
-        console.log('%c⧭ data', 'color: #aa00ff', data);
         dispatch(getWishlist(data));
+        // TODO: notification of the event
       })
       .catch((err) => {
         dispatch(dispatchDeleteWishlist());
-        console.log('%c⧭ err.response.data', 'color: #00a3cc', err);
-        // TODO: delete console.log() and do notification of the user
+        // TODO: and do notification of the user
       });
     //
   };
@@ -69,10 +65,10 @@ export function dispatchCreateWishlist(payload) {
       .then(({ data }) => {
         dispatch(createWishlist(data));
         dispatch(dispatchGetWishlist());
+        // TODO: notification of the event
       })
       .catch((err) => {
-        console.log('%c⧭ err.response.data', 'color: #00a3cc', err.response.data);
-        // TODO: delete console.log() and do notification of the user
+        // TODO: create notification of the user
       });
   };
 }
@@ -91,9 +87,10 @@ export function dispatchAddProductAndCreateWishlist(payload) {
       .then(({ data }) => {
         dispatch(addProductAndCreateWishlist(data));
         dispatch(dispatchGetWishlist());
+        // TODO: notification of the event
       })
       .catch((err) => {
-        console.log('%c⧭ err.response.data', 'color: #00a3cc', err.response.data);
+        // TODO: create notification of the user
       });
   };
 }
