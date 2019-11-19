@@ -13,7 +13,7 @@ const ColorFilter = (props) => {
   const classes = useStyles();
   const [color, setColor] = useState(() => {
     if (props.selectedFilters.color) {
-      return [...props.selectedFilters.color];
+      return [props.selectedFilters.color];
     }
     return [];
   });

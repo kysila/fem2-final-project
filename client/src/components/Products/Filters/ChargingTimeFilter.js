@@ -12,7 +12,7 @@ import { selectFilters } from '../../../store/selectedFilters/actions';
 const ChargingTimeFilter = (props) => {
   const [chargingTime, setChargingTime] = useState(() => {
     if (props.selectedFilters.chargingTime) {
-      return [...props.selectedFilters.chargingTime];
+      return [props.selectedFilters.chargingTime];
     }
     return [];
   });

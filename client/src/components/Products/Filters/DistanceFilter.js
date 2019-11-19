@@ -13,7 +13,7 @@ import { selectFilters } from '../../../store/selectedFilters/actions';
 const DistanceFilter = (props) => {
   const [distance, setDistance] = useState(() => {
     if (props.selectedFilters.distance) {
-      return [...props.selectedFilters.distance];
+      return [props.selectedFilters.distance];
     }
     return [];
   });

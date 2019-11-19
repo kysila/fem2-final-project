@@ -13,7 +13,7 @@ import { selectFilters } from '../../../store/selectedFilters/actions';
 const MaxSpeedFilter = (props) => {
   const [maxSpeed, setMaxSpeed] = useState(() => {
     if (props.selectedFilters.maxSpeed) {
-      return [...props.selectedFilters.maxSpeed];
+      return [props.selectedFilters.maxSpeed];
     }
     return [];
   });

@@ -25,6 +25,7 @@ import { useStyles } from './style';
 import { getProducts, getMoreProducts } from '../../../store/products/actions';
 import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/selectedFilters/actions';
 
+
 let displayedProductsArray = [];
 const Products = (props) => {
   const classes = useStyles();
@@ -36,7 +37,6 @@ const Products = (props) => {
   const [perPage, setPerPage] = useState(startPerPage);
 
   useEffect(() => {
-
     props.getProducts(`/products/filter${props.location.search}`);
     if (!Object.keys(props.selectedFilters).length) {
       const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
