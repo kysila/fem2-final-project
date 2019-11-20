@@ -5,6 +5,7 @@ import {
   GET_PRODUCTS_FROM_LS,
   DECREASE_QUANTITY_OF_PRODUCTS,
   DELETE_PRODUCT_OF_CART,
+  CLEAN_CART,
   // REPLACE_CART,
 }
   from './actions';
@@ -13,6 +14,7 @@ const initialState = {
   countOfProducts: 0,
   cart: {
     products: [],
+    ...(JSON.parse(localStorage.getItem('cart'))),
   },
 };
 
@@ -57,6 +59,13 @@ function cartReducer(state = initialState, { type, payload }) {
         ...state,
         cart: {
           products: payload,
+        },
+      };
+    case CLEAN_CART:
+      return {
+        ...state,
+        cart: {
+          products: [],
         },
       };
     default:
