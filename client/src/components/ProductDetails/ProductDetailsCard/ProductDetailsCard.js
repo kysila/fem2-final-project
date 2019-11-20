@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
@@ -7,7 +7,7 @@ import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
 import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
 import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 import { Typography } from '@material-ui/core';
 import { ButtonGroup } from '@material-ui/core';
@@ -37,8 +37,6 @@ const ProductDetailsCard = (props) => {
       text: 'UNAVALIABLE',
     });
   };
-
-  console.log(obj, 'obj.categorie')
 
   let links;
   if (colors) {
