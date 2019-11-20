@@ -13,9 +13,14 @@ import { selectFilters } from '../../../store/selectedFilters/actions';
 const CategoryFilter = (props) => {
   const [category, setCategory] = useState(() => {
     if (props.selectedFilters.categories) {
-      return [props.selectedFilters.categories];
+      if (Array.isArray(props.selectedFilters.categories)) {
+        return [...props.selectedFilters.categories];
+      } else {
+        return [props.selectedFilters.categories];
+      }
+    } else {
+      return [];
     }
-    return [];
   });
 
 

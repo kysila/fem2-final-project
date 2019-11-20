@@ -89,7 +89,7 @@ const Products = (props) => {
     selectedFilterChips = selectedFiltersItems.map((filter) => {
       selectedFilterType = filter[0];
       let options;
-      if (filter[1].isArray) {
+      if (Array.isArray(filter[1])) {
         options = filter[1].map((selectedFilter) => (`${selectedFilter}`));
       } else {
         options = filter[1];
@@ -106,6 +106,7 @@ const Products = (props) => {
         </Grid>
       );
     });
+    // console.log('selectedFilterChips',selectedFilterChips);
 
     displayedProductsArray = [...props.allProducts];
     products = displayedProductsArray.map((el) => (
@@ -120,6 +121,9 @@ const Products = (props) => {
           rating={el.rating}
           itemNo={el.itemNo}
           id={el.id}
+          distance={el.distance}
+          maxSpeed={el.maxSpeed}
+          chargingTime={el.chargingTime}
         />
       </Grid>
     ));
