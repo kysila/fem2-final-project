@@ -12,19 +12,14 @@ const mapStateToProps = (state) => ({
 });
 
 
-const AddToCompareButton = ({
-  name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, ...props
-}) => {
+const AddToCompareButton = ({ ...props }) => {
+  // console.log('props.products', props.maxSpeed)
   const [clicked, setClicked] = useState(false);
   const classes = useStyles();
 
   const addToCompare = () => {
-    console.log({
-      name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, ...props,
-    })
-    props.addProductsToCompare({
-      name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
-    });
+    console.log(props.maxSpeed, 'props')
+    props.addProductsToCompare({ ...props });
     setClicked(true);
   };
 

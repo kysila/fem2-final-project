@@ -172,7 +172,7 @@ const ProductCard = ({
             rating={rating}
             key={key}
             distance={distance}
-            maxSpeed={props.maxSpeed}
+            maxSpeed={maxSpeed}
             chargingTime={chargingTime}
           />
           <Button

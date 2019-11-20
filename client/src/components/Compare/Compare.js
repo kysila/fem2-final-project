@@ -23,6 +23,7 @@ const Compare = ({
   name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, ...props
 }) => {
   const productsArray = props.products;
+  console.log('productsArray', productsArray)
   const classes = useStyles();
   const headerRow = ['Price', 'Maximum speed', 'Distance', 'Charging time'];
 
@@ -40,26 +41,14 @@ const Compare = ({
   };
 
   const MaxSpeedRow = () => {
-    if (maxSpeed !== undefined) {
-      const speedRow = productsArray.map((row) => (
-        <React.Fragment key={row.itemNo}>
-          <TableCell align="center">{row.maxSpeed}</TableCell>
-        </React.Fragment>
-      ));
-      return (
-        <React.Fragment>
-          {speedRow}
-        </React.Fragment>
-      );
-    }
-    const undefinedSpeed = productsArray.map((row) => (
+    const speedRow = productsArray.map((row) => (
       <React.Fragment key={row.itemNo}>
-        <TableCell align="center">-</TableCell>
+        <TableCell align="center">{row.maxSpeed}</TableCell>
       </React.Fragment>
     ));
     return (
       <React.Fragment>
-        {undefinedSpeed}
+        {speedRow}
       </React.Fragment>
     );
   };
