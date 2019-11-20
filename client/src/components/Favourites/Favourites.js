@@ -35,6 +35,9 @@ export const Favourites = (props) => {
         itemNo={el.itemNo}
         id={el._id}
         key={i}
+        distance={el.distance}
+        maxSpeed={el.maxSpeed}
+        chargingTime={el.chargingTime}
       />
     ));
   } else if (loading) {

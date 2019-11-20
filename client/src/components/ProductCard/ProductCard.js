@@ -20,7 +20,7 @@ import { BagIcon } from '../Icons/Icons';
 
 import { useStyles } from './style';
 import { AddToWishListButton } from '../AddToWishListButton/AddToWishListButton';
-import { AddToFavouritesButton } from '../AddToFavouritesButton/AddToFavouritesButton';
+import AddToCompareButton from '../AddToCompareButton/AddToCompareButton';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -28,12 +28,12 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductCard = ({
-  obj, name, itemImg, price, url, rating, key, itemNo, id, ...props
+  obj, name, itemImg, price, url, rating, key, itemNo, id, distance, maxSpeed, chargingTime, ...props
 }) => {
   const [state, setState] = useState({
     openButtons: false,
   });
-  const [item, setItem] = useState({
+  const [ item, setItem ] = useState({
     cartQuantity: 1,
     product: {},
   });
@@ -65,12 +65,12 @@ const ProductCard = ({
       const item = itemNo;
       if (!filterCart(product, item)) {
         localStorage.setItem('product', JSON.stringify(product.concat([{
-          name, itemImg, price, url, rating, key, itemNo,
+          name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
         }])));
       }
     } else {
       const newProduct = [].concat([{
-        name, itemImg, price, url, rating, key, itemNo,
+        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
     }
@@ -155,15 +155,23 @@ const ProductCard = ({
             user={props.user}
             allProps={props}
           />
-          <AddToFavouritesButton
-            obj={obj}
+          <AddToCompareButton
             className={classes.buttonStyle}
-            user={props.user}
             allProps={props}
             iconStyle={{
               width: '30px',
               height: '23px',
             }}
+            name={name}
+            itemNo={itemNo}
+            itemImg={itemImg}
+            price={price}
+            url={url}
+            rating={rating}
+            key={key}
+            distance={distance}
+            maxSpeed={maxSpeed}
+            chargingTime={chargingTime}
           />
           <Button
             onClick={(e) => {

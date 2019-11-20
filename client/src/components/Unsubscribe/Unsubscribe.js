@@ -41,7 +41,6 @@ export const Unsubscribe = (props) => {
     axios
       .put(`${url}`, updateSubscriber)
       .then((res) => {
-        console.log(res);
         showSwalUnsubscribed();
       })
       .catch((err) => {

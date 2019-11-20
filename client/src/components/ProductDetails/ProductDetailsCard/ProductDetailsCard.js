@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
+import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
+import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
+import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
+import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
+
+import axios from 'axios';
+
 import { Typography, ButtonGroup } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
-import { addProductToCart, getCartFromLS } from '../../../store/cart/actions';
-// import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
-import { AddToCartButton } from '../../AddToCartButton/AddToCartButton';
-import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
-import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
-
-// import axios from 'axios';
+import Box from "@material-ui/core/Box";
 
 
 import { useStyles } from './style';
@@ -124,7 +125,7 @@ const ProductDetailsCard = (props) => {
             fill: '#AAA',
           }}
         />
-        <AddToFavouritesButton
+        <AddToCompareButton
           obj={obj}
           user={props.user}
           allProps={props}
