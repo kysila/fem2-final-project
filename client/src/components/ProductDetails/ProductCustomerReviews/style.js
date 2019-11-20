@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles({
   reviewsMainBox: {
-    width: '100%',
+    width: 500,
   },
   reviewsHeader: {
     marginBottom: '10px',
