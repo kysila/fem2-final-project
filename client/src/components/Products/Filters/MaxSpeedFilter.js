@@ -13,9 +13,15 @@ import { selectFilters } from '../../../store/selectedFilters/actions';
 const MaxSpeedFilter = (props) => {
   const [maxSpeed, setMaxSpeed] = useState(() => {
     if (props.selectedFilters.maxSpeed) {
-      return [props.selectedFilters.maxSpeed];
+      if (Array.isArray(props.selectedFilters.maxSpeed)) {
+        return [...props.selectedFilters.maxSpeed];
+      } else {
+        return [props.selectedFilters.maxSpeed];
+      }
+    } else {
+      return [];
     }
-    return [];
+
   });
 
   const handleChangeMaxSpeed = (event) => {
