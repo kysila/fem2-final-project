@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
-import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
-import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
-import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
+import { Typography, ButtonGroup } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
+import { addProductToCart, getCartFromLS } from '../../../store/cart/actions';
+// import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
+import { AddToCartButton } from '../../AddToCartButton/AddToCartButton';
+import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
 import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
 
-import axios from 'axios';
+// import axios from 'axios';
 
-import { Typography } from '@material-ui/core';
-import { ButtonGroup } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
-import Box from "@material-ui/core/Box";
 
-import { useStyles } from "./style";
+import { useStyles } from './style';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -27,7 +26,7 @@ const ProductDetailsCard = (props) => {
     text: 'ADD TO CART',
   });
 
-  const obj = props.data.obj;
+  const { obj } = props.data;
   const colors = props.data.colors.data;
 
   const checkProduct = () => {
@@ -40,22 +39,21 @@ const ProductDetailsCard = (props) => {
 
   let links;
   if (colors) {
-    links = colors.map((el, i) => {
-      return (
-        <Link
-          style={obj.itemNo === el.itemNo
-            ? {color: '#444',
-              backgroundColor: '#FFF',
-              border: '1px solid #444',
-            }
-            : null}
-          key={i}
-          to={`/products/${el.itemNo}`}
-        >
-          {el.color}
-        </Link>
-      );
-    });
+    links = colors.map((el, i) => (
+      <Link
+        style={obj.itemNo === el.itemNo
+          ? {
+            color: '#444',
+            backgroundColor: '#FFF',
+            border: '1px solid #444',
+          }
+          : null}
+        key={i}
+        to={`/products/${el.itemNo}`}
+      >
+        {el.color}
+      </Link>
+    ));
   }
 
   const classes = useStyles();
@@ -64,12 +62,14 @@ const ProductDetailsCard = (props) => {
     <div className={classes.container}>
       <Typography
         className={classes.categories}
-        variant='body1'>
+        variant="body1"
+      >
         {obj.categories}
       </Typography>
       <Typography
         className={classes.name}
-        variant='h2'>
+        variant="h2"
+      >
         {obj.name}
       </Typography>
       <Rating
@@ -77,7 +77,8 @@ const ProductDetailsCard = (props) => {
         size="large"
         precision={0.5}
         value={obj.rating}
-        readOnly />
+        readOnly
+      />
       <Box className={classes.otherColors}>
         {links}
       </Box>
@@ -85,7 +86,7 @@ const ProductDetailsCard = (props) => {
         <Typography>
           {`$${obj.currentPrice}`}
         </Typography>
-        <Typography className='oldPrice'>
+        <Typography className="oldPrice">
           $4000
         </Typography>
       </Box>
@@ -105,20 +106,20 @@ const ProductDetailsCard = (props) => {
           actions={props.getCartFromLS}
           checkProduct={checkProduct}
           style={{
-            width: '250px', borderRadius: '4px'
+            width: '250px', borderRadius: '4px',
           }}
           iconStyle={{
             width: 21,
             height: 20,
             fill: '#fff',
-            marginRight: 8
+            marginRight: 8,
           }}
         />
         <AddToWishListButton
           obj={obj}
           user={props.user}
           allProps={props}
-          className={'otherBtn'}
+          className="otherBtn"
           iconStyle={{
             fill: '#AAA',
           }}
@@ -127,7 +128,7 @@ const ProductDetailsCard = (props) => {
           obj={obj}
           user={props.user}
           allProps={props}
-          className={'otherBtn'}
+          className="otherBtn"
           iconStyle={{
             fill: '#AAA',
             width: '30px',
@@ -136,7 +137,7 @@ const ProductDetailsCard = (props) => {
         />
       </ButtonGroup>
     </div>
-  )
+  );
 };
 
 export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCard);

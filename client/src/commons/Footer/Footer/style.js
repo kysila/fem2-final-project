@@ -28,6 +28,9 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up(480)]: {
       justifyContent: 'center',
     },
+    [theme.breakpoints.up(320)]: {
+      justifyContent: 'center',
+    },
   },
   socialLink: {
     display: 'block',

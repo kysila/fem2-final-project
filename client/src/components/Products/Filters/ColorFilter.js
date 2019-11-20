@@ -9,7 +9,6 @@ import { useStyles } from './style';
 
 
 const ColorFilter = (props) => {
-
   const classes = useStyles();
   const [color, setColor] = useState(() => {
     if (props.selectedFilters.color) {

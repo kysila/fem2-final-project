@@ -24,7 +24,6 @@ const PriceFilter = (props) => {
   const handleChangePrice = (event, newPrice) => {
     setPrice(newPrice);
     props.priceSelectFilters(event, newPrice[0], newPrice[1], { ...props.selectedFilters });
-
   };
   return (
     <React.Fragment>

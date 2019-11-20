@@ -60,4 +60,4 @@ const mapStateToProps = (state) => ({
   categories: state.categoryReducer.categories,
 });
 
-export default connect(mapStateToProps, { getCategories})(CategoryImages);
+export default connect(mapStateToProps, { getCategories })(CategoryImages);

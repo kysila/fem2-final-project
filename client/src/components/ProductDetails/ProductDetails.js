@@ -14,7 +14,7 @@ import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 
 import { useStyles } from './style';
-import {ProductCustomerReviews} from "./ProductCustomerReviews/ProductCustomerReviews";
+import { ProductCustomerReviews } from './ProductCustomerReviews/ProductCustomerReviews';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -26,7 +26,7 @@ const ProductDetails = (props) => {
     colors: {},
   });
 
-  let id = props.match.params.id;
+  const { id } = props.match.params;
 
   const classes = useStyles();
 
@@ -73,4 +73,3 @@ const ProductDetails = (props) => {
 };
 
 export default connect(mapStateToProps)(ProductDetails);
-

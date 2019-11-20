@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 import Box from '@material-ui/core/Box';
 import Rating from '@material-ui/lab/Rating';
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 import { useStyles } from './style';
 
-export const ProductCustomerReviews = ({user}) => {
-
+export const ProductCustomerReviews = ({ user }) => {
   const [value, setValue] = useState(0);
 
   const classes = useStyles();
@@ -22,7 +21,7 @@ export const ProductCustomerReviews = ({user}) => {
       <Box
         className={classes.userReview}
         style={
-          user ? {display: 'block'} : {display: 'none'}
+          user ? { display: 'block' } : { display: 'none' }
         }
       >
         <TextField
@@ -44,7 +43,7 @@ export const ProductCustomerReviews = ({user}) => {
         <Button
           className={classes.addReview}
           onClick={() => {
-            console.log(user, value);
+
           }}
         >
           Add a review

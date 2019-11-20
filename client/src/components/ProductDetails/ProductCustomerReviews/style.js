@@ -47,5 +47,5 @@ export const useStyles = makeStyles({
     display: 'block',
     marginTop: '10px',
     padding: '10px 15px',
-  }
+  },
 });
