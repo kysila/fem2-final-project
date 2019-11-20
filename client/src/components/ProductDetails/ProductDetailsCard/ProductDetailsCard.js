@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
 import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
 import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
-import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
-import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
+import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
+import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
 
 import axios from 'axios';
 
-import { Typography, ButtonGroup } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { Typography } from '@material-ui/core';
+import { ButtonGroup } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 
@@ -44,8 +44,7 @@ const ProductDetailsCard = (props) => {
       return (
         <Link
           style={obj.itemNo === el.itemNo
-            ? {
-              color: '#444',
+            ? {color: '#444',
               backgroundColor: '#FFF',
               border: '1px solid #444',
             }
@@ -127,7 +126,7 @@ const ProductDetailsCard = (props) => {
             fill: '#6686FF',
           }}
         />
-        <AddToFavouritesButton
+        <AddToCompareButton
           obj={obj}
           user={props.user}
           allProps={props}

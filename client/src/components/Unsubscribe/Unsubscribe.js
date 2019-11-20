@@ -38,13 +38,9 @@ export const Unsubscribe = (props) => {
 
   const unsubscribeHandle = () => {
     const url = props.match.params.email;
-    console.log('props.match', props.match);
-    console.log('props.location', props.location);
-    console.log('props.mail', url);
     axios
       .put(`${url}`, updateSubscriber)
       .then((res) => {
-        console.log(res);
         showSwalUnsubscribed();
       })
       .catch((err) => {
