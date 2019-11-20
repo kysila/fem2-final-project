@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../../store/cart/actions";
 import { AddToCartButton } from "../../../AddToCartButton/AddToCartButton";
 import { AddToWishListButton } from "../../../AddToWishListButton/AddToWishListButton";
-import { AddToFavouritesButton } from '../../../AddToFavouritesButton/AddToFavouritesButton';
+import AddToCompareButton from '../../../AddToCompareButton/AddToCompareButton';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 import { Typography } from '@material-ui/core';
 import { ButtonGroup } from '@material-ui/core';
@@ -104,7 +104,7 @@ const ProductDetailsCardSticky = (props) => {
           actions={props.getCartFromLS}
           checkProduct={checkProduct}
           style={{
-            width: '60%', borderRadius: '4px'
+            width: '60%', borderRadius: '4px',
           }}
           iconStyle={{
             width: 21,
@@ -122,16 +122,23 @@ const ProductDetailsCardSticky = (props) => {
             fill: '#AAA',
           }}
         />
-        <AddToFavouritesButton
-          obj={obj}
-          user={props.user}
-          allProps={props}
+        <AddToCompareButton
           className={'otherBtn'}
           iconStyle={{
             fill: '#AAA',
             width: '30px',
             height: '23px',
           }}
+          name={obj.name}
+          itemImg={obj.itemImg}
+          price={obj.price}
+          url={obj.url}
+          rating={obj.rating}
+          key={obj.key}
+          itemNo={obj.itemNo}
+          distance={obj.distance}
+          maxSpeed={obj.maxSpeed}
+          chargingTime={obj.chargingTime}
         />
       </ButtonGroup>
     </div>

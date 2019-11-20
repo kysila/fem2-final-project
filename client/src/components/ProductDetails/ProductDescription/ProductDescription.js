@@ -91,7 +91,7 @@ export const ProductDescription = ({data}) => {
 	return (
 		<div className={classes.root}>
 			<div className={classes.desktopTabs}>
-				<AppBar position="static" color="">
+				<AppBar position="static" style = {{backgroundColor: 'transparent'}}>
 					<Tabs
 						value={value}
 						onChange={handleChange}
@@ -153,9 +153,9 @@ export const ProductDescription = ({data}) => {
 						<Typography className={classes.heading}>Description</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
-						<Typography>
+						<div>
 							{htmlToReactParser.parse(data.description)}
-						</Typography>
+						</div>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
 				<ExpansionPanel expanded={expanded === 'panel2'} onChange={handleChangePanel('panel2')}>
@@ -197,7 +197,9 @@ export const ProductDescription = ({data}) => {
 						<Typography className={classes.heading}>Warranty</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
-						{htmlToReactParser.parse(data.warranty)}
+						<div>
+							{htmlToReactParser.parse(data.warranty)}
+						</div>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
 				<ExpansionPanel expanded={expanded === 'panel4'} onChange={handleChangePanel('panel4')}>
@@ -209,7 +211,9 @@ export const ProductDescription = ({data}) => {
 						<Typography className={classes.heading}>Shipping</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
-						{htmlToReactParser.parse(data.shipping)}
+						<div>
+							{htmlToReactParser.parse(data.shipping)}
+						</div>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
 			</div>

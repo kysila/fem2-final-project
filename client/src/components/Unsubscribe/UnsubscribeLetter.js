@@ -51,6 +51,8 @@ export const UnsubscribeLetter = () => {
                     <h1 style="margin:0 auto">Hope to see you again!</h1>
                     <span  style="color: #333333; font: 18px Arial, sans-serif; line-height: 30px; -webkit-text-size-adjust:none; display: block;">
                    You unsubscribed successfully</span>
+                   <span  style="color: #333333; font: 18px Arial, sans-serif; line-height: 30px; -webkit-text-size-adjust:none; display: block;">
+                   You can subscribe again ;)</span>
                 </td>
              </tr>
          </table>

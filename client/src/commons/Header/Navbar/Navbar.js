@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { NavHashLink as HashLink } from 'react-router-hash-link';
 import { connect } from 'react-redux';
 
-
-// import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Drawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,8 +13,8 @@ import TollIcon from '@material-ui/icons/Toll';
 import { Link } from 'react-router-dom';
 import { useStyles } from './style';
 import { getCategories } from '../../../store/categories/actions';
-import { categorySelect } from '../../../store/selectedFilters/actions';
 import { Logo } from '../../Logo/Logo';
+import { categorySelect } from '../../../store/selectedFilters/actions';
 
 const mapStateToProps = (state) => ({
   categories: state.categoryReducer.categories,

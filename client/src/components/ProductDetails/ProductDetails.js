@@ -15,19 +15,24 @@ import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 
 import { useStyles } from './style';
-import {ProductCustomerReviews} from "./ProductCustomerReviews/ProductCustomerReviews";
+import { ProductCustomerReviews } from './ProductCustomerReviews/ProductCustomerReviews';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
 });
 
 const ProductDetails = (props) => {
+    window.scrollTo(0, 0);
   const [state, setState] = useState({
     obj: {},
     colors: {},
   });
 
-  let id = props.match.params.id;
+  let id;
+
+  if (props.match.params.id) {
+    id = props.match.params.id;
+  }
 
   const classes = useStyles();
 

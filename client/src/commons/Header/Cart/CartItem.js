@@ -16,6 +16,7 @@ const mapStateToProps = (state) => ({
 });
 
 const CartItem = (props) => {
+  window.scrollTo(0, 0);
   const classes = useStyles();
   const deleteProduct = (id) => {
     if (props.user) {
@@ -30,8 +31,7 @@ const CartItem = (props) => {
       localStorage.setItem('cart', serialCart);
     }
   };
-
-  return (
+   return (
     <Paper className={classes.root}>
 
       <Grid container className={classes.base_container} spacing={1}>
@@ -73,7 +73,6 @@ const CartItem = (props) => {
                 </Button>
               </ButtonGroup>
             </Grid>
-
           </Grid>
         </Grid>
 

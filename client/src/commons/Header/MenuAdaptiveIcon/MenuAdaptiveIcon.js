@@ -19,6 +19,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import Box from '@material-ui/core/Box';
 import Searches from '../Searchbar/Searchbar';
 import { useStyles } from './style';
+import { categorySelect } from '../../../store/selectedFilters/actions';
 import { dispatchModalOpen } from '../../../store/modal/actions';
 import { dispatchLogout } from '../../../store/auth/actions';
 
@@ -33,6 +34,7 @@ function mapDispatchToProps(dispatch) {
   return {
     openModal: (child) => dispatch(dispatchModalOpen(child)),
     logout: () => dispatch(dispatchLogout()),
+    categorySelect: (id) => dispatch(categorySelect(id)),
   };
 }
 
@@ -59,13 +61,18 @@ const MenuAdaptiveIcon = (props) => {
   if (props.categories) {
     categories = props.categories.map((el) => (
       <ListItem key={el.name} button className={classes.nested}>
-        <Link to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}>
+        <Link
+          to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
+          onClick={() => {
+            props.categorySelect(el.id);
+            setMenuIsOpen(false);
+          }}
+        >
           <ListItemText secondary={el.name} />
         </Link>
       </ListItem>
     ));
   }
-
   return (
     <React.Fragment>
       <IconButton
@@ -166,20 +173,20 @@ const MenuAdaptiveIcon = (props) => {
           >
             {
               !props.user ? (
-                  <Box className={classes.link}>
-                    <Link to="/login" onClick={openLogin}>Login |</Link>
-                    <Link to="/register" onClick={openRegister}> Sign Up</Link>
-                  </Box>
+                <Box className={classes.link}>
+                  <Link to="/login" onClick={openLogin}>Login |</Link>
+                  <Link to="/register" onClick={openRegister}> Sign Up</Link>
+                </Box>
               ) : (
-                  <Box className={classes.link}>
-                    <Link className={classes.profileLink} to="/profile">
-                      {`Hello, ${props.user.firstName || props.user.login}`}
-                    </Link>
-                    <span> | </span>
-                    <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout();  setMenuIsOpen(false); }}>
+                <Box className={classes.link}>
+                  <Link className={classes.profileLink} to="/profile">
+                    {`Hello, ${props.user.firstName || props.user.login}`}
+                  </Link>
+                  <span> | </span>
+                  <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout(); setMenuIsOpen(false); }}>
                       Logout
-                    </Link>
-                  </Box>
+                  </Link>
+                </Box>
               )
             }
 
