@@ -22,7 +22,6 @@ const mapStateToProps = (store) => ({
 
 const deleteHandler = (e) => {
   e.preventDefault()
-  console.log('delete');
 };
 
 const ProductForCompare = (
@@ -40,13 +39,13 @@ const ProductForCompare = (
           className={classes.card}
         >
           <CardActionArea>
-            <IconButton
-              aria-label="delete"
-              className={classes.margin}
-              onClick={deleteHandler}
-            >
-              <DeleteIcon fontSize="small" />
-            </IconButton>
+            {/*<IconButton*/}
+            {/*  aria-label="delete"*/}
+            {/*  className={classes.margin}*/}
+            {/*  onClick={deleteHandler}*/}
+            {/*>*/}
+            {/*  <DeleteIcon fontSize="small" />*/}
+            {/*</IconButton>*/}
             <CardMedia
               className={classes.media}
               image={`${el.itemImg}`}

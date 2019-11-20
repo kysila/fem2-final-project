@@ -23,7 +23,6 @@ const Compare = ({
   name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, ...props
 }) => {
   const productsArray = props.products;
-  console.log('productsArray', productsArray)
   const classes = useStyles();
   const headerRow = ['Price', 'Maximum speed', 'Distance', 'Charging time'];
 

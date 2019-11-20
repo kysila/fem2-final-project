@@ -193,5 +193,9 @@ export const useStyles = makeStyles((theme) => createStyles({
       flexBasis: '30%',
       flexDirection: 'column',
     },
+    [theme.breakpoints.down(320)]: {
+      flexBasis: '25%',
+      flexDirection: 'column',
+    },
   },
 }));
