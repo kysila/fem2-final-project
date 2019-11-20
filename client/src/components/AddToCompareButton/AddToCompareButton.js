@@ -18,7 +18,6 @@ const AddToCompareButton = ({ ...props }) => {
 
   const addToCompare = () => {
     props.addProductsToCompare({ ...props });
-    console.log(props, 'props from button');
     setClicked(true);
   };
 

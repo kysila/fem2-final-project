@@ -22,7 +22,6 @@ const mapStateToProps = (store) => ({
 
 const deleteHandler = (e) => {
   e.preventDefault()
-  console.log('delete');
 };
 
 const ProductForCompare = (
