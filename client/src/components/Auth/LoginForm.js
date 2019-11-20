@@ -172,9 +172,9 @@ function LoginForm(props) {
             </Button>
             <Typography className={classes.agree}>
               By continuing, you agree to
-              <Link className={classes.link} href="/terms-and-conditions"> Electra&#39;s Conditions </Link>
+              <Link className={classes.link} href="/terms-and-conditions" target="_blank"> Electra&#39;s Conditions </Link>
               of
-              <Link className={classes.link} href="/privacy-policy"> Use and Privacy Notice.</Link>
+              <Link className={classes.link} href="/privacy-policy" target="_blank"> Use and Privacy Notice.</Link>
             </Typography>
           </Grid>
         </Grid>

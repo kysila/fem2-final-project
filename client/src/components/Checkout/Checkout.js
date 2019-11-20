@@ -136,10 +136,6 @@ export const Checkout = withRouter(connect(({ auth: { user } }) => ({ user }), {
     });
   };
 
-  if (props.user) {
-    props.history.push('/checkout/shipping');
-  }
-
   return (
     <Grid
       className={classes.contact}

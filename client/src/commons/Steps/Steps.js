@@ -1,11 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Box, Typography } from '@material-ui/core';
+import {Box, Typography} from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
 
-import { useStyles, useItemStyles } from './styles';
+import {useStyles, useItemStyles} from './styles';
 
 const museo = {
   fontFamily: 'Museo Sans 500',
@@ -19,7 +20,7 @@ const museo = {
 
 export function Separator(props) {
   return (
-    <Box component="span"><ArrowForwardIosIcon className={props.classes.separator} /></Box>
+    <Box component="span"><ArrowForwardIosIcon className={props.classes.separator}/></Box>
   );
 }
 
@@ -27,13 +28,17 @@ export function StepsItem(props) {
   const classes = useItemStyles(props);
 
   return (
-    <Typography
-      style={museo}
-      component="span"
+    <Link
       className={classes.item}
+      to={props.src || '#'}
     >
-      {props.text}
-    </Typography>
+      <Typography
+        style={museo}
+        component="span"
+      >
+        {props.text}
+      </Typography>
+    </Link>
   );
 }
 
@@ -45,7 +50,7 @@ export function Steps(props) {
       {props.items.reduce(
         (result, item) => result.concat([
           <StepsItem key={item.key} {...item} />,
-          <Separator key={item.key.concat('s')} classes={classes} />,
+          <Separator key={item.key.concat('s')} classes={classes}/>,
         ]), [],
       ).slice(0, -1)}
     </Box>

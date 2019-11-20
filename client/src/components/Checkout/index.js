@@ -71,16 +71,19 @@ const CheckoutProcess = connect(mapStateToProps)(withRouter(withTheme((props) =>
       key: 'id-1',
       isActive: true,
       text: 'Information',
+      src: '/checkout/info',
     },
     {
       key: 'id-2',
       isActive: props.location.pathname === '/checkout/shipping' || props.location.pathname === '/checkout/payment',
       text: 'Shipping',
+      src: props.location.pathname === '/checkout/payment' ? '/checkout/shipping' : null,
     },
     {
       key: 'id-3',
       isActive: props.location.pathname === '/checkout/payment',
       text: 'Payment',
+      src: props.location.pathname === '/checkout/payment' ? '/checkout/payment' : null,
     },
   ];
 
