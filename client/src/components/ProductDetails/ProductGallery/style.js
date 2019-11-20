@@ -1,16 +1,26 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme) => ({
 	productGallery: {
 		marginBottom: 50,
-		width: 500,
+		width: '100%',
 		height: 'auto',
+		[theme.breakpoints.down(769)]: {
+			maxWidth: 344,
+		},
+		[theme.breakpoints.down(481)]: {
+			maxWidth: '100%',
+			marginBottom: '20px',
+		}
 	},
 	mainImage: {
 		margin: '4px 0 10px 0',
 		width: '100%',
 		height: '376px',
 		objectFit: 'contain',
+		[theme.breakpoints.down(769)]: {
+			height: '259px',
+		}
 	},
 	allImage: {
 		width: '100%',
