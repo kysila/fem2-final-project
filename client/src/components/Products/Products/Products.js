@@ -28,6 +28,7 @@ import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/sel
 
 let displayedProductsArray = [];
 const Products = (props) => {
+  window.scrollTo(0, 0);
   const classes = useStyles();
   let products;
   let selectedFilterChips;

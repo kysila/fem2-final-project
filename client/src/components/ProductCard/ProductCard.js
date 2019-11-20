@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {connect} from "react-redux";
 import { Link } from 'react-router-dom';
-import { HeartIcon, BagIcon, WeigherIcon } from "../Icons/Icons";
+import {
+  // HeartIcon,
+  BagIcon,
+  // WeigherIcon
+} from '../Icons/Icons';
 import { addProductToCart, getCartFromLS } from "../../store/cart/actions";
 import { handlerLocalStorage } from "../AddToCartButton/script";
 
@@ -89,7 +93,7 @@ const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, 
 
   return (
     <Box className={classes.container}>
-      <Link to={url} className={classes.link}>
+      <Link to={url ? url :'#'} className={classes.link}>
         <Card
           className={classes.card}
           onClick={viewedItemListener}

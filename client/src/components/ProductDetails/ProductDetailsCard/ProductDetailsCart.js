@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
-import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
 import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
 import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
 import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
@@ -13,8 +12,12 @@ import { Typography } from '@material-ui/core';
 import { ButtonGroup } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import MenuItem from "@material-ui/core/MenuItem";
 
-import { useStyles } from "./style";
+import { useStyles, BootstrapInput } from "./style";
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -29,6 +32,12 @@ const ProductDetailsCard = (props) => {
 
   const obj = props.data.obj;
   const colors = props.data.colors.data;
+
+  const [ color, setColor ] = useState(obj.color);
+
+  const handleChange = event => {
+    setColor(event.target.value);
+  };
 
   const checkProduct = () => {
     setState({
@@ -58,18 +67,31 @@ const ProductDetailsCard = (props) => {
     });
   }
 
+  let options;
+  if (colors) {
+    options = colors.map((el, i) => {
+      return (
+        <MenuItem value={`/products/${el.itemNo}`} key={i}>
+          {el.color}
+        </MenuItem>
+      );
+    });
+  }
+
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
       <Typography
         className={classes.categories}
-        variant='body1'>
+        variant="body1"
+      >
         {obj.categories}
       </Typography>
       <Typography
         className={classes.name}
-        variant='h2'>
+        variant="h2"
+      >
         {obj.name}
       </Typography>
       <Rating
@@ -77,15 +99,29 @@ const ProductDetailsCard = (props) => {
         size="large"
         precision={0.5}
         value={obj.rating}
-        readOnly />
+        readOnly 
+      />
       <Box className={classes.otherColors}>
         {links}
       </Box>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-customized-select-label">Age</InputLabel>
+        <Select
+          className={classes.select}
+          labelId="demo-customized-select-label"
+          id="demo-customized-select"
+          value={color}
+          onChange={handleChange}
+          input={<BootstrapInput />}
+        >
+          { options }
+        </Select>
+      </FormControl>
       <Box className={classes.price}>
         <Typography>
           {`$${obj.currentPrice}`}
         </Typography>
-        <Typography className='oldPrice'>
+        <Typography className="oldPrice">
           $4000
         </Typography>
       </Box>
@@ -105,20 +141,20 @@ const ProductDetailsCard = (props) => {
           actions={props.getCartFromLS}
           checkProduct={checkProduct}
           style={{
-            width: '250px', borderRadius: '4px'
+            width: '60%', borderRadius: '4px',
           }}
           iconStyle={{
             width: 21,
             height: 20,
             fill: '#fff',
-            marginRight: 8
+            marginRight: 8,
           }}
         />
         <AddToWishListButton
           obj={obj}
           user={props.user}
           allProps={props}
-          className={'otherBtn'}
+          className="otherBtn"
           iconStyle={{
             fill: '#AAA',
           }}
