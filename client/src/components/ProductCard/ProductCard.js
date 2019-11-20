@@ -181,7 +181,9 @@ const ProductCard = ({
                 : handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS);
             }}
             className={classes.buttonStyle}
-            style={{ borderLeft: '1px solid #bdbdbd' }}
+            style={{
+              borderLeft: '1px solid #bdbdbd'
+            }}
           >
             <BagIcon
               className="icon"
