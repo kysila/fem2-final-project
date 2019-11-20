@@ -76,7 +76,6 @@ export const useStyles = makeStyles((theme) => createStyles({
     },
     '& button': {
       height: 50,
-      width: '19.9%',
       fontSize: 14,
       boxShadow: 'none',
       [theme.breakpoints.down(561)]: {
@@ -97,6 +96,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     '& .otherBtn': {
       background: 'none',
       color: '#444',
+      width: '19.9%',
       [theme.breakpoints.down(481)]: {
         background: '#ffffff',
       },

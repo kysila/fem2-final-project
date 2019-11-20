@@ -75,9 +75,8 @@ export const useStyles = makeStyles({
 	linkStyle: {
 		margin: 0,
 		textAlign: 'center',
-		borderRight: '1px solid #bdbdbd',
 		height: '100%',
-		width: 'calc(100% / 3)',
+		width: '19.9%',
 		borderRadius: '0 !important',
 		background: 'rgba(255, 255, 255, 1) !important',
 		'&:hover': {
