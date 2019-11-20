@@ -13,12 +13,10 @@ const mapStateToProps = (state) => ({
 
 
 const AddToCompareButton = ({ ...props }) => {
-  // console.log('props.products', props.maxSpeed)
   const [clicked, setClicked] = useState(false);
   const classes = useStyles();
 
   const addToCompare = () => {
-    console.log(props.maxSpeed, 'props')
     props.addProductsToCompare({ ...props });
     setClicked(true);
   };
@@ -27,7 +25,7 @@ const AddToCompareButton = ({ ...props }) => {
     return (
       <Link to="/compare" className={classes.linkStyle}>
       <Button
-        className={classes.buttonCompare}
+        className={classes.buttonStyle}
       >
         <GoToCompareIcon
           color="action"

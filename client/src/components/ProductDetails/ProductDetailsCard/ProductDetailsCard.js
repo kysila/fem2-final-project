@@ -124,15 +124,22 @@ const ProductDetailsCard = (props) => {
           }}
         />
         <AddToCompareButton
-          obj={obj}
-          user={props.user}
-          allProps={props}
           className={'otherBtn'}
           iconStyle={{
             fill: '#AAA',
             width: '30px',
             height: '23px',
           }}
+          name={obj.name}
+          itemImg={obj.itemImg}
+          price={obj.price}
+          url={obj.url}
+          rating={obj.rating}
+          key={obj.key}
+          itemNo={obj.itemNo}
+          distance={obj.distance}
+          maxSpeed={obj.maxSpeed}
+          chargingTime={obj.chargingTime}
         />
       </ButtonGroup>
     </div>
