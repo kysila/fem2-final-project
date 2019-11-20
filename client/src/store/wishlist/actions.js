@@ -64,7 +64,6 @@ export function dispatchCreateWishlist(payload) {
       .post(CREATE_WISHLIST, payload)
       .then(({ data }) => {
         dispatch(createWishlist(data));
-        dispatch(dispatchGetWishlist());
         // TODO: notification of the event
       })
       .catch((err) => {
@@ -86,7 +85,6 @@ export function dispatchAddProductAndCreateWishlist(payload) {
       .put(payload)
       .then(({ data }) => {
         dispatch(addProductAndCreateWishlist(data));
-        dispatch(dispatchGetWishlist());
         // TODO: notification of the event
       })
       .catch((err) => {

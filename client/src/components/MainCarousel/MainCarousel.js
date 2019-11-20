@@ -53,7 +53,7 @@ export const MainCarousel = () => {
           });
       } catch (err) {
         if (axios.isCancel(err)) {
-          console.log('cancelled');
+          // TODO: NOTIFICATION: 'cancelled'
         } else {
           throw err;
         }

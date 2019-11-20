@@ -11,4 +11,8 @@ export const useStyles = makeStyles((theme) => ({
     flexBasis: '66.66%',
     flexShrink: 0,
   },
+  formsInfo: {
+    fontSize: '20px',
+    paddingBottom: '0',
+  },
 }));

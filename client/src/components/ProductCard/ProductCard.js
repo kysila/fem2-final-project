@@ -154,6 +154,8 @@ const ProductCard = ({
             obj={obj}
             className={classes.buttonStyle}
             user={props.user}
+            wishlist={props.wishlist}
+            addProductToWishlist={props.addProductToWishlist}
             iconStyle={{
               fill: '#AAA',
             }}

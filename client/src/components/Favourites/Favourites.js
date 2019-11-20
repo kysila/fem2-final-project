@@ -1,26 +1,31 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
-
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { Title } from '../Title/Title';
 import ProductCard from '../ProductCard/ProductCard';
 import Preloader from '../Preloader/Preloader';
-
+import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
+import { ADD_PRODUCT_AND_CREATE_WISHLIST } from '../../axios/endpoints';
 import 'slick-carousel/slick/slick.css';
 import './FavouriteCarousel.css';
 
-export const Favourites = (props) => {
+function Favorites(props) {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-
   let favoritesProducts;
-
+  const { getWishlist } = props;
   useEffect(() => {
     axios.get('/products/rates/4.5').then((products) => {
       setLoading(false);
       setList(products.data);
     });
+  }, []);
+
+  useEffect(() => {
+    getWishlist();
   }, []);
 
   if (list && !loading) {
@@ -38,6 +43,8 @@ export const Favourites = (props) => {
         distance={el.distance}
         maxSpeed={el.maxSpeed}
         chargingTime={el.chargingTime}
+        wishlist={props.wishlist}
+        addProductToWishlist={props.addProductToWishlist}
       />
     ));
   } else if (loading) {
@@ -107,4 +114,19 @@ export const Favourites = (props) => {
     </section>
 
   );
-};
+}
+
+function putStateToProps(state) {
+  return {
+    wishlist: state.wishlist.wishlist,
+  };
+}
+
+function putActionsToProps(dispatch) {
+  return {
+    getWishlist: () => dispatch(dispatchGetWishlist()),
+    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
+  };
+}
+
+export const Favourites = connect(putStateToProps, putActionsToProps)(Favorites);
