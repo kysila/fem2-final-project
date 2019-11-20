@@ -25,6 +25,7 @@ import { useStyles } from './style';
 import { getProducts, getMoreProducts } from '../../../store/products/actions';
 import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/selectedFilters/actions';
 
+
 let displayedProductsArray = [];
 const Products = (props) => {
   const classes = useStyles();
@@ -146,15 +147,15 @@ const Products = (props) => {
         </Grid>
         <main className={classes.main}>
           <Grid container spacing={0} alignItems="center" justify="center">
-            {props.allProducts.length ? products : (
-              props.isProductsFetching ? <Preloader /> : (
+            { props.isProductsFetching ? <Preloader /> : (
+              props.allProducts.length ? products : (
                 <Typography
                   variant="body1"
                   gutterBottom
                   align="center"
                   className={classes.space}
                 >
-                Sorry, no products matching your request were found.
+                  Sorry, no products matching your request were found.
                 </Typography>
               ))}
 

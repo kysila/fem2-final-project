@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 // ACTIONS WITH OTHER FILTERS
 export const GET_PRODUCTS_REQUESTED = 'GET_PRODUCTS_REQUESTED';
 export const GET_PRODUCTS_SUCCEEDED = 'GET_PRODUCTS_SUCCEEDED';
@@ -35,6 +36,12 @@ export const getProducts = (endpoint) => (dispatch) => {
         type: GET_PRODUCTS_FAILED,
         payload: err,
       });
+      // dispatch(enqueueSnackbar({
+      //   message: err,
+      //   options: {
+      //     variant: 'error',
+      //   },
+      // }));
     });
 };
 
@@ -67,5 +74,12 @@ export const getMoreProducts = (endpoint, existedProducts) => (dispatch) => {
         type: GET_PRODUCTS_FAILED,
         payload: err.response.data,
       });
+      // console.log('err', err);
+      // dispatch(enqueueSnackbar({
+      //   message: err,
+      //   options: {
+      //     variant: 'error',
+      //   },
+      // }));
     });
 };

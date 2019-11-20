@@ -51,8 +51,8 @@ const Search = (props) => {
     ));
   } else {
     searchResult = [
-      <Grid item xs={12} sm={12} md={12} >
-        <Typography variant="h6" align="center" paragraph="true">
+      <Grid item xs={12} sm={12} md={12} key="noresult">
+        <Typography variant="h6" align="center" paragraph>
         No products were found based on search results
         </Typography>
       </Grid>];

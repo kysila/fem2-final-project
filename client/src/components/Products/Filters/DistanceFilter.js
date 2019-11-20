@@ -11,23 +11,17 @@ import { connect } from 'react-redux';
 import { selectFilters } from '../../../store/selectedFilters/actions';
 
 const DistanceFilter = (props) => {
-  const [distance, setDistance] = useState([]);
+  const [distance, setDistance] = useState(() => {
+    if (props.selectedFilters.distance) {
+      return [props.selectedFilters.distance];
+    }
+    return [];
+  });
 
   const handleChangeDistance = (event) => {
     setDistance(event.target.value);
     props.selectFilters(event, event.target.value, 'distance', { ...props.selectedFilters });
   };
-  // const handleChangeMultipleDistance = (event) => {
-  //   const { options } = event.target;
-  //   const value = [];
-  //   for (let i = 0, l = options.length; i < l; i += 1) {
-  //     if (options[i].selected) {
-  //       value.push(options[i].value);
-  //     }
-  //   }
-  //   setDistance(value);
-  //   props.selectFilters(event, event.target.value, 'distance', { ...props.selectedFilters });
-  // };
 
   return (
     <React.Fragment>

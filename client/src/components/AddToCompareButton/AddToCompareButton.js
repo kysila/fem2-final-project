@@ -19,6 +19,9 @@ const AddToCompareButton = ({
   const classes = useStyles();
 
   const addToCompare = () => {
+    console.log({
+      name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, ...props,
+    })
     props.addProductsToCompare({
       name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
     });

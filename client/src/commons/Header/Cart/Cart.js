@@ -82,7 +82,6 @@ const Cart = (props) => {
               {countOfProducts}
               {' '}
             </div>
-
         </Box>
       </Box>
 

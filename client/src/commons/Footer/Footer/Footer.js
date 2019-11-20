@@ -25,8 +25,6 @@ export const Footer = () => {
             xs={12}
             sm={4}
             md={4}
-            alignItems="center"
-            justify="center"
           >
             <Typography align="center" className={classes.copyright}>
               Copyright &copy; 2019 Electra.

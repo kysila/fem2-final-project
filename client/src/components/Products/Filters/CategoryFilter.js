@@ -11,24 +11,19 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { selectFilters } from '../../../store/selectedFilters/actions';
 
 const CategoryFilter = (props) => {
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState(() => {
+    if (props.selectedFilters.categories) {
+      return [props.selectedFilters.categories];
+    }
+    return [];
+  });
+
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
     props.selectFilters(event, event.target.value, 'categories', { ...props.selectedFilters });
   };
 
-  // const handleChangeMultipleCategory = (event) => {
-  //   //   const { options } = event.target;
-  //   //   const value = [];
-  //   //   for (let i = 0, l = options.length; i < l; i += 1) {
-  //   //     if (options[i].selected) {
-  //   //       value.push(options[i].value);
-  //   //     }
-  //   //   }
-  //   //   setCategory(value);
-  //   //   props.selectFilters(event, event.target.value, 'categories', { ...props.selectedFilters });
-  //   // };
   return (
     <React.Fragment>
       <InputLabel id="category-select-label">Category</InputLabel>

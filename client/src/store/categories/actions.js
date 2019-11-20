@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {enqueueSnackbar} from "../notification/actions";
 
 // ACTIONS WITH CATEGORIES
 export const GET_CATEGORIES_REQUESTED = 'GET_CATEGORIES_REQUESTED';
@@ -27,5 +28,12 @@ export const getCategories = () => (dispatch) => {
         type: GET_CATEGORIES_FAILED,
         payload: err,
       });
+
+      // dispatch(enqueueSnackbar({
+      //   message: err,
+      //   options: {
+      //     variant: 'error',
+      //   },
+      // }));
     });
 };
