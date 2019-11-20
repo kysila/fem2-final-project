@@ -6,7 +6,7 @@ import BrandsBlock from './BrandsBlock/BrandsBlock';
 import { MainCarousel } from '../MainCarousel/MainCarousel';
 import { Favourites } from '../Favourites/Favourites';
 import Categories from '../Categories/Categories';
-import { Contacts } from './Contacts';
+import { Contacts } from './Contacts/Contacts';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 
 
