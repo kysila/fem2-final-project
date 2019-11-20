@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { HeartIcon, BagIcon, WeigherIcon } from "../Icons/Icons";
-import { addProductToCart, getCartFromLS } from "../../store/cart/actions";
-import { handlerLocalStorage } from "../AddToCartButton/script";
 
 import axios from 'axios';
 
@@ -16,30 +13,34 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
-import Box from "@material-ui/core/Box";
+import Box from '@material-ui/core/Box';
+import { handlerLocalStorage } from '../AddToCartButton/script';
+import { addProductToCart, getCartFromLS } from '../../store/cart/actions';
+import { BagIcon } from '../Icons/Icons';
 
-import { useStyles } from "./style";
-import {AddToWishListButton} from "../AddToWishListButton/AddToWishListButton";
-import {AddToFavouritesButton} from "../AddToFavouritesButton/AddToFavouritesButton";
+import { useStyles } from './style';
+import { AddToWishListButton } from '../AddToWishListButton/AddToWishListButton';
+import AddToCompareButton from '../AddToCompareButton/AddToCompareButton';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
 });
 
-const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, ...props }) => {
-
+const ProductCard = ({
+  obj, name, itemImg, price, url, rating, key, itemNo, id, distance, maxSpeed, chargingTime, ...props
+}) => {
   const [state, setState] = useState({
     openButtons: false,
   });
-  const [ item, setItem ] = useState({
+  const [item, setItem] = useState({
     cartQuantity: 1,
-    product: {}
+    product: {},
   });
 
   const initialProductsCart = {
     products: [
-      item
+      item,
     ],
   };
 
@@ -64,12 +65,12 @@ const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, 
       const item = itemNo;
       if (!filterCart(product, item)) {
         localStorage.setItem('product', JSON.stringify(product.concat([{
-          name, itemImg, price, url, rating, key, itemNo,
+          name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
         }])));
       }
     } else {
       const newProduct = [].concat([{
-        name, itemImg, price, url, rating, key, itemNo,
+        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
     }
@@ -77,12 +78,12 @@ const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, 
 
   useEffect(() => {
     axios.get(url)
-      .then(data => {
+      .then((data) => {
         setItem({
           ...item,
           product: data.data,
         });
-      })
+      });
   }, [url]);
 
   const classes = useStyles();
@@ -156,23 +157,30 @@ const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, 
             user={props.user}
             allProps={props}
           />
-          <AddToFavouritesButton
-            obj={obj}
+          <AddToCompareButton
             className={classes.buttonStyle}
-            user={props.user}
             allProps={props}
             iconStyle={{
               width: '30px',
               height: '23px',
             }}
+            name={name}
+            itemNo={itemNo}
+            itemImg={itemImg}
+            price={price}
+            url={url}
+            rating={rating}
+            key={key}
+            distance={distance}
+            maxSpeed={maxSpeed}
+            chargingTime={chargingTime}
           />
           <Button
-            onClick={e => {
-              props.user ?
-                props.addProductToCart(`/cart/${id}`) :
-                handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS)
-            }
-            }
+            onClick={(e) => {
+              props.user
+                ? props.addProductToCart(`/cart/${id}`)
+                : handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS);
+            }}
             className={classes.buttonStyle}
           >
             <BagIcon
@@ -181,7 +189,8 @@ const ProductCard = ({ obj, name, itemImg, price, url, rating, key, itemNo, id, 
                 width: 30,
                 height: 23,
               }}
-              color="action"/>
+              color="action"
+            />
           </Button>
         </ButtonGroup>
       </CardActions>

@@ -119,6 +119,9 @@ const Products = (props) => {
           rating={el.rating}
           itemNo={el.itemNo}
           id={el.id}
+          distance={el.distance}
+          maxSpeed={el.maxSpeed}
+          chargingTime={el.chargingTime}
         />
       </Grid>
     ));

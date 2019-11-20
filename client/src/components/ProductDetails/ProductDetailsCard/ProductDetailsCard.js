@@ -5,7 +5,7 @@ import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
 import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
 import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
 import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
-import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
+import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
 
 import axios from 'axios';
 
@@ -123,7 +123,7 @@ const ProductDetailsCard = (props) => {
             fill: '#AAA',
           }}
         />
-        <AddToFavouritesButton
+        <AddToCompareButton
           obj={obj}
           user={props.user}
           allProps={props}
