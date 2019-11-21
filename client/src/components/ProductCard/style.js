@@ -60,6 +60,7 @@ export const useStyles = makeStyles({
 		margin: 0,
 		height: '100%',
 		width: 'calc(100% / 3)',
+		borderRight: '1px solid #bdbdbd',
 		borderRadius: '0 !important',
 		background: 'rgba(255, 255, 255, 1) !important',
 		'&:hover': {
