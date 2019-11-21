@@ -69,7 +69,7 @@ const ProductDetails = (props) => {
               <ProductDetailsCart data={state}/>
             </div>
             <ProductDescription data={state.obj} />
-            <ProductCustomerReviews user={props.user} />
+            <ProductCustomerReviews user={props.user} obj={state.obj} />
           </div>
           <ProductDetailsCardSticky data={state} />
         </div>

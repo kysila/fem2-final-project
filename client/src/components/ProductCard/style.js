@@ -71,6 +71,9 @@ export const useStyles = makeStyles({
 	buttonGroup: {
 		width: '100%',
 		height: '100%',
+    '& a': {
+		  width: '33.3%',
+    }
 	},
 	linkStyle: {
 		margin: 0,
