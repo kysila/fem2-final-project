@@ -18,8 +18,10 @@ const DistanceFilter = (props) => {
       } else {
         return [props.selectedFilters.distance];
       }
+    } else {
+      return [];
     }
-    return [];
+
   });
 
   const handleChangeDistance = (event) => {

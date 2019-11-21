@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';

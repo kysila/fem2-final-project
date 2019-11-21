@@ -48,4 +48,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     paddingLeft: '8%',
     marginBottom: '7%',
   },
+  link: {
+    color: '#9c80ff',
+  },
 }));
