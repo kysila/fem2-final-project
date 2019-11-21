@@ -18,8 +18,9 @@ const ColorFilter = (props) => {
       } else {
         return [props.selectedFilters.color];
       }
+    } else {
+      return [];
     }
-    return [];
   });
   const handleChangeColor = (event) => {
     setColor(event.target.value);
