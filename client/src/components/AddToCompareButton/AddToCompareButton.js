@@ -18,7 +18,7 @@ const AddToCompareButton = ({ ...props }) => {
   const classes = useStyles();
 
   const addToCompare = () => {
-    console.log(props.maxSpeed, 'props')
+    // console.log(props.maxSpeed, 'props')
     props.addProductsToCompare({ ...props });
     setClicked(true);
   };
