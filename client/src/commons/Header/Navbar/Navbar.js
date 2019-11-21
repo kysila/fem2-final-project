@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { NavHashLink as HashLink } from 'react-router-hash-link';
 import { connect } from 'react-redux';
 
-
-// import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Drawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,8 +13,8 @@ import TollIcon from '@material-ui/icons/Toll';
 import { Link } from 'react-router-dom';
 import { useStyles } from './style';
 import { getCategories } from '../../../store/categories/actions';
-import { categorySelect } from '../../../store/selectedFilters/actions';
 import { Logo } from '../../Logo/Logo';
+import { categorySelect } from '../../../store/selectedFilters/actions';
 
 const mapStateToProps = (state) => ({
   categories: state.categoryReducer.categories,
@@ -29,25 +27,27 @@ const NavBar = (props) => {
 
   if (props.categories) {
     categories = props.categories.map((el) => (
-      <ListItem
-        divider
-        dense
-        button
+      <Link
+        className={classes.link}
+        to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
         key={el.name}
-        className={classes.list}
-        classes={{ button: classes.item }}
-        onClick={() => setMenuIsOpen(false)}
+        onClick={() => {
+          props.categorySelect(el.id);
+        }}
       >
-        <TollIcon />
-        <Link
-          to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
-          onClick={() => {
-            props.categorySelect(el.id);
-          }}
+        <ListItem
+          divider
+          dense
+          button
+          key={el.name}
+          className={classes.list}
+          classes={{ button: classes.item }}
+          onClick={() => setMenuIsOpen(false)}
         >
+          <TollIcon />
           <ListItemText classes={{ primary: classes.text }} primary={el.name} />
-        </Link>
-      </ListItem>
+        </ListItem>
+      </Link>
     ));
   }
 

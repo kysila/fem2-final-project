@@ -5,8 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 import Cookie from 'js-cookie';
 import {
-  ClientProfile, MainPage, NotFound, Modal, Notifier, Checkout, TermsConditions, PrivacyPolicy, Order
+  ClientProfile, MainPage, NotFound, Modal, Notifier, Checkout, TermsConditions, PrivacyPolicy, Order,
 } from './components';
+import Compare from './components/Compare/Compare';
 import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
 import Search from './components/Search/Search';
 import './App.css';
@@ -42,7 +43,7 @@ const GlobalCss = withStyles({
         fontSize: 14,
       },
     },
-    '.MuiChip-root':{
+    '.MuiChip-root': {
       fontFamily: "'Museo Sans 500'",
     },
     '.MuiTypography-body2': {
@@ -135,6 +136,7 @@ function App() {
               <Route path="/checkout" component={Checkout} />
               <Route path="/search" component={Search} />
               <Route path="/subscribers/email/:email" component={Unsubscribe} />
+              <Route path="/compare" component={Compare} />
               <Route path="/terms-and-conditions" component={TermsConditions} />
               <Route path="/privacy-policy" component={PrivacyPolicy} />
               <Route path="/order/:id/:discountCode?" component={Order} />

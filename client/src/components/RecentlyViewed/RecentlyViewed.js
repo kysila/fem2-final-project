@@ -59,7 +59,6 @@ export const RecentlyViewed = () => {
   };
 
   if (productsList) {
-    const uniqueItems = [];
     products = productsList.map((el) => (
       <div key={el.itemNo}>
         <ProductCard
@@ -69,11 +68,10 @@ export const RecentlyViewed = () => {
           price={el.price}
           url={el.itemNo}
           rating={el.rating}
+          itemNo={el.itemNo}
         />
       </div>
-    ),
-      // }
-    );
+    ));
   } else {
     return (
       <Container maxWidth="md" className={classes.mainContainer} />

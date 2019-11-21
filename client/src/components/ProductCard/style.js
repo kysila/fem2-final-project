@@ -60,6 +60,7 @@ export const useStyles = makeStyles({
 		margin: 0,
 		height: '100%',
 		width: 'calc(100% / 3)',
+		borderRight: '1px solid #bdbdbd',
 		borderRadius: '0 !important',
 		background: 'rgba(255, 255, 255, 1) !important',
 		'&:hover': {
@@ -73,5 +74,35 @@ export const useStyles = makeStyles({
 	buttonGroup: {
 		width: '100%',
 		height: '100%',
+	},
+	linkStyle: {
+		margin: 0,
+		textAlign: 'center',
+		borderRight: '1px solid #bdbdbd',
+		height: '100%',
+		width: 'calc(100% / 3)',
+		borderRadius: '0 !important',
+		background: 'rgba(255, 255, 255, 1) !important',
+		'&:hover': {
+			background: 'rgba(238, 238, 238, 1) !important',
+			boxShadow: 'none',
+			'& .icon': {
+				fill: '#6686FF',
+			},
+		},
+	},
+	buttonCompare: {
+		width: '100%',
+		margin: 0,
+		height: '100%',
+		borderRadius: '0 !important',
+		background: 'rgba(255, 255, 255, 1) !important',
+		'&:hover': {
+			background: 'rgba(238, 238, 238, 1) !important',
+			boxShadow: 'none',
+			'& .icon': {
+				fill: '#6686FF',
+			},
+		},
 	},
 });

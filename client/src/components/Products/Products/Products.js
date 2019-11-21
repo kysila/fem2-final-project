@@ -28,6 +28,7 @@ import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/sel
 
 let displayedProductsArray = [];
 const Products = (props) => {
+  window.scrollTo(0, 0);
   const classes = useStyles();
   let products;
   let selectedFilterChips;
@@ -106,7 +107,7 @@ const Products = (props) => {
         </Grid>
       );
     });
-    console.log('selectedFilterChips',selectedFilterChips);
+    // console.log('selectedFilterChips',selectedFilterChips);
 
     displayedProductsArray = [...props.allProducts];
     products = displayedProductsArray.map((el) => (
@@ -121,6 +122,9 @@ const Products = (props) => {
           rating={el.rating}
           itemNo={el.itemNo}
           id={el.id}
+          distance={el.distance}
+          maxSpeed={el.maxSpeed}
+          chargingTime={el.chargingTime}
         />
       </Grid>
     ));

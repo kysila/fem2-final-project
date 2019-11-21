@@ -32,9 +32,9 @@ const StayInTouch = () => {
 
   const showSwalFailed = () => {
     MySwal.fire({
-      title: <p>We are sorry!</p>,
-      html: <p>You Already Subscribed</p>,
-      type: 'warning',
+      title: <p>You Already Subscribed!</p>,
+      html: <p>Congratulations!</p>,
+      type: 'info',
       confirmButtonColor: '#6A86E8',
       onClose: () => {
         TextField.value = '';
