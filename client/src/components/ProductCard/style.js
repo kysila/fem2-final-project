@@ -2,12 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
 	container: {
-		position: 'relative',
+		maxWidth: 251,
+		marginBottom: '25px',
 	},
 	card: {
 		overflow: 'visible',
-		marginBottom: 50,
-		maxWidth: 251,
+		width: '100%',
 		minHeight: 355,
 		boxSizing: 'border-box',
 		border: '1px solid #EAEAEA',
@@ -46,11 +46,8 @@ export const useStyles = makeStyles({
 		textTransform: 'capitalize',
 	},
 	buttonField: {
-		width: 'calc(100% + 1px)',
+		width: '100%',
 		display: 'block',
-		position: 'absolute',
-		bottom: -49,
-		left: -1,
 		opacity: 0,
 		padding: 0,
 		height: 49,
@@ -74,13 +71,15 @@ export const useStyles = makeStyles({
 	buttonGroup: {
 		width: '100%',
 		height: '100%',
+    '& a': {
+		  width: '33.3%',
+    }
 	},
 	linkStyle: {
 		margin: 0,
 		textAlign: 'center',
-		borderRight: '1px solid #bdbdbd',
 		height: '100%',
-		width: 'calc(100% / 3)',
+		width: '19.9%',
 		borderRadius: '0 !important',
 		background: 'rgba(255, 255, 255, 1) !important',
 		'&:hover': {

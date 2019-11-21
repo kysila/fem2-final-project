@@ -8,7 +8,8 @@ import Container from '@material-ui/core/Container';
 import { Header, Footer } from '../../commons';
 import { ProductGallery } from './ProductGallery/ProductGallery';
 import { ProductDescription } from './ProductDescription/ProductDescription';
-import ProductDetailsCard from './ProductDetailsCard/ProductDetailsCard';
+import ProductDetailsCardSticky from './ProductDetailsCard/ProductDetailsCartSticky/ProductDetailsCardSticky';
+import ProductDetailsCart from "./ProductDetailsCard/ProductDetailsCart";
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs/ProductBreadcrumbs';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
@@ -27,7 +28,11 @@ const ProductDetails = (props) => {
     colors: {},
   });
 
-  let id = props.match.params.id;
+  let id;
+
+  if (props.match.params.id) {
+    id = props.match.params.id;
+  }
 
   const classes = useStyles();
 
@@ -53,17 +58,20 @@ const ProductDetails = (props) => {
   }, [state.obj]);
 
   return (
-    <div>
+    <div className={classes.mainWrapper}>
       <Header callCenter="1-855-324-5387" />
       <Container maxWidth="md" className={classes.paddingTop}>
         <ProductBreadcrumbs link={state.obj.name} />
         <div className={classes.productPage}>
           <div className={classes.productInfo}>
-            <ProductGallery image={state.obj.imageUrls} />
+            <div className={classes.wrapper}>
+              <ProductGallery image={state.obj.imageUrls} />
+              <ProductDetailsCart data={state}/>
+            </div>
             <ProductDescription data={state.obj} />
-            <ProductCustomerReviews user={props.user} />
+            <ProductCustomerReviews user={props.user} obj={state.obj} />
           </div>
-          <ProductDetailsCard data={state} />
+          <ProductDetailsCardSticky data={state} />
         </div>
       </Container>
       <RecentlyViewed />
