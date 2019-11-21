@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import axios from 'axios';
 
@@ -10,75 +10,15 @@ import TextField from '@material-ui/core/TextField';
 
 import { useStyles } from './style';
 
-export const ProductCustomerReviews = ({user, obj}) => {
+export const ProductCustomerReviews = ({user}) => {
 
   const [value, setValue] = useState(0);
 
-  const [comments, setComments] = useState({
-    allComments: [],
-  });
-
-  const [comment, setComment] = useState({
-    product: '',
-    content: '',
-    rating: 0,
-  });
-
   const classes = useStyles();
-
-  const renderComments = (arr) => {
-    return arr.map((el, i) => {
-      return (
-      <Box
-        className={classes.commentItem}
-        key={i}>
-        <div className={classes.commentTitle}>
-          <div className={classes.customerName}>
-            {el.customer.login}
-          </div>
-          <div className={classes.commentDate}>
-            {el.customer.date.slice(0, 10)}
-          </div>
-        </div>
-        <Rating
-          name="read-only"
-          value={+el.rating}
-          precision={0.5}
-          readOnly
-          size="small"
-        />
-        <div className={classes.commentDesc}>
-          {el.content}
-        </div>
-      </Box>
-      )
-    })
-  };
-
-  useEffect(() => {
-    if (obj._id) {
-      setComment(() => ({
-        ...comment,
-        product: obj._id,
-      }));
-    }
-  }, [obj]);
-
-  useEffect(() => {
-    if (comment.product !== '') {
-      axios.get(`/comments/product/${comment.product}`)
-        .then(data => {
-          setComments(() => ({
-            ...comments,
-            allComments: data.data
-          }))
-        })
-    }
-  }, [comment.product]);
 
   return (
     <Box className={classes.reviewsMainBox}>
-      <Typography className={classes.reviewsHeader}>CUSTOMER REVIEWS ({comments.allComments.length})</Typography>
+      <Typography className={classes.reviewsHeader}>CUSTOMER REVIEWS (4)</Typography>
       <Box
         className={classes.userReview}
         style={
@@ -92,44 +32,84 @@ export const ProductCustomerReviews = ({user, obj}) => {
           className={classes.userComment}
           margin="normal"
           variant="outlined"
-          onChange={(e) => {
-            setComment({
-              ...comment,
-              content: e.target.value,
-            })
-          }}
         />
         <Rating
           name="simple-controlled"
           value={value}
           size="large"
-          onChange={(e, newValue) => {
-            setComment(() => ({
-              ...comment,
-              rating: e.target.value,
-            }));
-            setValue(newValue)
+          onChange={(event, newValue) => {
+            setValue(newValue);
           }}
         />
         <Button
           className={classes.addReview}
           onClick={() => {
-            axios.post('/comments', comment)
-              .then(() => {
-                axios.get(`/comments/product/${comment.product}`)
-                  .then(data => {
-                    setComments(() => ({
-                      ...comments,
-                      allComments: data.data
-                    }))
-                  })
-              })
+            console.log(user, value);
           }}
         >
           Add a review
         </Button>
       </Box>
-      { comments.allComments.length !== 0 ? renderComments(comments.allComments) : null }
+      <Box className={classes.commentItem}>
+        <div className={classes.commentTitle}>
+          <div className={classes.customerName}>
+            Nicola Cherezzabornoguzaderischenko
+          </div>
+          <div className={classes.commentDate}>
+            11/28/2019
+          </div>
+        </div>
+        <Rating
+          name="read-only"
+          value={4}
+          precision={0.5}
+          readOnly
+          size="small"
+        />
+        <div className={classes.commentDesc}>
+          I purchased this bike directly from the vendor, and it is an amazing bike! I've had it for about 6 weeks and have had a blast with it! I'm in my 60's and am a big guy (6'2; 240) and this bike is perfect for me. Very solid and well built, it supports my body without any problem.
+        </div>
+      </Box>
+      <Box className={classes.commentItem}>
+        <div className={classes.commentTitle}>
+          <div className={classes.customerName}>
+            Nicola Cherezzabornoguzaderischenko
+          </div>
+          <div className={classes.commentDate}>
+            11/28/2019
+          </div>
+        </div>
+        <Rating
+          name="read-only"
+          value={4}
+          precision={0.5}
+          readOnly
+          size="small"
+        />
+        <div className={classes.commentDesc}>
+          I purchased this bike directly from the vendor, and it is an amazing bike! I've had it for about 6 weeks and have had a blast with it! I'm in my 60's and am a big guy (6'2; 240) and this bike is perfect for me. Very solid and well built, it supports my body without any problem.
+        </div>
+      </Box>
+      <Box className={classes.commentItem}>
+        <div className={classes.commentTitle}>
+          <div className={classes.customerName}>
+            Nicola Cherezzabornoguzaderischenko
+          </div>
+          <div className={classes.commentDate}>
+            11/28/2019
+          </div>
+        </div>
+        <Rating
+          name="read-only"
+          value={4}
+          precision={0.5}
+          readOnly
+          size="small"
+        />
+        <div className={classes.commentDesc}>
+          I purchased this bike directly from the vendor, and it is an amazing bike! I've had it for about 6 weeks and have had a blast with it! I'm in my 60's and am a big guy (6'2; 240) and this bike is perfect for me. Very solid and well built, it supports my body without any problem.
+        </div>
+      </Box>
     </Box>
   );
 };

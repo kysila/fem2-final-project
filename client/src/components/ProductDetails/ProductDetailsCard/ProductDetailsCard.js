@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToCart, getCartFromLS } from "../../../../store/cart/actions";
-import { AddToCartButton } from "../../../AddToCartButton/AddToCartButton";
-import { AddToWishListButton } from "../../../AddToWishListButton/AddToWishListButton";
-import AddToCompareButton from '../../../AddToCompareButton/AddToCompareButton';
+import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
+import { HeartIcon, WeigherIcon } from "../../Icons/Icons";
+import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
+import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
+import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
 
 // import axios from 'axios';
 
@@ -13,14 +14,14 @@ import { ButtonGroup } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
 
-import { useStyles } from "./stickyCartStyle";
+import { useStyles } from "./style";
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
 });
 
-const ProductDetailsCardSticky = (props) => {
+const ProductDetailsCard = (props) => {
   const [state, setState] = useState({
     disabled: false,
     text: 'ADD TO CART',
@@ -104,7 +105,7 @@ const ProductDetailsCardSticky = (props) => {
           actions={props.getCartFromLS}
           checkProduct={checkProduct}
           style={{
-            width: '60%', borderRadius: '4px',
+            width: '250px', borderRadius: '4px'
           }}
           iconStyle={{
             width: 21,
@@ -145,4 +146,4 @@ const ProductDetailsCardSticky = (props) => {
   )
 };
 
-export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCardSticky);
+export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCard);
