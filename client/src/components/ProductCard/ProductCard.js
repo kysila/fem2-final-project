@@ -154,7 +154,14 @@ const ProductCard = ({
             obj={obj}
             className={classes.buttonStyle}
             user={props.user}
-            allProps={props}
+            wishlist={props.wishlist}
+            addProductToWishlist={props.addProductToWishlist}
+            iconStyle={{
+              fill: '#AAA',
+            }}
+            iconStyleChosen={{
+              fill: '#6686FF',
+            }}
           />
           <AddToCompareButton
             className={classes.buttonStyle}

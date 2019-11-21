@@ -116,10 +116,15 @@ const ProductDetailsCardSticky = (props) => {
         <AddToWishListButton
           obj={obj}
           user={props.user}
-          allProps={props}
-          className={'otherBtn'}
+          cart={props.cart}
+          className="otherBtn"
+          wishlist={props.wishlist}
+          addProductToWishlist={props.addProductToWishlist}
           iconStyle={{
             fill: '#AAA',
+          }}
+          iconStyleChosen={{
+            fill: '#6686FF',
           }}
         />
         <AddToCompareButton
