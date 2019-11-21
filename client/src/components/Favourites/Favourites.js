@@ -8,7 +8,6 @@ import { Title } from '../Title/Title';
 import ProductCard from '../ProductCard/ProductCard';
 import Preloader from '../Preloader/Preloader';
 import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
-import { ADD_PRODUCT_AND_CREATE_WISHLIST } from '../../axios/endpoints';
 import 'slick-carousel/slick/slick.css';
 import './FavouriteCarousel.css';
 
@@ -16,17 +15,19 @@ function Favorites(props) {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   let favoritesProducts;
-  const { getWishlist } = props;
+
   useEffect(() => {
     axios.get('/products/rates/4.5').then((products) => {
       setLoading(false);
       setList(products.data);
     });
   }, []);
-
+  const { user, getWishlist } = props;
   useEffect(() => {
-    getWishlist();
-  }, []);
+    if (user) {
+      getWishlist();
+    }
+  }, [user]);
 
   if (list && !loading) {
     favoritesProducts = list.map((el, i) => (
@@ -119,6 +120,7 @@ function Favorites(props) {
 function putStateToProps(state) {
   return {
     wishlist: state.wishlist.wishlist,
+    user: state.auth.user,
   };
 }
 

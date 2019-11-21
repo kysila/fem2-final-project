@@ -1,9 +1,7 @@
 /* eslint-disable react/jsx-indent */
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { HeartIcon, HeartIconFilled } from '../Icons/Icons';
-import { dispatchAddProductAndCreateWishlist, dispatchGetWishlist } from '../../store/wishlist/actions';
 import { ADD_PRODUCT_AND_CREATE_WISHLIST } from '../../axios/endpoints';
 
 export const AddToWishListButton = ({
@@ -44,7 +42,6 @@ export const AddToWishListButton = ({
 
   useEffect(() => {
     if (user) {
-      // getWishlist();
       checkExistence();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,18 +68,3 @@ export const AddToWishListButton = ({
     </Button>
   );
 };
-
-// function putStateToProps(state) {
-//   return {
-//     wishlist: state.wishlist.wishlist,
-//   };
-// }
-
-// function putActionsToProps(dispatch) {
-//   return {
-//     addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-//     // getWishlist: () => dispatch(dispatchGetWishlist()),
-//   };
-// }
-
-// export const AddToWishListButton = connect(null, putActionsToProps)(AddToWishListBtn);

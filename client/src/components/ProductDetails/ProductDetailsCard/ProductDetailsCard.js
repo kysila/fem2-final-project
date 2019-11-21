@@ -44,7 +44,8 @@ const ProductDetailsCard = (props) => {
       return (
         <Link
           style={obj.itemNo === el.itemNo
-            ? {color: '#444',
+            ? {
+              color: '#444',
               backgroundColor: '#FFF',
               border: '1px solid #444',
             }
@@ -119,6 +120,8 @@ const ProductDetailsCard = (props) => {
           user={props.user}
           cart={props.cart}
           className="otherBtn"
+          wishlist={props.wishlist}
+          addProductToWishlist={props.addProductToWishlist}
           iconStyle={{
             fill: '#AAA',
           }}

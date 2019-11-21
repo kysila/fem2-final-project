@@ -12,13 +12,13 @@ import { useStyles } from './style';
 import ProductCard from '../../ProductCard/ProductCard';
 import Preloader from '../../Preloader/Preloader';
 import {
-  dispatchGetWishlist, dispatchDeleteWishlist,
+  dispatchGetWishlist, dispatchDeleteWishlist, dispatchAddProductAndCreateWishlist,
 } from '../../../store/wishlist/actions';
 
 const Wishlist = (props) => {
   const classes = useStyles();
   const {
-    getWishlist, deleteWishlist, createWishlist, addProductToWishlist,
+    getWishlist, deleteWishlist,
     wishlist,
   } = props;
 
@@ -29,18 +29,25 @@ const Wishlist = (props) => {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
 
-  const getWishlistInfo = () => {
-    if (wishlist) {
-      getWishlist();
-      console.log('%c⧭ wishlist.data.products', 'color: #0ba062', props.wishlist.products);
-    } else {
-      console.log('%c⧭ У вас нет созданного Wishlist', 'color: #d30909');
-    }
-  };
+  // const getWishlistInfo = () => {
+  //   if (wishlist) {
+  //     getWishlist();
+  //     console.log('%c⧭ wishlist.data.products', 'color: #0ba062', props.wishlist.products);
+  //   } else {
+  //     console.log('%c⧭ У вас нет созданного Wishlist', 'color: #d30909');
+  //   }
+  // };
   const deleteWishlistInfo = () => {
     deleteWishlist();
     console.log('%c⧭ wishlist.result', 'color: #0a77b6', props.wishlist.result);
   };
+
+  const { user } = props;
+  useEffect(() => {
+    if (user) {
+      getWishlist();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (wishlist) {
@@ -81,6 +88,8 @@ const Wishlist = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
+          wishlist={props.wishlist}
+          addProductToWishlist={props.addProductToWishlist}
         />
       </Grid>
 
@@ -131,14 +140,7 @@ const Wishlist = (props) => {
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>
-          <Button
-            size="medium"
-            color="primary"
-            onClick={getWishlistInfo}
 
-          >
-            Show wishlist
-          </Button>
           <Button
             size="medium"
             color="primary"
@@ -163,6 +165,7 @@ function putActionsToProps(dispatch) {
   return {
     getWishlist: () => dispatch(dispatchGetWishlist()),
     deleteWishlist: () => dispatch(dispatchDeleteWishlist()),
+    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
   };
 }
 

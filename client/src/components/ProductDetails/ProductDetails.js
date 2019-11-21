@@ -13,15 +13,18 @@ import ProductBreadcrumbs from '../Products/ProductBreadcrumbs/ProductBreadcrumb
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 
+import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
+
 import { useStyles } from './style';
 import { ProductCustomerReviews } from './ProductCustomerReviews/ProductCustomerReviews';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
+  wishlist: store.wishlist.wishlist,
 });
 
 const ProductDetails = (props) => {
-    window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
   const [state, setState] = useState({
     obj: {},
     colors: {},
@@ -39,7 +42,7 @@ const ProductDetails = (props) => {
           obj: data.data,
         }));
       });
-    return () => {};
+    return () => { };
   }, [id]);
 
   useEffect(() => {
@@ -52,6 +55,13 @@ const ProductDetails = (props) => {
       });
   }, [state.obj]);
 
+  const { user, getWishlist } = props;
+  useEffect(() => {
+    if (user) {
+      getWishlist();
+    }
+  }, [user]);
+
   return (
     <div>
       <Header callCenter="1-855-324-5387" />
@@ -63,7 +73,11 @@ const ProductDetails = (props) => {
             <ProductDescription data={state.obj} />
             <ProductCustomerReviews user={props.user} />
           </div>
-          <ProductDetailsCard data={state} />
+          <ProductDetailsCard
+            data={state}
+            wishlist={props.wishlist}
+            addProductToWishlist={props.addProductToWishlist}
+          />
         </div>
       </Container>
       <RecentlyViewed />
@@ -73,5 +87,11 @@ const ProductDetails = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(ProductDetails);
+function putActionsToProps(dispatch) {
+  return {
+    getWishlist: () => dispatch(dispatchGetWishlist()),
+    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
+  };
+}
 
+export default connect(mapStateToProps, putActionsToProps)(ProductDetails);
