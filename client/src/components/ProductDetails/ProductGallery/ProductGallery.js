@@ -49,7 +49,6 @@ export const ProductGallery = ({ image }) => {
       setState(() => ({
         img: image,
       }));
-      setMainImage(image[0]);
     }
   }, [image]);
 

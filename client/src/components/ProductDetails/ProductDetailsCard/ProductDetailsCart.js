@@ -4,16 +4,20 @@ import { connect } from 'react-redux';
 import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
 import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
 import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
-import AddToCompareButton from "../../AddToCompareButton/AddToCompareButton";
+import { AddToFavouritesButton } from '../../AddToFavouritesButton/AddToFavouritesButton';
 
+// import axios from 'axios';
 
 import { Typography } from '@material-ui/core';
 import { ButtonGroup } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Box from "@material-ui/core/Box";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import { useStyles } from "./style";
+import { useStyles, BootstrapInput } from "./style";
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -95,11 +99,24 @@ const ProductDetailsCard = (props) => {
         size="large"
         precision={0.5}
         value={obj.rating}
-        readOnly
+        readOnly 
       />
       <Box className={classes.otherColors}>
         {links}
       </Box>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-customized-select-label">Age</InputLabel>
+        <Select
+          className={classes.select}
+          labelId="demo-customized-select-label"
+          id="demo-customized-select"
+          value={color}
+          onChange={handleChange}
+          input={<BootstrapInput />}
+        >
+          { options }
+        </Select>
+      </FormControl>
       <Box className={classes.price}>
         <Typography>
           {`$${obj.currentPrice}`}
@@ -142,23 +159,16 @@ const ProductDetailsCard = (props) => {
             fill: '#AAA',
           }}
         />
-        <AddToCompareButton
+        <AddToFavouritesButton
+          obj={obj}
+          user={props.user}
+          allProps={props}
           className={'otherBtn'}
           iconStyle={{
             fill: '#AAA',
             width: '30px',
             height: '23px',
           }}
-          name={obj.name}
-          itemImg={obj.itemImg}
-          price={obj.price}
-          url={obj.url}
-          rating={obj.rating}
-          key={obj.key}
-          itemNo={obj.itemNo}
-          distance={obj.distance}
-          maxSpeed={obj.maxSpeed}
-          chargingTime={obj.chargingTime}
         />
       </ButtonGroup>
     </div>
