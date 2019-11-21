@@ -13,11 +13,9 @@ import { useStyles } from './style';
 export const ProductCustomerReviews = ({user, obj}) => {
 
   const [value, setValue] = useState(0);
-
   const [comments, setComments] = useState({
     allComments: [],
   });
-
   const [comment, setComment] = useState({
     product: '',
     content: '',
