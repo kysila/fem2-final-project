@@ -77,14 +77,15 @@ const Products = (props) => {
 
   const handleDelete = (event) => {
     queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    if (selectedFilterType === 'minPrice' || selectedFilterType === 'maxPrice') {
+    if (event.currentTarget.dataset.key === 'minPrice' || event.currentTarget.dataset.key === 'maxPrice') {
       props.deleteSelectedFilters(event, 'minPrice', props.selectedFilters);
       props.deleteSelectedFilters(event, 'maxPrice', props.selectedFilters);
       delete queryOptions.minPrice;
       delete queryOptions.maxPrice;
     } else {
-      props.deleteSelectedFilters(event, selectedFilterType, props.selectedFilters);
-      delete queryOptions[selectedFilterType];
+      const type = event.currentTarget.dataset.key;
+      props.deleteSelectedFilters(event, type, props.selectedFilters);
+      delete queryOptions[type];
     }
     const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
     props.history.push(`/products/filter?${newQuery}`);
@@ -102,11 +103,11 @@ const Products = (props) => {
       }
 
       return (
-        <Grid item key={filter[0]}>
+        <Grid item key={filter[0]} data-key={filter[0]}>
           <Chip
             label={`${filter[0]}: ${options}`}
             onDelete={handleDelete}
-            deleteIcon={<HighlightOffIcon />}
+            deleteIcon={<HighlightOffIcon data-key={filter[0]} />}
             variant="outlined"
           />
         </Grid>

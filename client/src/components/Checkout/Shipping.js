@@ -104,13 +104,9 @@ export const Shipping = withRouter(connect(({ auth: { user } }) => ({ user }), {
             md={2}
             xs={2}
           >
-            {
-              !props.user ? (
-                <Link to="/checkout/info" style={{ fontSize: '14px', color: '#6A86E8', ...museo }}>
-                  Change
-                </Link>
-              ) : null
-            }
+            <Link to="/checkout/info" style={{ fontSize: '14px', color: '#6A86E8', ...museo }}>
+              Change
+            </Link>
           </Grid>
         </Grid>
         <Grid
@@ -256,16 +252,12 @@ export const Shipping = withRouter(connect(({ auth: { user } }) => ({ user }), {
             md={mobile ? 12 : 6}
             xs={mobile ? 12 : 6}
           >
-            {
-              !props.user ? (
-                <Link to="/checkout/info">
-                  <Typography component="span" className={classes.editCart} style={museo}>
-                    <ArrowBackIosIcon style={{ fontSize: '14px', lineHeight: '30px' }} />
-                    Edit Information
-                  </Typography>
-                </Link>
-              ) : null
-            }
+            <Link to="/checkout/info">
+              <Typography component="span" className={classes.editCart} style={museo}>
+                <ArrowBackIosIcon style={{ fontSize: '14px', lineHeight: '30px' }} />
+                Edit Information
+              </Typography>
+            </Link>
           </Grid>
           <Grid
             item
