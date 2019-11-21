@@ -31,7 +31,7 @@ const Searches = (props) => {
       <SearchBar
         value={props.searchValue}
         cancelOnEscape
-        placeholder=" "
+        placeholder="search"
         onChange={(newValue) => props.setSearchValue(newValue)}
         onCancelSearch={() => {
           props.setSearchValue(clear);

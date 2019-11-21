@@ -27,25 +27,27 @@ const NavBar = (props) => {
 
   if (props.categories) {
     categories = props.categories.map((el) => (
-      <ListItem
-        divider
-        dense
-        button
+      <Link
+        className={classes.link}
+        to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
         key={el.name}
-        className={classes.list}
-        classes={{ button: classes.item }}
-        onClick={() => setMenuIsOpen(false)}
+        onClick={() => {
+          props.categorySelect(el.id);
+        }}
       >
-        <TollIcon />
-        <Link
-          to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
-          onClick={() => {
-            props.categorySelect(el.id);
-          }}
+        <ListItem
+          divider
+          dense
+          button
+          key={el.name}
+          className={classes.list}
+          classes={{ button: classes.item }}
+          onClick={() => setMenuIsOpen(false)}
         >
+          <TollIcon />
           <ListItemText classes={{ primary: classes.text }} primary={el.name} />
-        </Link>
-      </ListItem>
+        </ListItem>
+      </Link>
     ));
   }
 
