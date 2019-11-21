@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 
 
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import ProductCard from '../ProductCard/ProductCard';
 import { Title } from '../Title/Title';
 import { useStyles } from './Style';
@@ -60,8 +61,9 @@ export const RecentlyViewed = () => {
 
   if (productsList) {
     products = productsList.map((el) => (
-      <div key={el.itemNo}>
+      <React.Fragment>
         <ProductCard
+          key={el.itemNo}
           className={classes.card}
           name={el.name}
           itemImg={el.itemImg}
@@ -70,7 +72,7 @@ export const RecentlyViewed = () => {
           rating={el.rating}
           itemNo={el.itemNo}
         />
-      </div>
+      </React.Fragment>
     ));
   } else {
     return (

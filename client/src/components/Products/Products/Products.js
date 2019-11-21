@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow,react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
