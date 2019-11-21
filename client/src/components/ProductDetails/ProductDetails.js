@@ -25,7 +25,7 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductDetails = (props) => {
-    window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
   const [state, setState] = useState({
     obj: {},
     colors: {},
@@ -47,7 +47,7 @@ const ProductDetails = (props) => {
           obj: data.data,
         }));
       });
-    return () => {};
+    return () => { };
   }, [id]);
 
   useEffect(() => {
@@ -85,7 +85,11 @@ const ProductDetails = (props) => {
             <ProductDescription data={state.obj} />
             <ProductCustomerReviews user={props.user} obj={state.obj} />
           </div>
-          <ProductDetailsCardSticky data={state} />
+          <ProductDetailsCardSticky
+            data={state}
+            wishlist={props.wishlist}
+            addProductToWishlist={props.addProductToWishlist}
+          />
         </div>
       </Container>
       <RecentlyViewed />
