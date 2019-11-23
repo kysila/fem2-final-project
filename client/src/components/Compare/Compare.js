@@ -20,7 +20,7 @@ const mapStateToProps = (store) => ({
 });
 
 const Compare = ({
-  name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, ...props
+  name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, ...props
 }) => {
   const productsArray = props.products;
   const classes = useStyles();
@@ -86,8 +86,8 @@ const Compare = ({
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell />
-              <ProductForCompare />
+              <TableCell align="center" />
+              <ProductForCompare align="center" />
             </TableRow>
           </TableHead>
           <TableBody>

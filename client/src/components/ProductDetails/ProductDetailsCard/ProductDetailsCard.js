@@ -124,6 +124,9 @@ const ProductDetailsCard = (props) => {
           }}
         />
         <AddToCompareButton
+          obj={obj}
+          user={props.user}
+          allProps={props}
           className={'otherBtn'}
           iconStyle={{
             fill: '#AAA',

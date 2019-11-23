@@ -26,14 +26,15 @@ const deleteHandler = (e) => {
 
 const ProductForCompare = (
   {
-    name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, ...props
+    name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, ...props
   },
 ) => {
   const classes = useStyles();
-  const obj = props.products;
+  const productsArray = props.products;
+  console.log('products details props', props)
 
-  const comparableProducts = obj.map((el) => (
-    <TableCell key={el.itemNo}>
+  const comparableProducts = productsArray.map((el) => (
+    <TableCell key={el.itemNo} align="center">
       <Link to={el.url} className={classes.link}>
         <Card
           className={classes.card}
