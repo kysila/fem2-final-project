@@ -89,7 +89,7 @@ const ProductCard = ({
 
   return (
     <Box className={classes.container}>
-      <Link to={url} className={classes.link}>
+      <Link to={url ? url : '#'} className={classes.link}>
         <Card
           className={classes.card}
           onClick={viewedItemListener}
@@ -154,7 +154,14 @@ const ProductCard = ({
             obj={obj}
             className={classes.buttonStyle}
             user={props.user}
-            allProps={props}
+            wishlist={props.wishlist}
+            addProductToWishlist={props.addProductToWishlist}
+            iconStyle={{
+              fill: '#AAA',
+            }}
+            iconStyleChosen={{
+              fill: '#6686FF',
+            }}
           />
           <AddToCompareButton
             className={classes.buttonStyle}
@@ -181,6 +188,9 @@ const ProductCard = ({
                 : handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS);
             }}
             className={classes.buttonStyle}
+            style={{
+              borderLeft: '1px solid #bdbdbd'
+            }}
           >
             <BagIcon
               className="icon"

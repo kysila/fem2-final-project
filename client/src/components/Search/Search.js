@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,6 +12,7 @@ import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import ProductCard from '../ProductCard/ProductCard';
 import Preloader from '../Preloader/Preloader';
+import { dispatchAddProductAndCreateWishlist, dispatchGetWishlist } from '../../store/wishlist/actions';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -31,6 +32,8 @@ const mapStateToProps = (state) => ({
   searchValue: state.searchReducer.searchValue,
   searchProducts: state.searchReducer.searchProducts,
   isSearchFetching: state.searchReducer.isSearchFetching,
+  wishlist: state.wishlist.wishlist,
+  user: state.auth.user,
 });
 
 const Search = (props) => {
@@ -46,6 +49,8 @@ const Search = (props) => {
           price={el.currentPrice}
           url={`products/${el.itemNo}`}
           rating={el.rating}
+          wishlist={props.wishlist}
+          addProductToWishlist={props.addProductToWishlist}
         />
       </Grid>
     ));
@@ -53,10 +58,19 @@ const Search = (props) => {
     searchResult = [
       <Grid item xs={12} sm={12} md={12} key="noresult">
         <Typography variant="h6" align="center" paragraph>
-        No products were found based on search results
+          No products were found based on search results
         </Typography>
       </Grid>];
   }
+
+  const { user } = props;
+  useEffect(() => {
+    if (user) {
+      const { getWishlist } = props;
+      getWishlist();
+    }
+  }, [user]);
+
   return (
     <React.Fragment>
       <Header />
@@ -68,13 +82,13 @@ const Search = (props) => {
           align="center"
           className={classes.space}
         >
-                        Results of your searching:
+          Results of your searching:
         </Typography>
         <main>
           {props.isSearchFetching ? <Preloader />
             : (
               <Grid container spacing={0} alignItems="center">
-                { searchResult }
+                {searchResult}
               </Grid>
             )}
         </main>
@@ -86,4 +100,11 @@ const Search = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(Search);
+function putActionsToProps(dispatch) {
+  return {
+    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
+    getWishlist: () => dispatch(dispatchGetWishlist()),
+  };
+}
+
+export default connect(mapStateToProps, putActionsToProps)(Search);

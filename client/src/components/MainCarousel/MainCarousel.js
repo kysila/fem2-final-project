@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 // Material UI import
 import {
   Button, Container, Grid, Typography,
@@ -8,21 +9,11 @@ import {
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import './MainCarousel.css';
-// Fonts
-import Tungsten from '../../fonts/Tungsten-Book.woff';
 // Internal Components
 import { useStyles } from './style';
 import Preloader from '../Preloader/Preloader';
+import { GET_SLIDES } from '../../axios/endpoints';
 
-const tungsten = {
-  fontFamily: 'Tungsten Book',
-  fontStyle: 'normal',
-  color: '#6a86e8',
-  src: `
-    local('Tungsten Book'),
-    url(${Tungsten}) format('woff')
-  `,
-};
 
 export const MainCarousel = () => {
   const classes = useStyles();
@@ -31,7 +22,7 @@ export const MainCarousel = () => {
     arrows: true,
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 700,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -50,14 +41,29 @@ export const MainCarousel = () => {
 
   let mainCarouselInfo;
 
-  axios.get('/slides')
-    .then((slides) => {
-      setCarousel(slides.data);
-      setLoading(false);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  useEffect(() => {
+    const { CancelToken } = axios;
+    const source = CancelToken.source();
+    const loadData = () => {
+      try {
+        axios.get(GET_SLIDES, { cancelToken: source.token })
+          .then((slides) => {
+            setCarousel(slides.data);
+            setLoading(false);
+          });
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          // TODO: NOTIFICATION: 'cancelled'
+        } else {
+          throw err;
+        }
+      }
+    };
+    loadData();
+    return () => {
+      source.cancel();
+    };
+  }, [loading]);
 
   if (carousel && !loading) {
     mainCarouselInfo = carousel.map((item) => (
@@ -82,7 +88,7 @@ export const MainCarousel = () => {
               <Typography
                 variant="h2"
                 // eslint-disable-next-line no-sequences
-                style={tungsten}
+                style={{ fontFamily: 'Tungsten Book', color: '#6a86e8' }}
                 className={classes.slickDescriptionText}
               >
                 {item.title}
@@ -100,12 +106,12 @@ export const MainCarousel = () => {
               >
                 {item.description}
               </Typography>
-
-              <Button
-                className={classes.showItemBtn}
+              <Link to={`/products/filter?perPage=8&startPage=1&categories=${item.category.id}`}
               >
-                <span>SHOP {item.htmlContent} &rarr;</span>
-              </Button>
+                <Button className={classes.showItemBtn}>
+                  <span>SHOP {item.htmlContent} &rarr;</span>
+                </Button>
+              </Link>
             </Grid>
 
             <Grid
@@ -119,8 +125,8 @@ export const MainCarousel = () => {
               />
             </Grid>
           </Grid>
-        </Container>
-      </div>
+        </Container >
+      </div >
     ));
   } else {
     return <Preloader />;
