@@ -9,7 +9,7 @@ import { Header, Footer } from '../../commons';
 import { ProductGallery } from './ProductGallery/ProductGallery';
 import { ProductDescription } from './ProductDescription/ProductDescription';
 import ProductDetailsCardSticky from './ProductDetailsCard/ProductDetailsCartSticky/ProductDetailsCardSticky';
-import ProductDetailsCart from "./ProductDetailsCard/ProductDetailsCart";
+import ProductDetailsCart from './ProductDetailsCard/ProductDetailsCart';
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs/ProductBreadcrumbs';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';

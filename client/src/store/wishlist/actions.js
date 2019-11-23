@@ -92,3 +92,25 @@ export function dispatchAddProductAndCreateWishlist(payload) {
       });
   };
 }
+
+export function deleteProductFromWishlist(payload) {
+  return {
+    type: ACTIONS.DELETE_PRODUCT_FROM_WISHLIST,
+    payload,
+  };
+}
+
+export function dispatchDeleteProductFromWishlist(payload) {
+  return (dispatch) => {
+    axios
+      .delete(`${DELETE_PRODUCT_FROM_WISHLIST}${payload}`)
+      .then(({ data }) => {
+        dispatch(deleteProductFromWishlist(data));
+        dispatch(getWishlist(data));
+        // TODO: notification of the event
+      })
+      .catch((err) => {
+        // TODO: create notification of the user
+      });
+  };
+}

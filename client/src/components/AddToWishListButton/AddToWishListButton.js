@@ -5,35 +5,36 @@ import { HeartIcon, HeartIconFilled } from '../Icons/Icons';
 import { ADD_PRODUCT_AND_CREATE_WISHLIST } from '../../axios/endpoints';
 
 export const AddToWishListButton = ({
-  obj, user, className, iconStyle, iconStyleChosen,
+  obj, id, user, className, iconStyle, iconStyleChosen,
   addProductToWishlist, wishlist,
 }) => {
   const isAddedToWishlist = { inWishlist: false };
   const [state, setState] = useState({ ...isAddedToWishlist });
 
-  let id;
-  if (obj && obj.id) {
-    id = obj.id;
-  }
-  // eslint-disable-next-line no-underscore-dangle
-  if (obj && obj._id) {
+  let idProduct;
+  if (id) {
+    idProduct = id;
+  } else if (obj && obj.id) {
+    idProduct = obj.id;
     // eslint-disable-next-line no-underscore-dangle
-    id = obj._id;
+  } else if (obj && obj._id) {
+    // eslint-disable-next-line no-underscore-dangle
+    idProduct = obj._id;
   }
 
   const checkExistence = () => {
-    if (wishlist && wishlist.products && obj) {
+    if (wishlist && wishlist.products && idProduct) {
       const { products } = wishlist;
       // eslint-disable-next-line no-underscore-dangle
-      const found = products.flat(Infinity).some((element) => element._id === id);
+      const found = products.flat(Infinity).some((element) => element._id === idProduct);
       setState({ ...state, inWishlist: found });
     }
   };
 
   const addedToWishlist = () => {
-    if (user && obj) {
-      if (id) {
-        const url = `${ADD_PRODUCT_AND_CREATE_WISHLIST}${id}`;
+    if (user && idProduct) {
+      if (idProduct) {
+        const url = `${ADD_PRODUCT_AND_CREATE_WISHLIST}${idProduct}`;
         addProductToWishlist(url);
         checkExistence();
       }
@@ -41,11 +42,11 @@ export const AddToWishListButton = ({
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && idProduct) {
       checkExistence();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, obj]);
+  }, [user, obj, idProduct]);
 
   return (
     <Button

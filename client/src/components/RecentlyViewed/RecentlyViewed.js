@@ -31,7 +31,9 @@ const RecentlyViewed = (props) => {
     setProductsList(currentLocal);
   }, []);
 
-  const { user, getWishlist } = props;
+  const {
+    user, getWishlist, addProductToWishlist, wishlist,
+  } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
@@ -76,8 +78,9 @@ const RecentlyViewed = (props) => {
           url={el.itemNo}
           rating={el.rating}
           itemNo={el.itemNo}
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          id={el.id}
+          wishlist={wishlist}
+          addProductToWishlist={addProductToWishlist}
         />
       </div>
     ));

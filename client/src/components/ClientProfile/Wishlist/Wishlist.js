@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 // Material UI
 import {
-  Button, ExpansionPanel, ExpansionPanelActions,
+  Button, Checkbox, ExpansionPanel, ExpansionPanelActions,
   ExpansionPanelDetails, ExpansionPanelSummary,
-  Grid, Divider, Typography,
+  Grid, Divider, Typography, FormControlLabel,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // Local imports
@@ -13,13 +13,14 @@ import ProductCard from '../../ProductCard/ProductCard';
 import Preloader from '../../Preloader/Preloader';
 import {
   dispatchGetWishlist, dispatchDeleteWishlist, dispatchAddProductAndCreateWishlist,
+  dispatchDeleteProductFromWishlist,
 } from '../../../store/wishlist/actions';
 
 const Wishlist = (props) => {
   const classes = useStyles();
   const {
     getWishlist, deleteWishlist,
-    wishlist,
+    wishlist, deleteProductFromWishlist,
   } = props;
 
   const [expanded, setExpanded] = useState('panel3');
@@ -29,17 +30,13 @@ const Wishlist = (props) => {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
 
-  // const getWishlistInfo = () => {
-  //   if (wishlist) {
-  //     getWishlist();
-  //     console.log('%c⧭ wishlist.data.products', 'color: #0ba062', props.wishlist.products);
-  //   } else {
-  //     console.log('%c⧭ У вас нет созданного Wishlist', 'color: #d30909');
-  //   }
-  // };
   const deleteWishlistInfo = () => {
     deleteWishlist();
-    console.log('%c⧭ wishlist.result', 'color: #0a77b6', props.wishlist.result);
+  };
+
+  const deleteOneWishlistItem = (event) => {
+    deleteProductFromWishlist(event.target.name);
+    console.log('%c⧭ event.target.name', 'color: #5d0d85', event.target.name);
   };
 
   const { user } = props;
@@ -49,18 +46,20 @@ const Wishlist = (props) => {
     }
   }, [user]);
 
+  let uniqueProducts;
+
   useEffect(() => {
     if (wishlist) {
       if (wishlist && wishlist.products) {
-        wishlist.uniqueProducts = wishlist.products.filter((thing, index,
+        uniqueProducts = wishlist.products.filter((thing, index,
           self) => index === self.findIndex((t) => (
             t.place === thing.place && t.name === thing.name
           )));
-        setList(wishlist.uniqueProducts);
+        setList(uniqueProducts);
       }
     }
     setLoading(false);
-  }, []);
+  }, [wishlist]);
 
   let wishlistProducts;
   if (list && !loading) {
@@ -75,6 +74,17 @@ const Wishlist = (props) => {
         // eslint-disable-next-line no-underscore-dangle
         key={el._id}
       >
+        <FormControlLabel
+          control={(
+            <Checkbox
+              onChange={deleteOneWishlistItem}
+              indeterminate
+              // eslint-disable-next-line no-underscore-dangle
+              name={el._id}
+            />
+          )}
+          label="Indeterminate"
+        />
         <ProductCard
           name={el.name}
           itemImg={el.imageUrls[0]}
@@ -166,6 +176,7 @@ function putActionsToProps(dispatch) {
     getWishlist: () => dispatch(dispatchGetWishlist()),
     deleteWishlist: () => dispatch(dispatchDeleteWishlist()),
     addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
+    deleteProductFromWishlist: (id) => dispatch(dispatchDeleteProductFromWishlist(id)),
   };
 }
 
