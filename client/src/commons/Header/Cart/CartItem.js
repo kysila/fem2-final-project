@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import { deleteProductOfCart, getCartFromLS } from '../../../store/cart/actions';
 import Counter from './Counter';
 import { useStyles } from './style';
+import { SaveForLaterBtn } from './SaveForLaterBtn';
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
@@ -47,13 +48,13 @@ const CartItem = (props) => {
             <Grid item>
               <Link to={`/products/${props.itemNo}`} className={classes.text}>
                 <p>
-                  { props.name }
+                  {props.name}
                   {' '}
                 </p>
                 <p>
-(
-                  {props.color }
-)
+                  (
+                  {props.color}
+                  )
                 </p>
               </Link>
             </Grid>
@@ -68,9 +69,10 @@ const CartItem = (props) => {
                 <Button onClick={() => deleteProduct(props.id)}>
                   <span className={classes.button}> Delete </span>
                 </Button>
-                <Button>
-                  <span className={classes.button}> Save for later </span>
-                </Button>
+                <SaveForLaterBtn
+                  user={props.user}
+                  id={props.id}
+                />
               </ButtonGroup>
             </Grid>
           </Grid>
@@ -92,7 +94,7 @@ const CartItem = (props) => {
 
             <Grid item className={classes.price}>
               <p>
-            $
+                $
                 {props.currentPrice}
               </p>
             </Grid>

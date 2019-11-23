@@ -7,7 +7,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import {
   Button, Checkbox, Divider, Grid, ExpansionPanel, ExpansionPanelActions,
   ExpansionPanelDetails, ExpansionPanelSummary, FormControl, FormControlLabel,
-  InputLabel, OutlinedInput, Typography, Link, Select,
+  InputLabel, OutlinedInput, Typography, Select,
 } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -47,7 +47,6 @@ export const Information = (props) => {
     ...customerEmpty,
   });
 
-  const preventDefault = (event) => event.preventDefault();
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -447,32 +446,6 @@ export const Information = (props) => {
                   fullWidth
                 />
               </FormControl>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-            >
-              <Typography
-                variant="h5"
-                className={classes.formsInfo}
-              >
-                Payment Information
-              </Typography>
-              <Typography
-                variant="body2"
-                className={classes.ordinaryText}
-              >
-                You have switched saving payment cards off.&ensp;
-                <Link
-                  variant="body2"
-                  href="#"
-                  onClick={preventDefault}
-                  style={{ color: '#6A86E8' }}
-                >
-                  Add new payment card.
-                </Link>
-              </Typography>
             </Grid>
             <Grid
               item

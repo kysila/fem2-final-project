@@ -24,6 +24,7 @@ import { useStyles } from './style';
 
 import { getProducts, getMoreProducts } from '../../../store/products/actions';
 import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/selectedFilters/actions';
+import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../../store/wishlist/actions';
 
 
 let displayedProductsArray = [];
@@ -52,6 +53,11 @@ const Products = (props) => {
   }, []);
 
   useEffect(() => {
+    const { getWishlist } = props;
+    getWishlist();
+  }, []);
+
+  useEffect(() => {
     if (+queryOptions.perPage !== +perPage) {
       queryOptions.perPage = +perPage;
       const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
@@ -71,14 +77,15 @@ const Products = (props) => {
 
   const handleDelete = (event) => {
     queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    if (selectedFilterType === 'minPrice' || selectedFilterType === 'maxPrice') {
+    if (event.currentTarget.dataset.key === 'minPrice' || event.currentTarget.dataset.key === 'maxPrice') {
       props.deleteSelectedFilters(event, 'minPrice', props.selectedFilters);
       props.deleteSelectedFilters(event, 'maxPrice', props.selectedFilters);
       delete queryOptions.minPrice;
       delete queryOptions.maxPrice;
     } else {
-      props.deleteSelectedFilters(event, selectedFilterType, props.selectedFilters);
-      delete queryOptions[selectedFilterType];
+      const type = event.currentTarget.dataset.key;
+      props.deleteSelectedFilters(event, type, props.selectedFilters);
+      delete queryOptions[type];
     }
     const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
     props.history.push(`/products/filter?${newQuery}`);
@@ -96,11 +103,11 @@ const Products = (props) => {
       }
 
       return (
-        <Grid item key={filter[0]}>
+        <Grid item key={filter[0]} data-key={filter[0]}>
           <Chip
             label={`${filter[0]}: ${options}`}
             onDelete={handleDelete}
-            deleteIcon={<HighlightOffIcon />}
+            deleteIcon={<HighlightOffIcon data-key={filter[0]} />}
             variant="outlined"
           />
         </Grid>
@@ -124,6 +131,8 @@ const Products = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
+          wishlist={props.wishlist}
+          addProductToWishlist={props.addProductToWishlist}
         />
       </Grid>
     ));
@@ -141,7 +150,7 @@ const Products = (props) => {
           align="center"
           className={classes.space}
         >
-                    Our full collection of electric devices
+          Our full collection of electric devices
         </Typography>
         <Filters />
         <Grid container spacing={1} className={classes.chipsContainer}>
@@ -149,7 +158,7 @@ const Products = (props) => {
         </Grid>
         <main className={classes.main}>
           <Grid container spacing={0} alignItems="center" justify="center">
-            { props.isProductsFetching ? <Preloader /> : (
+            {props.isProductsFetching ? <Preloader /> : (
               props.allProducts.length ? products : (
                 <Typography
                   variant="body1"
@@ -163,16 +172,16 @@ const Products = (props) => {
 
           </Grid>
           {props.allProducts.length >= perPage
-          && (
-          <Box className={classes.applyBtnContainer}>
-            <Button
-              className={classes.applyBtn}
-              onClick={() => { loadMoreAction(); }}
-            >
-              Load More ...
+            && (
+              <Box className={classes.applyBtnContainer}>
+                <Button
+                  className={classes.applyBtn}
+                  onClick={() => { loadMoreAction(); }}
+                >
+                  Load More ...
             </Button>
-          </Box>
-          )}
+              </Box>
+            )}
         </main>
       </Container>
       <RecentlyViewed />
@@ -185,9 +194,15 @@ const mapStateToProps = (state) => ({
   isProductsFetching: state.productsReducer.isProductsFetching,
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,
+  wishlist: state.wishlist.wishlist,
 });
 
 export default withRouter(connect(mapStateToProps,
   {
-    getProducts, recentlySelectFilters, getMoreProducts, deleteSelectedFilters,
+    getProducts,
+    recentlySelectFilters,
+    getMoreProducts,
+    deleteSelectedFilters,
+    getWishlist: () => (dispatchGetWishlist()),
+    addProductToWishlist: (url) => (dispatchAddProductAndCreateWishlist(url)),
   })(Products));
