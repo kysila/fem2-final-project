@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { Button } from '@material-ui/core';
-import { dispatchAddProductAndCreateWishlist, dispatchGetWishlist } from '../../../store/wishlist/actions';
-
-import { ADD_PRODUCT_AND_CREATE_WISHLIST } from '../../../axios/endpoints';
+import { addProductAndCreateWishlistInDB, getWishlistFromDB } from '../../../store/wishlist/actions';
 import { useStyles } from './style';
 
 const SaveForLtrBtn = (props) => {
@@ -16,19 +14,16 @@ const SaveForLtrBtn = (props) => {
   } = props;
 
   const checkExistence = () => {
-    if (wishlist && wishlist.products && id) {
-      const { products } = wishlist;
-
+    if (wishlist && id) {
       // eslint-disable-next-line no-underscore-dangle
-      const found = products.flat(Infinity).some((element) => element._id === id);
+      const found = wishlist.some((element) => element === id);
       setState({ ...state, inWishlist: found });
     }
   };
 
   const addedToWishlist = () => {
     if (user && id) {
-      const url = `${ADD_PRODUCT_AND_CREATE_WISHLIST}${id}`;
-      addProductToWishlist(url);
+      addProductToWishlist(id);
       checkExistence();
     }
   };
@@ -53,15 +48,11 @@ const SaveForLtrBtn = (props) => {
 
 function putStateToProps(state) {
   return {
-    wishlist: state.wishlist.wishlist,
+    wishlist: state.wishlist.arr,
   };
 }
 
-function putActionsToProps(dispatch) {
-  return {
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-  };
-}
-
-export const SaveForLaterBtn = connect(putStateToProps, putActionsToProps)(SaveForLtrBtn);
+export const SaveForLaterBtn = connect(putStateToProps, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
+})(SaveForLtrBtn);

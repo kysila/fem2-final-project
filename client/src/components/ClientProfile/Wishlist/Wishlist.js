@@ -11,59 +11,47 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useStyles } from './style';
 import ProductCard from '../../ProductCard/ProductCard';
 import Preloader from '../../Preloader/Preloader';
-import {
-  dispatchGetWishlist, dispatchDeleteWishlist, dispatchAddProductAndCreateWishlist,
-  dispatchDeleteProductFromWishlist,
-} from '../../../store/wishlist/actions';
+import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../../store/wishlist/actions';
 
 const Wishlist = (props) => {
+  // deleteWishlist, deleteProductFromWishlist,
   const classes = useStyles();
   const {
-    getWishlist, deleteWishlist,
-    wishlist, deleteProductFromWishlist,
+    getWishlist, wishlist, addProductToWishlist, wishlistProducts, user,
   } = props;
 
-  const [expanded, setExpanded] = useState('panel3');
+  const [expanded, setExpanded] = useState('');
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
 
-  const deleteWishlistInfo = () => {
-    deleteWishlist();
-  };
+  // const deleteWishlistInfo = () => {
+  //   deleteWishlist();
+  // };
 
-  const deleteOneWishlistItem = (event) => {
-    deleteProductFromWishlist(event.target.name);
-    console.log('%c⧭ event.target.name', 'color: #5d0d85', event.target.name);
-  };
-
-  const { user } = props;
+  // const deleteOneWishlistItem = (event) => {
+  //   deleteProductFromWishlist(event.target.name);
+  //   console.log('%c⧭ event.target.name', 'color: #5d0d85', event.target.name);
+  // };
   useEffect(() => {
     if (user) {
       getWishlist();
     }
   }, [user]);
 
-  let uniqueProducts;
 
   useEffect(() => {
     if (wishlist) {
-      if (wishlist && wishlist.products) {
-        uniqueProducts = wishlist.products.filter((thing, index,
-          self) => index === self.findIndex((t) => (
-            t.place === thing.place && t.name === thing.name
-          )));
-        setList(uniqueProducts);
-      }
+      // const uniqueProducts = [...new Set(wishlist.arr)];
+      setList(wishlistProducts);
     }
     setLoading(false);
   }, [wishlist]);
-
-  let wishlistProducts;
+  let wishlistAllProducts;
   if (list && !loading) {
-    wishlistProducts = list.map((el, i) => (
+    wishlistAllProducts = list.map((el, i) => (
 
       <Grid
         item
@@ -71,35 +59,29 @@ const Wishlist = (props) => {
         sm={6}
         xs={12}
         className={classes.formsInfo}
-        // eslint-disable-next-line no-underscore-dangle
-        key={el._id}
+        key={el.id}
       >
         <FormControlLabel
           control={(
             <Checkbox
-              onChange={deleteOneWishlistItem}
+              /* onChange={deleteOneWishlistItem} */
               indeterminate
-              // eslint-disable-next-line no-underscore-dangle
-              name={el._id}
+              name={el.id}
             />
           )}
           label="Indeterminate"
         />
         <ProductCard
           name={el.name}
-          itemImg={el.imageUrls[0]}
-          price={el.currentPrice}
           obj={el}
-          url={`products/${el.itemNo}`}
+          itemImg={el.itemImg}
+          price={el.price}
+          url={el.url}
           rating={el.rating}
           itemNo={el.itemNo}
-          // eslint-disable-next-line no-underscore-dangle
-          id={el._id}
-          distance={el.distance}
-          maxSpeed={el.maxSpeed}
-          chargingTime={el.chargingTime}
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          id={el.id}
+          wishlist={wishlist}
+          addProductToWishlist={addProductToWishlist}
         />
       </Grid>
 
@@ -136,7 +118,7 @@ const Wishlist = (props) => {
                 container
                 spacing={2}
               >
-                {wishlistProducts}
+                {wishlistAllProducts}
               </Grid>
             ) : (
                 <Typography
@@ -150,11 +132,10 @@ const Wishlist = (props) => {
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>
-
           <Button
             size="medium"
             color="primary"
-            onClick={deleteWishlistInfo}
+            onClick={getWishlist}
 
           >
             Delete wishlist
@@ -167,18 +148,22 @@ const Wishlist = (props) => {
 
 function putStateToProps(state) {
   return {
-    wishlist: state.wishlist.wishlist,
+    wishlist: state.wishlist.arr,
+    wishlistProducts: state.wishlist.products,
   };
 }
 
-function putActionsToProps(dispatch) {
-  return {
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-    deleteWishlist: () => dispatch(dispatchDeleteWishlist()),
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-    deleteProductFromWishlist: (id) => dispatch(dispatchDeleteProductFromWishlist(id)),
-  };
-}
+// function putActionsToProps(dispatch) {
+//   return {
+//     deleteWishlist: () => dispatch(dispatchDeleteWishlist()),
+//     deleteProductFromWishlist: (id) => dispatch(dispatchDeleteProductFromWishlist(id)),
+//     getWishlist: getWishlistFromDB,
+//     addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
+//   };
+// }
 
-const WishlistComponent = connect(putStateToProps, putActionsToProps)(Wishlist);
+const WishlistComponent = connect(putStateToProps, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
+})(Wishlist);
 export { WishlistComponent as Wishlist };
