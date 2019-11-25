@@ -1,40 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 
 import { Button } from '@material-ui/core';
-import { addProductAndCreateWishlistInDB, getWishlistFromDB } from '../../../store/wishlist/actions';
+
 import { useStyles } from './style';
 
-const SaveForLtrBtn = (props) => {
+export const SaveForLaterBtn = (props) => {
   const isAddedToWishlist = { inWishlist: false };
   const [state, setState] = useState({ ...isAddedToWishlist });
 
   const {
-    id, addProductToWishlist, getWishlist, wishlist, user,
+    id, addProductToWishlist, wishlist, user,
   } = props;
 
-  const checkExistence = () => {
-    if (wishlist && id) {
-      // eslint-disable-next-line no-underscore-dangle
-      const found = wishlist.some((element) => element === id);
-      setState({ ...state, inWishlist: found });
-    }
+  const checkExistence = (idItem) => {
+    const trueOrFalse = wishlist.some((element) => element === idItem);
+    setState({ ...state, inWishlist: trueOrFalse });
   };
 
   const addedToWishlist = () => {
-    if (user && id) {
+    if (user && wishlist && id) {
+      checkExistence(id);
       addProductToWishlist(id);
-      checkExistence();
     }
   };
 
   useEffect(() => {
-    if (user) {
-      getWishlist();
-      checkExistence();
+    if (user && wishlist && id) {
+      checkExistence(id);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, wishlist]);
 
   const classes = useStyles();
   return (
@@ -45,14 +39,3 @@ const SaveForLtrBtn = (props) => {
     </Button>
   );
 };
-
-function putStateToProps(state) {
-  return {
-    wishlist: state.wishlist.arr,
-  };
-}
-
-export const SaveForLaterBtn = connect(putStateToProps, {
-  addProductToWishlist: addProductAndCreateWishlistInDB,
-  getWishlist: getWishlistFromDB,
-})(SaveForLtrBtn);

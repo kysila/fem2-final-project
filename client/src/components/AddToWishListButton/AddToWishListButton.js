@@ -38,8 +38,7 @@ export const AddToWishListButton = ({
     if (user && wishlist && idProduct) {
       checkExistence(idProduct);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, obj, idProduct]);
+  }, [user, obj, idProduct, wishlist]);
 
   return (
     <Button

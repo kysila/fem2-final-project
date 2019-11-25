@@ -11,14 +11,18 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useStyles } from './style';
 import ProductCard from '../../ProductCard/ProductCard';
 import Preloader from '../../Preloader/Preloader';
-import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../../store/wishlist/actions';
+import {
+  getWishlistFromDB, addProductAndCreateWishlistInDB,
+  deleteProductFromWishlistDB, deleteWishlistFromDB,
+} from '../../../store/wishlist/actions';
 
 const Wishlist = (props) => {
-  // deleteWishlist, deleteProductFromWishlist,
   const classes = useStyles();
   const {
-    getWishlist, wishlist, addProductToWishlist, wishlistProducts, user,
+    getWishlist, wishlist, addProductToWishlist,
+    wishlistProducts, user, deleteProductFromWishlist, deleteWishlist,
   } = props;
+  // deleteWishlist
 
   const [expanded, setExpanded] = useState('');
   const handleChange = (panel) => (event, isExpanded) => {
@@ -27,14 +31,14 @@ const Wishlist = (props) => {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
 
-  // const deleteWishlistInfo = () => {
-  //   deleteWishlist();
-  // };
+  const deleteWishlistInfo = () => {
+    deleteWishlist();
+  };
 
-  // const deleteOneWishlistItem = (event) => {
-  //   deleteProductFromWishlist(event.target.name);
-  //   console.log('%c⧭ event.target.name', 'color: #5d0d85', event.target.name);
-  // };
+  const deleteOneWishlistItem = (event) => {
+    deleteProductFromWishlist(event.target.name);
+  };
+
   useEffect(() => {
     if (user) {
       getWishlist();
@@ -44,7 +48,6 @@ const Wishlist = (props) => {
 
   useEffect(() => {
     if (wishlist) {
-      // const uniqueProducts = [...new Set(wishlist.arr)];
       setList(wishlistProducts);
     }
     setLoading(false);
@@ -64,12 +67,12 @@ const Wishlist = (props) => {
         <FormControlLabel
           control={(
             <Checkbox
-              /* onChange={deleteOneWishlistItem} */
+              onChange={deleteOneWishlistItem}
               indeterminate
               name={el.id}
             />
           )}
-          label="Indeterminate"
+          label="Delete from wishlist"
         />
         <ProductCard
           name={el.name}
@@ -112,7 +115,7 @@ const Wishlist = (props) => {
           className={classes.expansionPanelDetails}
         >
           {
-            wishlist ? (
+            wishlist.length ? (
               <Grid
                 className={classes.root}
                 container
@@ -135,8 +138,7 @@ const Wishlist = (props) => {
           <Button
             size="medium"
             color="primary"
-            onClick={getWishlist}
-
+            onClick={deleteWishlistInfo}
           >
             Delete wishlist
           </Button>
@@ -156,14 +158,13 @@ function putStateToProps(state) {
 // function putActionsToProps(dispatch) {
 //   return {
 //     deleteWishlist: () => dispatch(dispatchDeleteWishlist()),
-//     deleteProductFromWishlist: (id) => dispatch(dispatchDeleteProductFromWishlist(id)),
-//     getWishlist: getWishlistFromDB,
-//     addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
 //   };
 // }
 
 const WishlistComponent = connect(putStateToProps, {
   addProductToWishlist: addProductAndCreateWishlistInDB,
   getWishlist: getWishlistFromDB,
+  deleteProductFromWishlist: deleteProductFromWishlistDB,
+  deleteWishlist: deleteWishlistFromDB,
 })(Wishlist);
 export { WishlistComponent as Wishlist };

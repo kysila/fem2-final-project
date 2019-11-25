@@ -9,30 +9,18 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case ACTIONS.CREATE_WISHLIST:
-      return {
-        ...state,
-        products: action.wishlistProducts,
-        arr: action.payload.arr,
-      };
-    case ACTIONS.UPDATE_WISHLIST:
-      return {
-        ...state,
-        products: action.wishlistProducts,
-        arr: action.payload.arr,
-      };
     case ACTIONS.GET_WISHLIST_REQUESTED:
       return {
         ...state,
         isWishlistFetching: true,
+        errorMsg: null,
       };
     case ACTIONS.GET_WISHLIST_SUCCEEDED:
       return {
         ...state,
+        isWishlistFetching: false,
         products: action.wishlistProducts,
         arr: action.arr,
-        isWishlistFetching: false,
-        errorMsg: null,
       };
     case ACTIONS.GET_WISHLIST_FAILED:
       return {
@@ -40,15 +28,16 @@ export default function (state = initialState, action) {
         isWishlistFetching: true,
         errorMsg: action.payload,
       };
-    case ACTIONS.DELETE_WISHLIST:
+    case ACTIONS.ADD_PRODUCT_AND_CREATE_WISHLIST_REQUESTED:
       return {
         ...state,
-        products: null,
-        arr: null,
+        isWishlistFetching: true,
+        errorMsg: null,
       };
-    case ACTIONS.ADD_PRODUCT_AND_CREATE_WISHLIST:
+    case ACTIONS.ADD_PRODUCT_AND_CREATE_WISHLIST_SUCCEEDED:
       return {
         ...state,
+        isWishlistFetching: false,
         products: action.wishlistProducts,
         arr: action.arr,
       };
@@ -58,11 +47,43 @@ export default function (state = initialState, action) {
         isWishlistFetching: true,
         errorMsg: action.payload,
       };
-    case ACTIONS.DELETE_PRODUCT_FROM_WISHLIST:
+    case ACTIONS.DELETE_PRODUCT_FROM_WISHLIST_REQUESTED:
       return {
         ...state,
+        isWishlistFetching: true,
+        errorMsg: null,
+      };
+    case ACTIONS.DELETE_PRODUCT_FROM_WISHLIST_SUCCEEDED:
+      return {
+        ...state,
+        isWishlistFetching: false,
         products: action.wishlistProducts,
-        arr: action.payload.arr,
+        arr: action.arr,
+      };
+    case ACTIONS.DELETE_PRODUCT_FROM_WISHLIST_FAILED:
+      return {
+        ...state,
+        isWishlistFetching: true,
+        errorMsg: action.payload,
+      };
+    case ACTIONS.DELETE_WISHLIST_REQUESTED:
+      return {
+        ...state,
+        isWishlistFetching: true,
+        errorMsg: null,
+      };
+    case ACTIONS.DELETE_WISHLIST_SUCCEEDED:
+      return {
+        ...state,
+        isWishlistFetching: false,
+        products: [],
+        arr: [],
+      };
+    case ACTIONS.DELETE_WISHLIST_FAILED:
+      return {
+        ...state,
+        isWishlistFetching: true,
+        errorMsg: action.payload,
       };
     default:
       return { ...state };

@@ -52,6 +52,8 @@ const Search = (props) => {
           price={el.currentPrice}
           url={`products/${el.itemNo}`}
           rating={el.rating}
+          // eslint-disable-next-line no-underscore-dangle
+          id={el._id}
           wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
         />
