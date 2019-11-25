@@ -1,45 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 
 import { Button } from '@material-ui/core';
-import { dispatchAddProductAndCreateWishlist, dispatchGetWishlist } from '../../../store/wishlist/actions';
 
-import { ADD_PRODUCT_AND_CREATE_WISHLIST } from '../../../axios/endpoints';
 import { useStyles } from './style';
 
-const SaveForLtrBtn = (props) => {
+export const SaveForLaterBtn = (props) => {
   const isAddedToWishlist = { inWishlist: false };
   const [state, setState] = useState({ ...isAddedToWishlist });
 
   const {
-    id, addProductToWishlist, getWishlist, wishlist, user,
+    id, addProductToWishlist, wishlist, user,
   } = props;
 
-  const checkExistence = () => {
-    if (wishlist && wishlist.products && id) {
-      const { products } = wishlist;
-
-      // eslint-disable-next-line no-underscore-dangle
-      const found = products.flat(Infinity).some((element) => element._id === id);
-      setState({ ...state, inWishlist: found });
-    }
+  const checkExistence = (idItem) => {
+    const trueOrFalse = wishlist.some((element) => element === idItem);
+    setState({ ...state, inWishlist: trueOrFalse });
   };
 
   const addedToWishlist = () => {
-    if (user && id) {
-      const url = `${ADD_PRODUCT_AND_CREATE_WISHLIST}${id}`;
-      addProductToWishlist(url);
-      checkExistence();
+    if (user && wishlist && id) {
+      checkExistence(id);
+      addProductToWishlist(id);
     }
   };
 
   useEffect(() => {
-    if (user) {
-      getWishlist();
-      checkExistence();
+    if (user && wishlist && id) {
+      checkExistence(id);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, wishlist]);
 
   const classes = useStyles();
   return (
@@ -50,18 +39,3 @@ const SaveForLtrBtn = (props) => {
     </Button>
   );
 };
-
-function putStateToProps(state) {
-  return {
-    wishlist: state.wishlist.wishlist,
-  };
-}
-
-function putActionsToProps(dispatch) {
-  return {
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-  };
-}
-
-export const SaveForLaterBtn = connect(putStateToProps, putActionsToProps)(SaveForLtrBtn);

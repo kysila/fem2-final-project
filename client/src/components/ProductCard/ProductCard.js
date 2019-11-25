@@ -27,7 +27,8 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductCard = ({
-  obj, name, itemImg, price, url, rating, key, itemNo, id, distance, maxSpeed, chargingTime, ...props
+  obj, name, itemImg, price, url, rating, key, itemNo, id, distance,
+  user, maxSpeed, chargingTime, wishlist, addProductToWishlist, ...props
 }) => {
   const [state, setState] = useState({
     openButtons: false,
@@ -61,15 +62,15 @@ const ProductCard = ({
     onmouseover = false;
     const product = JSON.parse(localStorage.getItem('product'));
     if (product) {
-      const item = itemNo;
-      if (!filterCart(product, item)) {
+      const itemNumb = itemNo;
+      if (!filterCart(product, itemNumb)) {
         localStorage.setItem('product', JSON.stringify(product.concat([{
-          name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
+          name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, id,
         }])));
       }
     } else {
       const newProduct = [].concat([{
-        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime,
+        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, id,
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
     }
@@ -152,10 +153,11 @@ const ProductCard = ({
         >
           <AddToWishListButton
             obj={obj}
+            id={id}
             className={classes.buttonStyle}
-            user={props.user}
-            wishlist={props.wishlist}
-            addProductToWishlist={props.addProductToWishlist}
+            user={user}
+            wishlist={wishlist}
+            addProductToWishlist={addProductToWishlist}
             iconStyle={{
               fill: '#AAA',
             }}
