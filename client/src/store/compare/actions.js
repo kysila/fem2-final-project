@@ -11,6 +11,10 @@ export const addProductsToCompare = (product) => (dispatch) => {
   });
 };
 
+
 export const deleteProductsFromCompare = (product) => (dispatch) => {
-  console.log('delete', product);
+  dispatch({
+    type: DELETE_PRODUCTS_FROM_COMPARE,
+    product,
+  });
 };

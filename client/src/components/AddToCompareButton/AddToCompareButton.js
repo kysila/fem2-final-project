@@ -19,7 +19,6 @@ const AddToCompareButton = ({ obj, ...props }) => {
   const addToCompare = () => {
     props.addProductsToCompare(obj);
     setClicked(true);
-    console.log(obj);
   };
 
   const filterCart = (arr, objParams) => arr.some((el) => el.itemNo === objParams);

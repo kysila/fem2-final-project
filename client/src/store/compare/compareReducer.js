@@ -17,6 +17,7 @@ const compareReducer = (state = initialState, action) => {
     case DELETE_PRODUCTS_FROM_COMPARE:
       return {
         ...state,
+        products: state.products.filter((el) => el.itemNo !== action.product.itemNo),
       };
     default:
       return { ...state };
