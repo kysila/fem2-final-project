@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 export const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    overflowX: 'auto',
   },
   tableWrapper: {
     maxHeight: 500,
@@ -47,6 +48,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   headerRow: {
     fontWeight: '900',
+    position: 'sticky',
+    left: 0,
+    background: '#fff',
+    zIndex: '2',
   },
   detailsName: {
     display: 'inline-block',
