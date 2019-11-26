@@ -38,6 +38,7 @@ export const AddToWishListButton = ({
     if (user && wishlist && idProduct) {
       checkExistence(idProduct);
     }
+    //eslint-disable-next-line
   }, [user, obj, idProduct, wishlist]);
 
   return (

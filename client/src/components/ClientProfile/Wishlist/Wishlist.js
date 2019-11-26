@@ -43,6 +43,7 @@ const Wishlist = (props) => {
     if (user) {
       getWishlist();
     }
+    //eslint-disable-next-line
   }, [user]);
 
 
@@ -51,6 +52,7 @@ const Wishlist = (props) => {
       setList(wishlistProducts);
     }
     setLoading(false);
+    //eslint-disable-next-line
   }, [wishlist]);
   let wishlistAllProducts;
   if (list && !loading) {
