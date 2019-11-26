@@ -17,6 +17,7 @@ import {
   getCartFromLS,
 }
   from '../../../store/cart/actions';
+import { addProductAndCreateWishlistInDB, getWishlistFromDB } from '../../../store/wishlist/actions';
 import CartItem from './CartItem';
 import SubsectionTitle from '../../../components/Mainpage/SubsectionTitle/SubsectionTitle';
 
@@ -25,6 +26,7 @@ import { useStyles } from './style';
 const mapStateToProps = (state) => ({
   user: state.auth.user,
   cart: state.cartReducer.cart.products,
+  wishlist: state.wishlist.arr,
 });
 
 const Cart = (props) => {
@@ -34,6 +36,15 @@ const Cart = (props) => {
   let countOfProducts;
   let totalPrice = 0;
   let subTotalArray;
+  const {
+    wishlist, addProductToWishlist, getWishlist, user,
+  } = props;
+
+  useEffect(() => {
+    if (user) {
+      getWishlist();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (props.user) {
@@ -48,7 +59,7 @@ const Cart = (props) => {
   }, [props.user]);
 
   if (props.cart.length) {
-    cartStatus = props.cart.map((el) =>
+    cartStatus = props.cart.map((el) => (
       <CartItem
         key={el.product.itemNo}
         name={el.product.name}
@@ -56,11 +67,14 @@ const Cart = (props) => {
         imgUrl={el.product.imageUrls[0]}
         count={el.cartQuantity}
         itemNo={el.product.itemNo}
+        // eslint-disable-next-line no-underscore-dangle
         id={el.product._id}
         quantity={el.product.quantity}
         color={el.product.color}
+        wishlist={wishlist}
+        addProductToWishlist={addProductToWishlist}
       />
-    )
+    ));
     subTotalArray = props.cart.map((el) => el.product.currentPrice * el.cartQuantity);
     totalPrice = subTotalArray.reduce((sum, current) => sum + current, 0);
     countOfProducts = props.cart.length;
@@ -77,11 +91,11 @@ const Cart = (props) => {
         <Box>
           <img src="/img/basket.svg" alt="Logo" />
 
-            <div className={countOfProducts ? classes.circle : classes.not_circle}>
-              {' '}
-              {countOfProducts}
-              {' '}
-            </div>
+          <div className={countOfProducts ? classes.circle : classes.not_circle}>
+            {' '}
+            {countOfProducts}
+            {' '}
+          </div>
         </Box>
       </Box>
 
@@ -104,18 +118,18 @@ const Cart = (props) => {
       >
         <Container className={classes.cart_container}>
           <SubsectionTitle title="Your Cart" />
-          { cartStatus }
+          {cartStatus}
           <Grid className={classes.price_block} container justify="space-between">
             <Grid item>
               <span className={classes.ship_text}>
-                 FREE SHIPPING! Taxes calculated on next page.
+                FREE SHIPPING! Taxes calculated on next page.
               </span>
             </Grid>
             <Grid item>
               <span className={classes.subtotal_text}> Subtotal: $ </span>
               <span className={classes.subtotal_price}>
                 {' '}
-                {totalPrice.toFixed(2) }
+                {totalPrice.toFixed(2)}
                 {' '}
               </span>
             </Grid>
@@ -127,7 +141,8 @@ const Cart = (props) => {
                   setCartIsOpen(false);
                 }}
                 fullWidth
-                classes={{ root: classes.btn_grey }}>
+                classes={{ root: classes.btn_grey }}
+              >
                 Continue Shopping
               </Button>
             </Grid>
@@ -149,4 +164,6 @@ export default connect(mapStateToProps, {
   addProductToCart,
   getCartFromDB,
   getCartFromLS,
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
 })(Cart);

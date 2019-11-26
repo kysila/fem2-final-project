@@ -25,13 +25,13 @@ const ProductDetailsCard = (props) => {
     disabled: false,
     text: 'ADD TO CART',
   });
-
+  const { addProductToWishlist, wishlist, user } = props;
   const obj = props.data.obj;
   const colors = props.data.colors.data;
 
   const [color, setColor] = useState(obj.color);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setColor(event.target.value);
   };
 
@@ -136,13 +136,15 @@ const ProductDetailsCard = (props) => {
         />
         <AddToWishListButton
           obj={obj}
-          user={props.user}
-          allProps={props}
+          user={user}
           className="otherBtn"
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          wishlist={wishlist}
+          addProductToWishlist={addProductToWishlist}
           iconStyle={{
             fill: '#AAA',
+          }}
+          iconStyleChosen={{
+            fill: '#6686FF',
           }}
         />
         <AddToCompareButton
@@ -166,7 +168,7 @@ const ProductDetailsCard = (props) => {
         />
       </ButtonGroup>
     </div>
-  )
+  );
 };
 
 export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCard);

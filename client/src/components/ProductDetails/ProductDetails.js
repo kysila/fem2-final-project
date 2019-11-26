@@ -9,19 +9,18 @@ import { Header, Footer } from '../../commons';
 import { ProductGallery } from './ProductGallery/ProductGallery';
 import { ProductDescription } from './ProductDescription/ProductDescription';
 import ProductDetailsCardSticky from './ProductDetailsCard/ProductDetailsCartSticky/ProductDetailsCardSticky';
-import ProductDetailsCart from "./ProductDetailsCard/ProductDetailsCart";
+import ProductDetailsCart from './ProductDetailsCard/ProductDetailsCart';
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs/ProductBreadcrumbs';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
-
-import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
+import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../store/wishlist/actions';
 
 import { useStyles } from './style';
 import { ProductCustomerReviews } from './ProductCustomerReviews/ProductCustomerReviews';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
-  wishlist: store.wishlist.wishlist,
+  wishlist: store.wishlist.arr,
 });
 
 const ProductDetails = (props) => {
@@ -78,7 +77,7 @@ const ProductDetails = (props) => {
               <ProductGallery image={state.obj.imageUrls} />
               <ProductDetailsCart
                 data={state}
-                wishlist={props.wishlist}
+                wishlist={props.wishlist.arr}
                 addProductToWishlist={props.addProductToWishlist}
               />
             </div>
@@ -99,11 +98,7 @@ const ProductDetails = (props) => {
   );
 };
 
-function putActionsToProps(dispatch) {
-  return {
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-  };
-}
-
-export default connect(mapStateToProps, putActionsToProps)(ProductDetails);
+export default connect(mapStateToProps, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
+})(ProductDetails);

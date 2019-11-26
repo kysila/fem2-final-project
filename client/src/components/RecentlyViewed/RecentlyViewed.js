@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import ProductCard from '../ProductCard/ProductCard';
 import { Title } from '../Title/Title';
 import { useStyles } from './Style';
-import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
+import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../store/wishlist/actions';
 
 const RecentlyViewed = (props) => {
   const classes = useStyles();
@@ -31,7 +31,9 @@ const RecentlyViewed = (props) => {
     setProductsList(currentLocal);
   }, []);
 
-  const { user, getWishlist } = props;
+  const {
+    user, getWishlist, addProductToWishlist, wishlist,
+  } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
@@ -77,6 +79,7 @@ const RecentlyViewed = (props) => {
           url={el.obj.itemNo}
           rating={el.obj.rating}
           itemNo={el.obj.itemNo}
+          id={el.obj.id}
           wishlist={props.wishlist}
           addProductToWishlist={props.addProductToWishlist}
         />
@@ -103,19 +106,15 @@ const RecentlyViewed = (props) => {
 
 function putStateToProps(state) {
   return {
-    wishlist: state.wishlist.wishlist,
+    wishlist: state.wishlist.arr,
     user: state.auth.user,
   };
 }
 
-function putActionsToProps(dispatch) {
-  return {
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-  };
-}
-
-const RecentlyVwd = connect(putStateToProps, putActionsToProps)(RecentlyViewed);
+const RecentlyVwd = connect(putStateToProps, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
+})(RecentlyViewed);
 export {
   RecentlyVwd as RecentlyViewed,
 };
