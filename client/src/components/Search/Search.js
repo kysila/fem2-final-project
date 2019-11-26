@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
@@ -12,21 +11,8 @@ import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import ProductCard from '../ProductCard/ProductCard';
 import Preloader from '../Preloader/Preloader';
-import { addProductAndCreateWishlistInDB, getWishlistFromDB } from '../../store/wishlist/actions';
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    marginBottom: 0,
-    maxWidth: 'auto',
-  },
-  space: {
-    marginBottom: '40px',
-  },
-  paddingTop: {
-    paddingTop: '20px',
-  },
-
-}));
+import { addProductAndCreateWishlistInDB, getWishlistFromDB  } from '../../store/wishlist/actions';
+import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
   searchValue: state.searchReducer.searchValue,
@@ -72,6 +58,7 @@ const Search = (props) => {
     if (user) {
       getWishlist();
     }
+  // eslint-disable-next-line
   }, [user]);
 
   return (

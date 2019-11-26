@@ -29,6 +29,7 @@ function Favorites(props) {
     if (user) {
       getWishlist();
     }
+    // eslint-disable-next-line
   }, [user]);
 
   if (list && !loading) {

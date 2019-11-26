@@ -65,12 +65,12 @@ const ProductCard = ({
       const itemNumb = itemNo;
       if (!filterCart(product, itemNumb)) {
         localStorage.setItem('product', JSON.stringify(product.concat([{
-          name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, id,
+          name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, id,
         }])));
       }
     } else {
       const newProduct = [].concat([{
-        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, id,
+        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, id,
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
     }
@@ -84,6 +84,7 @@ const ProductCard = ({
           product: data.data,
         });
       });
+    // eslint-disable-next-line
   }, [url]);
 
   const classes = useStyles();
@@ -166,6 +167,7 @@ const ProductCard = ({
             }}
           />
           <AddToCompareButton
+            obj={obj}
             className={classes.buttonStyle}
             allProps={props}
             iconStyle={{
