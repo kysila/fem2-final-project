@@ -56,10 +56,10 @@ function ModalWindow(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  opened: state.modal.opened,
-  child: state.modal.child,
-  inject: state.modal.inject,
+const mapStateToProps = ({ modal: { opened, child, inject } }) => ({
+  opened,
+  child,
+  inject,
 });
 
 const mapDispatchToProps = (dispatch) => ({

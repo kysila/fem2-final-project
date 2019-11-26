@@ -209,59 +209,74 @@ function LoginForm(props) {
             justify="center"
             alignItems="center"
           >
-            <Typography className={classes.title} style={tungsten} variant="h3" color="textPrimary" align="center">
-              Enter With
-            </Typography>
-            <Grid
-              container
-              direction={matchMobile ? 'row' : 'column'}
-              justify="space-around"
-            >
-              <Grid
-                item
-                lg={12}
-                md={12}
-                xs={5}
-                className={classNames(classes.socialButton, classes.socialFacebook)}
+            {
+              /* <Typography
+                  className={classes.title}
+                  style={tungsten} variant="h3"
+                  color="textPrimary"
+                  align="center"
+               >
+                Enter With
+              </Typography> */
+            }
+            {
+              /* <Grid
+                container
+                direction={matchMobile ? 'row' : 'column'}
+                justify="space-around"
               >
-                <img src={FacebookSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
-                {
-                  !matchMobile ? (
-                    <Grid
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <Typography className={classes.socialText}>
-                        FACEBOOK
-                      </Typography>
-                    </Grid>
-                  ) : null
-                }
-              </Grid>
-              <Grid
-                item
-                lg={12}
-                md={12}
-                xs={5}
-                className={classNames(classes.socialButton, classes.socialGoogle)}
-              >
-                <img src={GoogleSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
-                {
-                  !matchMobile ? (
-                    <Grid
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <Typography className={classes.socialText}>
-                        GOOGLE
-                      </Typography>
-                    </Grid>
-                  ) : null
-                }
-              </Grid>
-            </Grid>
+                <Grid
+                  item
+                  lg={12}
+                  md={12}
+                  xs={5}
+                  className={classNames(classes.socialButton, classes.socialFacebook)}
+                >
+                  <img src={FacebookSvg} className={
+                    classNames(classes.socialIcon, classesMobile.socialIcon)
+                  } alt="" />
+                  {
+                    !matchMobile ? (
+                      <Grid
+                        container
+                        justify="center"
+                        alignItems="center"
+                      >
+                        <Typography className={classes.socialText}>
+                          FACEBOOK
+                        </Typography>
+                      </Grid>
+                    ) : null
+                  }
+                </Grid>
+                <Grid
+                  item
+                  lg={12}
+                  md={12}
+                  xs={5}
+                  className={
+                    classNames(classes.socialButton, classes.socialGoogle)
+                  }
+                >
+                  <img src={GoogleSvg} className={
+                    classNames(classes.socialIcon, classesMobile.socialIcon)
+                  } alt="" />
+                  {
+                    !matchMobile ? (
+                      <Grid
+                        container
+                        justify="center"
+                        alignItems="center"
+                      >
+                        <Typography className={classes.socialText}>
+                          GOOGLE
+                        </Typography>
+                      </Grid>
+                    ) : null
+                  }
+                </Grid>
+              </Grid> */
+            }
             {
               !matchMobile ? (
                 <React.Fragment>
@@ -295,13 +310,13 @@ const mapDispatchToProps = (dispatch) => ({
   registerModal: () => dispatch(dispatchModalOpen('register')),
   closeModal: () => dispatch(dispatchModalClose()),
   warning: (message) => dispatch(enqueueSnackbar({ message, options: { variant: 'warning', preventDuplicate: true } })),
-  });
+});
 
 const ConnectLoginForm = withTheme(
-    connect(mapStateToProps, mapDispatchToProps)(
-      LoginForm,
-    ),
-  );
+  connect(mapStateToProps, mapDispatchToProps)(
+    LoginForm,
+  ),
+);
 
 export {
   ConnectLoginForm as LoginForm,
