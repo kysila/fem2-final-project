@@ -19,9 +19,13 @@ const AddToCompareButton = ({ obj, ...props }) => {
   const addToCompare = () => {
     props.addProductsToCompare(obj);
     setClicked(true);
+    console.log(obj);
   };
 
-  if (clicked) {
+  const filterCart = (arr, objParams) => arr.some((el) => el.itemNo === objParams);
+  const item = obj.itemNo;
+
+  if (clicked || filterCart(props.products, item)) {
     return (
       <Link to="/compare" className={classes.linkStyle}>
       <Button

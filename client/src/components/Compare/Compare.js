@@ -29,7 +29,7 @@ const Compare = ({
   const PriceRow = () => {
     const priceRow = productsArray.map((row) => (
       <React.Fragment key={row.itemNo}>
-        <TableCell align="center">{row.price}</TableCell>
+        <TableCell align="center">{row.currentPrice}</TableCell>
       </React.Fragment>
     ));
     return (

@@ -103,7 +103,7 @@ const ProductDetailsCard = (props) => {
       </Box>
       <Box className={classes.price}>
         <Typography>
-          {`$${obj.currentPrice}`}
+          {`${obj.currentPrice}`}
         </Typography>
         <Typography className="oldPrice">
           $4000
@@ -154,7 +154,7 @@ const ProductDetailsCard = (props) => {
           }}
           name={obj.name}
           itemImg={obj.itemImg}
-          price={obj.price}
+          price={obj.currentPrice}
           url={obj.url}
           rating={obj.rating}
           key={obj.key}
@@ -162,6 +162,7 @@ const ProductDetailsCard = (props) => {
           distance={obj.distance}
           maxSpeed={obj.maxSpeed}
           chargingTime={obj.chargingTime}
+          obj={obj}
         />
       </ButtonGroup>
     </div>

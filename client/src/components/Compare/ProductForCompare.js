@@ -31,11 +31,10 @@ const ProductForCompare = (
 ) => {
   const classes = useStyles();
   const productsArray = props.products;
-  console.log('products details props', props)
 
   const comparableProducts = productsArray.map((el) => (
     <TableCell key={el.itemNo} align="center">
-      <Link to={el.url} className={classes.link}>
+      <Link to={`/products/${el.itemNo}`} className={classes.link}>
         <Card
           className={classes.card}
         >
@@ -49,7 +48,7 @@ const ProductForCompare = (
             {/*</IconButton>*/}
             <CardMedia
               className={classes.media}
-              image={`${el.itemImg}`}
+              image={`${el.imageUrls[0]}`}
             />
             <CardContent
               className={classes.cardContent}
