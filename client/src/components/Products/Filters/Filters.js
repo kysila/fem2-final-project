@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 
 import { getFilters } from '../../../store/filter/actions';
 import { getCategories } from '../../../store/categories/actions';
+import { clearNewProducts } from '../../../store/products/actions';
 import PriceFilter from './PriceFilter';
 import CategoryFilter from './CategoryFilter';
 import MaxSpeedFilter from './MaxSpeedFilter';
@@ -34,10 +35,9 @@ const Filters = (props) => {
     }
   };
   const HandleApplyFilters = () => {
-    const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    const { perPage, startPage } = queryOptions;
+    props.clearNewProducts();
     const query = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
-    props.history.push(`/products/filter?perPage=${+perPage}&startPage=${+startPage}&${query}`);
+    props.history.push(`/products/filter?perPage=8&startPage=1&${query}`);
   };
 
   return (
@@ -122,4 +122,4 @@ const mapStateToProps = (state) => ({
   selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
-export default withRouter(connect(mapStateToProps, { getFilters, getCategories })(Filters));
+export default withRouter(connect(mapStateToProps, { getFilters, getCategories, clearNewProducts })(Filters));

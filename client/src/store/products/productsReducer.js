@@ -4,7 +4,7 @@ import {
   GET_PRODUCTS_FAILED,
   GET_MORE_PRODUCTS_FAILED,
   GET_MORE_PRODUCTS_SUCCEEDED,
-  GET_MORE_PRODUCTS_REQUESTED,
+  GET_MORE_PRODUCTS_REQUESTED, CLEAR_NEW_PRODUCTS,
 } from './actions';
 
 const initialState = {
@@ -51,6 +51,11 @@ function productsReducer(state = initialState, action) {
         ...state,
         isProductsFetching: true,
         errorMsg: action.payload,
+      };
+    case CLEAR_NEW_PRODUCTS:
+      return {
+        ...state,
+        newProducts: action.newProducts,
       };
     default:
       return { ...state };

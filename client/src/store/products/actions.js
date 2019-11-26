@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 // ACTIONS WITH OTHER FILTERS
 export const GET_PRODUCTS_REQUESTED = 'GET_PRODUCTS_REQUESTED';
 export const GET_PRODUCTS_SUCCEEDED = 'GET_PRODUCTS_SUCCEEDED';
@@ -8,6 +7,7 @@ export const GET_PRODUCTS_FAILED = 'GET_PRODUCTS_FAILED';
 export const GET_MORE_PRODUCTS_REQUESTED = 'GET_MORE_PRODUCTS_REQUESTED';
 export const GET_MORE_PRODUCTS_SUCCEEDED = 'GET_MORE_PRODUCTS_SUCCEEDED';
 export const GET_MORE_PRODUCTS_FAILED = 'GET_MORE_PRODUCTS_FAILED';
+export const CLEAR_NEW_PRODUCTS = 'CLEAR_NEW_PRODUCTS';
 
 // action:
 export const getProducts = (endpoint) => (dispatch) => {
@@ -45,7 +45,6 @@ export const getProducts = (endpoint) => (dispatch) => {
 };
 
 export const getMoreProducts = (endpoint) => (dispatch) => {
-  console.log('ACTION getMOREproducts запущен');
   dispatch({
     type: GET_MORE_PRODUCTS_REQUESTED,
   });
@@ -63,7 +62,6 @@ export const getMoreProducts = (endpoint) => (dispatch) => {
         maxSpeed: el.maxSpeed,
         chargingTime: el.chargingTime,
       }));
-      console.log('ACTION getMoreProducts - newProducts', newProducts);
       dispatch({
         type: GET_MORE_PRODUCTS_SUCCEEDED,
         newProducts,
@@ -76,3 +74,9 @@ export const getMoreProducts = (endpoint) => (dispatch) => {
       });
     });
 };
+export const clearNewProducts = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_NEW_PRODUCTS,
+    newProducts: [],
+  });
+}

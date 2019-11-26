@@ -23,7 +23,7 @@ import Preloader from '../../Preloader/Preloader';
 import { RecentlyViewed } from '../../RecentlyViewed/RecentlyViewed';
 import { useStyles } from './style';
 
-import { getProducts, getMoreProducts } from '../../../store/products/actions';
+import { getProducts, getMoreProducts, clearNewProducts } from '../../../store/products/actions';
 import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/selectedFilters/actions';
 // import {
 // dispatchGetWishlist,
@@ -37,7 +37,6 @@ let perPage = 8;
 let products = [];
 
 const Products = (props) => {
-  // window.scrollTo(0, 0);
   const classes = useStyles();
   let selectedFilterChips;
   let selectedFilterType;
@@ -47,7 +46,6 @@ const Products = (props) => {
   // const [perPage, setPerPage] = useState(startPerPage);
 
   useEffect(() => {
-    console.log('стартовый useEffect запущен');
     props.getProducts(`/products/filter${props.location.search}`);
     if (!Object.keys(props.selectedFilters).length) {
       const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
@@ -55,10 +53,11 @@ const Products = (props) => {
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
     }
-    return (
-      props.recentlySelectFilters({})
-    );
   }, [props.location.search]);
+
+  useEffect(() => () => {
+    props.recentlySelectFilters({});
+  }, []);
 
   // useEffect(() => {
   //   const { getWishlist } = props;
@@ -78,16 +77,14 @@ const Products = (props) => {
   //   }
   // }, [perPage]);
 
-  const loadMoreAction = () => {
-    const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    perPage += 8;
-    startPage += 1;
-    queryOptions.startPage = startPage;
-    const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-    props.getMoreProducts(`/products/filter?${newQueryLoad}`);
-  };
 
   const handleDelete = (event) => {
+    displayedProductsArray = [];
+    moreProductsArray = [];
+    products = [];
+    startPage = 1;
+    perPage = 8;
+    props.clearNewProducts();
     const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
     if (event.currentTarget.dataset.key === 'minPrice' || event.currentTarget.dataset.key === 'maxPrice') {
       props.deleteSelectedFilters(event, 'minPrice', props.selectedFilters);
@@ -101,13 +98,11 @@ const Products = (props) => {
     }
     const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
     props.history.push(`/products/filter?${newQuery}`);
-  };
 
-  if (props.allProducts && !props.isProductsFetching && startPage === 1) {
-    window.scrollTo(0, 0);
-    console.log('startPage в стартовом условии', startPage);
-    console.log('зашел в СТАРТОВОЕ УСЛОВИЕ');
-    const selectedFiltersItems = Object.entries(props.selectedFilters);
+  };
+  const handleSelectedFilters = (selected) => {
+    console.log('handleSelectedFilters функция запущена');
+    const selectedFiltersItems = Object.entries(selected);
     selectedFilterChips = selectedFiltersItems.map((filter) => {
       selectedFilterType = filter[0];
       let options;
@@ -128,7 +123,19 @@ const Products = (props) => {
         </Grid>
       );
     });
+  };
+  const loadMoreAction = () => {
+    const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+    perPage += 8;
+    startPage += 1;
+    queryOptions.startPage = startPage;
+    const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
+    props.getMoreProducts(`/products/filter?${newQueryLoad}`);
+  };
 
+  if (props.allProducts && !props.isProductsFetching && startPage === 1) {
+    window.scrollTo(0, 0);
+    handleSelectedFilters(props.selectedFilters);
     displayedProductsArray = [...props.allProducts];
     products = displayedProductsArray.map((el) => (
       <Grid item xs={12} sm={6} md={3} key={el.itemNo}>
@@ -191,6 +198,7 @@ const Products = (props) => {
         </Typography>
         <Filters />
         <Grid container spacing={1} className={classes.chipsContainer}>
+          {props.selectedFilters && (handleSelectedFilters(props.selectedFilters)) }
           {selectedFilterChips}
         </Grid>
         <main className={classes.main}>
@@ -245,6 +253,7 @@ export default withRouter(connect(mapStateToProps,
     recentlySelectFilters,
     getMoreProducts,
     deleteSelectedFilters,
+    clearNewProducts,
 
     // getWishlist: () => (dispatchGetWishlist()),
     // addProductToWishlist: (url) => (dispatchAddProductAndCreateWishlist(url)),
