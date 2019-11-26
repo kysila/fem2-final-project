@@ -14,6 +14,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "html-to-react": "^1.4.2",
+    "jest-enzyme": "^7.1.2",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "material-ui-search-bar": "^1.0.0-beta.14",
@@ -30,6 +31,7 @@
     "react-scripts": "3.2.0",
     "react-slick": "^0.25.2",
     "react-swipeable-views": "^0.13.3",
+    "react-test-renderer": "^16.12.0",
     "react-text-mask": "^5.4.3",
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.4",
@@ -69,6 +71,10 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "husky": "^3.0.9",
-    "jest": "^24.9.0"
-  }
+    "jest": "^24.9.0",
+    "redux-mock-store": "^1.5.3"
+  },
+  "setupFiles": [
+    "./src/setupTests.js"
+  ]
 }

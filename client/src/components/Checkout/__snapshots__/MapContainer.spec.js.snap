@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapContainer component MapContainer render 1`] = `
+<Styled(MuiBox)
+  className="makeStyles-mapContainer-19"
+>
+  <WithStyles(ForwardRef(Grid))
+    alignItems="center"
+    className="makeStyles-mapBody-20"
+    container={true}
+    direction="column"
+    justify="flex-start"
+  >
+    <WithStyles(ForwardRef(Typography))
+      style={
+        Object {
+          "fontFamily": "Tungsten Book",
+          "fontSize": "36px",
+          "fontStyle": "normal",
+          "src": "
+    local('Tungsten Book'),
+    url(Tungsten-Book.woff) format('woff')
+  ",
+        }
+      }
+    >
+      Location Selector
+    </WithStyles(ForwardRef(Typography))>
+    <WithStyles(ForwardRef(Typography))
+      style={
+        Object {
+          "color": "#888888",
+          "fontFamily": "Museo Sans 500",
+          "fontSize": "16px",
+          "fontStyle": "normal",
+          "marginBottom": "20px",
+          "marginTop": "8px",
+          "src": "
+    local('Museo Sans 500'),
+    url(MuseoSans-500.woff) format('woff')
+  ",
+          "textAlign": "center",
+        }
+      }
+    >
+      Drag the map to place locator on the needed place.
+      <br />
+      When ready - press “Done”. You can then edit address inside Address field.
+    </WithStyles(ForwardRef(Typography))>
+    <WithStyles(ForwardRef(Button))
+      onClick={[Function]}
+      style={
+        Object {
+          "fontFamily": "Museo Sans 500",
+          "fontSize": "14px",
+          "fontStyle": "normal",
+          "fontWeight": "bold",
+          "marginTop": "20px",
+          "padding": "13px 42px",
+          "src": "
+    local('Museo Sans 500'),
+    url(MuseoSans-500.woff) format('woff')
+  ",
+        }
+      }
+    >
+      Done
+    </WithStyles(ForwardRef(Button))>
+  </WithStyles(ForwardRef(Grid))>
+  <Styled(MuiBox)
+    className="makeStyles-closeWrapper-23"
+    onClick={[Function]}
+  >
+    <CloseIcon
+      className="makeStyles-close-24"
+    />
+  </Styled(MuiBox)>
+</Styled(MuiBox)>
+`;
