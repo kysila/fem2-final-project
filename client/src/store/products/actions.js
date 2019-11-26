@@ -5,15 +5,19 @@ import axios from 'axios';
 export const GET_PRODUCTS_REQUESTED = 'GET_PRODUCTS_REQUESTED';
 export const GET_PRODUCTS_SUCCEEDED = 'GET_PRODUCTS_SUCCEEDED';
 export const GET_PRODUCTS_FAILED = 'GET_PRODUCTS_FAILED';
-
+export const GET_MORE_PRODUCTS_REQUESTED = 'GET_MORE_PRODUCTS_REQUESTED';
+export const GET_MORE_PRODUCTS_SUCCEEDED = 'GET_MORE_PRODUCTS_SUCCEEDED';
+export const GET_MORE_PRODUCTS_FAILED = 'GET_MORE_PRODUCTS_FAILED';
 
 // action:
 export const getProducts = (endpoint) => (dispatch) => {
+  console.log('ACTION запущен экшен getProducts');
   dispatch({
     type: GET_PRODUCTS_REQUESTED,
   });
   axios.get(endpoint)
     .then((data) => {
+      console.log('ACTION запущен экшен getProducts - data в ответет сервера', data);
       const allProducts = data.data.products.map((el) => ({
         itemNo: el.itemNo,
         name: el.name,
@@ -26,6 +30,7 @@ export const getProducts = (endpoint) => (dispatch) => {
         maxSpeed: el.maxSpeed,
         chargingTime: el.chargingTime,
       }));
+      console.log('ACTION allProducts', allProducts);
       dispatch({
         type: GET_PRODUCTS_SUCCEEDED,
         allProducts,
@@ -36,18 +41,13 @@ export const getProducts = (endpoint) => (dispatch) => {
         type: GET_PRODUCTS_FAILED,
         payload: err,
       });
-      // dispatch(enqueueSnackbar({
-      //   message: err,
-      //   options: {
-      //     variant: 'error',
-      //   },
-      // }));
     });
 };
 
-export const getMoreProducts = (endpoint, existedProducts) => (dispatch) => {
+export const getMoreProducts = (endpoint) => (dispatch) => {
+  console.log('ACTION getMOREproducts запущен');
   dispatch({
-    type: GET_PRODUCTS_REQUESTED,
+    type: GET_MORE_PRODUCTS_REQUESTED,
   });
   axios.get(endpoint)
     .then((data) => {
@@ -63,23 +63,16 @@ export const getMoreProducts = (endpoint, existedProducts) => (dispatch) => {
         maxSpeed: el.maxSpeed,
         chargingTime: el.chargingTime,
       }));
-      const allProducts = [...existedProducts, ...newProducts];
+      console.log('ACTION getMoreProducts - newProducts', newProducts);
       dispatch({
-        type: GET_PRODUCTS_SUCCEEDED,
-        allProducts,
+        type: GET_MORE_PRODUCTS_SUCCEEDED,
+        newProducts,
       });
     })
     .catch((err) => {
       dispatch({
-        type: GET_PRODUCTS_FAILED,
-        payload: err.response.data,
+        type: GET_MORE_PRODUCTS_FAILED,
+        payload: err,
       });
-      // console.log('err', err);
-      // dispatch(enqueueSnackbar({
-      //   message: err,
-      //   options: {
-      //     variant: 'error',
-      //   },
-      // }));
     });
 };

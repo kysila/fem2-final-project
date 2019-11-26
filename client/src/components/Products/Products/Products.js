@@ -25,21 +25,29 @@ import { useStyles } from './style';
 
 import { getProducts, getMoreProducts } from '../../../store/products/actions';
 import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/selectedFilters/actions';
-import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../../store/wishlist/actions';
-
+// import {
+// dispatchGetWishlist,
+// dispatchAddProductAndCreateWishlist
+// } from '../../../store/wishlist/actions';
 
 let displayedProductsArray = [];
+let moreProductsArray = [];
+let startPage = 1;
+let perPage = 8;
+let products = [];
+
 const Products = (props) => {
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   const classes = useStyles();
-  let products;
   let selectedFilterChips;
   let selectedFilterType;
-  let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-  const startPerPage = +queryOptions.perPage;
-  const [perPage, setPerPage] = useState(startPerPage);
+
+  // let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+  // const startPerPage = +queryOptions.perPage;
+  // const [perPage, setPerPage] = useState(startPerPage);
 
   useEffect(() => {
+    console.log('стартовый useEffect запущен');
     props.getProducts(`/products/filter${props.location.search}`);
     if (!Object.keys(props.selectedFilters).length) {
       const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
@@ -47,37 +55,40 @@ const Products = (props) => {
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
     }
+    return (
+      props.recentlySelectFilters({})
+    );
   }, [props.location.search]);
 
-  useEffect(() => () => {
-    props.recentlySelectFilters({});
-  }, []);
+  // useEffect(() => {
+  //   const { getWishlist } = props;
+  //   getWishlist();
+  // }, []);
 
-  useEffect(() => {
-    const { getWishlist } = props;
-    getWishlist();
-  }, []);
-
-  useEffect(() => {
-    if (+queryOptions.perPage !== +perPage) {
-      queryOptions.perPage = +perPage;
-      const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-      props.history.push(`/products/filter?${newQuery}`);
-      const startPage = +queryOptions.perPage / 8;
-      queryOptions.startPage = startPage + 1;
-      queryOptions.perPage = 8;
-      const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-      props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
-    }
-  }, [perPage]);
+  // useEffect(() => {
+  //   if (+queryOptions.perPage !== +perPage) {
+  //     queryOptions.perPage = +perPage;
+  //     const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
+  //     props.history.push(`/products/filter?${newQuery}`);
+  //     const startPage = +queryOptions.perPage / 8;
+  //     queryOptions.startPage = startPage + 1;
+  //     queryOptions.perPage = 8;
+  //     const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
+  //     props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
+  //   }
+  // }, [perPage]);
 
   const loadMoreAction = () => {
-    queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-    setPerPage(perPage + 8);
+    const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+    perPage += 8;
+    startPage += 1;
+    queryOptions.startPage = startPage;
+    const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
+    props.getMoreProducts(`/products/filter?${newQueryLoad}`);
   };
 
   const handleDelete = (event) => {
-    queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+    const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
     if (event.currentTarget.dataset.key === 'minPrice' || event.currentTarget.dataset.key === 'maxPrice') {
       props.deleteSelectedFilters(event, 'minPrice', props.selectedFilters);
       props.deleteSelectedFilters(event, 'maxPrice', props.selectedFilters);
@@ -92,7 +103,10 @@ const Products = (props) => {
     props.history.push(`/products/filter?${newQuery}`);
   };
 
-  if (props.allProducts && !props.isProductsFetching) {
+  if (props.allProducts && !props.isProductsFetching && startPage === 1) {
+    window.scrollTo(0, 0);
+    console.log('startPage в стартовом условии', startPage);
+    console.log('зашел в СТАРТОВОЕ УСЛОВИЕ');
     const selectedFiltersItems = Object.entries(props.selectedFilters);
     selectedFilterChips = selectedFiltersItems.map((filter) => {
       selectedFilterType = filter[0];
@@ -114,7 +128,6 @@ const Products = (props) => {
         </Grid>
       );
     });
-    // console.log('selectedFilterChips',selectedFilterChips);
 
     displayedProductsArray = [...props.allProducts];
     products = displayedProductsArray.map((el) => (
@@ -132,11 +145,34 @@ const Products = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          // wishlist={props.wishlist}
+          // addProductToWishlist={props.addProductToWishlist}
         />
       </Grid>
     ));
+  }
+  if (props.newProducts && props.newProducts.length && !props.isProductsFetching) {
+    moreProductsArray = props.newProducts;
+    products = [...products, ...moreProductsArray.map((el) => (
+      <Grid item xs={12} sm={6} md={3} key={el.itemNo}>
+        <ProductCard
+          className={classes.card}
+          obj={el}
+          name={el.name}
+          itemImg={el.itemImg}
+          price={el.price}
+          url={el.url}
+          rating={el.rating}
+          itemNo={el.itemNo}
+          id={el.id}
+          distance={el.distance}
+          maxSpeed={el.maxSpeed}
+          chargingTime={el.chargingTime}
+          // wishlist={props.wishlist}
+          // addProductToWishlist={props.addProductToWishlist}
+        />
+      </Grid>
+    ))];
   }
 
   return (
@@ -159,30 +195,34 @@ const Products = (props) => {
         </Grid>
         <main className={classes.main}>
           <Grid container spacing={0} alignItems="center" justify="center">
-            {props.isProductsFetching ? <Preloader /> : (
-              props.allProducts.length ? products : (
-                <Typography
-                  variant="body1"
-                  gutterBottom
-                  align="center"
-                  className={classes.space}
-                >
-                  Sorry, no products matching your request were found.
-                </Typography>
-              ))}
+            {props.allProducts && products}
+
+            {/*: (props.isProductsFetching || ( */}
+            {/* <Typography */}
+            {/*  variant="body1" */}
+            {/*  gutterBottom */}
+            {/*  align="center" */}
+            {/*  className={classes.space} */}
+            {/* > */}
+            {/*  Sorry, no products matching your request were found. */}
+            {/* </Typography> */}
+            {/* ))} */}
+
+            {props.isProductsFetching && <Preloader />}
 
           </Grid>
-          {props.allProducts.length >= perPage
-            && (
-              <Box className={classes.applyBtnContainer}>
-                <Button
-                  className={classes.applyBtn}
-                  onClick={() => { loadMoreAction(); }}
-                >
-                  Load More ...
-            </Button>
-              </Box>
-            )}
+
+          {products.length >= perPage && (
+            <Box className={classes.applyBtnContainer}>
+              <Button
+                className={classes.applyBtn}
+                onClick={() => { loadMoreAction(); }}
+              >
+                Load More ...
+              </Button>
+            </Box>
+          )}
+
         </main>
       </Container>
       <RecentlyViewed />
@@ -195,7 +235,8 @@ const mapStateToProps = (state) => ({
   isProductsFetching: state.productsReducer.isProductsFetching,
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,
-  wishlist: state.wishlist.wishlist,
+  newProducts: state.productsReducer.newProducts,
+  // wishlist: state.wishlist.wishlist,
 });
 
 export default withRouter(connect(mapStateToProps,
@@ -204,6 +245,7 @@ export default withRouter(connect(mapStateToProps,
     recentlySelectFilters,
     getMoreProducts,
     deleteSelectedFilters,
-    getWishlist: () => (dispatchGetWishlist()),
-    addProductToWishlist: (url) => (dispatchAddProductAndCreateWishlist(url)),
+
+    // getWishlist: () => (dispatchGetWishlist()),
+    // addProductToWishlist: (url) => (dispatchAddProductAndCreateWishlist(url)),
   })(Products));
