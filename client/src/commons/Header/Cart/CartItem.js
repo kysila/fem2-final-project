@@ -32,7 +32,10 @@ const CartItem = (props) => {
       localStorage.setItem('cart', serialCart);
     }
   };
-   return (
+  const {
+    user, wishlist, id, addProductToWishlist,
+  } = props;
+  return (
     <Paper className={classes.root}>
 
       <Grid container className={classes.base_container} spacing={1}>
@@ -70,8 +73,10 @@ const CartItem = (props) => {
                   <span className={classes.button}> Delete </span>
                 </Button>
                 <SaveForLaterBtn
-                  user={props.user}
-                  id={props.id}
+                  user={user}
+                  id={id}
+                  wishlist={wishlist}
+                  addProductToWishlist={addProductToWishlist}
                 />
               </ButtonGroup>
             </Grid>
