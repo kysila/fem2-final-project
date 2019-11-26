@@ -73,13 +73,14 @@ const RecentlyViewed = (props) => {
     products = productsList.map((el) => (
       <div key={el.itemNo}>
         <ProductCard
+          obj={el.obj}
           className={classes.card}
-          name={el.name}
-          itemImg={el.itemImg}
-          price={el.price}
-          url={el.itemNo}
-          rating={el.rating}
-          itemNo={el.itemNo}
+          name={el.obj.name}
+          itemImg={el.obj.imageUrls[0]}
+          price={el.obj.price}
+          url={el.obj.itemNo}
+          rating={el.obj.rating}
+          itemNo={el.obj.itemNo}
           id={el.id}
           wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}

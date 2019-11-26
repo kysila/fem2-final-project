@@ -12,16 +12,19 @@ const mapStateToProps = (state) => ({
 });
 
 
-const AddToCompareButton = ({ ...props }) => {
+const AddToCompareButton = ({ obj, ...props }) => {
   const [clicked, setClicked] = useState(false);
   const classes = useStyles();
 
   const addToCompare = () => {
-    props.addProductsToCompare({ ...props });
+    props.addProductsToCompare(obj);
     setClicked(true);
   };
 
-  if (clicked) {
+  const filterCart = (arr, objParams) => arr.some((el) => el.itemNo === objParams);
+  const item = obj.itemNo;
+
+  if (clicked || filterCart(props.products, item)) {
     return (
       <Link to="/compare" className={classes.linkStyle}>
       <Button
