@@ -46,6 +46,7 @@ const Products = (props) => {
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
     }
+    // eslint-disable-next-line
   }, [props.location.search]);
 
   useEffect(() => () => {

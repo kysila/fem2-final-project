@@ -19,6 +19,7 @@ const CategoryImages = (props) => {
 
   useEffect(() => {
     props.getCategories();
+      // eslint-disable-next-line
   }, []);
 
   if (props.categories && !props.isCatalogFetching) {
