@@ -68,6 +68,7 @@ const ProductForCompare = (
                 {el.name}
               </Typography>
               <AddToCartButton
+                obj={el}
                 text="ADD TO CART"
               />
             </CardContent>
