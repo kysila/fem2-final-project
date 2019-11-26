@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
@@ -12,32 +11,22 @@ import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import ProductCard from '../ProductCard/ProductCard';
 import Preloader from '../Preloader/Preloader';
-import { dispatchAddProductAndCreateWishlist, dispatchGetWishlist } from '../../store/wishlist/actions';
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    marginBottom: 0,
-    maxWidth: 'auto',
-  },
-  space: {
-    marginBottom: '40px',
-  },
-  paddingTop: {
-    paddingTop: '20px',
-  },
-
-}));
+import { addProductAndCreateWishlistInDB, getWishlistFromDB  } from '../../store/wishlist/actions';
+import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
   searchValue: state.searchReducer.searchValue,
   searchProducts: state.searchReducer.searchProducts,
   isSearchFetching: state.searchReducer.isSearchFetching,
-  wishlist: state.wishlist.wishlist,
+  wishlist: state.wishlist.arr,
   user: state.auth.user,
 });
 
 const Search = (props) => {
   const classes = useStyles();
+  const {
+    addProductToWishlist, getWishlist, wishlist, user,
+  } = props;
   let searchResult = [];
   if (props.searchProducts.length) {
     searchResult = props.searchProducts.map((el) => (
@@ -49,8 +38,10 @@ const Search = (props) => {
           price={el.currentPrice}
           url={`products/${el.itemNo}`}
           rating={el.rating}
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          // eslint-disable-next-line no-underscore-dangle
+          id={el._id}
+          wishlist={wishlist}
+          addProductToWishlist={addProductToWishlist}
         />
       </Grid>
     ));
@@ -63,12 +54,11 @@ const Search = (props) => {
       </Grid>];
   }
 
-  const { user } = props;
   useEffect(() => {
     if (user) {
-      const { getWishlist } = props;
       getWishlist();
     }
+  // eslint-disable-next-line
   }, [user]);
 
   return (
@@ -100,11 +90,8 @@ const Search = (props) => {
   );
 };
 
-function putActionsToProps(dispatch) {
-  return {
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-  };
-}
 
-export default connect(mapStateToProps, putActionsToProps)(Search);
+export default connect(mapStateToProps, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
+})(Search);

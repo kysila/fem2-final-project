@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Title } from '../Title/Title';
 import ProductCard from '../ProductCard/ProductCard';
 import Preloader from '../Preloader/Preloader';
-import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
+import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../store/wishlist/actions';
 import 'slick-carousel/slick/slick.css';
 import './FavouriteCarousel.css';
 
@@ -22,11 +22,14 @@ function Favorites(props) {
       setList(products.data);
     });
   }, []);
-  const { user, getWishlist } = props;
+  const {
+    user, getWishlist, addProductToWishlist, wishlist,
+  } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
     }
+    // eslint-disable-next-line
   }, [user]);
 
   if (list && !loading) {
@@ -44,8 +47,8 @@ function Favorites(props) {
         distance={el.distance}
         maxSpeed={el.maxSpeed}
         chargingTime={el.chargingTime}
-        wishlist={props.wishlist}
-        addProductToWishlist={props.addProductToWishlist}
+        wishlist={wishlist}
+        addProductToWishlist={addProductToWishlist}
       />
     ));
   } else if (loading) {
@@ -119,16 +122,12 @@ function Favorites(props) {
 
 function putStateToProps(state) {
   return {
-    wishlist: state.wishlist.wishlist,
+    wishlist: state.wishlist.arr,
     user: state.auth.user,
   };
 }
 
-function putActionsToProps(dispatch) {
-  return {
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-  };
-}
-
-export const Favourites = connect(putStateToProps, putActionsToProps)(Favorites);
+export const Favourites = connect(putStateToProps, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
+})(Favorites);
