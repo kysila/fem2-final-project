@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
-import axios from 'axios';
-
 import Box from '@material-ui/core/Box';
-
 import { useStyles } from './style';
-
 
 export const ProductGallery = ({ image }) => {
   const [state, setState] = useState({
@@ -21,8 +16,9 @@ export const ProductGallery = ({ image }) => {
       alt={i}
       key={i}
       onClick={(e) => {
-      	e.preventDefault();
-      	selectedImage(i, e.target);
+        e.preventDefault();
+        // eslint-disable-next-line no-use-before-define
+        selectedImage(i, e.target);
       }}
     />
   ));

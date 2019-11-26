@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
 import axios from 'axios';
 
 import Box from '@material-ui/core/Box';
 import Rating from '@material-ui/lab/Rating';
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
@@ -27,60 +26,71 @@ export const ProductCustomerReviews = ({user, obj}) => {
   const renderComments = (arr) => {
     return arr.map((el, i) => {
       return (
-      <Box
-        className={classes.commentItem}
-        key={i}>
-        <div className={classes.commentTitle}>
-          <div className={classes.customerName}>
-            {el.customer.login}
+        <Box
+          className={classes.commentItem}
+          key={i}
+        >
+          <div className={classes.commentTitle}>
+            <div className={classes.customerName}>
+              {el.customer.login}
+            </div>
+            <div className={classes.commentDate}>
+              {el.customer.date.slice(0, 10)}
+            </div>
           </div>
-          <div className={classes.commentDate}>
-            {el.customer.date.slice(0, 10)}
+          <Rating
+            name="read-only"
+            value={+el.rating}
+            precision={0.5}
+            readOnly
+            size="small"
+          />
+          <div className={classes.commentDesc}>
+            {el.content}
           </div>
-        </div>
-        <Rating
-          name="read-only"
-          value={+el.rating}
-          precision={0.5}
-          readOnly
-          size="small"
-        />
-        <div className={classes.commentDesc}>
-          {el.content}
-        </div>
-      </Box>
-      )
-    })
+        </Box>
+      );
+    });
   };
 
   useEffect(() => {
+    // eslint-disable-next-line no-underscore-dangle
     if (obj._id) {
       setComment(() => ({
         ...comment,
+        // eslint-disable-next-line no-underscore-dangle
         product: obj._id,
       }));
     }
+    // eslint-disable-next-line
   }, [obj]);
 
   useEffect(() => {
     if (comment.product !== '') {
       axios.get(`/comments/product/${comment.product}`)
-        .then(data => {
+        .then((data) => {
           setComments(() => ({
             ...comments,
-            allComments: data.data
-          }))
-        })
+            allComments: data.data,
+          }));
+        });
     }
+    // eslint-disable-next-line
   }, [comment.product]);
 
   return (
     <Box className={classes.reviewsMainBox}>
-      <Typography className={classes.reviewsHeader}>CUSTOMER REVIEWS ({comments.allComments.length})</Typography>
+      {/* eslint-disable-next-line max-len */}
+      <Typography className={classes.reviewsHeader}>
+        {' '}
+        CUSTOMER REVIEWS (
+        { comments.allComments.length }
+        )
+      </Typography>
       <Box
         className={classes.userReview}
         style={
-          user ? {display: 'block'} : {display: 'none'}
+          user ? { display: 'block' } : { display: 'none' }
         }
       >
         <TextField
@@ -94,7 +104,7 @@ export const ProductCustomerReviews = ({user, obj}) => {
             setComment({
               ...comment,
               content: e.target.value,
-            })
+            });
           }}
         />
         <Rating
@@ -115,13 +125,13 @@ export const ProductCustomerReviews = ({user, obj}) => {
             axios.post('/comments', comment)
               .then(() => {
                 axios.get(`/comments/product/${comment.product}`)
-                  .then(data => {
+                  .then((data) => {
                     setComments(() => ({
                       ...comments,
-                      allComments: data.data
-                    }))
-                  })
-              })
+                      allComments: data.data,
+                    }));
+                  });
+              });
           }}
         >
           Add a review

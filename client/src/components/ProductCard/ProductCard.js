@@ -83,6 +83,7 @@ const ProductCard = ({
           product: data.data,
         });
       });
+    // eslint-disable-next-line
   }, [url]);
 
   const classes = useStyles();

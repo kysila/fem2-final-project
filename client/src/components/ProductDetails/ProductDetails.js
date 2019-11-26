@@ -48,6 +48,7 @@ const ProductDetails = (props) => {
         }));
       });
     return () => { };
+    // eslint-disable-next-line
   }, [id]);
 
   useEffect(() => {
@@ -58,6 +59,7 @@ const ProductDetails = (props) => {
           colors: data,
         });
       });
+    // eslint-disable-next-line
   }, [state.obj]);
 
   const { user, getWishlist } = props;
@@ -65,6 +67,7 @@ const ProductDetails = (props) => {
     if (user) {
       getWishlist();
     }
+    // eslint-disable-next-line
   }, [user]);
 
   return (

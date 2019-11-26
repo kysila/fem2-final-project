@@ -33,6 +33,7 @@ const Products = (props) => {
   const classes = useStyles();
   let products;
   let selectedFilterChips;
+  // eslint-disable-next-line
   let selectedFilterType;
   let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
   const startPerPage = +queryOptions.perPage;
@@ -51,11 +52,13 @@ const Products = (props) => {
 
   useEffect(() => () => {
     props.recentlySelectFilters({});
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     const { getWishlist } = props;
     getWishlist();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -69,6 +72,7 @@ const Products = (props) => {
       const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
       props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
     }
+    // eslint-disable-next-line
   }, [perPage]);
 
   const loadMoreAction = () => {

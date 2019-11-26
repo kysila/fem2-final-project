@@ -29,6 +29,7 @@ const RecentlyViewed = (props) => {
 
   useEffect(() => {
     setProductsList(currentLocal);
+    // eslint-disable-next-line
   }, []);
 
   const { user, getWishlist } = props;
@@ -36,6 +37,7 @@ const RecentlyViewed = (props) => {
     if (user) {
       getWishlist();
     }
+    // eslint-disable-next-line
   }, [user]);
 
   const settings = {

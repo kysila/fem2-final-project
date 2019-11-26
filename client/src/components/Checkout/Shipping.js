@@ -4,7 +4,9 @@ import {
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { connect } from 'react-redux';
-import { withRouter, Redirect, Link } from 'react-router-dom';
+import { withRouter,
+  // Redirect,
+  Link } from 'react-router-dom';
 import { useStyles } from './styles';
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
@@ -48,6 +50,7 @@ export const Shipping = withRouter(connect(({ auth: { user } }) => ({ user }), {
     if (props.user) {
       setInfo({ ...info, email: { value: props.user.email } });
     }
+    // eslint-disable-next-line
   }, [info.email.value, props.user]);
 
   const onSubmit = () => {

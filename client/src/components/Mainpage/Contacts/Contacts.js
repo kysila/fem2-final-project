@@ -2,11 +2,8 @@ import React from 'react';
 import {
   Typography, Grid, Box, Container, useMediaQuery, withTheme,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import { Map } from '../../Map/Map';
-
 import Tungsten from '../../../fonts/Tungsten-Book.woff';
-
 import MuseoSans from '../../../fonts/MuseoSans-500.woff';
 import mobileSvg from '../../../img/contact/mobile.svg';
 import mailSvg from '../../../img/contact/mail.svg';
