@@ -52,11 +52,15 @@ const Products = (props) => {
     props.recentlySelectFilters({});
   }, []);
 
-  const { addProductToWishlist, getWishlist, wishlist } = props;
+  const {
+    addProductToWishlist, getWishlist, wishlist, user,
+  } = props;
 
   useEffect(() => {
-    getWishlist();
-  }, []);
+    if (user) {
+      getWishlist();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (+queryOptions.perPage !== +perPage) {
@@ -196,6 +200,7 @@ const mapStateToProps = (state) => ({
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,
   wishlist: state.wishlist.arr,
+  user: state.auth.user,
 });
 
 export default withRouter(connect(mapStateToProps,

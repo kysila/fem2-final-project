@@ -155,12 +155,6 @@ function putStateToProps(state) {
   };
 }
 
-// function putActionsToProps(dispatch) {
-//   return {
-//     deleteWishlist: () => dispatch(dispatchDeleteWishlist()),
-//   };
-// }
-
 const WishlistComponent = connect(putStateToProps, {
   addProductToWishlist: addProductAndCreateWishlistInDB,
   getWishlist: getWishlistFromDB,

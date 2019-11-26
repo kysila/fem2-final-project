@@ -59,7 +59,7 @@ const ProductDetails = (props) => {
       });
   }, [state.obj]);
 
-  const { user, getWishlist } = props;
+  const { user, getWishlist, wishlist, addProductToWishlist } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
@@ -77,8 +77,8 @@ const ProductDetails = (props) => {
               <ProductGallery image={state.obj.imageUrls} />
               <ProductDetailsCart
                 data={state}
-                wishlist={props.wishlist.arr}
-                addProductToWishlist={props.addProductToWishlist}
+                wishlist={wishlist}
+                addProductToWishlist={addProductToWishlist}
               />
             </div>
             <ProductDescription data={state.obj} />
@@ -86,8 +86,8 @@ const ProductDetails = (props) => {
           </div>
           <ProductDetailsCardSticky
             data={state}
-            wishlist={props.wishlist}
-            addProductToWishlist={props.addProductToWishlist}
+            wishlist={wishlist}
+            addProductToWishlist={addProductToWishlist}
           />
         </div>
       </Container>
