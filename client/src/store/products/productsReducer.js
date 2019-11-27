@@ -14,7 +14,6 @@ const initialState = {
   errorMsg: '',
 };
 function productsReducer(state = initialState, action) {
-  console.log('PRODUCTS REDUCER action в аргументах ', action);
   switch (action.type) {
     case GET_PRODUCTS_REQUESTED:
       return {

@@ -11,13 +11,11 @@ export const CLEAR_NEW_PRODUCTS = 'CLEAR_NEW_PRODUCTS';
 
 // action:
 export const getProducts = (endpoint) => (dispatch) => {
-  console.log('ACTION запущен экшен getProducts');
   dispatch({
     type: GET_PRODUCTS_REQUESTED,
   });
   axios.get(endpoint)
     .then((data) => {
-      console.log('ACTION запущен экшен getProducts - data в ответет сервера', data);
       const allProducts = data.data.products.map((el) => ({
         itemNo: el.itemNo,
         name: el.name,
@@ -30,7 +28,6 @@ export const getProducts = (endpoint) => (dispatch) => {
         maxSpeed: el.maxSpeed,
         chargingTime: el.chargingTime,
       }));
-      console.log('ACTION allProducts', allProducts);
       dispatch({
         type: GET_PRODUCTS_SUCCEEDED,
         allProducts,

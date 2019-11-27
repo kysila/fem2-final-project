@@ -25,59 +25,33 @@ import { useStyles } from './style';
 
 import { getProducts, getMoreProducts, clearNewProducts } from '../../../store/products/actions';
 import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/selectedFilters/actions';
-// import {
-// dispatchGetWishlist,
-// dispatchAddProductAndCreateWishlist
-// } from '../../../store/wishlist/actions';
+import {
+  dispatchGetWishlist,
+  dispatchAddProductAndCreateWishlist,
+} from '../../../store/wishlist/actions';
 
 let displayedProductsArray = [];
 let moreProductsArray = [];
 let startPage = 1;
 let perPage = 8;
 let products = [];
+console.log('products, perPage, displayedProductsArray, moreProductsArray', products, perPage, displayedProductsArray, moreProductsArray)
 
 const Products = (props) => {
   const classes = useStyles();
   let selectedFilterChips;
   let selectedFilterType;
 
-  // let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-  // const startPerPage = +queryOptions.perPage;
-  // const [perPage, setPerPage] = useState(startPerPage);
-
-  useEffect(() => {
-    props.getProducts(`/products/filter${props.location.search}`);
-    if (!Object.keys(props.selectedFilters).length) {
-      const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
-      delete recentlySelected.perPage;
-      delete recentlySelected.startPage;
-      props.recentlySelectFilters({ ...recentlySelected });
-    }
-  }, [props.location.search]);
-
-  useEffect(() => () => {
+  const unMountFunc = () => {
+    console.log('unMountFunc started');
+    displayedProductsArray = [];
+    moreProductsArray = [];
+    products = [];
+    startPage = 1;
+    perPage = 8;
     props.recentlySelectFilters({});
-  }, []);
-
-  // useEffect(() => {
-  //   const { getWishlist } = props;
-  //   getWishlist();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (+queryOptions.perPage !== +perPage) {
-  //     queryOptions.perPage = +perPage;
-  //     const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-  //     props.history.push(`/products/filter?${newQuery}`);
-  //     const startPage = +queryOptions.perPage / 8;
-  //     queryOptions.startPage = startPage + 1;
-  //     queryOptions.perPage = 8;
-  //     const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-  //     props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
-  //   }
-  // }, [perPage]);
-
-
+    props.clearNewProducts();
+  };
   const handleDelete = (event) => {
     displayedProductsArray = [];
     moreProductsArray = [];
@@ -98,10 +72,8 @@ const Products = (props) => {
     }
     const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
     props.history.push(`/products/filter?${newQuery}`);
-
   };
   const handleSelectedFilters = (selected) => {
-    console.log('handleSelectedFilters функция запущена');
     const selectedFiltersItems = Object.entries(selected);
     selectedFilterChips = selectedFiltersItems.map((filter) => {
       selectedFilterType = filter[0];
@@ -132,9 +104,41 @@ const Products = (props) => {
     const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
     props.getMoreProducts(`/products/filter?${newQueryLoad}`);
   };
+  useEffect(() => {
+    products = [];
+    console.log('START useEFFECT with getProducts');
+    props.getProducts(`/products/filter${props.location.search}`);
+    if (!Object.keys(props.selectedFilters).length) {
+      const recentlySelected = queryString.parse(props.location.search, { arrayFormat: 'comma' });
+      delete recentlySelected.perPage;
+      delete recentlySelected.startPage;
+      props.recentlySelectFilters({ ...recentlySelected });
+    }
+  }, [props.location.search]);
+  useEffect(() => {
+    console.log('wishList useEFFECT');
+    const { getWishlist } = props;
+    getWishlist();
+
+    return unMountFunc;
+  }, []);
+
+
+  // useEffect(() => () => {
+  //   props.recentlySelectFilters({});
+  //   props.clearNewProducts();
+  // }, []);
+
+  // useEffect(() => {
+  //
+  // }, []);
+
+
 
   if (props.allProducts && !props.isProductsFetching && startPage === 1) {
+    console.log('стартовое условие  if (props.allProducts && !props.isProductsFetching && startPage === 1)');
     window.scrollTo(0, 0);
+    products = [];
     handleSelectedFilters(props.selectedFilters);
     displayedProductsArray = [...props.allProducts];
     products = displayedProductsArray.map((el) => (
@@ -152,13 +156,14 @@ const Products = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
-          // wishlist={props.wishlist}
-          // addProductToWishlist={props.addProductToWishlist}
+          wishlist={props.wishlist}
+          addProductToWishlist={props.addProductToWishlist}
         />
       </Grid>
     ));
   }
   if (props.newProducts && props.newProducts.length && !props.isProductsFetching) {
+    console.log('LoadMore условие ');
     moreProductsArray = props.newProducts;
     products = [...products, ...moreProductsArray.map((el) => (
       <Grid item xs={12} sm={6} md={3} key={el.itemNo}>
@@ -175,8 +180,8 @@ const Products = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
-          // wishlist={props.wishlist}
-          // addProductToWishlist={props.addProductToWishlist}
+          wishlist={props.wishlist}
+          addProductToWishlist={props.addProductToWishlist}
         />
       </Grid>
     ))];
@@ -216,7 +221,19 @@ const Products = (props) => {
             {/* </Typography> */}
             {/* ))} */}
 
-            {props.isProductsFetching && <Preloader />}
+            {props.isProductsFetching
+              ? <Preloader />
+              : (!props.allProducts.length
+                && (
+                <Typography
+                  variant="body1"
+                  gutterBottom
+                  align="center"
+                  className={classes.space}
+                >
+               Sorry, no products matching your request were found.
+                </Typography>
+                ))}
 
           </Grid>
 
@@ -244,7 +261,7 @@ const mapStateToProps = (state) => ({
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,
   newProducts: state.productsReducer.newProducts,
-  // wishlist: state.wishlist.wishlist,
+  wishlist: state.wishlist.wishlist,
 });
 
 export default withRouter(connect(mapStateToProps,
@@ -254,7 +271,6 @@ export default withRouter(connect(mapStateToProps,
     getMoreProducts,
     deleteSelectedFilters,
     clearNewProducts,
-
-    // getWishlist: () => (dispatchGetWishlist()),
-    // addProductToWishlist: (url) => (dispatchAddProductAndCreateWishlist(url)),
+    getWishlist: () => (dispatchGetWishlist()),
+    addProductToWishlist: (url) => (dispatchAddProductAndCreateWishlist(url)),
   })(Products));
