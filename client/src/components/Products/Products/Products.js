@@ -56,7 +56,7 @@ const Products = (props) => {
   }, []);
 
   const {
-    addProductToWishlist, getWishlist, wishlist, user,
+    addProductToWishlist, getWishlist, user,
   } = props;
 
   useEffect(() => {
@@ -141,7 +141,6 @@ const Products = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
-          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
         />
       </Grid>
@@ -204,7 +203,6 @@ const mapStateToProps = (state) => ({
   isProductsFetching: state.productsReducer.isProductsFetching,
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,
-  wishlist: state.wishlist.arr,
   user: state.auth.user,
 });
 

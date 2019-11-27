@@ -33,7 +33,7 @@ const RecentlyViewed = (props) => {
   }, []);
 
   const {
-    user, getWishlist, addProductToWishlist, wishlist,
+    user, getWishlist, addProductToWishlist,
   } = props;
   useEffect(() => {
     if (user) {
@@ -82,7 +82,6 @@ const RecentlyViewed = (props) => {
           rating={el.obj.rating}
           itemNo={el.obj.itemNo}
           id={el.id}
-          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
         />
       </div>
@@ -108,7 +107,6 @@ const RecentlyViewed = (props) => {
 
 function putStateToProps(state) {
   return {
-    wishlist: state.wishlist.arr,
     user: state.auth.user,
   };
 }

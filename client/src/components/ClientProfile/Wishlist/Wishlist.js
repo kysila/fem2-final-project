@@ -22,7 +22,6 @@ const Wishlist = (props) => {
     getWishlist, wishlist, addProductToWishlist,
     wishlistProducts, user, deleteProductFromWishlist, deleteWishlist,
   } = props;
-  // deleteWishlist
 
   const [expanded, setExpanded] = useState('');
   const handleChange = (panel) => (event, isExpanded) => {
@@ -43,7 +42,7 @@ const Wishlist = (props) => {
     if (user) {
       getWishlist();
     }
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, [user]);
 
 
@@ -52,7 +51,7 @@ const Wishlist = (props) => {
       setList(wishlistProducts);
     }
     setLoading(false);
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, [wishlist]);
   let wishlistAllProducts;
   if (list && !loading) {
@@ -131,7 +130,7 @@ const Wishlist = (props) => {
                   className={classes.formsInfo}
                 >
                   You have an empty wishlist
-              </Typography>
+                </Typography>
               )
           }
         </ExpansionPanelDetails>

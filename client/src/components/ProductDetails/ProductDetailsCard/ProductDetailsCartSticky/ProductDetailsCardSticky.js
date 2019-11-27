@@ -14,7 +14,6 @@ import { useStyles } from './stickyCartStyle';
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
-  wishlist: store.wishlist.arr,
 });
 
 const ProductDetailsCardSticky = (props) => {
@@ -22,7 +21,7 @@ const ProductDetailsCardSticky = (props) => {
     disabled: false,
     text: 'ADD TO CART',
   });
-  const { addProductToWishlist, wishlist, user } = props;
+  const { addProductToWishlist, user } = props;
   const obj = props.data.obj;
   const colors = props.data.colors.data;
 
@@ -117,7 +116,6 @@ const ProductDetailsCardSticky = (props) => {
           obj={obj}
           user={user}
           className="otherBtn"
-          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
           iconStyle={{
             fill: '#AAA',

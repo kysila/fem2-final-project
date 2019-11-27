@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Typography, ButtonGroup, Box, MenuItem } from '@material-ui/core';
+import {
+  Typography, ButtonGroup, Box, MenuItem,
+} from '@material-ui/core';
 
 import Rating from '@material-ui/lab/Rating';
 import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
@@ -15,7 +17,6 @@ import { useStyles } from './style';
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
-  wishlist: store.wishlist.arr,
 });
 
 const ProductDetailsCard = (props) => {
@@ -23,7 +24,7 @@ const ProductDetailsCard = (props) => {
     disabled: false,
     text: 'ADD TO CART',
   });
-  const { addProductToWishlist, wishlist, user } = props;
+  const { addProductToWishlist, user } = props;
   const obj = props.data.obj;
   const colors = props.data.colors.data;
   // eslint-disable-next-line
@@ -134,7 +135,6 @@ const ProductDetailsCard = (props) => {
           obj={obj}
           user={user}
           className="otherBtn"
-          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
           iconStyle={{
             fill: '#AAA',
