@@ -25,7 +25,7 @@ export default function (state = initialState, action) {
     case ACTIONS.GET_WISHLIST_FAILED:
       return {
         ...state,
-        isWishlistFetching: true,
+        isWishlistFetching: false,
         errorMsg: action.payload,
       };
     case ACTIONS.ADD_PRODUCT_AND_CREATE_WISHLIST_REQUESTED:
@@ -44,7 +44,7 @@ export default function (state = initialState, action) {
     case ACTIONS.ADD_PRODUCT_AND_CREATE_WISHLIST_FAILED:
       return {
         ...state,
-        isWishlistFetching: true,
+        isWishlistFetching: false,
         errorMsg: action.payload,
       };
     case ACTIONS.DELETE_PRODUCT_FROM_WISHLIST_REQUESTED:
@@ -63,7 +63,7 @@ export default function (state = initialState, action) {
     case ACTIONS.DELETE_PRODUCT_FROM_WISHLIST_FAILED:
       return {
         ...state,
-        isWishlistFetching: true,
+        isWishlistFetching: false,
         errorMsg: action.payload,
       };
     case ACTIONS.DELETE_WISHLIST_REQUESTED:
@@ -82,7 +82,7 @@ export default function (state = initialState, action) {
     case ACTIONS.DELETE_WISHLIST_FAILED:
       return {
         ...state,
-        isWishlistFetching: true,
+        isWishlistFetching: false,
         errorMsg: action.payload,
       };
     default:

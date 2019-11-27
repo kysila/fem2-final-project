@@ -498,7 +498,6 @@ export const Information = (props) => {
                   ref={inputLabel}
                   classes={{ root: classes.label }}
                   htmlFor="gender"
-                /* className={classes.selectData} */
                 >
                   Gender
                 </InputLabel>
