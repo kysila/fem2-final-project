@@ -1,6 +1,6 @@
 import {
   ADD_PRODUCTS_TO_COMPARE,
-  DELETE_PRODUCTS_FROM_COMPARE,
+  DELETE_PRODUCTS_FROM_COMPARE, SET_PRODUCT_MARKED,
 } from './actions';
 
 const initialState = {
@@ -17,6 +17,7 @@ const compareReducer = (state = initialState, action) => {
     case DELETE_PRODUCTS_FROM_COMPARE:
       return {
         ...state,
+        products: state.products.filter((el) => el.itemNo !== action.product.itemNo),
       };
     default:
       return { ...state };

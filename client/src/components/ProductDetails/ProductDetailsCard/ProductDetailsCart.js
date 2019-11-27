@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToCart, getCartFromLS } from "../../../store/cart/actions";
-import { AddToCartButton } from "../../AddToCartButton/AddToCartButton";
-import { AddToWishListButton } from "../../AddToWishListButton/AddToWishListButton";
-import AddToCompareButton from "../../AddToCompareButton/AddToCompareButton";
 
 
-import { Typography } from '@material-ui/core';
-import { ButtonGroup } from '@material-ui/core';
+import { Typography, ButtonGroup } from '@material-ui/core';
+
 import Rating from '@material-ui/lab/Rating';
-import Box from "@material-ui/core/Box";
-import MenuItem from "@material-ui/core/MenuItem";
+import Box from '@material-ui/core/Box';
+import MenuItem from '@material-ui/core/MenuItem';
+import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
+import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
+import { AddToCartButton } from '../../AddToCartButton/AddToCartButton';
+import { addProductToCart, getCartFromLS } from '../../../store/cart/actions';
 
-import { useStyles } from "./style";
+import { useStyles } from './style';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -25,13 +25,14 @@ const ProductDetailsCard = (props) => {
     disabled: false,
     text: 'ADD TO CART',
   });
-
+  const { addProductToWishlist, wishlist, user } = props;
   const obj = props.data.obj;
   const colors = props.data.colors.data;
-
+  // eslint-disable-next-line
   const [color, setColor] = useState(obj.color);
 
-  const handleChange = event => {
+   // eslint-disable-next-line
+  const handleChange = (event) => {
     setColor(event.target.value);
   };
 
@@ -45,34 +46,31 @@ const ProductDetailsCard = (props) => {
 
   let links;
   if (colors) {
-    links = colors.map((el, i) => {
-      return (
-        <Link
-          style={obj.itemNo === el.itemNo
-            ? {
-              color: '#444',
-              backgroundColor: '#FFF',
-              border: '1px solid #444',
-            }
-            : null}
-          key={i}
-          to={`/products/${el.itemNo}`}
-        >
-          {el.color}
-        </Link>
-      );
-    });
+    links = colors.map((el, i) => (
+      <Link
+        style={obj.itemNo === el.itemNo
+          ? {
+            color: '#444',
+            backgroundColor: '#FFF',
+            border: '1px solid #444',
+          }
+          : null}
+        key={i}
+        to={`/products/${el.itemNo}`}
+      >
+        {el.color}
+      </Link>
+    ));
   }
-
+  // eslint-disable-next-line
   let options;
   if (colors) {
-    options = colors.map((el, i) => {
-      return (
-        <MenuItem value={`/products/${el.itemNo}`} key={i}>
-          {el.color}
-        </MenuItem>
-      );
-    });
+  // eslint-disable-next-line
+    options = colors.map((el, i) => (
+      <MenuItem value={`/products/${el.itemNo}`} key={i}>
+        {el.color}
+      </MenuItem>
+    ));
   }
 
   const classes = useStyles();
@@ -103,7 +101,7 @@ const ProductDetailsCard = (props) => {
       </Box>
       <Box className={classes.price}>
         <Typography>
-          {`$${obj.currentPrice}`}
+          {`${obj.currentPrice}`}
         </Typography>
         <Typography className="oldPrice">
           $4000
@@ -136,17 +134,19 @@ const ProductDetailsCard = (props) => {
         />
         <AddToWishListButton
           obj={obj}
-          user={props.user}
-          allProps={props}
+          user={user}
           className="otherBtn"
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          wishlist={wishlist}
+          addProductToWishlist={addProductToWishlist}
           iconStyle={{
             fill: '#AAA',
           }}
+          iconStyleChosen={{
+            fill: '#6686FF',
+          }}
         />
         <AddToCompareButton
-          className={'otherBtn'}
+          className="otherBtn"
           iconStyle={{
             fill: '#AAA',
             width: '30px',
@@ -154,7 +154,7 @@ const ProductDetailsCard = (props) => {
           }}
           name={obj.name}
           itemImg={obj.itemImg}
-          price={obj.price}
+          price={obj.currentPrice}
           url={obj.url}
           rating={obj.rating}
           key={obj.key}
@@ -162,10 +162,11 @@ const ProductDetailsCard = (props) => {
           distance={obj.distance}
           maxSpeed={obj.maxSpeed}
           chargingTime={obj.chargingTime}
+          obj={obj}
         />
       </ButtonGroup>
     </div>
-  )
+  );
 };
 
 export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCard);

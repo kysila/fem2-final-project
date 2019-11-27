@@ -56,7 +56,9 @@ function ClientProfile(props) {
             getCustomerInfo={props.getCustomerInfo}
           />
           <OrderList />
-          <Wishlist />
+          <Wishlist
+            user={props.user}
+          />
           <ViewedItems />
           <Reviews />
         </section>

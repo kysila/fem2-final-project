@@ -3,11 +3,10 @@ import Slider from 'react-slick';
 import { connect } from 'react-redux';
 
 import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
 import ProductCard from '../ProductCard/ProductCard';
 import { Title } from '../Title/Title';
 import { useStyles } from './Style';
-import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
+import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../store/wishlist/actions';
 
 const RecentlyViewed = (props) => {
   const classes = useStyles();
@@ -30,13 +29,17 @@ const RecentlyViewed = (props) => {
 
   useEffect(() => {
     setProductsList(currentLocal);
+    // eslint-disable-next-line
   }, []);
 
-  const { user, getWishlist } = props;
+  const {
+    user, getWishlist, addProductToWishlist, wishlist,
+  } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
     }
+    // eslint-disable-next-line
   }, [user]);
 
   const settings = {
@@ -68,20 +71,21 @@ const RecentlyViewed = (props) => {
 
   if (productsList) {
     products = productsList.map((el) => (
-      <React.Fragment>
+      <div key={el.itemNo}>
         <ProductCard
-          key={el.itemNo}
+          obj={el.obj}
           className={classes.card}
-          name={el.name}
-          itemImg={el.itemImg}
-          price={el.price}
-          url={el.itemNo}
-          rating={el.rating}
-          itemNo={el.itemNo}
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          name={el.obj.name}
+          itemImg={el.obj.imageUrls[0]}
+          price={el.obj.price}
+          url={el.obj.itemNo}
+          rating={el.obj.rating}
+          itemNo={el.obj.itemNo}
+          id={el.id}
+          wishlist={wishlist}
+          addProductToWishlist={addProductToWishlist}
         />
-      </React.Fragment>
+      </div>
     ));
   } else {
     return (
@@ -104,19 +108,15 @@ const RecentlyViewed = (props) => {
 
 function putStateToProps(state) {
   return {
-    wishlist: state.wishlist.wishlist,
+    wishlist: state.wishlist.arr,
     user: state.auth.user,
   };
 }
 
-function putActionsToProps(dispatch) {
-  return {
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-  };
-}
-
-const RecentlyVwd = connect(putStateToProps, putActionsToProps)(RecentlyViewed);
+const RecentlyVwd = connect(putStateToProps, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
+})(RecentlyViewed);
 export {
   RecentlyVwd as RecentlyViewed,
 };

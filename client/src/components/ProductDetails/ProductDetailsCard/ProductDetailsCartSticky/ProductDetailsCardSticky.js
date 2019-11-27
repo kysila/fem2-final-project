@@ -25,7 +25,7 @@ const ProductDetailsCardSticky = (props) => {
     disabled: false,
     text: 'ADD TO CART',
   });
-
+  const { addProductToWishlist, wishlist, user } = props;
   const obj = props.data.obj;
   const colors = props.data.colors.data;
 
@@ -43,7 +43,8 @@ const ProductDetailsCardSticky = (props) => {
       return (
         <Link
           style={obj.itemNo === el.itemNo
-            ? {color: '#444',
+            ? {
+              color: '#444',
               backgroundColor: '#FFF',
               border: '1px solid #444',
             }
@@ -115,11 +116,10 @@ const ProductDetailsCardSticky = (props) => {
         />
         <AddToWishListButton
           obj={obj}
-          user={props.user}
-          cart={props.cart}
+          user={user}
           className="otherBtn"
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          wishlist={wishlist}
+          addProductToWishlist={addProductToWishlist}
           iconStyle={{
             fill: '#AAA',
           }}
@@ -128,6 +128,9 @@ const ProductDetailsCardSticky = (props) => {
           }}
         />
         <AddToCompareButton
+          obj={obj}
+          user={props.user}
+          allProps={props}
           className={'otherBtn'}
           iconStyle={{
             fill: '#AAA',
@@ -150,4 +153,5 @@ const ProductDetailsCardSticky = (props) => {
   )
 };
 
-export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCardSticky);
+export default connect(mapStateToProps,
+  { addProductToCart, getCartFromLS })(ProductDetailsCardSticky);

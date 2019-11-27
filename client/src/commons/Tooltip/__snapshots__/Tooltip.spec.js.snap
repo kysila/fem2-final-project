@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Steps component Steps render empty title 1`] = `
+<WithStyles(ForwardRef(Tooltip))
+  PopperProps={
+    Object {
+      "popperOptions": Object {
+        "modifiers": Object {
+          "arrow": Object {
+            "element": null,
+            "enabled": false,
+          },
+        },
+      },
+    }
+  }
+  classes={
+    Object {
+      "popper": "makeStyles-popper-3",
+      "tooltip": "makeStyles-tooltip-1",
+    }
+  }
+  open={false}
+  title={
+    <React.Fragment>
+      <span
+        className="makeStyles-arrow-2"
+      />
+    </React.Fragment>
+  }
+/>
+`;
+
+exports[`Steps component Steps render filled title 1`] = `
+<WithStyles(ForwardRef(Tooltip))
+  PopperProps={
+    Object {
+      "popperOptions": Object {
+        "modifiers": Object {
+          "arrow": Object {
+            "element": null,
+            "enabled": false,
+          },
+        },
+      },
+    }
+  }
+  classes={
+    Object {
+      "popper": "makeStyles-popper-3",
+      "tooltip": "makeStyles-tooltip-1",
+    }
+  }
+  open={true}
+  title={
+    <React.Fragment>
+      Some text here.
+      <span
+        className="makeStyles-arrow-2"
+      />
+    </React.Fragment>
+  }
+/>
+`;

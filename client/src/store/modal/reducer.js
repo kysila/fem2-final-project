@@ -14,7 +14,7 @@ export default function (state = { opened: false, child: null, inject: null }, {
       break;
     case ACTIONS.MODAL_CLOSE:
       newState = {
-        ...newState, opened: false, child: null, inject: null,
+        ...newState, opened: false,
       };
       break;
     default:

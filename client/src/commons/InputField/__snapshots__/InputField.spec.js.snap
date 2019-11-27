@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputField component InputField render password 1`] = `
+<WithStyles(ForwardRef(FormControl))
+  className="makeStyles-formControl-1"
+  variant="outlined"
+>
+  <WithStyles(ForwardRef(InputLabel))
+    classes={
+      Object {
+        "root": "makeStyles-label-2",
+      }
+    }
+    htmlFor="test-id"
+  >
+    Password
+  </WithStyles(ForwardRef(InputLabel))>
+  <ArrowTooltip
+    title={null}
+  >
+    <WithStyles(ForwardRef(OutlinedInput))
+      classes={
+        Object {
+          "input": "makeStyles-input-3",
+        }
+      }
+      endAdornment={
+        <Memo(VisibilityIcon)
+          onMouseDown={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "cursor": "pointer",
+              "userSelect": "none",
+            }
+          }
+        />
+      }
+      error={false}
+      fullWidth={true}
+      id="test-id"
+      labelWidth={70}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="password"
+      value="qwerty123"
+    />
+  </ArrowTooltip>
+</WithStyles(ForwardRef(FormControl))>
+`;
+
+exports[`InputField component InputField render text 1`] = `
+<WithStyles(ForwardRef(FormControl))
+  className="makeStyles-formControl-1"
+  variant="outlined"
+>
+  <WithStyles(ForwardRef(InputLabel))
+    classes={
+      Object {
+        "root": "makeStyles-label-2",
+      }
+    }
+    htmlFor="test-id"
+  >
+    Email
+  </WithStyles(ForwardRef(InputLabel))>
+  <ArrowTooltip
+    title={null}
+  >
+    <WithStyles(ForwardRef(OutlinedInput))
+      classes={
+        Object {
+          "input": "makeStyles-input-3",
+        }
+      }
+      error={false}
+      fullWidth={true}
+      id="test-id"
+      labelWidth={40}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      type="text"
+      value="123"
+    />
+  </ArrowTooltip>
+</WithStyles(ForwardRef(FormControl))>
+`;
