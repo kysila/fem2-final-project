@@ -23,8 +23,8 @@ import { useStyles, useMobileStyles } from './styles';
 import Tungsten from '../../fonts/Tungsten-Book.woff';
 
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
-import FacebookSvg from '../../img/auth/facebook.svg';
-import GoogleSvg from '../../img/auth/google.svg';
+// import FacebookSvg from '../../img/auth/facebook.svg';
+// import GoogleSvg from '../../img/auth/google.svg';
 
 const tungsten = {
   fontFamily: 'Tungsten Book',
