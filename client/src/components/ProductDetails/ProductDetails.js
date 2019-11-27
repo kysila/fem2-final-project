@@ -49,15 +49,13 @@ const ProductDetails = (props) => {
   }, [id]);
 
   useEffect(() => {
-    if (state.obj) {
-      axios.get(`/products/product/${state.obj.itemNo}`)
-        .then((data) => {
-          setState({
-            ...state,
-            colors: data,
-          });
+    axios.get(`/products/product/${state.obj.itemNo}`)
+      .then((data) => {
+        setState({
+          ...state,
+          colors: data,
         });
-    }
+      });
     // eslint-disable-next-line
   }, [state.obj]);
 
