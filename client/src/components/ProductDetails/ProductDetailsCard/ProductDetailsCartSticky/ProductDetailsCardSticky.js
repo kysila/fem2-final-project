@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToCart, getCartFromLS } from "../../../../store/cart/actions";
-import { AddToCartButton } from "../../../AddToCartButton/AddToCartButton";
-import { AddToWishListButton } from "../../../AddToWishListButton/AddToWishListButton";
-import AddToCompareButton from '../../../AddToCompareButton/AddToCompareButton';
 
-// import axios from 'axios';
-
-import { Typography } from '@material-ui/core';
-import { ButtonGroup } from '@material-ui/core';
+import { Typography, ButtonGroup, Box } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import Box from "@material-ui/core/Box";
-
-import { useStyles } from "./stickyCartStyle";
+import { addProductToCart, getCartFromLS } from '../../../../store/cart/actions';
+import { AddToCartButton } from '../../../AddToCartButton/AddToCartButton';
+import { AddToWishListButton } from '../../../AddToWishListButton/AddToWishListButton';
+import AddToCompareButton from '../../../AddToCompareButton/AddToCompareButton';
+import { useStyles } from './stickyCartStyle';
+// import axios from 'axios';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
+  wishlist: store.wishlist.arr,
 });
 
 const ProductDetailsCardSticky = (props) => {
@@ -64,12 +61,14 @@ const ProductDetailsCardSticky = (props) => {
     <div className={classes.container}>
       <Typography
         className={classes.categories}
-        variant='body1'>
+        variant="body1"
+      >
         {obj.categories}
       </Typography>
       <Typography
         className={classes.name}
-        variant='h2'>
+        variant="h2"
+      >
         {obj.name}
       </Typography>
       <Rating
@@ -85,7 +84,7 @@ const ProductDetailsCardSticky = (props) => {
         <Typography>
           {`$${obj.currentPrice}`}
         </Typography>
-        <Typography className='oldPrice'>
+        <Typography className="oldPrice">
           $4000
         </Typography>
       </Box>
@@ -131,7 +130,7 @@ const ProductDetailsCardSticky = (props) => {
           obj={obj}
           user={props.user}
           allProps={props}
-          className={'otherBtn'}
+          className="otherBtn"
           iconStyle={{
             fill: '#AAA',
             width: '30px',
@@ -150,7 +149,7 @@ const ProductDetailsCardSticky = (props) => {
         />
       </ButtonGroup>
     </div>
-  )
+  );
 };
 
 export default connect(mapStateToProps,

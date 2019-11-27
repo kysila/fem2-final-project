@@ -20,7 +20,6 @@ import { ProductCustomerReviews } from './ProductCustomerReviews/ProductCustomer
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
-  wishlist: store.wishlist.arr,
 });
 
 const ProductDetails = (props) => {
@@ -46,22 +45,23 @@ const ProductDetails = (props) => {
           obj: data.data,
         }));
       });
-    return () => { };
     // eslint-disable-next-line
   }, [id]);
 
   useEffect(() => {
-    axios.get(`/products/product/${state.obj.itemNo}`)
-      .then((data) => {
-        setState({
-          ...state,
-          colors: data,
+    if (state.obj) {
+      axios.get(`/products/product/${state.obj.itemNo}`)
+        .then((data) => {
+          setState({
+            ...state,
+            colors: data,
+          });
         });
-      });
+    }
     // eslint-disable-next-line
   }, [state.obj]);
 
-  const { user, getWishlist, wishlist, addProductToWishlist } = props;
+  const { user, getWishlist, addProductToWishlist } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
@@ -80,7 +80,6 @@ const ProductDetails = (props) => {
               <ProductGallery image={state.obj.imageUrls} />
               <ProductDetailsCart
                 data={state}
-                wishlist={wishlist}
                 addProductToWishlist={addProductToWishlist}
               />
             </div>
@@ -89,7 +88,7 @@ const ProductDetails = (props) => {
           </div>
           <ProductDetailsCardSticky
             data={state}
-            wishlist={wishlist}
+            /* wishlist={wishlist} */
             addProductToWishlist={addProductToWishlist}
           />
         </div>

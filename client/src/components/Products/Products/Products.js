@@ -63,7 +63,7 @@ const Products = (props) => {
     if (user) {
       getWishlist();
     }
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [user]);
 
   useEffect(() => {

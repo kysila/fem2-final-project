@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-
-import { Typography, ButtonGroup } from '@material-ui/core';
+import { Typography, ButtonGroup, Box, MenuItem } from '@material-ui/core';
 
 import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
-import MenuItem from '@material-ui/core/MenuItem';
 import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
 import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
 import { AddToCartButton } from '../../AddToCartButton/AddToCartButton';
@@ -18,6 +15,7 @@ import { useStyles } from './style';
 const mapStateToProps = (store) => ({
   user: store.auth.user,
   cart: store.cartReducer.cart,
+  wishlist: store.wishlist.arr,
 });
 
 const ProductDetailsCard = (props) => {
@@ -31,7 +29,7 @@ const ProductDetailsCard = (props) => {
   // eslint-disable-next-line
   const [color, setColor] = useState(obj.color);
 
-   // eslint-disable-next-line
+  // eslint-disable-next-line
   const handleChange = (event) => {
     setColor(event.target.value);
   };
@@ -65,7 +63,7 @@ const ProductDetailsCard = (props) => {
   // eslint-disable-next-line
   let options;
   if (colors) {
-  // eslint-disable-next-line
+    // eslint-disable-next-line
     options = colors.map((el, i) => (
       <MenuItem value={`/products/${el.itemNo}`} key={i}>
         {el.color}
