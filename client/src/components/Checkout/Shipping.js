@@ -4,9 +4,7 @@ import {
 } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { connect } from 'react-redux';
-import { withRouter,
-  // Redirect,
-  Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { useStyles } from './styles';
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
@@ -168,7 +166,9 @@ export const Shipping = withRouter(connect(({ auth: { user } }) => ({ user }), {
                   marker: null,
                   Container: (pps) => <MapContainer {...pps} onClick={props.closeModal} />,
                 })}
-                style={{ fontSize: '14px', color: '#6A86E8', ...museo }}
+                style={{
+                  fontSize: '14px', cursor: 'pointer', color: '#6A86E8', ...museo,
+                }}
               >
                 Change
               </Typography>

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Map component Map render 1`] = `
+<withGoogleMap(Component)
+  center={
+    Object {
+      "lat": 50.4287031,
+      "lng": 30.5911917,
+    }
+  }
+  containerElement={
+    <div
+      className="makeStyles-root-1"
+    />
+  }
+  defaultCenter={
+    Object {
+      "lat": 50.4287031,
+      "lng": 30.5911917,
+    }
+  }
+  mapElement={
+    <div
+      className=""
+      style={
+        Object {
+          "height": "100%",
+        }
+      }
+    />
+  }
+  mapRef={[Function]}
+  onCenterChanged={[Function]}
+  onChange={[Function]}
+  onDragEnd={[Function]}
+/>
+`;
