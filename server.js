@@ -38,7 +38,7 @@ const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect( process.env.MONGODB_URI || db, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
+  .connect(db, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log(err));
 mongoose.set('useCreateIndex', true);
