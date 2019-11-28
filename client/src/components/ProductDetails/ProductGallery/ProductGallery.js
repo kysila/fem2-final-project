@@ -15,13 +15,16 @@ export const ProductGallery = ({ image }) => {
   const classes = useStyles();
 
   const renderGallery = (arr) => arr.map((item, i) => (
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <img
       className={classes.img}
       src={item}
       alt={i}
       key={i}
       onClick={(e) => {
+        // eslint-disable-next-line no-mixed-spaces-and-tabs,no-tabs
       	e.preventDefault();
+        // eslint-disable-next-line no-mixed-spaces-and-tabs,no-tabs,no-use-before-define
       	selectedImage(i, e.target);
       }}
     />

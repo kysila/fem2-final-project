@@ -29,7 +29,7 @@ const ProductDetailsCard = (props) => {
   const obj = props.data.obj;
   const colors = props.data.colors.data;
 
-  const [ color, setColor ] = useState(obj.color);
+  const [color, setColor] = useState(obj.color);
 
   const handleChange = event => {
     setColor(event.target.value);
@@ -49,7 +49,8 @@ const ProductDetailsCard = (props) => {
       return (
         <Link
           style={obj.itemNo === el.itemNo
-            ? {color: '#444',
+            ? {
+              color: '#444',
               backgroundColor: '#FFF',
               border: '1px solid #444',
             }
@@ -138,6 +139,8 @@ const ProductDetailsCard = (props) => {
           user={props.user}
           allProps={props}
           className="otherBtn"
+          wishlist={props.wishlist}
+          addProductToWishlist={props.addProductToWishlist}
           iconStyle={{
             fill: '#AAA',
           }}

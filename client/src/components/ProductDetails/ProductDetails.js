@@ -9,20 +9,23 @@ import { Header, Footer } from '../../commons';
 import { ProductGallery } from './ProductGallery/ProductGallery';
 import { ProductDescription } from './ProductDescription/ProductDescription';
 import ProductDetailsCardSticky from './ProductDetailsCard/ProductDetailsCartSticky/ProductDetailsCardSticky';
-import ProductDetailsCart from "./ProductDetailsCard/ProductDetailsCart";
+import ProductDetailsCart from './ProductDetailsCard/ProductDetailsCart';
 import ProductBreadcrumbs from '../Products/ProductBreadcrumbs/ProductBreadcrumbs';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
+import ProductCustomerReviews from './ProductCustomerReviews/ProductCustomerReviews';
+
+import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
 
 import { useStyles } from './style';
-import { ProductCustomerReviews } from './ProductCustomerReviews/ProductCustomerReviews';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
+  wishlist: store.wishlist.wishlist,
 });
 
 const ProductDetails = (props) => {
-    window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
   const [state, setState] = useState({
     obj: {},
     colors: {},
@@ -44,7 +47,7 @@ const ProductDetails = (props) => {
           obj: data.data,
         }));
       });
-    return () => {};
+    return () => { };
   }, [id]);
 
   useEffect(() => {
@@ -57,6 +60,13 @@ const ProductDetails = (props) => {
       });
   }, [state.obj]);
 
+  const { user, getWishlist } = props;
+  useEffect(() => {
+    if (user) {
+      getWishlist();
+    }
+  }, [user]);
+
   return (
     <div className={classes.mainWrapper}>
       <Header callCenter="1-855-324-5387" />
@@ -66,12 +76,20 @@ const ProductDetails = (props) => {
           <div className={classes.productInfo}>
             <div className={classes.wrapper}>
               <ProductGallery image={state.obj.imageUrls} />
-              <ProductDetailsCart data={state}/>
+              <ProductDetailsCart
+                data={state}
+                wishlist={props.wishlist}
+                addProductToWishlist={props.addProductToWishlist}
+              />
             </div>
             <ProductDescription data={state.obj} />
             <ProductCustomerReviews user={props.user} obj={state.obj} />
           </div>
-          <ProductDetailsCardSticky data={state} />
+          <ProductDetailsCardSticky
+            data={state}
+            wishlist={props.wishlist}
+            addProductToWishlist={props.addProductToWishlist}
+          />
         </div>
       </Container>
       <RecentlyViewed />
@@ -81,5 +99,11 @@ const ProductDetails = (props) => {
   );
 };
 
-export default connect(mapStateToProps)(ProductDetails);
+function putActionsToProps(dispatch) {
+  return {
+    getWishlist: () => dispatch(dispatchGetWishlist()),
+    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
+  };
+}
 
+export default connect(mapStateToProps, putActionsToProps)(ProductDetails);
