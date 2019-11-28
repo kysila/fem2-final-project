@@ -193,7 +193,7 @@ const ProductCard = ({
             }}
             className={classes.buttonStyle}
             style={{
-              borderLeft: '1px solid #bdbdbd'
+              borderLeft: '1px solid #bdbdbd',
             }}
           >
             <BagIcon
