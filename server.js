@@ -38,7 +38,7 @@ const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect("mongodb+srv://step-notes:Test-connection1234@cluster0-catm5.mongodb.net/FE_Final_Project_BE?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
+  .connect(db, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log(err));
 mongoose.set('useCreateIndex', true);
@@ -66,15 +66,11 @@ app.use('/comments', comments);
 app.use('/partners', partners);
 app.use("/", mainRoute);
 
-// Server static assets if in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-  });
-}
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+});
 
 const port = process.env.PORT || 5000;
 
