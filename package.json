@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && npm install && npm run build",
     "server": "nodemon server.js",
     "front": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\"  \"npm run front\""
@@ -39,5 +39,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
+  },
+  "engines": {
+    "node": "10.16.0"
   }
 }
