@@ -20,7 +20,6 @@ import { ProductCustomerReviews } from './ProductCustomerReviews/ProductCustomer
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
-  wishlist: store.wishlist.arr,
 });
 
 const ProductDetails = (props) => {
@@ -46,7 +45,6 @@ const ProductDetails = (props) => {
           obj: data.data,
         }));
       });
-    return () => { };
     // eslint-disable-next-line
   }, [id]);
 
@@ -61,7 +59,7 @@ const ProductDetails = (props) => {
     // eslint-disable-next-line
   }, [state.obj]);
 
-  const { user, getWishlist } = props;
+  const { user, getWishlist, addProductToWishlist } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
@@ -80,8 +78,7 @@ const ProductDetails = (props) => {
               <ProductGallery image={state.obj.imageUrls} />
               <ProductDetailsCart
                 data={state}
-                wishlist={props.wishlist.arr}
-                addProductToWishlist={props.addProductToWishlist}
+                addProductToWishlist={addProductToWishlist}
               />
             </div>
             <ProductDescription data={state.obj} />
@@ -89,8 +86,8 @@ const ProductDetails = (props) => {
           </div>
           <ProductDetailsCardSticky
             data={state}
-            wishlist={props.wishlist}
-            addProductToWishlist={props.addProductToWishlist}
+            /* wishlist={wishlist} */
+            addProductToWishlist={addProductToWishlist}
           />
         </div>
       </Container>

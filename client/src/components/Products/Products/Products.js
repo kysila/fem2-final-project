@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow,react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -35,11 +35,13 @@ let perPage = 8;
 let products = [];
 
 const Products = (props) => {
+  console.log('products при загрузке компонента', products);
+  console.log('props.newProducts в рендере', props.newProducts)
   const classes = useStyles();
   let selectedFilterChips;
   // eslint-disable-next-line
   let selectedFilterType;
-  const { addProductToWishlist, getWishlist, wishlist } = props;
+  const { addProductToWishlist, getWishlist, wishlist, user } = props;
 
   const unMountFunc = () => {
     displayedProductsArray = [];
@@ -95,6 +97,7 @@ const Products = (props) => {
     });
   };
   const loadMoreAction = () => {
+    console.log('products при старте лоад море функции', products);
     const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
     perPage += 8;
     startPage += 1;
@@ -102,7 +105,17 @@ const Products = (props) => {
     const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
     props.getMoreProducts(`/products/filter?${newQueryLoad}`);
   };
+
   useEffect(() => {
+    if (user) {
+      getWishlist();
+    }
+    // eslint-disable-next-line
+  }, [user]);
+
+  useEffect(() => {
+    console.log('START useEffecr started');
+    startPage = 1;
     products = [];
     props.getProducts(`/products/filter${props.location.search}`);
     if (!Object.keys(props.selectedFilters).length) {
@@ -113,12 +126,12 @@ const Products = (props) => {
     }
   }, [props.location.search]);
   useEffect(() => {
-    getWishlist();
-
+    console.log('useEffect with unMount Started');
     return unMountFunc;
   }, []);
 
   if (props.allProducts && !props.isProductsFetching && startPage === 1) {
+    console.log('зашел в условие стартовое');
     window.scrollTo(0, 0);
     products = [];
     handleSelectedFilters(props.selectedFilters);
@@ -138,7 +151,6 @@ const Products = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
-          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
         />
       </Grid>
@@ -189,6 +201,8 @@ const Products = (props) => {
         </Grid>
         <main className={classes.main}>
           <Grid container spacing={0} alignItems="center" justify="center">
+            {console.log('products в рендере', products)}
+            {console.log('props.newProducts в рендере', props.newProducts)}
             {props.allProducts && products}
             {props.isProductsFetching
               ? <Preloader />
@@ -231,6 +245,7 @@ const mapStateToProps = (state) => ({
   selectedFilters: state.selectFilterReducer.selectedFilters,
   newProducts: state.productsReducer.newProducts,
   wishlist: state.wishlist.arr,
+  user: state.auth.user,
 });
 
 export default withRouter(connect(mapStateToProps,

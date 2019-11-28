@@ -125,8 +125,8 @@ export const MainCarousel = () => {
               />
             </Grid>
           </Grid>
-        </Container >
-      </div >
+        </Container>
+      </div>
     ));
   } else {
     return <Preloader />;
