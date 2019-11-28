@@ -17,6 +17,7 @@ const AddToCompareButton = ({ obj, itemNo, ...props }) => {
   const classes = useStyles();
 
   const addToCompare = () => {
+    console.log('props',props)
     props.addProductsToCompare(obj);
     setClicked(true);
   };
@@ -32,6 +33,7 @@ const AddToCompareButton = ({ obj, itemNo, ...props }) => {
           className={classes.buttonStyle}
         >
           <GoToCompareIcon
+            obj={obj}
             color="action"
             className="icon"
             style={{

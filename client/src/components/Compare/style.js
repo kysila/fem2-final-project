@@ -17,9 +17,12 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: 0,
     position: 'relative',
     '&:hover': {
-      boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.25)',
+      backgroundColor: 'none',
       zIndex: 100,
     },
+  },
+  MuiButtonRoot: {
+    marginBottom: 10,
   },
   media: {
     height: 200,

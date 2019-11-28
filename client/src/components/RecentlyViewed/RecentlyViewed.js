@@ -76,7 +76,8 @@ const RecentlyViewed = (props) => {
           obj={el.obj}
           className={classes.card}
           name={el.obj.name}
-          itemImg={el.obj.imageUrls[0]}
+          // itemImg={el.obj.imageUrls[0]}
+          itemImg={el.itemImg}
           price={el.obj.price}
           url={el.obj.itemNo}
           rating={el.obj.rating}

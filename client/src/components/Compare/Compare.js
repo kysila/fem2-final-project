@@ -79,7 +79,6 @@ const Compare = ({
     );
   };
 
-
   return (
     <div>
       <Header />
@@ -89,7 +88,9 @@ const Compare = ({
           <TableHead>
             <TableRow>
               <TableCell align="center" className={classes.headerRow} />
-              <ProductForCompare align="center" />
+              <ProductForCompare
+                obj={obj}
+                align="center" />
             </TableRow>
           </TableHead>
           <TableBody>
