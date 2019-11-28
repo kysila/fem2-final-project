@@ -38,7 +38,7 @@ const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
-  .connect(db, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
+  .connect("mongodb+srv://step-notes:Test-connection1234@cluster0-catm5.mongodb.net/FE_Final_Project_BE?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false })
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.log(err));
 mongoose.set('useCreateIndex', true);
