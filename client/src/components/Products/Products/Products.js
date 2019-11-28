@@ -24,7 +24,7 @@ import { useStyles } from './style';
 
 import { getProducts, getMoreProducts } from '../../../store/products/actions';
 import { recentlySelectFilters, deleteSelectedFilters } from '../../../store/selectedFilters/actions';
-import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../../store/wishlist/actions';
+import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../../store/wishlist/actions';
 
 
 let displayedProductsArray = [];
@@ -33,6 +33,7 @@ const Products = (props) => {
   const classes = useStyles();
   let products;
   let selectedFilterChips;
+  // eslint-disable-next-line
   let selectedFilterType;
   let queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
   const startPerPage = +queryOptions.perPage;
@@ -46,16 +47,24 @@ const Products = (props) => {
       delete recentlySelected.startPage;
       props.recentlySelectFilters({ ...recentlySelected });
     }
+    // eslint-disable-next-line
   }, [props.location.search]);
 
   useEffect(() => () => {
     props.recentlySelectFilters({});
+    // eslint-disable-next-line
   }, []);
 
+  const {
+    addProductToWishlist, getWishlist, user,
+  } = props;
+
   useEffect(() => {
-    const { getWishlist } = props;
-    getWishlist();
-  }, []);
+    if (user) {
+      getWishlist();
+    }
+    // eslint-disable-next-line
+  }, [user]);
 
   useEffect(() => {
     if (+queryOptions.perPage !== +perPage) {
@@ -68,6 +77,7 @@ const Products = (props) => {
       const newQueryLoad = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
       props.getMoreProducts(`/products/filter?${newQueryLoad}`, [...displayedProductsArray]);
     }
+    // eslint-disable-next-line
   }, [perPage]);
 
   const loadMoreAction = () => {
@@ -131,8 +141,7 @@ const Products = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          addProductToWishlist={addProductToWishlist}
         />
       </Grid>
     ));
@@ -194,7 +203,7 @@ const mapStateToProps = (state) => ({
   isProductsFetching: state.productsReducer.isProductsFetching,
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,
-  wishlist: state.wishlist.wishlist,
+  user: state.auth.user,
 });
 
 export default withRouter(connect(mapStateToProps,
@@ -203,6 +212,6 @@ export default withRouter(connect(mapStateToProps,
     recentlySelectFilters,
     getMoreProducts,
     deleteSelectedFilters,
-    getWishlist: () => (dispatchGetWishlist()),
-    addProductToWishlist: (url) => (dispatchAddProductAndCreateWishlist(url)),
+    getWishlist: getWishlistFromDB,
+    addProductToWishlist: addProductAndCreateWishlistInDB,
   })(Products));

@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToCart, getCartFromLS } from "../../../../store/cart/actions";
-import { AddToCartButton } from "../../../AddToCartButton/AddToCartButton";
-import { AddToWishListButton } from "../../../AddToWishListButton/AddToWishListButton";
-import AddToCompareButton from '../../../AddToCompareButton/AddToCompareButton';
 
-// import axios from 'axios';
-
-import { Typography } from '@material-ui/core';
-import { ButtonGroup } from '@material-ui/core';
+import { Typography, ButtonGroup, Box } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import Box from "@material-ui/core/Box";
-
-import { useStyles } from "./stickyCartStyle";
+import { addProductToCart, getCartFromLS } from '../../../../store/cart/actions';
+import { AddToCartButton } from '../../../AddToCartButton/AddToCartButton';
+import { AddToWishListButton } from '../../../AddToWishListButton/AddToWishListButton';
+import AddToCompareButton from '../../../AddToCompareButton/AddToCompareButton';
+import { useStyles } from './stickyCartStyle';
+// import axios from 'axios';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -25,8 +21,8 @@ const ProductDetailsCardSticky = (props) => {
     disabled: false,
     text: 'ADD TO CART',
   });
-
-  const obj = props.data.obj;
+  const { addProductToWishlist, user } = props;
+  const { obj } = props.data;
   const colors = props.data.colors.data;
 
   const checkProduct = () => {
@@ -37,13 +33,16 @@ const ProductDetailsCardSticky = (props) => {
     });
   };
 
+  console.log(obj);
+
   let links;
   if (colors) {
     links = colors.map((el, i) => {
       return (
         <Link
           style={obj.itemNo === el.itemNo
-            ? {color: '#444',
+            ? {
+              color: '#444',
               backgroundColor: '#FFF',
               border: '1px solid #444',
             }
@@ -63,12 +62,14 @@ const ProductDetailsCardSticky = (props) => {
     <div className={classes.container}>
       <Typography
         className={classes.categories}
-        variant='body1'>
+        variant="body1"
+      >
         {obj.categories}
       </Typography>
       <Typography
         className={classes.name}
-        variant='h2'>
+        variant="h2"
+      >
         {obj.name}
       </Typography>
       <Rating
@@ -84,7 +85,7 @@ const ProductDetailsCardSticky = (props) => {
         <Typography>
           {`$${obj.currentPrice}`}
         </Typography>
-        <Typography className='oldPrice'>
+        <Typography className="oldPrice">
           $4000
         </Typography>
       </Box>
@@ -115,11 +116,9 @@ const ProductDetailsCardSticky = (props) => {
         />
         <AddToWishListButton
           obj={obj}
-          user={props.user}
-          cart={props.cart}
+          user={user}
           className="otherBtn"
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          addProductToWishlist={addProductToWishlist}
           iconStyle={{
             fill: '#AAA',
           }}
@@ -128,7 +127,10 @@ const ProductDetailsCardSticky = (props) => {
           }}
         />
         <AddToCompareButton
-          className={'otherBtn'}
+          obj={obj}
+          user={props.user}
+          allProps={props}
+          className="otherBtn"
           iconStyle={{
             fill: '#AAA',
             width: '30px',
@@ -147,7 +149,8 @@ const ProductDetailsCardSticky = (props) => {
         />
       </ButtonGroup>
     </div>
-  )
+  );
 };
 
-export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductDetailsCardSticky);
+export default connect(mapStateToProps,
+  { addProductToCart, getCartFromLS })(ProductDetailsCardSticky);

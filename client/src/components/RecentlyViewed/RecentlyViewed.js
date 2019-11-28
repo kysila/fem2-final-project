@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import ProductCard from '../ProductCard/ProductCard';
 import { Title } from '../Title/Title';
 import { useStyles } from './Style';
-import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
+import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../store/wishlist/actions';
 
 const RecentlyViewed = (props) => {
   const classes = useStyles();
@@ -29,13 +29,17 @@ const RecentlyViewed = (props) => {
 
   useEffect(() => {
     setProductsList(currentLocal);
+    // eslint-disable-next-line
   }, []);
 
-  const { user, getWishlist } = props;
+  const {
+    user, getWishlist, addProductToWishlist,
+  } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
     }
+    // eslint-disable-next-line
   }, [user]);
 
   const settings = {
@@ -69,6 +73,7 @@ const RecentlyViewed = (props) => {
     products = productsList.map((el) => (
       <div key={el.itemNo}>
         <ProductCard
+          obj={el}
           className={classes.card}
           name={el.name}
           itemImg={el.itemImg}
@@ -76,8 +81,8 @@ const RecentlyViewed = (props) => {
           url={el.itemNo}
           rating={el.rating}
           itemNo={el.itemNo}
-          wishlist={props.wishlist}
-          addProductToWishlist={props.addProductToWishlist}
+          id={el.id}
+          addProductToWishlist={addProductToWishlist}
         />
       </div>
     ));
@@ -102,19 +107,14 @@ const RecentlyViewed = (props) => {
 
 function putStateToProps(state) {
   return {
-    wishlist: state.wishlist.wishlist,
     user: state.auth.user,
   };
 }
 
-function putActionsToProps(dispatch) {
-  return {
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-  };
-}
-
-const RecentlyVwd = connect(putStateToProps, putActionsToProps)(RecentlyViewed);
+const RecentlyVwd = connect(putStateToProps, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
+})(RecentlyViewed);
 export {
   RecentlyVwd as RecentlyViewed,
 };

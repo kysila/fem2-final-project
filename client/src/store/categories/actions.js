@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {enqueueSnackbar} from "../notification/actions";
+// import {enqueueSnackbar} from "../notification/actions";
 
 // ACTIONS WITH CATEGORIES
 export const GET_CATEGORIES_REQUESTED = 'GET_CATEGORIES_REQUESTED';

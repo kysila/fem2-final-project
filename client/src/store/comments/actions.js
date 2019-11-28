@@ -6,9 +6,20 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_COMMENTS = 'GET_COMMETS';
 
 // ACTIONS
-export const addComment = (comment) => (dispatch) => {
+export const addComment = (comment, id) => (dispatch) => {
   axios.post('/comments', comment)
-    .then(() => {});
+    .then(() => {
+      axios
+        .get(`/comments/product/${id}`)
+        .then((data) => {
+          if (data.data) {
+            dispatch({
+              type: GET_COMMENTS,
+              payload: data.data,
+            });
+          }
+        });
+    });
 };
 
 export const getComments = (id) => (dispatch) => {

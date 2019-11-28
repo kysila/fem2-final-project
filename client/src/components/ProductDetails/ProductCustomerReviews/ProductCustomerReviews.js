@@ -62,6 +62,7 @@ const ProductCustomerReviews = ({ user, obj, ...props }) => {
         // eslint-disable-next-line no-underscore-dangle
         product: obj._id,
       }));
+      // eslint-disable-next-line no-underscore-dangle
       props.getComments(obj._id);
     }
   }, [obj]);
@@ -107,7 +108,7 @@ const ProductCustomerReviews = ({ user, obj, ...props }) => {
         />
         <Button
           className={classes.addReview}
-          onClick={props.addComment(comment)}
+          onClick={props.addComment(comment, obj._id)}
         >
           Add a review
         </Button>

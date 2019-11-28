@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The test of ProfileBreadcrumbs component ProfileBreadcrumbs was rendered 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <WithStyles(ForwardRef(Paper))
+    className="makeStyles-paper-2"
+    elevation={0}
+  >
+    <WithStyles(ForwardRef(Breadcrumbs))
+      aria-label="breadcrumb"
+      separator="›"
+    >
+      <WithStyles(ForwardRef(Link))
+        className="makeStyles-breadCrumbLink-3"
+        href="/"
+      >
+        Homepage
+      </WithStyles(ForwardRef(Link))>
+      <WithStyles(ForwardRef(Typography))
+        color="textPrimary"
+      >
+        Profile
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(ForwardRef(Breadcrumbs))>
+  </WithStyles(ForwardRef(Paper))>
+</div>
+`;

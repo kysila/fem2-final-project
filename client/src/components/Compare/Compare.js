@@ -14,13 +14,14 @@ import { Footer } from '../../commons/Footer/Footer/Footer';
 import ProductForCompare from './ProductForCompare';
 
 import compareReducer from '../../store/compare/compareReducer';
+import {Container} from "@material-ui/core";
 
 const mapStateToProps = (store) => ({
   products: store.compareReducer.products,
 });
 
 const Compare = ({
-  name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, ...props
+  name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, ...props
 }) => {
   const productsArray = props.products;
   const classes = useStyles();
@@ -29,7 +30,7 @@ const Compare = ({
   const PriceRow = () => {
     const priceRow = productsArray.map((row) => (
       <React.Fragment key={row.itemNo}>
-        <TableCell align="center">{row.price}</TableCell>
+        <TableCell align="center">{row.currentPrice || row.price}</TableCell>
       </React.Fragment>
     ));
     return (
@@ -82,12 +83,13 @@ const Compare = ({
   return (
     <div>
       <Header />
+      <Container maxWidth="md">
       <Paper className={classes.root}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell />
-              <ProductForCompare />
+              <TableCell align="center" className={classes.headerRow} />
+              <ProductForCompare align="center" />
             </TableRow>
           </TableHead>
           <TableBody>
@@ -118,6 +120,7 @@ const Compare = ({
           </TableBody>
         </Table>
       </Paper>
+      </Container>
       <Footer />
     </div>
   );

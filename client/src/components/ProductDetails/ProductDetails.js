@@ -16,12 +16,12 @@ import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 import ProductCustomerReviews from './ProductCustomerReviews/ProductCustomerReviews';
 
 import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
+import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../store/wishlist/actions';
 
 import { useStyles } from './style';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
-  wishlist: store.wishlist.wishlist,
 });
 
 const ProductDetails = (props) => {
@@ -47,7 +47,7 @@ const ProductDetails = (props) => {
           obj: data.data,
         }));
       });
-    return () => { };
+    // eslint-disable-next-line
   }, [id]);
 
   useEffect(() => {
@@ -58,13 +58,15 @@ const ProductDetails = (props) => {
           colors: data,
         });
       });
+    // eslint-disable-next-line
   }, [state.obj]);
 
-  const { user, getWishlist } = props;
+  const { user, getWishlist, addProductToWishlist } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
     }
+    // eslint-disable-next-line
   }, [user]);
 
   return (
@@ -78,8 +80,7 @@ const ProductDetails = (props) => {
               <ProductGallery image={state.obj.imageUrls} />
               <ProductDetailsCart
                 data={state}
-                wishlist={props.wishlist}
-                addProductToWishlist={props.addProductToWishlist}
+                addProductToWishlist={addProductToWishlist}
               />
             </div>
             <ProductDescription data={state.obj} />
@@ -87,8 +88,8 @@ const ProductDetails = (props) => {
           </div>
           <ProductDetailsCardSticky
             data={state}
-            wishlist={props.wishlist}
-            addProductToWishlist={props.addProductToWishlist}
+            /* wishlist={wishlist} */
+            addProductToWishlist={addProductToWishlist}
           />
         </div>
       </Container>
@@ -99,11 +100,7 @@ const ProductDetails = (props) => {
   );
 };
 
-function putActionsToProps(dispatch) {
-  return {
-    getWishlist: () => dispatch(dispatchGetWishlist()),
-    addProductToWishlist: (url) => dispatch(dispatchAddProductAndCreateWishlist(url)),
-  };
-}
-
-export default connect(mapStateToProps, putActionsToProps)(ProductDetails);
+export default connect(mapStateToProps, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+  getWishlist: getWishlistFromDB,
+})(ProductDetails);

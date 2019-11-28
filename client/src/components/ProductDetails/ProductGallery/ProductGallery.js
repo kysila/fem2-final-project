@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
-import axios from 'axios';
-
 import Box from '@material-ui/core/Box';
-
 import { useStyles } from './style';
-
 
 export const ProductGallery = ({ image }) => {
   const [state, setState] = useState({

@@ -13,7 +13,7 @@ import filterReducer from './filter/filterReducer';
 import categoryReducer from './categories/categoryReducer';
 import selectFilterReducer from './selectedFilters/selectedFilterReducer';
 import productsReducer from './products/productsReducer';
-import wishlistReducer from './wishlist/reducer';
+import wishlistReducer from './wishlist/wishlistReducer';
 import compareReducer from './compare/compareReducer';
 import commentsReducer from './comments/commentsReducer';
 

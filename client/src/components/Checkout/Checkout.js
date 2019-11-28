@@ -161,20 +161,24 @@ export const Checkout = withRouter(connect(({ auth: { user } }) => ({ user }), {
           <Typography style={{ lineHeight: '30px', fontSize: '20px', ...museo }}>
             Contact information
           </Typography>
-          <Typography style={{ fontSize: '14px', ...museo }}>
-            Already have an account?
-            <Typography
-              component="span"
-              style={{ color: '#8F8DE2', cursor: 'pointer' }}
-              onClick={() => {
-                props.history.push('/');
-                props.openLogin();
-              }}
-            >
-              {' '}
-               Log In
-            </Typography>
-          </Typography>
+          {
+            props.user ? null : (
+              <Typography style={{ fontSize: '14px', ...museo }}>
+                Already have an account?
+                <Typography
+                  component="span"
+                  style={{ color: '#8F8DE2', cursor: 'pointer' }}
+                  onClick={() => {
+                    props.history.push('/');
+                    props.openLogin();
+                  }}
+                >
+                  {' '}
+                  Log In
+                </Typography>
+              </Typography>
+            )
+          }
         </Grid>
         <Grid
           container
