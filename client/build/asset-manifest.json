@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b4c71bd4.chunk.css",
+    "main.js": "/static/js/main.e96608a7.chunk.js",
+    "main.js.map": "/static/js/main.e96608a7.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e077b804.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e077b804.js.map",
+    "static/css/2.18585a14.chunk.css": "/static/css/2.18585a14.chunk.css",
+    "static/js/2.5c4fe7f9.chunk.js": "/static/js/2.5c4fe7f9.chunk.js",
+    "static/js/2.5c4fe7f9.chunk.js.map": "/static/js/2.5c4fe7f9.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.8756a64c1e79c6671a97242a92909a96.js": "/precache-manifest.8756a64c1e79c6671a97242a92909a96.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.18585a14.chunk.css.map": "/static/css/2.18585a14.chunk.css.map",
+    "static/css/main.b4c71bd4.chunk.css.map": "/static/css/main.b4c71bd4.chunk.css.map",
+    "static/media/index.css": "/static/media/Tungsten-Book.6c933a36.woff",
+    "static/media/locator.svg": "/static/media/locator.f9474319.svg",
+    "static/media/mail.svg": "/static/media/mail.366da475.svg",
+    "static/media/marker.svg": "/static/media/marker.8ea075f8.svg",
+    "static/media/mobile.svg": "/static/media/mobile.aa12c8cf.svg",
+    "static/media/slick-theme.css": "/static/media/slick.f97e3bbf.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e077b804.js",
+    "static/css/2.18585a14.chunk.css",
+    "static/js/2.5c4fe7f9.chunk.js",
+    "static/css/main.b4c71bd4.chunk.css",
+    "static/js/main.e96608a7.chunk.js"
+  ]
+}
