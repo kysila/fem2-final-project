@@ -35,8 +35,6 @@ let perPage = 8;
 let products = [];
 
 const Products = (props) => {
-  console.log('products при загрузке компонента', products);
-  console.log('props.newProducts в рендере', props.newProducts)
   const classes = useStyles();
   let selectedFilterChips;
   // eslint-disable-next-line
@@ -97,7 +95,6 @@ const Products = (props) => {
     });
   };
   const loadMoreAction = () => {
-    console.log('products при старте лоад море функции', products);
     const queryOptions = queryString.parse(props.location.search, { arrayFormat: 'comma' });
     perPage += 8;
     startPage += 1;
@@ -114,7 +111,6 @@ const Products = (props) => {
   }, [user]);
 
   useEffect(() => {
-    console.log('START useEffecr started');
     startPage = 1;
     products = [];
     props.getProducts(`/products/filter${props.location.search}`);
@@ -126,12 +122,10 @@ const Products = (props) => {
     }
   }, [props.location.search]);
   useEffect(() => {
-    console.log('useEffect with unMount Started');
     return unMountFunc;
   }, []);
 
   if (props.allProducts && !props.isProductsFetching && startPage === 1) {
-    console.log('зашел в условие стартовое');
     window.scrollTo(0, 0);
     products = [];
     handleSelectedFilters(props.selectedFilters);
@@ -201,8 +195,6 @@ const Products = (props) => {
         </Grid>
         <main className={classes.main}>
           <Grid container spacing={0} alignItems="center" justify="center">
-            {console.log('products в рендере', products)}
-            {console.log('props.newProducts в рендере', props.newProducts)}
             {props.allProducts && products}
             {props.isProductsFetching
               ? <Preloader />

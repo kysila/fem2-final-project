@@ -122,4 +122,8 @@ const mapStateToProps = (state) => ({
   selectedFilters: state.selectFilterReducer.selectedFilters,
 });
 
-export default withRouter(connect(mapStateToProps, { getFilters, getCategories, clearNewProducts })(Filters));
+export default withRouter(connect(mapStateToProps, {
+  getFilters,
+  getCategories,
+  clearNewProducts,
+})(Filters));
