@@ -22,7 +22,7 @@ const slides = require('./routes/slides');
 const wishlist = require('./routes/wishlist');
 const comments = require('./routes/comments');
 const partners = require('./routes/partners');
-// const mainRoute = require("./routes/index");
+const mainRoute = require("./routes/index");
 
 const app = express();
 
@@ -64,7 +64,7 @@ app.use('/slides', slides);
 app.use('/wishlist', wishlist);
 app.use('/comments', comments);
 app.use('/partners', partners);
-// app.use("/", mainRoute);
+app.use("/", mainRoute);
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') {
