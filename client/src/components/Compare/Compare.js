@@ -25,7 +25,7 @@ const Compare = ({
 }) => {
   const productsArray = props.products;
   const classes = useStyles();
-  const headerRow = ['Price', 'Maximum speed', 'Distance', 'Charging time'];
+  const headerRow = ['Price', 'Max speed', 'Distance', 'Charg time'];
 
   const PriceRow = () => {
     const priceRow = productsArray.map((row) => (
@@ -82,12 +82,12 @@ const Compare = ({
   return (
     <div>
       <Header />
-      <Container maxWidth="md">
+      <Container maxWidth="md" className={classes.container}>
       <Paper className={classes.root}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="center" className={classes.headerRow} />
+              <TableCell align="center" className={classes.firstRow} />
               <ProductForCompare
                 obj={obj}
                 align="center" />

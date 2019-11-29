@@ -1,6 +1,11 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
+  container: {
+    [theme.breakpoints.down(360)]: {
+      padding: '0 7px',
+    },
+  },
   root: {
     width: '100%',
     overflowX: 'auto',
@@ -54,6 +59,12 @@ export const useStyles = makeStyles((theme) => ({
     position: 'sticky',
     left: 0,
     background: '#fff',
+    zIndex: '2',
+  },
+  firstRow: {
+    position: 'sticky',
+    left: 0,
+    background: 'linear-gradient(to right, #fff, transparent)',
     zIndex: '2',
   },
   detailsName: {
