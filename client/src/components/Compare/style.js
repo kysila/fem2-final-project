@@ -21,7 +21,7 @@ export const useStyles = makeStyles((theme) => ({
       zIndex: 100,
     },
   },
-  MuiButtonRoot: {
+  'button .MuiButton-root': {
     marginBottom: 10,
   },
   media: {

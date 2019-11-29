@@ -55,12 +55,16 @@ const Products = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  const { addProductToWishlist, getWishlist, wishlist } = props;
+  const {
+    addProductToWishlist, getWishlist, user,
+  } = props;
 
   useEffect(() => {
-    getWishlist();
+    if (user) {
+      getWishlist();
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (+queryOptions.perPage !== +perPage) {
@@ -137,7 +141,6 @@ const Products = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
-          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
         />
       </Grid>
@@ -200,7 +203,7 @@ const mapStateToProps = (state) => ({
   isProductsFetching: state.productsReducer.isProductsFetching,
   allProducts: state.productsReducer.allProducts,
   selectedFilters: state.selectFilterReducer.selectedFilters,
-  wishlist: state.wishlist.arr,
+  user: state.auth.user,
 });
 
 export default withRouter(connect(mapStateToProps,

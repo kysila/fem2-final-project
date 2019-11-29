@@ -32,6 +32,7 @@ export const getWishlistFromDB = () => (dispatch) => {
       const wishlistProducts = data.products.map((el) => ({
         itemNo: el.itemNo,
         name: el.name,
+        imageUrls: el.imageUrls,
         itemImg: el.imageUrls[0],
         price: el.currentPrice,
         url: `/products/${el.itemNo}`,
@@ -63,6 +64,7 @@ export const addProductAndCreateWishlistInDB = (id) => (dispatch) => {
       const wishlistProducts = data.products.map((el) => ({
         itemNo: el.itemNo,
         name: el.name,
+        imageUrls: el.imageUrls,
         itemImg: el.imageUrls[0],
         price: el.currentPrice,
         url: `/products/${el.itemNo}`,
@@ -93,6 +95,7 @@ export const deleteProductFromWishlistDB = (id) => (dispatch) => {
       const wishlistProducts = data.products.map((el) => ({
         itemNo: el.itemNo,
         name: el.name,
+        imageUrls: el.imageUrls,
         itemImg: el.imageUrls[0],
         price: el.currentPrice,
         url: `/products/${el.itemNo}`,

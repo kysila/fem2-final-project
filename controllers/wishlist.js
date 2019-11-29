@@ -149,7 +149,7 @@ exports.addProductToWishlist = async (req, res, next) => {
 
 exports.deleteProductFromWishlish = async (req, res, next) => {
   Wishlist.findOne({ customerId: req.user.id })
-    .then(wishlist => {
+    .then((wishlist) => {
       if (!wishlist) {
         res.status(400).json({ message: `Wishlist does not exist` });
       } else {
@@ -157,16 +157,19 @@ exports.deleteProductFromWishlish = async (req, res, next) => {
           res.status(400).json({
             message: `Product with _id "${req.params.productId}" is absent in wishlist.`
           });
-
           return;
         }
 
-        const wishlistData = {};
+        const wishlistData = { products: [] };
+        let updatedWishlist;
         wishlistData.products = wishlist.products.filter(
-          elem => elem.toString() !== req.params.productId
+          (elem) => elem.toString() !== req.params.productId
         );
-
-        const updatedWishlist = queryCreator(wishlistData);
+        if (!wishlist.products.length) {
+          updatedWishlist = queryCreator(wishlistData);
+        } else {
+          updatedWishlist = wishlistData;
+        }
 
         Wishlist.findOneAndUpdate(
           { customerId: req.user.id },

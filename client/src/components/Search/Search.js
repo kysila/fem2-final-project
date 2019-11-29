@@ -11,21 +11,20 @@ import { Title } from '../Title/Title';
 import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import ProductCard from '../ProductCard/ProductCard';
 import Preloader from '../Preloader/Preloader';
-import { addProductAndCreateWishlistInDB, getWishlistFromDB  } from '../../store/wishlist/actions';
+import { addProductAndCreateWishlistInDB, getWishlistFromDB } from '../../store/wishlist/actions';
 import { useStyles } from './style';
 
 const mapStateToProps = (state) => ({
   searchValue: state.searchReducer.searchValue,
   searchProducts: state.searchReducer.searchProducts,
   isSearchFetching: state.searchReducer.isSearchFetching,
-  wishlist: state.wishlist.arr,
   user: state.auth.user,
 });
 
 const Search = (props) => {
   const classes = useStyles();
   const {
-    addProductToWishlist, getWishlist, wishlist, user,
+    addProductToWishlist, getWishlist, user,
   } = props;
   let searchResult = [];
   if (props.searchProducts.length) {
@@ -40,7 +39,6 @@ const Search = (props) => {
           rating={el.rating}
           // eslint-disable-next-line no-underscore-dangle
           id={el._id}
-          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
         />
       </Grid>
@@ -58,7 +56,7 @@ const Search = (props) => {
     if (user) {
       getWishlist();
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [user]);
 
   return (
