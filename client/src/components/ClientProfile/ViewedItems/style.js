@@ -11,4 +11,15 @@ export const useStyles = makeStyles((theme) => ({
     flexBasis: '66.66%',
     flexShrink: 0,
   },
+  mainContainer: {
+    paddingTop: 30,
+    paddingBottom: 30,
+  },
+  card: {
+    marginBottom: 0,
+    maxWidth: 'auto',
+  },
+  sectionBackground: {
+    backgroundColor: '#FAFAFA',
+  },
 }));
