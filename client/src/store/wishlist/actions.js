@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios';
-
+import { enqueueSnackbar } from '../notification/actions';
 import {
   DELETE_WISHLIST,
   DELETE_PRODUCT_FROM_WISHLIST, ADD_PRODUCT_AND_CREATE_WISHLIST,
@@ -76,6 +76,13 @@ export const addProductAndCreateWishlistInDB = (id) => (dispatch) => {
         wishlistProducts,
         arr,
       });
+      dispatch(enqueueSnackbar({
+        message: 'You added the item to wishlist',
+        options: {
+          variant: 'success',
+          preventDuplicate: true,
+        },
+      }));
     })
     .catch((err) => {
       dispatch({
@@ -107,6 +114,13 @@ export const deleteProductFromWishlistDB = (id) => (dispatch) => {
         wishlistProducts,
         arr,
       });
+      dispatch(enqueueSnackbar({
+        message: 'You successfully have deleted the item from wishlist',
+        options: {
+          variant: 'success',
+          preventDuplicate: true,
+        },
+      }));
     })
     .catch((err) => {
       dispatch({
@@ -125,6 +139,13 @@ export const deleteWishlistFromDB = () => (dispatch) => {
       dispatch({
         type: ACTIONS.DELETE_WISHLIST_SUCCEEDED,
       });
+      dispatch(enqueueSnackbar({
+        message: 'You successfully have deleted the wishlist',
+        options: {
+          variant: 'success',
+          preventDuplicate: true,
+        },
+      }));
     })
     .catch((err) => {
       dispatch({
