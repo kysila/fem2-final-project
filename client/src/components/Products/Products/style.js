@@ -17,7 +17,7 @@ export const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 100,
+    // paddingBottom: 100,
   },
   productsContainer: {
     height: '700px',
