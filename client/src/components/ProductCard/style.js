@@ -87,7 +87,7 @@ export const useStyles = makeStyles({
 			boxShadow: 'none',
 			'& .icon': {
 				fill: '#6686FF',
-			},
+      },
 		},
 	},
 	buttonCompare: {
