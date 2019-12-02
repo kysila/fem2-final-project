@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   container: {
     maxWidth: 251,
     margin: '0 auto 25px',
@@ -52,6 +52,9 @@ export const useStyles = makeStyles({
     padding: 0,
     height: 49,
     transition: 'opacity 0.5s linear',
+    [theme.breakpoints.down(481)]: {
+      opacity: 1,
+    },
   },
   buttonStyle: {
     margin: 0,
@@ -104,4 +107,4 @@ export const useStyles = makeStyles({
       },
     },
   },
-});
+}));

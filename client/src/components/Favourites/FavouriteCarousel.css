@@ -180,3 +180,9 @@
     max-width: 300px;
   }
 }
+
+@media screen and (max-width: 1024px) {
+  .favor-slide-container .slick-next, .favor-slide-container .slick-prev {
+    display: none !important;
+  }
+}
