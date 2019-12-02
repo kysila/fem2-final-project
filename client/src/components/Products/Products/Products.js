@@ -104,6 +104,7 @@ const Products = (props) => {
   };
 
   useEffect(() => {
+    props.clearNewProducts();
     if (user) {
       getWishlist();
     }
