@@ -18,14 +18,23 @@ const mapStateToProps = (state) => ({
 });
 
 const Counter = (props) => {
+  const {
+    user,
+    cart,
+    color,
+    addProductToCart,
+    getCartFromLS,
+    decreaseQuantityOfProducts,
+
+  } = props;
   const classes = useStyles();
   let cartFromLS;
 
   const addCount = (cartQuantity, quantity, id) => {
     if (cartQuantity < quantity) {
-      if (props.user) {
+      if (user) {
         const url = `/cart/${id}`;
-        props.addProductToCart(url);
+        addProductToCart(url);
       } else {
         cartFromLS = JSON.parse(localStorage.getItem('cart'));
         cartFromLS.products.map((el) => {
@@ -34,7 +43,7 @@ const Counter = (props) => {
           }
           return el;
         });
-        props.getCartFromLS(cartFromLS);
+        getCartFromLS(cartFromLS);
         const serialCart = JSON.stringify(cartFromLS);
         localStorage.setItem('cart', serialCart);
       }
@@ -43,9 +52,9 @@ const Counter = (props) => {
 
   const subtractCount = (cartQuantity, id) => {
     if (cartQuantity > 1) {
-      if (props.user) {
+      if (user) {
         const url = `/cart/product/${id}`;
-        props.decreaseQuantityOfProducts(url);
+        decreaseQuantityOfProducts(url);
       } else {
         cartFromLS = JSON.parse(localStorage.getItem('cart'));
         cartFromLS.products.map((el) => {
@@ -54,7 +63,7 @@ const Counter = (props) => {
           }
           return el;
         });
-        props.getCartFromLS(cartFromLS);
+        getCartFromLS(cartFromLS);
         const serialCart = JSON.stringify(cartFromLS);
         localStorage.setItem('cart', serialCart);
       }

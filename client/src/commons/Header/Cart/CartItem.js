@@ -25,6 +25,8 @@ const CartItem = (props) => {
     addProductToWishlist,
     // eslint-disable-next-line no-shadow
     deleteProductOfCart, getCartFromLS,
+    name,
+    color,
   } = props;
   const classes = useStyles();
   const deleteProduct = () => {
@@ -56,12 +58,12 @@ const CartItem = (props) => {
             <Grid item>
               <Link to={`/products/${props.itemNo}`} className={classes.text}>
                 <p>
-                  {props.name}
+                  {name}
                   {' '}
                 </p>
                 <p>
                   (
-                  {props.color}
+                  {color}
                   )
                 </p>
               </Link>
