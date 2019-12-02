@@ -98,7 +98,7 @@ const ProductDetailsCardSticky = (props) => {
           disabled={state.disabled}
           text={state.text}
           obj={obj}
-          user={props.user}
+          user={user}
           addToCartFunc={props.addProductToCart}
           actions={props.getCartFromLS}
           checkProduct={checkProduct}
@@ -126,7 +126,7 @@ const ProductDetailsCardSticky = (props) => {
         />
         <AddToCompareButton
           obj={obj}
-          user={props.user}
+          user={user}
           allProps={props}
           className="otherBtn"
           iconStyle={{

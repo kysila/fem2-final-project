@@ -187,7 +187,7 @@ const ProductCard = ({
           />
           <Button
             onClick={(e) => {
-              props.user
+              user
                 ? props.addProductToCart(`/cart/${id}`)
                 : handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS);
             }}
