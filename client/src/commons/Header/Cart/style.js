@@ -11,6 +11,9 @@ export const useStyles = makeStyles((theme) => createStyles({
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
+    [theme.breakpoints.down(400)]: {
+      flexWrap: 'wrap',
+    },
   },
   drawer: {
   },
@@ -123,6 +126,9 @@ export const useStyles = makeStyles((theme) => createStyles({
     flexBasis: '40%',
     marginLeft: '2%',
     marginRight: '2%',
+    [theme.breakpoints.down(320)]: {
+      width: '55%',
+    },
   },
   button: {
     paddingLeft: '4px',

@@ -18,23 +18,28 @@ const mapStateToProps = (state) => ({
 
 const CartItem = (props) => {
   window.scrollTo(0, 0);
+  const {
+    user,
+    wishlist,
+    id,
+    addProductToWishlist,
+    // eslint-disable-next-line no-shadow
+    deleteProductOfCart, getCartFromLS,
+  } = props;
   const classes = useStyles();
-  const deleteProduct = (id) => {
-    if (props.user) {
+  const deleteProduct = () => {
+    if (user) {
       const url = `/cart/${id}`;
-      props.deleteProductOfCart(url);
+      deleteProductOfCart(url);
     } else {
       const cartFromLS = JSON.parse(localStorage.getItem('cart'));
       const index = cartFromLS.products.findIndex((el) => el.product.itemNo === props.itemNo);
       cartFromLS.products.splice(index, 1);
-      props.getCartFromLS(cartFromLS);
+      getCartFromLS(cartFromLS);
       const serialCart = JSON.stringify(cartFromLS);
       localStorage.setItem('cart', serialCart);
     }
   };
-  const {
-    user, wishlist, id, addProductToWishlist,
-  } = props;
   return (
     <Paper className={classes.root}>
 
