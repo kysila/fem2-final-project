@@ -6,9 +6,11 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const GET_COMMENTS = 'GET_COMMETS';
 
 // ACTIONS
-export const addComment = (comment) => (dispatch) => {
+export const addComment = (comment, callback, id) => (dispatch) => {
   axios.post('/comments', comment)
-    .then(() => {});
+    .then(() => {
+      callback(id);
+    });
 };
 
 export const getComments = (id) => (dispatch) => {
