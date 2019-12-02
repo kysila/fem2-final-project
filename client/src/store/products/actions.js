@@ -22,6 +22,7 @@ export const getProducts = (endpoint) => (dispatch) => {
         url: `/products/${el.itemNo}`,
         rating: el.rating,
         id: el._id,
+        quantity: el.quantity,
         distance: el.distance,
         maxSpeed: el.maxSpeed,
         chargingTime: el.chargingTime,

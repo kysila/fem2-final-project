@@ -66,7 +66,7 @@ const ProductDetails = (props) => {
           <div className={classes.productInfo}>
             <div className={classes.wrapper}>
               <ProductGallery image={state.obj.imageUrls} />
-              <ProductDetailsCart data={state}/>
+              <ProductDetailsCart data={state} />
             </div>
             <ProductDescription data={state.obj} />
             <ProductCustomerReviews user={props.user} obj={state.obj} />

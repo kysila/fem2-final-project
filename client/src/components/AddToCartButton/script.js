@@ -16,6 +16,9 @@ const addToLocalStorage = (data, objParams, cartItem, keyLocalStorage, actions, 
 		cart.products.push(cartItem);
 	}
 	else {
+		console.log(cart.products);
+		console.log(objParams);
+		console.log(objQuantity);
 		cart.products.forEach(el => {
 			if (el.product.itemNo === objParams && el.cartQuantity < objQuantity) {
 				console.log(objQuantity);
@@ -25,7 +28,7 @@ const addToLocalStorage = (data, objParams, cartItem, keyLocalStorage, actions, 
 			}
 			if (el.product.itemNo === objParams && objQuantity === el.cartQuantity) {
 				console.log('===');
-				callback()
+				callback();
 			}
 		});
 	}

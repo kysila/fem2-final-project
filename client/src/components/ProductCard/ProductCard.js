@@ -27,7 +27,7 @@ const mapStateToProps = (store) => ({
 });
 
 const ProductCard = ({
-  obj, name, itemImg, price, url, rating, key, itemNo, id, distance, maxSpeed, chargingTime, ...props
+  obj, name, itemImg, price, url, rating, key, itemNo, id, distance, maxSpeed, chargingTime, quantity, ...props
 }) => {
   const [state, setState] = useState({
     openButtons: false,
@@ -178,7 +178,7 @@ const ProductCard = ({
             onClick={(e) => {
               props.user
                 ? props.addProductToCart(`/cart/${id}`)
-                : handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS);
+                : handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS, quantity);
             }}
             className={classes.buttonStyle}
             style={{

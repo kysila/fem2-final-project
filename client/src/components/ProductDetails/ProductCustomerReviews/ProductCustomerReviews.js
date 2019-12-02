@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { useStyles } from './style';
 
-export const ProductCustomerReviews = ({user, obj}) => {
+export const ProductCustomerReviews = ({ user, obj }) => {
 
   const [value, setValue] = useState(0);
   const [comments, setComments] = useState({

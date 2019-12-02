@@ -34,6 +34,7 @@ export const Favourites = (props) => {
         rating={el.rating}
         itemNo={el.itemNo}
         id={el._id}
+        quantity={el.quantity}
         key={i}
         distance={el.distance}
         maxSpeed={el.maxSpeed}
