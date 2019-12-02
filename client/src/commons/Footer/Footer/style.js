@@ -24,8 +24,10 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    padding: '0',
     [theme.breakpoints.up(480)]: {
+      justifyContent: 'center',
+    },
+    [theme.breakpoints.up(320)]: {
       justifyContent: 'center',
     },
   },

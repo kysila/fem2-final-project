@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import DateFnsUtils from '@date-io/date-fns';
 // Material UI
@@ -21,7 +22,8 @@ import { useStyles } from './style';
 import './styleModal.css';
 import { UPDATE_PASSWORD, UPDATE_CUSTOMER } from '../../../axios/endpoints';
 
-export const Information = (props) => {
+
+export const CustomerInformation = (props) => {
   const classes = useStyles();
   const inputLabel = React.useRef(null);
   const customerEmpty = {
@@ -665,3 +667,12 @@ export const Information = (props) => {
     </React.Fragment>
   );
 };
+
+function putStateToProps(state) {
+  return {
+    user: state.auth.user,
+  };
+}
+
+const CustomerInfo = connect(putStateToProps)(CustomerInformation);
+export { CustomerInfo as Information };

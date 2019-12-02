@@ -20,8 +20,8 @@ import { dispatchGetCustomer } from '../../store/auth/actions';
 
 function ClientProfile(props) {
   const classes = useStyles();
-
-  if (!props.user) {
+  const { getCustomerInfo, user } = props;
+  if (!user) {
     return <Redirect push to="/" />;
   }
 
@@ -52,12 +52,11 @@ function ClientProfile(props) {
           className={classes.contentSection}
         >
           <Information
-            user={props.user}
-            getCustomerInfo={props.getCustomerInfo}
+            getCustomerInfo={getCustomerInfo}
           />
           <OrderList />
           <Wishlist
-            user={props.user}
+            user={user}
           />
           <ViewedItems />
           <Reviews />
