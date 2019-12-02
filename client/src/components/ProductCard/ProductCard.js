@@ -91,7 +91,7 @@ const ProductCard = ({
 
   return (
     <Box className={classes.container}>
-      <Link to={url ? url : '#'} className={classes.link}>
+      <Link to={url || '#'} className={classes.link}>
         <Card
           className={classes.card}
           onClick={viewedItemListener}
@@ -187,7 +187,7 @@ const ProductCard = ({
           />
           <Button
             onClick={(e) => {
-             user
+              user
                 ? props.addProductToCart(`/cart/${id}`)
                 : handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS);
             }}

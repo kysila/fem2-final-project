@@ -11,7 +11,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
-    [theme.breakpoints.down(400)]: {
+    [theme.breakpoints.down(450)]: {
       flexWrap: 'wrap',
     },
   },
@@ -103,10 +103,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     height: '74px',
     display: 'flex',
     [theme.breakpoints.down(480)]: {
-      width: '25%',
-    },
-    [theme.breakpoints.down(320)]: {
-      width: '30%',
+      width: '45%',
     },
   },
   img: {
@@ -189,6 +186,7 @@ export const useStyles = makeStyles((theme) => createStyles({
   },
   counter_price_box: {
     flexBasis: '30%',
+    textAlign: 'left',
   },
   counter_price: {
     justifyContent: 'space-between',

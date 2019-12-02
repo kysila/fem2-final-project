@@ -22,7 +22,7 @@ export const getCartFromDB = () => (dispatch) => {
   axios
     .get('/cart')
     .then((cart) => {
-        console.log('GetCartFromDB', cart.data);
+        // console.log('GetCartFromDB', cart.data);
         if (cart.data) {
         dispatch({
           type: GET_PRODUCTS_FROM_DB,
@@ -47,7 +47,7 @@ export const getCartFromDB = () => (dispatch) => {
 export const addProductToCart = (url) => (dispatch) => {
   axios.put(url)
     .then((cart) => {
-      console.log('cart.data.products add ====>', cart.data.products);
+      // console.log('cart.data.products add ====>', cart.data.products);
       dispatch({
         type: ADD_PRODUCT_TO_CART,
         payload: cart.data.products,
@@ -94,7 +94,7 @@ export const createCart = () => (dispatch) => {
           axios
             .put('/cart', cartFromLS)
             .then((responce) => {
-              console.log('Update cart ----', responce.data);
+              // console.log('Update cart ----', responce.data);
               //   dispatch({
               //   type: GET_PRODUCTS_FROM_DB,
               //   payload: responce.data.products,
@@ -104,7 +104,7 @@ export const createCart = () => (dispatch) => {
           axios
             .post('/cart', cartFromLS)
             .then((responce) => {
-              console.log('New cart ----->', responce.data);
+              // console.log('New cart ----->', responce.data);
               // dispatch({
               //   type: GET_PRODUCTS_FROM_DB,
               //   payload: responce.data.products,

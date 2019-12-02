@@ -1,11 +1,13 @@
 import axios from 'axios';
 
-
 // ACTIONS WITH OTHER FILTERS
 export const GET_PRODUCTS_REQUESTED = 'GET_PRODUCTS_REQUESTED';
 export const GET_PRODUCTS_SUCCEEDED = 'GET_PRODUCTS_SUCCEEDED';
 export const GET_PRODUCTS_FAILED = 'GET_PRODUCTS_FAILED';
-
+export const GET_MORE_PRODUCTS_REQUESTED = 'GET_MORE_PRODUCTS_REQUESTED';
+export const GET_MORE_PRODUCTS_SUCCEEDED = 'GET_MORE_PRODUCTS_SUCCEEDED';
+export const GET_MORE_PRODUCTS_FAILED = 'GET_MORE_PRODUCTS_FAILED';
+export const CLEAR_NEW_PRODUCTS = 'CLEAR_NEW_PRODUCTS';
 
 // action:
 export const getProducts = (endpoint) => (dispatch) => {
@@ -37,18 +39,12 @@ export const getProducts = (endpoint) => (dispatch) => {
         type: GET_PRODUCTS_FAILED,
         payload: err,
       });
-      // dispatch(enqueueSnackbar({
-      //   message: err,
-      //   options: {
-      //     variant: 'error',
-      //   },
-      // }));
     });
 };
 
-export const getMoreProducts = (endpoint, existedProducts) => (dispatch) => {
+export const getMoreProducts = (endpoint) => (dispatch) => {
   dispatch({
-    type: GET_PRODUCTS_REQUESTED,
+    type: GET_MORE_PRODUCTS_REQUESTED,
   });
   axios.get(endpoint)
     .then((data) => {
@@ -65,23 +61,21 @@ export const getMoreProducts = (endpoint, existedProducts) => (dispatch) => {
         maxSpeed: el.maxSpeed,
         chargingTime: el.chargingTime,
       }));
-      const allProducts = [...existedProducts, ...newProducts];
       dispatch({
-        type: GET_PRODUCTS_SUCCEEDED,
-        allProducts,
+        type: GET_MORE_PRODUCTS_SUCCEEDED,
+        newProducts,
       });
     })
     .catch((err) => {
       dispatch({
-        type: GET_PRODUCTS_FAILED,
-        payload: err.response.data,
+        type: GET_MORE_PRODUCTS_FAILED,
+        payload: err,
       });
-      // console.log('err', err);
-      // dispatch(enqueueSnackbar({
-      //   message: err,
-      //   options: {
-      //     variant: 'error',
-      //   },
-      // }));
     });
 };
+export const clearNewProducts = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_NEW_PRODUCTS,
+    newProducts: [],
+  });
+}

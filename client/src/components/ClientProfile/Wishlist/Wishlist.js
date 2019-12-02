@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 // Material UI
 import {
-  Button, Checkbox, ExpansionPanel, ExpansionPanelActions,
+  Button, Checkbox, Container, ExpansionPanel, ExpansionPanelActions,
   ExpansionPanelDetails, ExpansionPanelSummary,
   Grid, Divider, Typography, FormControlLabel,
 } from '@material-ui/core';
@@ -116,24 +116,26 @@ const Wishlist = (props) => {
         <ExpansionPanelDetails
           className={classes.expansionPanelDetails}
         >
-          {
-            wishlist.length ? (
-              <Grid
-                className={classes.root}
-                container
-                spacing={2}
-              >
-                {wishlistAllProducts}
-              </Grid>
-            ) : (
-                <Typography
-                  variant="h5"
-                  className={classes.formsInfo}
+          <Container>
+            {
+              wishlist.length ? (
+                <Grid
+                  className={classes.root}
+                  container
+                  spacing={2}
                 >
-                  You have an empty wishlist
-              </Typography>
-              )
-          }
+                  {wishlistAllProducts}
+                </Grid>
+              ) : (
+                  <Typography
+                    align='center'
+                    className={classes.formsInfo}
+                  >
+                    You have an empty wishlist
+                </Typography>
+                )
+            }
+          </Container>
         </ExpansionPanelDetails>
         <Divider />
         <ExpansionPanelActions>

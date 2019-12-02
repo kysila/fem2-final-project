@@ -20,7 +20,6 @@ import { ProductCustomerReviews } from './ProductCustomerReviews/ProductCustomer
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
-  wishlist: store.wishlist.arr,
 });
 
 const ProductDetails = (props) => {
@@ -46,8 +45,6 @@ const ProductDetails = (props) => {
           obj: data.data,
         }));
       });
-    // eslint-disable-next-line
-    return () => { };
     // eslint-disable-next-line
   }, [id]);
 

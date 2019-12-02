@@ -8,7 +8,7 @@ import { ACTIONS } from './reducer';
 import { GET_CUSTOMER, LOGIN, REGISTER } from '../../axios/endpoints';
 import { enqueueSnackbar, closeSnackbar } from '../notification/actions';
 import { modalOpen, modalClose } from '../modal/actions';
-import { CLEAN_CART, createCart} from '../cart/actions';
+import { createCart } from '../cart/actions';
 
 export function logout() {
   return {

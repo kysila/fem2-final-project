@@ -16,9 +16,7 @@ const AddToWishListBtn = ({
     idProduct = id;
   } else if (obj.id) {
     idProduct = obj.id;
-    // eslint-disable-next-line no-underscore-dangle
   } else if (obj._id) {
-    // eslint-disable-next-line no-underscore-dangle
     idProduct = obj._id;
   }
 
