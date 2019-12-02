@@ -19,14 +19,16 @@ const mapStateToProps = (store) => ({
   cart: store.cartReducer.cart,
 });
 
-const ProductDetailsCard = (props) => {
+const ProductDetailsCard = ({
+  // eslint-disable-next-line no-shadow
+  addProductToWishlist, addProductToCart, getCartFromLS, user, data,
+}) => {
   const [state, setState] = useState({
     disabled: false,
     text: 'ADD TO CART',
   });
-  const { addProductToWishlist, user } = props;
-  const obj = props.data.obj;
-  const colors = props.data.colors.data;
+  const { obj } = data;
+  const colors = data.colors.data;
   // eslint-disable-next-line
   const [color, setColor] = useState(obj.color);
 
@@ -118,8 +120,8 @@ const ProductDetailsCard = (props) => {
           text={state.text}
           obj={obj}
           user={user}
-          addToCartFunc={props.addProductToCart}
-          actions={props.getCartFromLS}
+          addToCartFunc={addProductToCart}
+          actions={getCartFromLS}
           checkProduct={checkProduct}
           style={{
             width: '60%', borderRadius: '4px',

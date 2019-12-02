@@ -16,14 +16,16 @@ const mapStateToProps = (store) => ({
   cart: store.cartReducer.cart,
 });
 
-const ProductDetailsCardSticky = (props) => {
+const ProductDetailsCardSticky = ({
+  // eslint-disable-next-line no-shadow
+  addProductToWishlist, addProductToCart, getCartFromLS, user, data, ...props
+}) => {
   const [state, setState] = useState({
     disabled: false,
     text: 'ADD TO CART',
   });
-  const { addProductToWishlist, user } = props;
-  const obj = props.data.obj;
-  const colors = props.data.colors.data;
+  const { obj } = data;
+  const colors = data.colors.data;
 
   const checkProduct = () => {
     setState({
@@ -35,23 +37,21 @@ const ProductDetailsCardSticky = (props) => {
 
   let links;
   if (colors) {
-    links = colors.map((el, i) => {
-      return (
-        <Link
-          style={obj.itemNo === el.itemNo
-            ? {
-              color: '#444',
-              backgroundColor: '#FFF',
-              border: '1px solid #444',
-            }
-            : null}
-          key={i}
-          to={`/products/${el.itemNo}`}
-        >
-          {el.color}
-        </Link>
-      );
-    });
+    links = colors.map((el, i) => (
+      <Link
+        style={obj.itemNo === el.itemNo
+          ? {
+            color: '#444',
+            backgroundColor: '#FFF',
+            border: '1px solid #444',
+          }
+          : null}
+        key={i}
+        to={`/products/${el.itemNo}`}
+      >
+        {el.color}
+      </Link>
+    ));
   }
 
   const classes = useStyles();
@@ -75,7 +75,8 @@ const ProductDetailsCardSticky = (props) => {
         size="large"
         precision={0.5}
         value={obj.rating}
-        readOnly />
+        readOnly
+      />
       <Box className={classes.otherColors}>
         {links}
       </Box>
@@ -99,8 +100,8 @@ const ProductDetailsCardSticky = (props) => {
           text={state.text}
           obj={obj}
           user={user}
-          addToCartFunc={props.addProductToCart}
-          actions={props.getCartFromLS}
+          addToCartFunc={addProductToCart}
+          actions={getCartFromLS}
           checkProduct={checkProduct}
           style={{
             width: '60%', borderRadius: '4px',
@@ -109,7 +110,7 @@ const ProductDetailsCardSticky = (props) => {
             width: 21,
             height: 20,
             fill: '#fff',
-            marginRight: 8
+            marginRight: 8,
           }}
         />
         <AddToWishListButton
