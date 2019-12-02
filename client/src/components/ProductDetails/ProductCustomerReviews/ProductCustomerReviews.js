@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import axios from 'axios';
-
 import Box from '@material-ui/core/Box';
 import Rating from '@material-ui/lab/Rating';
 import Button from '@material-ui/core/Button';
@@ -17,7 +15,10 @@ const mapStateToProps = (store) => ({
   comments: store.commentsReducer.comments,
 });
 
-const ProductCustomerReviews = ({ user, obj, ...props }) => {
+const ProductCustomerReviews = ({
+  // eslint-disable-next-line no-shadow
+  user, obj, addComment, getComments, comments,
+}) => {
   const [value, setValue] = useState(0);
 
   const [comment, setComment] = useState({
@@ -63,7 +64,7 @@ const ProductCustomerReviews = ({ user, obj, ...props }) => {
         product: obj._id,
       }));
       // eslint-disable-next-line no-underscore-dangle
-      props.getComments(obj._id);
+      getComments(obj._id);
     }
   }, [obj]);
 
@@ -71,7 +72,7 @@ const ProductCustomerReviews = ({ user, obj, ...props }) => {
     <Box className={classes.reviewsMainBox}>
       <Typography className={classes.reviewsHeader}>
         CUSTOMER REVIEWS (
-        {props.comments.length}
+        {comments.length}
         )
       </Typography>
       <Box
@@ -108,12 +109,15 @@ const ProductCustomerReviews = ({ user, obj, ...props }) => {
         />
         <Button
           className={classes.addReview}
-          onClick={props.addComment(comment, obj._id)}
+          /* eslint-disable-next-line no-underscore-dangle */
+          onClick={() => {
+            addComment(comment);
+          }}
         >
           Add a review
         </Button>
       </Box>
-      { props.comments.length !== 0 ? renderComments(props.comments) : null }
+      { comments.length !== 0 ? renderComments(comments) : null }
     </Box>
   );
 };

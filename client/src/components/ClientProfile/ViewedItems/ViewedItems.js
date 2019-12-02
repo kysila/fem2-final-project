@@ -1,20 +1,116 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 // Material UI
 import {
-  ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography,
+  Container, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // Local imports
 import { useStyles } from './style';
+import { addProductAndCreateWishlistInDB } from '../../../store/wishlist/actions';
+import ProductCard from '../../ProductCard/ProductCard';
 
-
-export const ViewedItems = (props) => {
+const ViewedItems = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState('');
-
+  const [productsList, setProductsList] = useState([]);
+  const [arrInfinity, setArrInfinity] = useState({ infinity: false });
+  const { addProductToWishlist } = props;
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  let products;
+  let productsListInfo;
+  const currentLocal = JSON.parse(localStorage.getItem('product'));
+
+  useEffect(() => {
+    setProductsList(currentLocal);
+    if (currentLocal && currentLocal.length > 1) {
+      setArrInfinity({ infinity: true });
+    }
+  }, []);
+
+  const settings = {
+    centerPadding: '0px',
+    dots: true,
+    infinite: arrInfinity.infinity,
+    speed: 650,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    pauseOnHover: true,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1052,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 482,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+        },
+      },
+    ],
+  };
+
+  if (productsList) {
+    products = productsList.map((el) => (
+      <div
+        key={el.itemNo}
+      >
+        <ProductCard
+          obj={el.obj}
+          className={classes.card}
+          name={el.name}
+          itemImg={el.itemImg}
+          price={el.price}
+          url={el.url}
+          rating={el.rating}
+          itemNo={el.itemNo}
+          id={el.id}
+          addProductToWishlist={addProductToWishlist}
+        />
+      </div>
+    ));
+  }
+
+  if (productsList) {
+    productsListInfo = (
+      <Slider
+        {...settings}
+        className={classes.paddingTop}
+      >
+        {products}
+      </Slider>
+    );
+  } else {
+    productsListInfo = (
+      <Typography
+        align="center"
+      >
+        You have not seen any item yet.
+      </Typography>
+    );
+  }
 
   return (
     <React.Fragment>
@@ -37,14 +133,18 @@ export const ViewedItems = (props) => {
         <ExpansionPanelDetails
           className={classes.expansionPanelDetails}
         >
-          <Typography>
-            Nunc vitae orci ultricies,
-            auctor nunc in, volutpat nisl.
-            Integer sit amet egestas eros,
-            vitae egestas augue. Duis vel est augue.
-          </Typography>
+          <Container
+            className={classes.mainContainer}
+          >
+            {productsListInfo}
+          </Container>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </React.Fragment>
   );
-}
+};
+
+const ViewedItms = connect(null, {
+  addProductToWishlist: addProductAndCreateWishlistInDB,
+})(ViewedItems);
+export { ViewedItms as ViewedItems };

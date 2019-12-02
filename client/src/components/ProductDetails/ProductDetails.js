@@ -15,8 +15,8 @@ import StayInTouch from '../../commons/Footer/StayInTouch/StayInTouch';
 import { RecentlyViewed } from '../RecentlyViewed/RecentlyViewed';
 import ProductCustomerReviews from './ProductCustomerReviews/ProductCustomerReviews';
 
-import { dispatchGetWishlist, dispatchAddProductAndCreateWishlist } from '../../store/wishlist/actions';
 import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../store/wishlist/actions';
+
 
 import { useStyles } from './style';
 
@@ -24,7 +24,9 @@ const mapStateToProps = (store) => ({
   user: store.auth.user,
 });
 
-const ProductDetails = (props) => {
+const ProductDetails = ({
+  user, getWishlist, addProductToWishlist, ...props
+}) => {
   window.scrollTo(0, 0);
   const [state, setState] = useState({
     obj: {},
@@ -40,28 +42,31 @@ const ProductDetails = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
-    axios.get(`/products/${props.match.params.id}`)
-      .then((data) => {
-        setState(() => ({
-          ...state,
-          obj: data.data,
-        }));
-      });
+    if (id) {
+      axios.get(`/products/${id}`)
+        .then((data) => {
+          setState(() => ({
+            ...state,
+            obj: data.data,
+          }));
+        });
+    }
     // eslint-disable-next-line
   }, [id]);
 
   useEffect(() => {
-    axios.get(`/products/product/${state.obj.itemNo}`)
-      .then((data) => {
-        setState({
-          ...state,
-          colors: data,
+    if (state.obj) {
+      axios.get(`/products/product/${state.obj.itemNo}`)
+        .then((data) => {
+          setState({
+            ...state,
+            colors: data,
+          });
         });
-      });
+    }
     // eslint-disable-next-line
   }, [state.obj]);
 
-  const { user, getWishlist, addProductToWishlist } = props;
   useEffect(() => {
     if (user) {
       getWishlist();
@@ -84,7 +89,7 @@ const ProductDetails = (props) => {
               />
             </div>
             <ProductDescription data={state.obj} />
-            <ProductCustomerReviews user={props.user} obj={state.obj} />
+            <ProductCustomerReviews user={user} obj={state.obj} />
           </div>
           <ProductDetailsCardSticky
             data={state}

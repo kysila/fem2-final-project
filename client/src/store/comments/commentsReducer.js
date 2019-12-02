@@ -10,6 +10,10 @@ const initialState = {
 // REDUCER
 function commentsReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case ADD_COMMENT:
+      return {
+        ...state,
+      };
     case GET_COMMENTS:
       return {
         ...state,
