@@ -68,7 +68,7 @@ function Favorites(props) {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 700,
     slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
@@ -76,6 +76,8 @@ function Favorites(props) {
       {
         breakpoint: 1024,
         settings: {
+          autoplay: true,
+          pauseOnHover: true,
           slidesToShow: 3,
           slidesToScroll: 1,
           infinite: true,
