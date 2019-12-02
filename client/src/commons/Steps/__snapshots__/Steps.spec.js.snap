@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Steps component Steps render 1`] = `
+<Styled(MuiBox)
+  className="makeStyles-container-1"
+>
+  <StepsItem
+    isActive={true}
+    key="id-0"
+    text="Cart"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-0s"
+  />
+  <StepsItem
+    isActive={false}
+    key="id-1"
+    src="/checkout/info"
+    text="Information"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-1s"
+  />
+  <StepsItem
+    isActive={false}
+    key="id-2"
+    src={null}
+    text="Shipping"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-2s"
+  />
+  <StepsItem
+    isActive={false}
+    key="id-3"
+    src={null}
+    text="Payment"
+  />
+</Styled(MuiBox)>
+`;
+
+exports[`Steps component Steps render 2`] = `
+<Styled(MuiBox)
+  className="makeStyles-container-1"
+>
+  <StepsItem
+    isActive={true}
+    key="id-0"
+    text="Cart"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-0s"
+  />
+  <StepsItem
+    isActive={true}
+    key="id-1"
+    src="/checkout/info"
+    text="Information"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-1s"
+  />
+  <StepsItem
+    isActive={false}
+    key="id-2"
+    src={null}
+    text="Shipping"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-2s"
+  />
+  <StepsItem
+    isActive={false}
+    key="id-3"
+    src={null}
+    text="Payment"
+  />
+</Styled(MuiBox)>
+`;
+
+exports[`Steps component Steps render 3`] = `
+<Styled(MuiBox)
+  className="makeStyles-container-1"
+>
+  <StepsItem
+    isActive={true}
+    key="id-0"
+    text="Cart"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-0s"
+  />
+  <StepsItem
+    isActive={true}
+    key="id-1"
+    src="/checkout/info"
+    text="Information"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-1s"
+  />
+  <StepsItem
+    isActive={true}
+    key="id-2"
+    src="/checkout/shipping"
+    text="Shipping"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-2s"
+  />
+  <StepsItem
+    isActive={false}
+    key="id-3"
+    src={null}
+    text="Payment"
+  />
+</Styled(MuiBox)>
+`;
+
+exports[`Steps component Steps render 4`] = `
+<Styled(MuiBox)
+  className="makeStyles-container-1"
+>
+  <StepsItem
+    isActive={true}
+    key="id-0"
+    text="Cart"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-0s"
+  />
+  <StepsItem
+    isActive={true}
+    key="id-1"
+    src="/checkout/info"
+    text="Information"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-1s"
+  />
+  <StepsItem
+    isActive={true}
+    key="id-2"
+    src="/checkout/shipping"
+    text="Shipping"
+  />
+  <Separator
+    classes={
+      Object {
+        "container": "makeStyles-container-1",
+        "separator": "makeStyles-separator-2",
+      }
+    }
+    key="id-2s"
+  />
+  <StepsItem
+    isActive={true}
+    key="id-3"
+    src="/checkout/payment"
+    text="Payment"
+  />
+</Styled(MuiBox)>
+`;

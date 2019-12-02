@@ -76,7 +76,7 @@ export const useStyles = makeStyles((theme) => ({
     color: '#ffffff !important',
   },
   toLeft: {
-    marginTop: '88px',
+    // marginTop: '88px',
     fontSize: '14px',
     letterSpacing: '-0.02em',
     alignSelf: 'flex-start',

@@ -22,7 +22,6 @@ const Wishlist = (props) => {
     getWishlist, wishlist, addProductToWishlist,
     wishlistProducts, user, deleteProductFromWishlist, deleteWishlist,
   } = props;
-  // deleteWishlist
 
   const [expanded, setExpanded] = useState('');
   const handleChange = (panel) => (event, isExpanded) => {
@@ -43,7 +42,7 @@ const Wishlist = (props) => {
     if (user) {
       getWishlist();
     }
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, [user]);
 
 
@@ -52,7 +51,7 @@ const Wishlist = (props) => {
       setList(wishlistProducts);
     }
     setLoading(false);
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, [wishlist]);
   let wishlistAllProducts;
   if (list && !loading) {
@@ -80,6 +79,7 @@ const Wishlist = (props) => {
           name={el.name}
           obj={el}
           itemImg={el.itemImg}
+          imageUrls={el.imageUrls[0]}
           price={el.price}
           url={el.url}
           rating={el.rating}
@@ -156,12 +156,6 @@ function putStateToProps(state) {
     wishlistProducts: state.wishlist.products,
   };
 }
-
-// function putActionsToProps(dispatch) {
-//   return {
-//     deleteWishlist: () => dispatch(dispatchDeleteWishlist()),
-//   };
-// }
 
 const WishlistComponent = connect(putStateToProps, {
   addProductToWishlist: addProductAndCreateWishlistInDB,

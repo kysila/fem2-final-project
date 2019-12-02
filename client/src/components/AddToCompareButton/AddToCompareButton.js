@@ -12,44 +12,48 @@ const mapStateToProps = (state) => ({
 });
 
 
-const AddToCompareButton = ({ ...props }) => {
+const AddToCompareButton = ({ obj, itemNo, ...props }) => {
   const [clicked, setClicked] = useState(false);
   const classes = useStyles();
 
   const addToCompare = () => {
-    props.addProductsToCompare({ ...props });
+    props.addProductsToCompare(obj);
     setClicked(true);
   };
 
-  if (clicked) {
+  const filterCart = (arr, objParams) => arr.some((el) => el.itemNo === objParams);
+  const item = itemNo;
+
+
+  if (clicked || filterCart(props.products, item)) {
     return (
       <Link to="/compare" className={classes.linkStyle}>
-      <Button
-        className={classes.buttonStyle}
-      >
-        <GoToCompareIcon
-          color="action"
-          className="icon"
-          style={{
-            width: '30px',
-            height: '23px',
-          }}
-        />
-      </Button>
+        <Button
+          className={classes.buttonStyle}
+        >
+          <GoToCompareIcon
+            color="action"
+            className="icon"
+            style={{
+              width: '30px',
+              height: '23px',
+            }}
+          />
+        </Button>
       </Link>
     );
   }
   return (
-      <Button
-        className={classes.buttonStyle}
-        onClick={addToCompare}
-      >
-        <WeigherIcon
-          color="action"
-          className="icon"
-          style={props.iconStyle}
-        />
-      </Button>
+    <Button
+      className={classes.buttonStyle}
+      onClick={addToCompare}
+    >
+      <WeigherIcon
+        color="action"
+        className="icon"
+        style={props.iconStyle}
+      />
+    </Button>
   );
 };
 

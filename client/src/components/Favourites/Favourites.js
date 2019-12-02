@@ -23,7 +23,7 @@ function Favorites(props) {
     });
   }, []);
   const {
-    user, getWishlist, addProductToWishlist, wishlist,
+    user, getWishlist, addProductToWishlist,
   } = props;
   useEffect(() => {
     if (user) {
@@ -47,7 +47,6 @@ function Favorites(props) {
         distance={el.distance}
         maxSpeed={el.maxSpeed}
         chargingTime={el.chargingTime}
-        wishlist={wishlist}
         addProductToWishlist={addProductToWishlist}
       />
     ));
@@ -122,7 +121,6 @@ function Favorites(props) {
 
 function putStateToProps(state) {
   return {
-    wishlist: state.wishlist.arr,
     user: state.auth.user,
   };
 }

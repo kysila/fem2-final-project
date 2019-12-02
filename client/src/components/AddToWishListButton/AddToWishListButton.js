@@ -1,9 +1,11 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-indent */
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { HeartIcon, HeartIconFilled } from '../Icons/Icons';
 
-export const AddToWishListButton = ({
+const AddToWishListBtn = ({
   obj, id, user, className, iconStyle, iconStyleChosen,
   addProductToWishlist, wishlist,
 }) => {
@@ -38,7 +40,7 @@ export const AddToWishListButton = ({
     if (user && wishlist && idProduct) {
       checkExistence(idProduct);
     }
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, [user, obj, idProduct, wishlist]);
 
   return (
@@ -62,3 +64,11 @@ export const AddToWishListButton = ({
     </Button>
   );
 };
+
+function putStateToProps(state) {
+  return {
+    wishlist: state.wishlist.arr,
+  };
+}
+
+export const AddToWishListButton = connect(putStateToProps)(AddToWishListBtn);

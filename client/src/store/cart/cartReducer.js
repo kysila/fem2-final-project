@@ -6,7 +6,6 @@ import {
   DECREASE_QUANTITY_OF_PRODUCTS,
   DELETE_PRODUCT_OF_CART,
   CLEAN_CART,
-  // REPLACE_CART,
 }
   from './actions';
 

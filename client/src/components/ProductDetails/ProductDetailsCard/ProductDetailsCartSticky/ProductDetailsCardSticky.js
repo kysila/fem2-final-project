@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToCart, getCartFromLS } from "../../../../store/cart/actions";
-import { AddToCartButton } from "../../../AddToCartButton/AddToCartButton";
-import { AddToWishListButton } from "../../../AddToWishListButton/AddToWishListButton";
-import AddToCompareButton from '../../../AddToCompareButton/AddToCompareButton';
 
-// import axios from 'axios';
-
-import { Typography } from '@material-ui/core';
-import { ButtonGroup } from '@material-ui/core';
+import { Typography, ButtonGroup, Box } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
-import Box from "@material-ui/core/Box";
-
-import { useStyles } from "./stickyCartStyle";
+import { addProductToCart, getCartFromLS } from '../../../../store/cart/actions';
+import { AddToCartButton } from '../../../AddToCartButton/AddToCartButton';
+import { AddToWishListButton } from '../../../AddToWishListButton/AddToWishListButton';
+import AddToCompareButton from '../../../AddToCompareButton/AddToCompareButton';
+import { useStyles } from './stickyCartStyle';
+// import axios from 'axios';
 
 const mapStateToProps = (store) => ({
   user: store.auth.user,
@@ -25,7 +21,7 @@ const ProductDetailsCardSticky = (props) => {
     disabled: false,
     text: 'ADD TO CART',
   });
-  const { addProductToWishlist, wishlist, user } = props;
+  const { addProductToWishlist, user } = props;
   const obj = props.data.obj;
   const colors = props.data.colors.data;
 
@@ -64,12 +60,14 @@ const ProductDetailsCardSticky = (props) => {
     <div className={classes.container}>
       <Typography
         className={classes.categories}
-        variant='body1'>
+        variant="body1"
+      >
         {obj.categories}
       </Typography>
       <Typography
         className={classes.name}
-        variant='h2'>
+        variant="h2"
+      >
         {obj.name}
       </Typography>
       <Rating
@@ -85,7 +83,7 @@ const ProductDetailsCardSticky = (props) => {
         <Typography>
           {`$${obj.currentPrice}`}
         </Typography>
-        <Typography className='oldPrice'>
+        <Typography className="oldPrice">
           $4000
         </Typography>
       </Box>
@@ -100,7 +98,7 @@ const ProductDetailsCardSticky = (props) => {
           disabled={state.disabled}
           text={state.text}
           obj={obj}
-          user={props.user}
+          user={user}
           addToCartFunc={props.addProductToCart}
           actions={props.getCartFromLS}
           checkProduct={checkProduct}
@@ -118,7 +116,6 @@ const ProductDetailsCardSticky = (props) => {
           obj={obj}
           user={user}
           className="otherBtn"
-          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
           iconStyle={{
             fill: '#AAA',
@@ -128,7 +125,10 @@ const ProductDetailsCardSticky = (props) => {
           }}
         />
         <AddToCompareButton
-          className={'otherBtn'}
+          obj={obj}
+          user={user}
+          allProps={props}
+          className="otherBtn"
           iconStyle={{
             fill: '#AAA',
             width: '30px',
@@ -147,7 +147,7 @@ const ProductDetailsCardSticky = (props) => {
         />
       </ButtonGroup>
     </div>
-  )
+  );
 };
 
 export default connect(mapStateToProps,

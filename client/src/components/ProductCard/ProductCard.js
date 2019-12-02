@@ -65,12 +65,12 @@ const ProductCard = ({
       const itemNumb = itemNo;
       if (!filterCart(product, itemNumb)) {
         localStorage.setItem('product', JSON.stringify(product.concat([{
-          name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, id,
+          name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, id,
         }])));
       }
     } else {
       const newProduct = [].concat([{
-        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, id,
+        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, id,
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
     }
@@ -167,6 +167,7 @@ const ProductCard = ({
             }}
           />
           <AddToCompareButton
+            obj={obj}
             className={classes.buttonStyle}
             allProps={props}
             iconStyle={{
@@ -186,7 +187,7 @@ const ProductCard = ({
           />
           <Button
             onClick={(e) => {
-              props.user
+             user
                 ? props.addProductToCart(`/cart/${id}`)
                 : handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS);
             }}

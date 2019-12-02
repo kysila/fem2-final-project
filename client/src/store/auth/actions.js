@@ -8,6 +8,7 @@ import { ACTIONS } from './reducer';
 import { GET_CUSTOMER, LOGIN, REGISTER } from '../../axios/endpoints';
 import { enqueueSnackbar, closeSnackbar } from '../notification/actions';
 import { modalOpen, modalClose } from '../modal/actions';
+import { CLEAN_CART, createCart} from '../cart/actions';
 
 export function logout() {
   return {
@@ -18,6 +19,9 @@ export function logout() {
 export function dispatchLogout() {
   return (dispatch) => {
     dispatch(logout());
+    // dispatch({
+    //   type: CLEAN_CART,
+    // });
     Cookie.remove('auth');
     axios.defaults.headers.common.Authorization = null;
     window.history.pushState(null, null, '/');
@@ -61,8 +65,9 @@ export function dispatchLogin(payload) {
         dispatch(login(data));
         dispatch(modalClose());
         dispatch(dispatchGetCustomer());
-      })
-      .catch((err) => {
+      }).then(() => {
+        dispatch(createCart());
+      }).catch((err) => {
         Object.keys(err.response.data).forEach((field) => {
           dispatch(enqueueSnackbar({
             message: err.response.data[field],

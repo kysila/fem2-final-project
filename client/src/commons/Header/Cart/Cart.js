@@ -49,17 +49,18 @@ const Cart = (props) => {
     if (user) {
       getCartFromDB();
       getWishlist();
-    } else {
+    }
+    else {
       const data = localStorage.getItem('cart');
       if (data) {
         const cartFromLS = JSON.parse(data);
         getCartFromLS(cartFromLS);
       }
     }
-  }, [props.user]);
+  }, [user]);
 
   if (cart.length) {
-    cartStatus = props.cart.map((el) => (
+    cartStatus = cart.map((el) => (
       <CartItem
         key={el.product.itemNo}
         name={el.product.name}

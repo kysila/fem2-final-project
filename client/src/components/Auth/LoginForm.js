@@ -18,13 +18,14 @@ import { InputField } from '../../commons/InputField/InputField';
 import { dispatchLogin } from '../../store/auth/actions';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
 import { enqueueSnackbar } from '../../store/notification/actions';
+import { createCart } from '../../store/cart/actions';
 
 import { useStyles, useMobileStyles } from './styles';
 import Tungsten from '../../fonts/Tungsten-Book.woff';
 
 import MuseoSans from '../../fonts/MuseoSans-500.woff';
-import FacebookSvg from '../../img/auth/facebook.svg';
-import GoogleSvg from '../../img/auth/google.svg';
+// import FacebookSvg from '../../img/auth/facebook.svg';
+// import GoogleSvg from '../../img/auth/google.svg';
 
 const tungsten = {
   fontFamily: 'Tungsten Book',
@@ -89,8 +90,9 @@ function LoginForm(props) {
     setState({ ...state, [stateName]: { error: null, value: event.target.value } });
   };
 
+
   const onSubmit = (event) => {
-    event.preventDefault();
+  event.preventDefault();
     if (validate()) {
       props.login(
         Object.keys(state).reduce((memo, key) => {
@@ -209,59 +211,74 @@ function LoginForm(props) {
             justify="center"
             alignItems="center"
           >
-            <Typography className={classes.title} style={tungsten} variant="h3" color="textPrimary" align="center">
-              Enter With
-            </Typography>
-            <Grid
-              container
-              direction={matchMobile ? 'row' : 'column'}
-              justify="space-around"
-            >
-              <Grid
-                item
-                lg={12}
-                md={12}
-                xs={5}
-                className={classNames(classes.socialButton, classes.socialFacebook)}
+            {
+              /* <Typography
+                  className={classes.title}
+                  style={tungsten} variant="h3"
+                  color="textPrimary"
+                  align="center"
+               >
+                Enter With
+              </Typography> */
+            }
+            {
+              /* <Grid
+                container
+                direction={matchMobile ? 'row' : 'column'}
+                justify="space-around"
               >
-                <img src={FacebookSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
-                {
-                  !matchMobile ? (
-                    <Grid
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <Typography className={classes.socialText}>
-                        FACEBOOK
-                      </Typography>
-                    </Grid>
-                  ) : null
-                }
-              </Grid>
-              <Grid
-                item
-                lg={12}
-                md={12}
-                xs={5}
-                className={classNames(classes.socialButton, classes.socialGoogle)}
-              >
-                <img src={GoogleSvg} className={classNames(classes.socialIcon, classesMobile.socialIcon)} alt="" />
-                {
-                  !matchMobile ? (
-                    <Grid
-                      container
-                      justify="center"
-                      alignItems="center"
-                    >
-                      <Typography className={classes.socialText}>
-                        GOOGLE
-                      </Typography>
-                    </Grid>
-                  ) : null
-                }
-              </Grid>
-            </Grid>
+                <Grid
+                  item
+                  lg={12}
+                  md={12}
+                  xs={5}
+                  className={classNames(classes.socialButton, classes.socialFacebook)}
+                >
+                  <img src={FacebookSvg} className={
+                    classNames(classes.socialIcon, classesMobile.socialIcon)
+                  } alt="" />
+                  {
+                    !matchMobile ? (
+                      <Grid
+                        container
+                        justify="center"
+                        alignItems="center"
+                      >
+                        <Typography className={classes.socialText}>
+                          FACEBOOK
+                        </Typography>
+                      </Grid>
+                    ) : null
+                  }
+                </Grid>
+                <Grid
+                  item
+                  lg={12}
+                  md={12}
+                  xs={5}
+                  className={
+                    classNames(classes.socialButton, classes.socialGoogle)
+                  }
+                >
+                  <img src={GoogleSvg} className={
+                    classNames(classes.socialIcon, classesMobile.socialIcon)
+                  } alt="" />
+                  {
+                    !matchMobile ? (
+                      <Grid
+                        container
+                        justify="center"
+                        alignItems="center"
+                      >
+                        <Typography className={classes.socialText}>
+                          GOOGLE
+                        </Typography>
+                      </Grid>
+                    ) : null
+                  }
+                </Grid>
+              </Grid> */
+            }
             {
               !matchMobile ? (
                 <React.Fragment>
@@ -288,20 +305,25 @@ function LoginForm(props) {
   );
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => (
+    {
+  cart: state.cartReducer.cart.products,
+
+});
 
 const mapDispatchToProps = (dispatch) => ({
+  createCart: (payload) => dispatch(createCart(payload)),
   login: (data) => dispatch(dispatchLogin(data)),
   registerModal: () => dispatch(dispatchModalOpen('register')),
   closeModal: () => dispatch(dispatchModalClose()),
   warning: (message) => dispatch(enqueueSnackbar({ message, options: { variant: 'warning', preventDuplicate: true } })),
-  });
+});
 
 const ConnectLoginForm = withTheme(
-    connect(mapStateToProps, mapDispatchToProps)(
-      LoginForm,
-    ),
-  );
+  connect(mapStateToProps, mapDispatchToProps)(
+    LoginForm,
+  ),
+);
 
 export {
   ConnectLoginForm as LoginForm,
