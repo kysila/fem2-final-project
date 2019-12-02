@@ -8,7 +8,7 @@ import { ACTIONS } from './reducer';
 import { GET_CUSTOMER, LOGIN, REGISTER } from '../../axios/endpoints';
 import { enqueueSnackbar, closeSnackbar } from '../notification/actions';
 import { modalOpen, modalClose } from '../modal/actions';
-import { createCart } from '../cart/actions';
+// import { createCart } from '../cart/actions';
 
 export function logout() {
   return {
@@ -65,8 +65,8 @@ export function dispatchLogin(payload) {
         dispatch(login(data));
         dispatch(modalClose());
         dispatch(dispatchGetCustomer());
-      }).then(() => {
-        dispatch(createCart());
+      // }).then(() => {
+      //   dispatch(createCart());
       }).catch((err) => {
         Object.keys(err.response.data).forEach((field) => {
           dispatch(enqueueSnackbar({

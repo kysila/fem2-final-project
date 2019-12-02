@@ -21,18 +21,22 @@ const mapStateToProps = (state) => ({
 });
 
 const NavBar = (props) => {
+  const {
+    categories,
+    categorySelect,
+  } = props;
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  let categories;
+  let category;
   const classes = useStyles();
 
   if (props.categories) {
-    categories = props.categories.map((el) => (
+    category = categories.map((el) => (
       <Link
         className={classes.link}
         to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
         key={el.name}
         onClick={() => {
-          props.categorySelect(el.id);
+          categorySelect(el.id);
         }}
       >
         <ListItem
@@ -52,7 +56,7 @@ const NavBar = (props) => {
   }
 
   useEffect(() => {
-    props.getCategories();
+    getCategories();
   }, []);
 
   return (

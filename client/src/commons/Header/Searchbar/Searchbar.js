@@ -16,26 +16,35 @@ const mapStateToProps = (state) => ({
 });
 
 const Searches = (props) => {
+  const {
+    searchValue,
+    searchProducts,
+    history,
+    // eslint-disable-next-line no-shadow
+    setSearchProducts,
+    // eslint-disable-next-line no-shadow
+    setSearchValue,
+  } = props;
   const classes = useStyles();
   const clear = '';
   const clearArray = [];
 
   const onRequestHandler = () => {
-    props.history.push('/search');
-    props.setSearchProducts(props.searchValue);
-    props.setSearchValue('');
+    history.push('/search');
+    setSearchProducts(props.searchValue);
+    setSearchValue('');
   };
 
   return (
     <React.Fragment>
       <SearchBar
-        value={props.searchValue}
+        value={searchValue}
         cancelOnEscape
         placeholder="search"
-        onChange={(newValue) => props.setSearchValue(newValue)}
+        onChange={(newValue) => setSearchValue(newValue)}
         onCancelSearch={() => {
-          props.setSearchValue(clear);
-          props.setSearchProducts(clearArray);
+          setSearchValue(clear);
+          setSearchProducts(clearArray);
         }}
         onRequestSearch={onRequestHandler}
         className={classes.search}

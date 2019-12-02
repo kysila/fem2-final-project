@@ -18,7 +18,7 @@ import { InputField } from '../../commons/InputField/InputField';
 import { dispatchLogin } from '../../store/auth/actions';
 import { dispatchModalClose, dispatchModalOpen } from '../../store/modal/actions';
 import { enqueueSnackbar } from '../../store/notification/actions';
-import { createCart } from '../../store/cart/actions';
+// import { createCart } from '../../store/cart/actions';
 
 import { useStyles, useMobileStyles } from './styles';
 import Tungsten from '../../fonts/Tungsten-Book.woff';
@@ -92,7 +92,7 @@ function LoginForm(props) {
 
 
   const onSubmit = (event) => {
-  event.preventDefault();
+    event.preventDefault();
     if (validate()) {
       props.login(
         Object.keys(state).reduce((memo, key) => {
@@ -306,13 +306,13 @@ function LoginForm(props) {
 }
 
 const mapStateToProps = (state) => (
-    {
-  cart: state.cartReducer.cart.products,
+  {
+    cart: state.cartReducer.cart.products,
 
-});
+  });
 
 const mapDispatchToProps = (dispatch) => ({
-  createCart: (payload) => dispatch(createCart(payload)),
+  // createCart: (payload) => dispatch(createCart(payload)),
   login: (data) => dispatch(dispatchLogin(data)),
   registerModal: () => dispatch(dispatchModalOpen('register')),
   closeModal: () => dispatch(dispatchModalClose()),
