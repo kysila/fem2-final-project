@@ -129,7 +129,7 @@ function RegisterForm(props) {
     event.preventDefault();
 
     if (validate()) {
-      props.register(
+     props.register(
         Object.keys(state).reduce((memo, key) => {
           memo[key] = state[key].value;
           return memo;

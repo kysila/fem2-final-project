@@ -39,32 +39,41 @@ function mapDispatchToProps(dispatch) {
 }
 
 const MenuAdaptiveIcon = (props) => {
+  const {
+    openModal,
+    logout,
+    // eslint-disable-next-line no-shadow
+    categorySelect,
+    categories,
+    callCenter,
+    user,
+  } = props;
   const classes = useStyles();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  let categories;
+  let category;
 
   const handleClick = () => {
     setOpen(!open);
   };
   const openLogin = (e) => {
     e.preventDefault();
-    props.openModal('login');
+    openModal('login');
     setMenuIsOpen(false);
   };
   const openRegister = (e) => {
     e.preventDefault();
-    props.openModal('register');
+    openModal('register');
     setMenuIsOpen(false);
   };
 
-  if (props.categories) {
-    categories = props.categories.map((el) => (
+  if (categories) {
+    category = categories.map((el) => (
       <ListItem key={el.name} button className={classes.nested}>
         <Link
           to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
           onClick={() => {
-            props.categorySelect(el.id);
+            categorySelect(el.id);
             setMenuIsOpen(false);
           }}
         >
@@ -116,7 +125,7 @@ const MenuAdaptiveIcon = (props) => {
         <div className={classes.call}>
           <p>
                   Call or text us toll-free:
-            {props.callCenter}
+            {callCenter}
           </p>
         </div>
 
@@ -130,7 +139,7 @@ const MenuAdaptiveIcon = (props) => {
           </ListItem>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {categories}
+              {category}
             </List>
           </Collapse>
 
@@ -180,10 +189,10 @@ const MenuAdaptiveIcon = (props) => {
               ) : (
                 <Box className={classes.link}>
                   <Link className={classes.profileLink} to="/profile">
-                    {`Hello, ${props.user.firstName || props.user.login}`}
+                    {`Hello, ${user.firstName || user.login}`}
                   </Link>
                   <span> | </span>
-                  <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout(); setMenuIsOpen(false); }}>
+                  <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); logout(); setMenuIsOpen(false); }}>
                       Logout
                   </Link>
                 </Box>

@@ -18,34 +18,47 @@ const mapStateToProps = (state) => ({
 });
 
 const Counter = (props) => {
+  const {
+    user,
+    // eslint-disable-next-line no-shadow
+    addProductToCart,
+    // eslint-disable-next-line no-shadow
+    getCartFromLS,
+    // eslint-disable-next-line no-shadow
+    decreaseQuantityOfProducts,
+    quantity,
+    itemNo,
+    count,
+    id,
+  } = props;
   const classes = useStyles();
   let cartFromLS;
 
-  const addCount = (cartQuantity, quantity, id) => {
-    if (cartQuantity < quantity) {
-      if (props.user) {
-        const url = `/cart/${id}`;
-        props.addProductToCart(url);
+  const addCount = (cartQuantity, quant, itemId) => {
+    if (cartQuantity < quant) {
+      if (user) {
+        const url = `/cart/${itemId}`;
+        addProductToCart(url);
       } else {
         cartFromLS = JSON.parse(localStorage.getItem('cart'));
         cartFromLS.products.map((el) => {
-          if (el.product.itemNo === props.itemNo) {
+          if (el.product.itemNo === itemNo) {
             el.cartQuantity += 1;
           }
           return el;
         });
-        props.getCartFromLS(cartFromLS);
+        getCartFromLS(cartFromLS);
         const serialCart = JSON.stringify(cartFromLS);
         localStorage.setItem('cart', serialCart);
       }
     }
   };
 
-  const subtractCount = (cartQuantity, id) => {
+  const subtractCount = (cartQuantity, itemId) => {
     if (cartQuantity > 1) {
-      if (props.user) {
-        const url = `/cart/product/${id}`;
-        props.decreaseQuantityOfProducts(url);
+      if (user) {
+        const url = `/cart/product/${itemId}`;
+        decreaseQuantityOfProducts(url);
       } else {
         cartFromLS = JSON.parse(localStorage.getItem('cart'));
         cartFromLS.products.map((el) => {
@@ -54,7 +67,7 @@ const Counter = (props) => {
           }
           return el;
         });
-        props.getCartFromLS(cartFromLS);
+        getCartFromLS(cartFromLS);
         const serialCart = JSON.stringify(cartFromLS);
         localStorage.setItem('cart', serialCart);
       }
@@ -63,14 +76,14 @@ const Counter = (props) => {
   return (
     <ButtonGroup className={classes.buttons} variant="contained" size="small">
       <Button
-        disabled={props.count <= 1}
-        onClick={() => subtractCount(props.count, props.id)}
+        disabled={count <= 1}
+        onClick={() => subtractCount(count, id)}
       >
         <RemoveIcon fontSize="small" />
       </Button>
       <Button variant="text">
         <Input
-          value={props.count}
+          value={count}
           classes={{
             underline: classes.underline,
             root: classes.input,
@@ -79,8 +92,8 @@ const Counter = (props) => {
         />
       </Button>
       <Button
-        disabled={props.count >= props.quantity}
-        onClick={() => addCount(props.count, props.quantity, props.id)}
+        disabled={props.count >= quantity}
+        onClick={() => addCount(count, quantity, id)}
       >
         <AddIcon fontSize="small" />
       </Button>

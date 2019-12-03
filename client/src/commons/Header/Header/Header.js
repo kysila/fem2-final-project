@@ -29,13 +29,21 @@ function HideOnScroll(props) {
 }
 const Header = (props) => {
   const classes = useStyles();
+  const {
+    openModal,
+    callCenter,
+    user,
+    logout,
+    hideCart,
+  } = props;
+
   const openLogin = (e) => {
     e.preventDefault();
-    props.openModal('login');
+    openModal('login');
   };
   const openRegister = (e) => {
     e.preventDefault();
-    props.openModal('register');
+    openModal('register');
   };
 
 
@@ -43,59 +51,59 @@ const Header = (props) => {
     <React.Fragment>
       <CssBaseline />
       <HideOnScroll {...props}>
-      <AppBar className={classes.appBar} id="header">
-        <Container maxWidth="md">
+        <AppBar className={classes.appBar} id="header">
+          <Container maxWidth="md">
 
-          <Box className={classes.container}>
-            <Box className={classes.menu_icon}>
-              <MenuAdaptiveIcon callCenter={props.callCenter} />
-            </Box>
-            <Box className={classes.logo}>
-              {' '}
-              <Logo />
-              {' '}
-            </Box>
-            <Box className={classes.input}>
-              <Searches />
-            </Box>
+            <Box className={classes.container}>
+              <Box className={classes.menu_icon}>
+                <MenuAdaptiveIcon callCenter={callCenter} />
+              </Box>
+              <Box className={classes.logo}>
+                {' '}
+                <Logo />
+                {' '}
+              </Box>
+              <Box className={classes.input}>
+                <Searches />
+              </Box>
 
-            {
-              props.user ? (
-                <Box className={classes.link}>
-                  <Link className={classes.profileLink} to="/profile">
-                    {`Hello, ${props.user.firstName || props.user.login}`}
-                  </Link>
-                  <span> | </span>
-                  <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout(); }}>
-                    Logout
-                  </Link>
-                </Box>
-              ) : (
-                <Box className={classes.link}>
-                  <Link to="/login" onClick={openLogin}>Login |</Link>
-                  <Link to="/register" onClick={openRegister}> Sign Up</Link>
-                </Box>
-              )
-            }
-            {
-              props.hideCart ? null : (
-                <Cart />
-              )
-            }
-          </Box>
-          <Box className={classes.container}>
-            <Box>
-              <NavBar />
+              {
+                props.user ? (
+                  <Box className={classes.link}>
+                    <Link className={classes.profileLink} to="/profile">
+                      {`Hello, ${user.firstName || user.login}`}
+                    </Link>
+                    <span> | </span>
+                    <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); logout(); }}>
+                      Logout
+                    </Link>
+                  </Box>
+                ) : (
+                  <Box className={classes.link}>
+                    <Link to="/login" onClick={openLogin}>Login |</Link>
+                    <Link to="/register" onClick={openRegister}> Sign Up</Link>
+                  </Box>
+                )
+              }
+              {
+                hideCart ? null : (
+                  <Cart />
+                )
+              }
             </Box>
-            <Box className={classes.call}>
-              <p>
-                Call or text us toll-free:
-                {props.callCenter}
-              </p>
+            <Box className={classes.container}>
+              <Box>
+                <NavBar />
+              </Box>
+              <Box className={classes.call}>
+                <p>
+                  Call or text us toll-free:
+                  {callCenter}
+                </p>
+              </Box>
             </Box>
-          </Box>
-        </Container>
-      </AppBar>
+          </Container>
+        </AppBar>
       </HideOnScroll>
     </React.Fragment>
   );
