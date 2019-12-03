@@ -49,6 +49,13 @@ export const addProductToCart = (url) => (dispatch) => {
         type: ADD_PRODUCT_TO_CART,
         payload: cart.data.products,
       });
+      dispatch(enqueueSnackbar({
+        message: 'You added the item to cart',
+        options: {
+          variant: 'success',
+          preventDuplicate: true,
+        },
+      }));
     });
 };
 export const decreaseQuantityOfProducts = (url) => (dispatch) => {
