@@ -12,10 +12,22 @@ export const CLEAN_CART = 'CLEAN_CART';
 
 
 // ACTIONS
-export const getCartFromLS = (payload) => ({
-  type: GET_PRODUCTS_FROM_LS,
-  payload,
-});
+export const getCartFromLS = (payload) => (dispatch) => {
+  dispatch({
+    type: GET_PRODUCTS_FROM_LS,
+    payload,
+  });
+};
+
+export const cartSnackbar = () => (dispatch) => {
+  dispatch(enqueueSnackbar({
+    message: 'You added the item to cart',
+    options: {
+      variant: 'success',
+      preventDuplicate: true,
+    },
+  }));
+};
 
 export const getCartFromDB = () => (dispatch) => {
   axios
