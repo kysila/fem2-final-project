@@ -59,7 +59,7 @@ const Cart = (props) => {
   }, [user]);
 
   if (cart.length) {
-    cartStatus = props.cart.map((el) => (
+    cartStatus = cart.map((el) => (
       <CartItem
         key={el.product.itemNo}
         name={el.product.name}
