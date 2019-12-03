@@ -15,10 +15,13 @@ import compareReducer from '../../store/compare/compareReducer';
 import { deleteProductsFromCompare } from '../../store/compare/actions';
 import { useStyles } from './style';
 import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
+import { getCartFromLS, addProductToCart } from '../../store/cart/actions';
 
 
 const mapStateToProps = (store) => ({
   products: store.compareReducer.products,
+  user: store.auth.user,
+  cart: store.cartReducer.cart,
 });
 
 const ProductForCompare = (
@@ -29,16 +32,10 @@ const ProductForCompare = (
   const classes = useStyles();
   const productsArray = props.products;
 
-  // const deleteHandler = (e) => {
-  //   e.preventDefault();
-  //   console.log();
-  //   // props.deleteProductsFromCompare(e.target);
-  // };
-
   const comparableProducts = productsArray.map((el) => (
     <TableCell key={el.itemNo} align="center">
-      <Link to={`/products/${el.itemNo}`} className={classes.link}>
         <Card
+          quantity={el.quantity}
           className={classes.card}
         >
           <CardActionArea>
@@ -48,33 +45,37 @@ const ProductForCompare = (
               onClick={(e) => {
                 e.preventDefault();
                 props.deleteProductsFromCompare(el);
-                // console.log(el);
               }}
             >
               <DeleteIcon fontSize="small" />
             </IconButton>
-            <CardMedia
-              className={classes.media}
-              image={`${el.imageUrls[0]}`}
-            />
-            <CardContent
-              className={classes.cardContent}
-            >
-              <Typography
-                className={classes.fontDesc}
-                variant="body2"
-                component="p"
-              >
-                {el.name}
-              </Typography>
-              <AddToCartButton
-                obj={el}
-                text="ADD TO CART"
+            <Link to={`/products/${el.itemNo}`} className={classes.link}>
+              <CardMedia
+                className={classes.media}
+                image={`${el.imageUrls[0]}`}
               />
-            </CardContent>
+              <CardContent
+                className={classes.cardContent}
+              >
+                <Typography
+                  className={classes.fontDesc}
+                  variant="body2"
+                  component="p"
+                >
+                  {el.name}
+                </Typography>
+              </CardContent>
+            </Link>
           </CardActionArea>
+          <AddToCartButton
+            className={classes.addToCartButton}
+            user={props.user}
+            addToCartFunc={props.addProductToCart}
+            actions={props.getCartFromLS}
+            obj={el}
+            text="ADD TO CART"
+          />
         </Card>
-      </Link>
     </TableCell>
   ));
 
@@ -85,4 +86,4 @@ const ProductForCompare = (
   );
 };
 
-export default connect(mapStateToProps, { compareReducer, deleteProductsFromCompare })(ProductForCompare);
+export default connect(mapStateToProps, { compareReducer, deleteProductsFromCompare, addProductToCart, getCartFromLS })(ProductForCompare);

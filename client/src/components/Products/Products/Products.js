@@ -143,9 +143,11 @@ const Products = (props) => {
           rating={el.rating}
           itemNo={el.itemNo}
           id={el.id}
+          quantity={el.quantity}
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
+          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
         />
       </Grid>
@@ -165,6 +167,7 @@ const Products = (props) => {
           rating={el.rating}
           itemNo={el.itemNo}
           id={el.id}
+          quantity={el.quantity}
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}

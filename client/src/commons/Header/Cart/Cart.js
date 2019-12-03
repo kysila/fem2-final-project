@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -37,28 +36,29 @@ const Cart = (props) => {
   let totalPrice = 0;
   let subTotalArray;
   const {
-    wishlist, addProductToWishlist, getWishlist, user,
+    wishlist,
+    addProductToWishlist,
+    getWishlist,
+    user,
+    // eslint-disable-next-line no-shadow
+    getCartFromDB, getCartFromLS,
+    cart,
   } = props;
 
   useEffect(() => {
     if (user) {
+      getCartFromDB();
       getWishlist();
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (props.user) {
-      props.getCartFromDB();
     } else {
       const data = localStorage.getItem('cart');
       if (data) {
         const cartFromLS = JSON.parse(data);
-        props.getCartFromLS(cartFromLS);
+        getCartFromLS(cartFromLS);
       }
     }
-  }, [props.user]);
+  }, [user]);
 
-  if (props.cart.length) {
+  if (cart.length) {
     cartStatus = props.cart.map((el) => (
       <CartItem
         key={el.product.itemNo}
@@ -75,15 +75,14 @@ const Cart = (props) => {
         addProductToWishlist={addProductToWishlist}
       />
     ));
-    subTotalArray = props.cart.map((el) => el.product.currentPrice * el.cartQuantity);
+    subTotalArray = cart.map((el) => el.product.currentPrice * el.cartQuantity);
     totalPrice = subTotalArray.reduce((sum, current) => sum + current, 0);
-    countOfProducts = props.cart.length;
+    countOfProducts = cart.length;
   }
 
   return (
     <React.Fragment>
       <CssBaseline />
-
       <Box
         className={classes.basket}
         onClick={() => setCartIsOpen(true)}

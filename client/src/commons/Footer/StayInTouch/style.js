@@ -33,6 +33,14 @@ export const useStyles = makeStyles((theme) => ({
   },
   subscribeIcon: {
     marginRight: '4px',
+    [theme.breakpoints.down(360)]: {
+      margin: '5px auto',
+    },
+  },
+  buttonText: {
+    [theme.breakpoints.down(360)]: {
+      display: 'none',
+    },
   },
   text: {
     marginBottom: '24px',

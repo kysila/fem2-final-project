@@ -32,6 +32,7 @@ const AddToCompareButton = ({ obj, itemNo, ...props }) => {
           className={classes.buttonStyle}
         >
           <GoToCompareIcon
+            obj={obj}
             color="action"
             className="icon"
             style={{
