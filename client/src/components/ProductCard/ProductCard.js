@@ -28,7 +28,8 @@ const mapStateToProps = (store) => ({
 
 const ProductCard = ({
   obj, name, itemImg, price, url, rating, key, itemNo, id, distance,
-  user, maxSpeed, chargingTime, wishlist, addProductToWishlist, ...props
+  // eslint-disable-next-line no-shadow,max-len
+  user, maxSpeed, chargingTime, wishlist, addProductToWishlist, addProductToCart, getCartFromLS, quantity, ...props
 }) => {
   const [state, setState] = useState({
     openButtons: false,
@@ -91,7 +92,7 @@ const ProductCard = ({
 
   return (
     <Box className={classes.container}>
-      <Link to={url ? url : '#'} className={classes.link}>
+      <Link to={url || '#'} className={classes.link}>
         <Card
           className={classes.card}
           onClick={viewedItemListener}
@@ -187,13 +188,14 @@ const ProductCard = ({
           />
           <Button
             onClick={(e) => {
-              props.user
-                ? props.addProductToCart(`/cart/${id}`)
-                : handlerLocalStorage('cart', initialProductsCart, itemNo, item, props.getCartFromLS);
+              // eslint-disable-next-line no-unused-expressions
+              user
+                ? addProductToCart(`/cart/${id}`)
+                : handlerLocalStorage('cart', initialProductsCart, itemNo, item, getCartFromLS, quantity);
             }}
             className={classes.buttonStyle}
             style={{
-              borderLeft: '1px solid #bdbdbd'
+              borderLeft: '1px solid #bdbdbd',
             }}
           >
             <BagIcon

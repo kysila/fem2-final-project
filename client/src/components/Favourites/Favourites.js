@@ -11,7 +11,7 @@ import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../store/
 import 'slick-carousel/slick/slick.css';
 import './FavouriteCarousel.css';
 
-function Favorites(props) {
+function Favorites({ user, getWishlist, addProductToWishlist }) {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   let favoritesProducts;
@@ -22,9 +22,7 @@ function Favorites(props) {
       setList(products.data);
     });
   }, []);
-  const {
-    user, getWishlist, addProductToWishlist,
-  } = props;
+
   useEffect(() => {
     if (user) {
       getWishlist();
@@ -43,6 +41,7 @@ function Favorites(props) {
         rating={el.rating}
         itemNo={el.itemNo}
         id={el._id}
+        quantity={el.quantity}
         key={i}
         distance={el.distance}
         maxSpeed={el.maxSpeed}
@@ -76,6 +75,8 @@ function Favorites(props) {
       {
         breakpoint: 1024,
         settings: {
+          autoplay: true,
+          pauseOnHover: true,
           slidesToShow: 3,
           slidesToScroll: 1,
           infinite: true,
@@ -85,6 +86,8 @@ function Favorites(props) {
       {
         breakpoint: 600,
         settings: {
+          autoplay: true,
+          pauseOnHover: true,
           slidesToShow: 2,
           slidesToScroll: 1,
           initialSlide: 2,
@@ -93,6 +96,8 @@ function Favorites(props) {
       {
         breakpoint: 480,
         settings: {
+          autoplay: true,
+          pauseOnHover: true,
           slidesToShow: 1,
           slidesToScroll: 1,
         },

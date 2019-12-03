@@ -71,21 +71,21 @@ const RecentlyViewed = (props) => {
 
   if (productsList) {
     products = productsList.map((el) => (
-          <div key={el.itemNo}>
-            <ProductCard
-              obj={el.obj}
-              className={classes.card}
-              name={el.obj.name}
-              itemImg={el.itemImg}
-              price={el.price}
-              url={el.obj.itemNo}
-              rating={el.obj.rating}
-              itemNo={el.obj.itemNo}
-              id={el.id}
-              addProductToWishlist={addProductToWishlist}
-            />
-          </div>
-        ));
+      <div key={el.itemNo}>
+        <ProductCard
+          obj={el}
+          className={classes.card}
+          name={el.name}
+          itemImg={el.itemImg}
+          price={el.price}
+          url={el.itemNo}
+          rating={el.rating}
+          itemNo={el.itemNo}
+          id={el.id}
+          addProductToWishlist={addProductToWishlist}
+        />
+      </div>
+    ));
   } else {
     return (
       <Container maxWidth="md" className={classes.mainContainer} />

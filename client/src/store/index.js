@@ -15,6 +15,7 @@ import selectFilterReducer from './selectedFilters/selectedFilterReducer';
 import productsReducer from './products/productsReducer';
 import wishlistReducer from './wishlist/wishlistReducer';
 import compareReducer from './compare/compareReducer';
+import commentsReducer from './comments/commentsReducer';
 
 
 export const initialStore = {};
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   productsReducer,
   wishlist: wishlistReducer,
   compareReducer,
+  commentsReducer,
 });
 
 export default createStore(
