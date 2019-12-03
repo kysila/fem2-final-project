@@ -147,6 +147,7 @@ const Products = (props) => {
           distance={el.distance}
           maxSpeed={el.maxSpeed}
           chargingTime={el.chargingTime}
+          wishlist={wishlist}
           addProductToWishlist={addProductToWishlist}
         />
       </Grid>
@@ -194,7 +195,7 @@ const Products = (props) => {
         <Filters />
         <Grid container spacing={1} className={classes.chipsContainer}>
           {props.selectedFilters && (handleSelectedFilters(props.selectedFilters)) }
-          {selectedFilterChips}
+          {props.selectedFilters && selectedFilterChips}
         </Grid>
         <main className={classes.main}>
           <Grid container spacing={0} alignItems="center" justify="center">

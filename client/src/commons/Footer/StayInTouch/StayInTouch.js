@@ -64,7 +64,6 @@ const StayInTouch = () => {
   };
 
   const onChangeHandle = (e) => {
-    console.log(e.target.value);
     setMail(e.target.value);
     formValidator(e.target.value);
   };
@@ -86,7 +85,7 @@ const StayInTouch = () => {
           showSwalSuccess();
         })
         .catch((err) => {
-          if (err.response.status === 400) {
+          if (err.response.status !== 200) {
             showSwalFailed();
           }
           console.log(err);
