@@ -29,7 +29,7 @@ const mapStateToProps = (store) => ({
 const ProductCard = ({
   obj, name, itemImg, price, url, rating, key, itemNo, id, distance,
   // eslint-disable-next-line no-shadow,max-len
-  user, maxSpeed, chargingTime, wishlist, addProductToWishlist, addProductToCart, getCartFromLS, quantity, ...props
+  user, maxSpeed, chargingTime, wishlist, addProductToWishlist, addProductToCart, getCartFromLS, quantity,
 }) => {
   const [state, setState] = useState({
     openButtons: false,
@@ -71,7 +71,7 @@ const ProductCard = ({
       }
     } else {
       const newProduct = [].concat([{
-        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, id,
+        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, id,
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
     }
@@ -102,7 +102,7 @@ const ProductCard = ({
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image={`${itemImg}`}
+              image={itemImg}
             />
             <CardContent
               className={classes.cardContent}
@@ -167,9 +167,7 @@ const ProductCard = ({
             }}
           />
           <AddToCompareButton
-            obj={obj}
             className={classes.buttonStyle}
-            allProps={props}
             iconStyle={{
               width: '30px',
               height: '23px',
