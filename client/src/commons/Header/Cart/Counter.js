@@ -10,6 +10,7 @@ import {
   getCartFromLS,
   addProductToCart,
   decreaseQuantityOfProducts,
+  cartSnackbar,
 } from '../../../store/cart/actions';
 
 const mapStateToProps = (state) => ({
@@ -25,7 +26,7 @@ const Counter = (props) => {
     // eslint-disable-next-line no-shadow
     getCartFromLS,
     // eslint-disable-next-line no-shadow
-    decreaseQuantityOfProducts,
+    decreaseQuantityOfProducts, cartSnackbar,
     quantity,
     itemNo,
     count,
@@ -48,6 +49,7 @@ const Counter = (props) => {
           return el;
         });
         getCartFromLS(cartFromLS);
+        cartSnackbar();
         const serialCart = JSON.stringify(cartFromLS);
         localStorage.setItem('cart', serialCart);
       }
@@ -105,4 +107,5 @@ export default connect(mapStateToProps, {
   getCartFromLS,
   addProductToCart,
   decreaseQuantityOfProducts,
+  cartSnackbar,
 })(Counter);
