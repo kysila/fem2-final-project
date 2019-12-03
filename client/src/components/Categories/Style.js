@@ -13,11 +13,11 @@ export const useStyles = makeStyles((theme) => ({
   gridList: {
     width: '100%',
     height: 540,
-    [theme.breakpoints.down(360)]: {
+    [theme.breakpoints.down(480)]: {
       height: 'auto',
     },
     '&>.MuiGridListTile-root': {
-      [theme.breakpoints.down(360)]: {
+      [theme.breakpoints.down(480)]: {
         width: '100% !important',
       },
     },
