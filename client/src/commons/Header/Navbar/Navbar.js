@@ -26,10 +26,11 @@ const NavBar = (props) => {
     categorySelect,
   } = props;
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  let category;
   const classes = useStyles();
+  let category;
 
   if (props.categories) {
+    // eslint-disable-next-line
     category = categories.map((el) => (
       <Link
         className={classes.link}
@@ -82,7 +83,7 @@ const NavBar = (props) => {
         </div>
         <Box className={classes.list_box}>
           <List>
-            {categories}
+            {category}
           </List>
         </Box>
 

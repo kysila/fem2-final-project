@@ -139,7 +139,7 @@ const MenuAdaptiveIcon = (props) => {
           </ListItem>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {categories}
+              {category}
             </List>
           </Collapse>
 

@@ -33,7 +33,8 @@ const CartItem = (props) => {
     if (user) {
       const url = `/cart/${id}`;
       deleteProductOfCart(url);
-    } else {
+    }
+    else {
       const cartFromLS = JSON.parse(localStorage.getItem('cart'));
       const index = cartFromLS.products.findIndex((el) => el.product.itemNo === props.itemNo);
       cartFromLS.products.splice(index, 1);

@@ -18,7 +18,6 @@ const mapStateToProps = (state) => ({
 const Searches = (props) => {
   const {
     searchValue,
-    searchProducts,
     history,
     // eslint-disable-next-line no-shadow
     setSearchProducts,

@@ -70,6 +70,7 @@ const RecentlyViewed = (props) => {
   };
 
   if (productsList) {
+    // eslint-disable-next-line
     products = productsList.map((el) => (
       <div key={el.itemNo}>
         <ProductCard
