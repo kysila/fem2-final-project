@@ -50,7 +50,7 @@ export const useStyles = makeStyles((theme) => createStyles({
       color: '#707070',
       borderRadius: '3px',
       textTransform: 'capitalize',
-    }
+    },
   },
   price: {
     display: 'flex',
@@ -83,12 +83,13 @@ export const useStyles = makeStyles((theme) => createStyles({
         fontSize: 10,
       },
       [theme.breakpoints.down(481)]: {
+        width: '19.9%',
         height: 50,
         fontSize: 14,
       },
       '&:hover': {
         boxShadow: 'none',
-      }
+      },
     },
     '& .Mui-disabled': {
       background: '#b9b9b9',
@@ -101,13 +102,13 @@ export const useStyles = makeStyles((theme) => createStyles({
         background: '#ffffff',
       },
       '&:hover path': {
-        fill: '#6686FF'
-      }
-    }
+        fill: '#6686FF',
+      },
+    },
   },
   categories: {
     [theme.breakpoints.down(481)]: {
       display: 'none',
-    }
+    },
   },
 }));

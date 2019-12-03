@@ -123,7 +123,6 @@ const ProductCard = ({
                 display="inline"
                 component="h2"
               >
-                $4,010
               </Typography>
               <Typography
                 className={classes.fontDesc}
