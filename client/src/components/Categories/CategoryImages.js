@@ -14,8 +14,6 @@ import { getCategories } from '../../store/categories/actions';
 const CategoryImages = (props) => {
   const classes = useStyles();
   let categoryBlocks;
-  // const [categoryLink, setCategoryLink] = useState([]);
-  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     props.getCategories();
@@ -24,7 +22,7 @@ const CategoryImages = (props) => {
 
   if (props.categories && !props.isCatalogFetching) {
     categoryBlocks = props.categories.map((tile) => (
-      <GridListTile key={tile.id} cols={+tile.cols || 1}>
+      <GridListTile key={tile.id} cols={+tile.cols}>
         <Link
           to={`/products/filter?perPage=8&startPage=1&categories=${tile.id}`}
           className={classes.hover}

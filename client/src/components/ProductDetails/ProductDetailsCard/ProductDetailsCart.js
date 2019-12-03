@@ -124,7 +124,7 @@ const ProductDetailsCard = ({
           actions={getCartFromLS}
           checkProduct={checkProduct}
           style={{
-            width: '60%', borderRadius: '4px',
+            width: '58%', borderRadius: '4px',
           }}
           iconStyle={{
             width: 21,

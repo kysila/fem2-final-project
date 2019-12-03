@@ -1,6 +1,11 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
+  container: {
+    [theme.breakpoints.down(360)]: {
+      padding: '0 7px',
+    },
+  },
   root: {
     width: '100%',
     overflowX: 'auto',
@@ -17,9 +22,12 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: 0,
     position: 'relative',
     '&:hover': {
-      boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.25)',
+      backgroundColor: 'none',
       zIndex: 100,
     },
+  },
+  'button .MuiButton-root': {
+    marginBottom: 10,
   },
   media: {
     height: 200,
@@ -51,6 +59,12 @@ export const useStyles = makeStyles((theme) => ({
     position: 'sticky',
     left: 0,
     background: '#fff',
+    zIndex: '2',
+  },
+  firstRow: {
+    position: 'sticky',
+    left: 0,
+    background: 'linear-gradient(to right, #fff, transparent)',
     zIndex: '2',
   },
   detailsName: {

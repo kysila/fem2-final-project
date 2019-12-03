@@ -26,7 +26,6 @@ export const AddToCartButton = ({
       className="addToCardBtn"
       style={style}
       onClick={(e) => {
-        e.preventDefault();
         if (obj.quantity >= 1) {
           user
             ? addToCartFunc(`/cart/${obj._id}`)
