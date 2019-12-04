@@ -132,7 +132,7 @@ const ProductCard = ({
                 display="inline"
                 component="h2"
               >
-                { obj.previousPrice ? `$${obj.previousPrice}` : null}
+                {obj.previousPrice ? `$${obj.previousPrice}` : null}
               </Typography>
               <Typography
                 className={classes.fontDesc}

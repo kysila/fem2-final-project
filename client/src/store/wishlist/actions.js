@@ -35,7 +35,7 @@ export const getWishlistFromDB = () => (dispatch) => {
         imageUrls: el.imageUrls,
         itemImg: el.imageUrls[0],
         price: el.currentPrice,
-        url: `/shop/${el.itemNo}`,
+        url: `/products/${el.itemNo}`,
         rating: el.rating,
         id: el._id,
       }));
@@ -67,7 +67,7 @@ export const addProductAndCreateWishlistInDB = (id) => (dispatch) => {
         imageUrls: el.imageUrls,
         itemImg: el.imageUrls[0],
         price: el.currentPrice,
-        url: `/shop/${el.itemNo}`,
+        url: `/products/${el.itemNo}`,
         rating: el.rating,
         id: el._id,
       }));
@@ -105,7 +105,7 @@ export const deleteProductFromWishlistDB = (id) => (dispatch) => {
         imageUrls: el.imageUrls,
         itemImg: el.imageUrls[0],
         price: el.currentPrice,
-        url: `/shop/${el.itemNo}`,
+        url: `/products/${el.itemNo}`,
         rating: el.rating,
         id: el._id,
       }));

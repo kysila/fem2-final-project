@@ -22,7 +22,7 @@ export const getProducts = (endpoint) => (dispatch) => {
         itemImg: el.imageUrls[0],
         imageUrls: el.imageUrls,
         price: el.currentPrice,
-        url: `/shop/${el.itemNo}`,
+        url: `/products/${el.itemNo}`,
         rating: el.rating,
         id: el._id,
         quantity: el.quantity,
@@ -55,7 +55,7 @@ export const getMoreProducts = (endpoint) => (dispatch) => {
         itemImg: el.imageUrls[0],
         imageUrls: el.imageUrls,
         price: el.currentPrice,
-        url: `/shop/${el.itemNo}`,
+        url: `/products/${el.itemNo}`,
         rating: el.rating,
         id: el._id,
         quantity: el.quantity,
@@ -80,4 +80,4 @@ export const clearNewProducts = () => (dispatch) => {
     type: CLEAR_NEW_PRODUCTS,
     newProducts: [],
   });
-}
+};

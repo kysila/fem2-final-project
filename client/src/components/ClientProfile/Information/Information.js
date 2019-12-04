@@ -1,29 +1,27 @@
+/* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
 import DateFnsUtils from '@date-io/date-fns';
 // Material UI
-import {
-  Button, Checkbox, Divider, Grid, ExpansionPanel, ExpansionPanelActions,
-  ExpansionPanelDetails, ExpansionPanelSummary, FormControl, FormControlLabel,
-  InputLabel, OutlinedInput, Typography, Select,
-} from '@material-ui/core';
+import { Button, Checkbox, Divider, ExpansionPanel, ExpansionPanelActions, ExpansionPanelDetails, ExpansionPanelSummary, FormControl, FormControlLabel, Grid, InputLabel, OutlinedInput, Select, Typography } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 // Modal sweetalert2
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { UPDATE_CUSTOMER, UPDATE_PASSWORD } from '../../../axios/endpoints';
+import { SubscribeLetter } from '../../../commons/Footer/StayInTouch/SubscribeLetter';
+import { UnsubscribeLetter } from '../../Unsubscribe/UnsubscribeLetter';
+import { dispatchGetCustomer } from '../../../store/auth/actions';
+import { enqueueSnackbar } from '../../../store/notification/actions';
 // Local imports
 import { useStyles } from './style';
 import './styleModal.css';
-import { UPDATE_PASSWORD, UPDATE_CUSTOMER } from '../../../axios/endpoints';
-import { dispatchGetCustomer } from '../../../store/auth/actions';
-import { enqueueSnackbar } from '../../../store/notification/actions';
-
 
 const CustomerInformation = (props) => {
   const classes = useStyles();
@@ -89,23 +87,48 @@ const CustomerInformation = (props) => {
 
     const checkedSubscribeTrueOrFalse = !!checkedSubscribe;
 
-    const updateSubscriber = {
-      enabled: checkedSubscribeTrueOrFalse,
+    const newSubscriber = {
+      email,
+      letterSubject: 'Congratulations! You are new member of our community',
+      letterHtml: SubscribeLetter({ email }),
     };
 
-    const { _id } = props.user;
-    console.log('_id', _id);
-    axios.put(`/subscribers/${_id}`, updateSubscriber)
-      .then((result) => {
-        const updateSubscriberString = JSON.parse(result);
-        notify('Your information about subscription has been already saved.', 'success');
-        console.log(updateSubscriberString);
+    let updateYourSubscriber;
+    if (checkedSubscribeTrueOrFalse) {
+      updateYourSubscriber = {
+        enabled: checkedSubscribeTrueOrFalse,
+        letterSubject: 'Congratulations! You are new member of our community',
+        letterHtml: SubscribeLetter({ email }),
+      };
+    } else {
+      updateYourSubscriber = {
+        enabled: checkedSubscribeTrueOrFalse,
+        letterSubject: 'Unsubscribe',
+        letterHtml: UnsubscribeLetter(),
+      };
+    }
+
+    axios.put(`/subscribers/email/${email}`, updateYourSubscriber)
+      .then((updateSubscriber) => {
+        if (updateYourSubscriber.enabled) {
+          notify('Your information about subscription has been already saved.', 'success');
+        } else {
+          notify('Your information that you unsubscribed, has been already saved.', 'success');
+        }
       })
       .catch((err) => {
-        const { data } = err.response;
-        const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
-          .replace(/,"/g, '; ');
-        notify(message, 'error');
+        if (err && err.response && err.response.status === 400) {
+          axios.post('/subscribers', newSubscriber)
+            .then((newSubscriberResult) => {
+              notify('Your information about subscription has been already saved.', 'success');
+            })
+            .catch((error) => {
+              const { data } = err.response;
+              const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
+                .replace(/,"/g, '; ');
+              notify(message, 'error');
+            });
+        }
       });
 
     const passwords = {
@@ -695,3 +718,4 @@ function putActionsToProps(dispatch) {
 
 const CustomerInfo = connect(putStateToProps, putActionsToProps)(CustomerInformation);
 export { CustomerInfo as Information };
+
