@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/config/keys_dev.js
+
 # misc
 .DS_Store
 .env.local
