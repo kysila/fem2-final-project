@@ -92,5 +92,8 @@ export const GlobalCss = withStyles({
     '.MuiButtonBase-root': {
       boxShadow: 'none',
     },
+    '.App': {
+      marginTop: '130px',
+    },
   },
 })(() => null);
