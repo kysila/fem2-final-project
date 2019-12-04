@@ -1,13 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Button from '@material-ui/core/Button';
 import { BagIcon } from '../Icons/Icons';
 
+import { cartSnackbar } from '../../store/cart/actions';
 import { handlerLocalStorage } from './script';
 
+const mapStateToProps = (store) => ({
+  cart: store.cartReducer.cart,
+});
 
-export const AddToCartButton = ({
-  disabled, text, obj, user, addToCartFunc, actions, checkProduct, style, iconStyle,
+
+const AddToCartButton = ({
+  // eslint-disable-next-line no-shadow
+  disabled, text, obj, user, addToCartFunc, actions, checkProduct, cartSnackbar, style, iconStyle,
 }) => {
   const productItem = {
     cartQuantity: 1,
@@ -27,9 +34,12 @@ export const AddToCartButton = ({
       style={style}
       onClick={(e) => {
         if (obj.quantity >= 1) {
-          user
-            ? addToCartFunc(`/cart/${obj._id}`)
-            : handlerLocalStorage('cart', productsCart, obj.itemNo, productItem, actions, obj.quantity, checkProduct);
+          if (user) {
+            addToCartFunc(`/cart/${obj._id}`);
+          } else {
+            handlerLocalStorage('cart', productsCart, obj.itemNo, productItem, actions, obj.quantity, checkProduct);
+            cartSnackbar();
+          }
         }
       }}
     >
@@ -40,3 +50,5 @@ export const AddToCartButton = ({
     </Button>
   );
 };
+
+export default connect(mapStateToProps, { cartSnackbar })(AddToCartButton);

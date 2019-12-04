@@ -8,15 +8,26 @@ export const GET_PRODUCTS_FROM_LS = 'GET_PRODUCTS_FROM_LS ';
 export const DECREASE_QUANTITY_OF_PRODUCTS = 'DECREASE_QUANTITY_OF_PRODUCTS';
 export const DELETE_PRODUCT_OF_CART = 'DELETE_PRODUCT_OF_CART';
 export const SET_COUNT_OF_PRODUCTS = 'SET_COUNT_OF_PRODUCTS';
-// export const REPLACE_CART = 'REPLACE_CART';
 export const CLEAN_CART = 'CLEAN_CART';
 
 
 // ACTIONS
-export const getCartFromLS = (payload) => ({
-  type: GET_PRODUCTS_FROM_LS,
-  payload,
-});
+export const getCartFromLS = (payload) => (dispatch) => {
+  dispatch({
+    type: GET_PRODUCTS_FROM_LS,
+    payload,
+  });
+};
+
+export const cartSnackbar = () => (dispatch) => {
+  dispatch(enqueueSnackbar({
+    message: 'You added the item to cart',
+    options: {
+      variant: 'success',
+      preventDuplicate: true,
+    },
+  }));
+};
 
 export const getCartFromDB = () => (dispatch) => {
   axios
@@ -50,6 +61,13 @@ export const addProductToCart = (url) => (dispatch) => {
         type: ADD_PRODUCT_TO_CART,
         payload: cart.data.products,
       });
+      dispatch(enqueueSnackbar({
+        message: 'You added the item to cart',
+        options: {
+          variant: 'success',
+          preventDuplicate: true,
+        },
+      }));
     });
 };
 export const decreaseQuantityOfProducts = (url) => (dispatch) => {
@@ -80,23 +98,45 @@ export const deleteProductOfCart = (url) => (dispatch) => {
 };
 
 
-export const replaceCart = (newCart) => (dispatch) => {
-  axios
-    .post('/cart', newCart)
-    .then((cart) => {
-      dispatch({
-        type: GET_PRODUCTS_FROM_DB,
-        payload: cart.data,
-      });
-    }).catch((err) => {
-      dispatch(enqueueSnackbar({
-        message: err.response.data.message,
-        options: {
-          variant: 'error',
-        },
-      }));
-    });
-};
+// export const createCart = () => (dispatch) => {
+// const data = localStorage.getItem('cart');
+// const cartFromLS = JSON.parse(data);
+// if (data) {
+// axios
+// .get('/cart')
+// .then((cart) => {
+// console.log('Cart ----', cart);
+// if (cart.data) {
+// axios
+//   .put('/cart', cartFromLS)
+//   .then((responce) => {
+// console.log('Update cart ----', responce.data);
+//   dispatch({
+//   type: GET_PRODUCTS_FROM_DB,
+//   payload: responce.data.products,
+// });
+// });
+// } else {
+// axios
+//   .post('/cart', cartFromLS)
+//   .then((responce) => {
+// console.log('New cart ----->', responce.data);
+// dispatch({
+//   type: GET_PRODUCTS_FROM_DB,
+//   payload: responce.data.products,
+// });
+// });
+// }
+// })
+//   .then(() => {
+//   localStorage.removeItem('cart');
+//       dispatch({
+//           type: CLEAN_CART,
+//       });
+//
+// });
+// }
+// };
 
 export const cleanCart = () => (dispatch) => {
   axios

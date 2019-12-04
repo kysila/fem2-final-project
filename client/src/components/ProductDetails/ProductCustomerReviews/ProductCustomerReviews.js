@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import Box from '@material-ui/core/Box';
 import Rating from '@material-ui/lab/Rating';
@@ -27,9 +29,27 @@ const ProductCustomerReviews = ({
     rating: 0,
   });
 
+  const MySwal = withReactContent(Swal);
+  const showSwalSuccess = () => {
+    MySwal.fire({
+      html: <p>Thank You For Review!</p>,
+      type: 'success',
+      confirmButtonColor: '#6A86E8',
+    });
+  };
+
   const classes = useStyles();
 
-  const renderComments = (arr) => arr.map((el, i) => (
+  const clearCommentField = () => {
+    setValue(0);
+    setComment({
+      ...comment,
+      content: '',
+    });
+    showSwalSuccess();
+  };
+
+  const renderComments = (arr) => arr.slice(0).reverse().map((el, i) => (
     <Box
       className={classes.commentItem}
       key={i}
@@ -66,6 +86,7 @@ const ProductCustomerReviews = ({
       // eslint-disable-next-line no-underscore-dangle
       getComments(obj._id);
     }
+    // eslint-disable-next-line
   }, [obj]);
 
   return (
@@ -111,7 +132,8 @@ const ProductCustomerReviews = ({
           className={classes.addReview}
           /* eslint-disable-next-line no-underscore-dangle */
           onClick={() => {
-            addComment(comment);
+            addComment(comment, getComments, obj._id);
+            clearCommentField();
           }}
         >
           Add a review

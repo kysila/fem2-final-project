@@ -202,5 +202,10 @@ exports.getProductsByName = (req, res, next) => {
           });
           res.send(arr);
         })
+        .catch(err =>
+          res.status(400).json({
+            message: `Error happened on server: "${err}" `
+          })
+        );
     })
 };
