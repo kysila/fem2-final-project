@@ -66,6 +66,10 @@ export const useStyles = makeStyles((theme) => ({
     left: 0,
     background: 'linear-gradient(to right, #fff, transparent)',
     zIndex: '2',
+    [theme.breakpoints.down(480)]: {
+      background: '#fff',
+      position: 'relative',
+    },
   },
   detailsName: {
     display: 'inline-block',
