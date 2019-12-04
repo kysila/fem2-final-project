@@ -85,8 +85,28 @@ const CustomerInformation = (props) => {
       haveChildren,
       haveCar,
       eBicycle,
-      checkedSubscribe,
     };
+
+    const checkedSubscribeTrueOrFalse = !!checkedSubscribe;
+
+    const updateSubscriber = {
+      enabled: checkedSubscribeTrueOrFalse,
+    };
+
+    const { _id } = props.user;
+    console.log('_id', _id);
+    axios.put(`/subscribers/${_id}`, updateSubscriber)
+      .then((result) => {
+        const updateSubscriberString = JSON.parse(result);
+        notify('Your information about subscription has been already saved.', 'success');
+        console.log(updateSubscriberString);
+      })
+      .catch((err) => {
+        const { data } = err.response;
+        const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
+          .replace(/,"/g, '; ');
+        notify(message, 'error');
+      });
 
     const passwords = {
       password: oldPassword,
@@ -98,7 +118,7 @@ const CustomerInformation = (props) => {
         .put(UPDATE_PASSWORD, passwords)
         // eslint-disable-next-line no-shadow
         .then((updatedCustomer) => {
-          notify("Your password has been saved.", 'success');
+          notify('Your password has been saved.', 'success');
           getCustomerInfo();
         })
         .catch((err) => {
@@ -118,11 +138,10 @@ const CustomerInformation = (props) => {
     // eslint-disable-next-line max-len
     Object.keys(updatedCustomer).forEach((key) => (updatedCustomer[key] == null || updatedCustomer[key] === '') && delete updatedCustomer[key]);
 
-    axios
-      .put(UPDATE_CUSTOMER, updatedCustomer)
+    axios.put(UPDATE_CUSTOMER, updatedCustomer)
       // eslint-disable-next-line no-shadow
       .then((updatedCustomer) => {
-        notify("Your personal information has been saved.", 'success');
+        notify('Your personal information has been saved.', 'success');
         getCustomerInfo();
       })
       .catch((err) => {
@@ -666,11 +685,13 @@ function putActionsToProps(dispatch) {
   return {
     getCustomerInfo: () => dispatch(dispatchGetCustomer()),
     notify: (message, variant = 'default') => dispatch(enqueueSnackbar({
-      message, options: { variant },
+      message,
+      options: {
+        variant, preventDuplicate: true,
+      },
     })),
   };
 }
-// [info, warning, error, success, default]
 
 const CustomerInfo = connect(putStateToProps, putActionsToProps)(CustomerInformation);
 export { CustomerInfo as Information };
