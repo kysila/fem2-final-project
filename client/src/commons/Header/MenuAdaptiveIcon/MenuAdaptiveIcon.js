@@ -115,7 +115,7 @@ const MenuAdaptiveIcon = (props) => {
         <Divider />
         <div className={classes.call}>
           <p>
-                  Call or text us toll-free:
+            Call or text us toll-free:
             {props.callCenter}
           </p>
         </div>
@@ -178,16 +178,16 @@ const MenuAdaptiveIcon = (props) => {
                   <Link to="/register" onClick={openRegister}> Sign Up</Link>
                 </Box>
               ) : (
-                <Box className={classes.link}>
-                  <Link className={classes.profileLink} to="/profile">
-                    {`Hello, ${props.user.firstName || props.user.login}`}
-                  </Link>
-                  <span> | </span>
-                  <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout(); setMenuIsOpen(false); }}>
+                  <Box className={classes.link}>
+                    <Link className={classes.profileLink} to="/profile">
+                      {`Hello, ${props.user.firstName || props.user.login}`}
+                    </Link>
+                    <span> | </span>
+                    <Link to="/logout" className={classes.profileLink} onClick={(e) => { e.preventDefault(); props.logout(); setMenuIsOpen(false); }}>
                       Logout
                   </Link>
-                </Box>
-              )
+                  </Box>
+                )
             }
 
           </ListItem>

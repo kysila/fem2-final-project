@@ -21,10 +21,16 @@ import withReactContent from 'sweetalert2-react-content';
 import { useStyles } from './style';
 import './styleModal.css';
 import { UPDATE_PASSWORD, UPDATE_CUSTOMER } from '../../../axios/endpoints';
+import { dispatchGetCustomer } from '../../../store/auth/actions';
 
 
-export const CustomerInformation = (props) => {
+const CustomerInformation = (props) => {
   const classes = useStyles();
+
+  // if (!props.user) {
+  //   return <Redirect push to="/" />;
+  // }
+
   const inputLabel = React.useRef(null);
   const customerEmpty = {
     firstName: '',
@@ -674,5 +680,11 @@ function putStateToProps(state) {
   };
 }
 
-const CustomerInfo = connect(putStateToProps)(CustomerInformation);
+function putActionsToProps(dispatch) {
+  return {
+    getCustomerInfo: () => dispatch(dispatchGetCustomer()),
+  };
+}
+
+const CustomerInfo = connect(putStateToProps, putActionsToProps)(CustomerInformation);
 export { CustomerInfo as Information };

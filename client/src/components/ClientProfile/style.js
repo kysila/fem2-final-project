@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   mainContainer: {
     backgroundColor: '#fff',
-    marginBottom: '100px',
+    marginBottom: '80px',
     [theme.breakpoints.down(600)]: {
       padding: '0',
       marginBottom: '80px',
