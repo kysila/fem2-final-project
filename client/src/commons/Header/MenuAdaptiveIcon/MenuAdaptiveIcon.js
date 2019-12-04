@@ -71,7 +71,7 @@ const MenuAdaptiveIcon = (props) => {
     category = categories.map((el) => (
       <ListItem key={el.name} button className={classes.nested}>
         <Link
-          to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
+          to={`/shop/filter?perPage=8&startPage=1&categories=${el.id}`}
           onClick={() => {
             categorySelect(el.id);
             setMenuIsOpen(false);

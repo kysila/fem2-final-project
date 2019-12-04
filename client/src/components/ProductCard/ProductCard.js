@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -87,21 +86,17 @@ const ProductCard = ({
   };
 
   useEffect(() => {
-    axios.get(url)
-      .then((data) => {
-        setItem({
-          ...item,
-          product: data.data,
-        });
-      });
-    // eslint-disable-next-line
-  }, [url]);
+    setItem(() => ({
+      ...item,
+      product: obj,
+    }));
+  }, [obj]);
 
   const classes = useStyles();
 
   return (
     <Box className={classes.container}>
-      <Link to={url || '#'} className={classes.link}>
+      <Link to={`/shop/${itemNo}` || '#'} className={classes.link}>
         <Card
           className={classes.card}
           onClick={viewedItemListener}
