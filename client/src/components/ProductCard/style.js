@@ -63,6 +63,9 @@ export const useStyles = makeStyles((theme) => ({
     borderRight: '1px solid #bdbdbd',
     borderRadius: '0 !important',
     background: 'rgba(255, 255, 255, 1) !important',
+    '& .icon': {
+      fill: '#7D7D7D',
+    },
     '&:hover': {
       background: 'rgba(238, 238, 238, 1) !important',
       boxShadow: 'none',

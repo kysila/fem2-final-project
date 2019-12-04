@@ -9,7 +9,7 @@ import {
 import Rating from '@material-ui/lab/Rating';
 import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
 import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
-import { AddToCartButton } from '../../AddToCartButton/AddToCartButton';
+import AddToCartButton from '../../AddToCartButton/AddToCartButton';
 import { addProductToCart, getCartFromLS } from '../../../store/cart/actions';
 
 import { useStyles } from './style';
@@ -105,7 +105,7 @@ const ProductDetailsCard = ({
           {`${obj.currentPrice}`}
         </Typography>
         <Typography className="oldPrice">
-          $4000
+          { obj.previousPrice ? `$${obj.previousPrice}` : null}
         </Typography>
       </Box>
       <ButtonGroup
