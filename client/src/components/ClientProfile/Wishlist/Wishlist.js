@@ -156,6 +156,7 @@ function putStateToProps(state) {
   return {
     wishlist: state.wishlist.arr,
     wishlistProducts: state.wishlist.products,
+    user: state.auth.user,
   };
 }
 
