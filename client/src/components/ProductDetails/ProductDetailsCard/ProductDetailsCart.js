@@ -9,7 +9,7 @@ import {
 import Rating from '@material-ui/lab/Rating';
 import AddToCompareButton from '../../AddToCompareButton/AddToCompareButton';
 import { AddToWishListButton } from '../../AddToWishListButton/AddToWishListButton';
-import { AddToCartButton } from '../../AddToCartButton/AddToCartButton';
+import AddToCartButton from '../../AddToCartButton/AddToCartButton';
 import { addProductToCart, getCartFromLS } from '../../../store/cart/actions';
 
 import { useStyles } from './style';
@@ -57,7 +57,7 @@ const ProductDetailsCard = ({
           }
           : null}
         key={i}
-        to={`/products/${el.itemNo}`}
+        to={`/shop/${el.itemNo}`}
       >
         {el.color}
       </Link>
@@ -68,7 +68,7 @@ const ProductDetailsCard = ({
   if (colors) {
     // eslint-disable-next-line
     options = colors.map((el, i) => (
-      <MenuItem value={`/products/${el.itemNo}`} key={i}>
+      <MenuItem value={`/shop/${el.itemNo}`} key={i}>
         {el.color}
       </MenuItem>
     ));
@@ -105,7 +105,7 @@ const ProductDetailsCard = ({
           {`${obj.currentPrice}`}
         </Typography>
         <Typography className="oldPrice">
-          $4000
+          { obj.previousPrice ? `$${obj.previousPrice}` : null}
         </Typography>
       </Box>
       <ButtonGroup

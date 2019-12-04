@@ -42,6 +42,10 @@ const ProductCustomerReviews = ({
 
   const clearCommentField = () => {
     setValue(0);
+    setComment({
+      ...comment,
+      content: '',
+    });
     showSwalSuccess();
   };
 

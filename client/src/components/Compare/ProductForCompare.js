@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import compareReducer from '../../store/compare/compareReducer';
 import { deleteProductsFromCompare } from '../../store/compare/actions';
 import { useStyles } from './style';
-import { AddToCartButton } from '../AddToCartButton/AddToCartButton';
+import AddToCartButton from '../AddToCartButton/AddToCartButton';
 import { getCartFromLS, addProductToCart } from '../../store/cart/actions';
 
 
@@ -48,7 +48,7 @@ const ProductForCompare = (
         >
           <DeleteIcon fontSize="small" />
         </IconButton>
-        <Link to={`/products/${el.itemNo}`} className={classes.link}>
+        <Link to={`/shop/${el.itemNo}`} className={classes.link}>
           <CardMedia
             className={classes.media}
             image={el.itemImg}

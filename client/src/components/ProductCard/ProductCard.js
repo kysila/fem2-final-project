@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { handlerLocalStorage } from '../AddToCartButton/script';
-import { addProductToCart, getCartFromLS } from '../../store/cart/actions';
+import { addProductToCart, getCartFromLS, cartSnackbar } from '../../store/cart/actions';
 import { BagIcon } from '../Icons/Icons';
 
 import { useStyles } from './style';
@@ -29,10 +29,13 @@ const mapStateToProps = (store) => ({
 const ProductCard = ({
   obj, name, itemImg, price, url, rating, key, itemNo, id, distance,
   // eslint-disable-next-line no-shadow,max-len
-  user, maxSpeed, chargingTime, wishlist, addProductToWishlist, addProductToCart, getCartFromLS, quantity,
+  user, maxSpeed, chargingTime, wishlist, addProductToWishlist, addProductToCart, getCartFromLS, cartSnackbar, quantity,
 }) => {
   const [state, setState] = useState({
     openButtons: false,
+  });
+  const [buttonState, setButtonState] = useState({
+    disabled: false,
   });
   const [item, setItem] = useState({
     cartQuantity: 1,
@@ -54,6 +57,12 @@ const ProductCard = ({
   const hideButtonsPanel = () => {
     setState({
       openButtons: false,
+    });
+  };
+
+  const checkProduct = () => {
+    setButtonState({
+      disabled: true,
     });
   };
 
@@ -92,7 +101,7 @@ const ProductCard = ({
 
   return (
     <Box className={classes.container}>
-      <Link to={url || '#'} className={classes.link}>
+      <Link to={`/shop/${itemNo}` || '#'} className={classes.link}>
         <Card
           className={classes.card}
           onClick={viewedItemListener}
@@ -123,6 +132,7 @@ const ProductCard = ({
                 display="inline"
                 component="h2"
               >
+                { obj.previousPrice ? `$${obj.previousPrice}` : null}
               </Typography>
               <Typography
                 className={classes.fontDesc}
@@ -160,7 +170,7 @@ const ProductCard = ({
             wishlist={wishlist}
             addProductToWishlist={addProductToWishlist}
             iconStyle={{
-              fill: '#AAA',
+              fill: '#7D7D7D',
             }}
             iconStyleChosen={{
               fill: '#6686FF',
@@ -184,11 +194,15 @@ const ProductCard = ({
             chargingTime={chargingTime}
           />
           <Button
+            disabled={buttonState.disabled}
             onClick={(e) => {
               // eslint-disable-next-line no-unused-expressions
-              user
-                ? addProductToCart(`/cart/${id}`)
-                : handlerLocalStorage('cart', initialProductsCart, itemNo, item, getCartFromLS, quantity);
+              if (user) {
+                addProductToCart(`/cart/${id}`);
+              } else {
+                handlerLocalStorage('cart', initialProductsCart, itemNo, item, getCartFromLS, quantity, checkProduct);
+                cartSnackbar();
+              }
             }}
             className={classes.buttonStyle}
             style={{
@@ -201,7 +215,6 @@ const ProductCard = ({
                 width: 30,
                 height: 23,
               }}
-              color="action"
             />
           </Button>
         </ButtonGroup>
@@ -210,4 +223,4 @@ const ProductCard = ({
   );
 };
 
-export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductCard);
+export default connect(mapStateToProps, { addProductToCart, getCartFromLS, cartSnackbar })(ProductCard);

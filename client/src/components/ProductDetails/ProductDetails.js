@@ -29,7 +29,7 @@ const ProductDetails = ({
 }) => {
   window.scrollTo(0, 0);
   const [state, setState] = useState({
-    obj: {},
+    obj: '',
     colors: {},
   });
 
