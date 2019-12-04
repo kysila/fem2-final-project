@@ -42,6 +42,10 @@ const ProductCustomerReviews = ({
 
   const clearCommentField = () => {
     setValue(0);
+    setComment({
+      ...comment,
+      content: '',
+    });
     showSwalSuccess();
   };
 
@@ -82,6 +86,7 @@ const ProductCustomerReviews = ({
       // eslint-disable-next-line no-underscore-dangle
       getComments(obj._id);
     }
+    // eslint-disable-next-line
   }, [obj]);
 
   return (

@@ -7,6 +7,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Container } from '@material-ui/core';
 import { useStyles } from './style';
 
 import { Header } from '../../commons/Header/Header/Header';
@@ -14,7 +15,6 @@ import { Footer } from '../../commons/Footer/Footer/Footer';
 import ProductForCompare from './ProductForCompare';
 
 import compareReducer from '../../store/compare/compareReducer';
-import {Container} from "@material-ui/core";
 
 const mapStateToProps = (store) => ({
   products: store.compareReducer.products,

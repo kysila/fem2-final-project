@@ -30,6 +30,18 @@ export const Unsubscribe = (props) => {
     });
   };
 
+  const showSwalUnsubscribedError = (err) => {
+    MySwal.fire({
+      title: <p>Sorry, there was a technical error</p>,
+      html: <p>Please contact support</p>`${err.message}`,
+      type: 'error',
+      confirmButtonColor: '#6A86E8',
+      onClose: () => {
+        window.location = '/';
+      },
+    });
+  };
+
   const updateSubscriber = {
     enabled: false,
     letterSubject: 'Unsubscribe',
@@ -38,13 +50,14 @@ export const Unsubscribe = (props) => {
 
   const unsubscribeHandle = () => {
     const url = props.match.params.email;
+
     axios
       .put(`${url}`, updateSubscriber)
       .then((res) => {
         showSwalUnsubscribed();
       })
       .catch((err) => {
-        console.log(err);
+        showSwalUnsubscribedError(err);
       });
   };
 

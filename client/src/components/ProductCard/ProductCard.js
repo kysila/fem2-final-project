@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { handlerLocalStorage } from '../AddToCartButton/script';
-import { addProductToCart, getCartFromLS } from '../../store/cart/actions';
+import { addProductToCart, getCartFromLS, cartSnackbar } from '../../store/cart/actions';
 import { BagIcon } from '../Icons/Icons';
 
 import { useStyles } from './style';
@@ -29,10 +29,13 @@ const mapStateToProps = (store) => ({
 const ProductCard = ({
   obj, name, itemImg, price, url, rating, key, itemNo, id, distance,
   // eslint-disable-next-line no-shadow,max-len
-  user, maxSpeed, chargingTime, wishlist, addProductToWishlist, addProductToCart, getCartFromLS, quantity, ...props
+  user, maxSpeed, chargingTime, wishlist, addProductToWishlist, addProductToCart, getCartFromLS, cartSnackbar, quantity,
 }) => {
   const [state, setState] = useState({
     openButtons: false,
+  });
+  const [buttonState, setButtonState] = useState({
+    disabled: false,
   });
   const [item, setItem] = useState({
     cartQuantity: 1,
@@ -57,6 +60,12 @@ const ProductCard = ({
     });
   };
 
+  const checkProduct = () => {
+    setButtonState({
+      disabled: true,
+    });
+  };
+
   const filterCart = (arr, objParams) => arr.some((el) => el.itemNo === objParams);
 
   const viewedItemListener = () => {
@@ -71,7 +80,7 @@ const ProductCard = ({
       }
     } else {
       const newProduct = [].concat([{
-        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, id,
+        name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, id,
       }]);
       localStorage.setItem('product', JSON.stringify(newProduct));
     }
@@ -102,7 +111,7 @@ const ProductCard = ({
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image={`${itemImg}`}
+              image={itemImg}
             />
             <CardContent
               className={classes.cardContent}
@@ -123,6 +132,7 @@ const ProductCard = ({
                 display="inline"
                 component="h2"
               >
+                { obj.previousPrice ? `$${obj.previousPrice}` : null}
               </Typography>
               <Typography
                 className={classes.fontDesc}
@@ -160,16 +170,14 @@ const ProductCard = ({
             wishlist={wishlist}
             addProductToWishlist={addProductToWishlist}
             iconStyle={{
-              fill: '#AAA',
+              fill: '#7D7D7D',
             }}
             iconStyleChosen={{
               fill: '#6686FF',
             }}
           />
           <AddToCompareButton
-            obj={obj}
             className={classes.buttonStyle}
-            allProps={props}
             iconStyle={{
               width: '30px',
               height: '23px',
@@ -186,11 +194,15 @@ const ProductCard = ({
             chargingTime={chargingTime}
           />
           <Button
+            disabled={buttonState.disabled}
             onClick={(e) => {
               // eslint-disable-next-line no-unused-expressions
-              user
-                ? addProductToCart(`/cart/${id}`)
-                : handlerLocalStorage('cart', initialProductsCart, itemNo, item, getCartFromLS, quantity);
+              if (user) {
+                addProductToCart(`/cart/${id}`);
+              } else {
+                handlerLocalStorage('cart', initialProductsCart, itemNo, item, getCartFromLS, quantity, checkProduct);
+                cartSnackbar();
+              }
             }}
             className={classes.buttonStyle}
             style={{
@@ -203,7 +215,6 @@ const ProductCard = ({
                 width: 30,
                 height: 23,
               }}
-              color="action"
             />
           </Button>
         </ButtonGroup>
@@ -212,4 +223,4 @@ const ProductCard = ({
   );
 };
 
-export default connect(mapStateToProps, { addProductToCart, getCartFromLS })(ProductCard);
+export default connect(mapStateToProps, { addProductToCart, getCartFromLS, cartSnackbar })(ProductCard);

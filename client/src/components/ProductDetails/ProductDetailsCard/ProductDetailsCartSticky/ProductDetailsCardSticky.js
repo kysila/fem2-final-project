@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Typography, ButtonGroup, Box } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import { addProductToCart, getCartFromLS } from '../../../../store/cart/actions';
-import { AddToCartButton } from '../../../AddToCartButton/AddToCartButton';
+import AddToCartButton from '../../../AddToCartButton/AddToCartButton';
 import { AddToWishListButton } from '../../../AddToWishListButton/AddToWishListButton';
 import AddToCompareButton from '../../../AddToCompareButton/AddToCompareButton';
 import { useStyles } from './stickyCartStyle';
@@ -85,7 +85,7 @@ const ProductDetailsCardSticky = ({
           {`$${obj.currentPrice}`}
         </Typography>
         <Typography className="oldPrice">
-          $4000
+          { obj.previousPrice ? `$${obj.previousPrice}` : null}
         </Typography>
       </Box>
       <ButtonGroup
