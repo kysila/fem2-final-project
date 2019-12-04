@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => createStyles({
     width: '100%',
     backgroundColor: '#FFFFFF',
     padding: '10px',
-       // position: 'fixed',
+     
   },
   container: {
     display: 'flex',
