@@ -8,7 +8,6 @@ export const GlobalCss = withStyles({
       color: '#444444',
       backgroundColor: '#fff',
     },
-
     a: {
       textDecoration: 'none',
     },
@@ -93,7 +92,10 @@ export const GlobalCss = withStyles({
       boxShadow: 'none',
     },
     '.App': {
-      marginTop: '130px',
+      marginTop: '125px',
+      // [theme.breakpoints.down(480)]: {
+      //   marginTop: '75px',
+      // },
     },
   },
 })(() => null);

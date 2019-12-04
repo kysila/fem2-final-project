@@ -32,6 +32,7 @@ function Favorites({ user, getWishlist, addProductToWishlist }) {
 
   if (list && !loading) {
     favoritesProducts = list.map((el, i) => (
+    // eslint-disable-next-line
       <ProductCard
         name={el.name}
         itemImg={el.imageUrls[0]}

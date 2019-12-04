@@ -22,7 +22,6 @@ const ProductCustomerReviews = ({
   user, obj, addComment, getComments, comments,
 }) => {
   const [value, setValue] = useState(0);
-
   const [comment, setComment] = useState({
     product: '',
     content: '',

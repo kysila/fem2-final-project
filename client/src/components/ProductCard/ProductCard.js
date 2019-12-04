@@ -87,6 +87,7 @@ const ProductCard = ({
   };
 
   useEffect(() => {
+    // console.log('Hello from axios ProductCart--', url);
     axios.get(url)
       .then((data) => {
         setItem({
