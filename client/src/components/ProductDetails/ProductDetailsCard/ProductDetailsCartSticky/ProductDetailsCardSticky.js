@@ -47,7 +47,7 @@ const ProductDetailsCardSticky = ({
           }
           : null}
         key={i}
-        to={`/products/${el.itemNo}`}
+        to={`/shop/${el.itemNo}`}
       >
         {el.color}
       </Link>

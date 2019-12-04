@@ -57,7 +57,7 @@ const ProductDetailsCard = ({
           }
           : null}
         key={i}
-        to={`/products/${el.itemNo}`}
+        to={`/shop/${el.itemNo}`}
       >
         {el.color}
       </Link>
@@ -68,7 +68,7 @@ const ProductDetailsCard = ({
   if (colors) {
     // eslint-disable-next-line
     options = colors.map((el, i) => (
-      <MenuItem value={`/products/${el.itemNo}`} key={i}>
+      <MenuItem value={`/shop/${el.itemNo}`} key={i}>
         {el.color}
       </MenuItem>
     ));
