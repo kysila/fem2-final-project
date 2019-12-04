@@ -38,7 +38,7 @@ const Filters = (props) => {
   const HandleApplyFilters = () => {
     const query = queryString.stringify(props.selectedFilters, { arrayFormat: 'comma' });
     if (query) {
-      props.history.push(`/products/filter?perPage=8&startPage=1&${query}`);
+      props.history.push(`/shop/filter?perPage=8&startPage=1&${query}`);
     }
   };
 

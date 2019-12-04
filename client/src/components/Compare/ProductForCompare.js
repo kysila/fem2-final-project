@@ -48,7 +48,7 @@ const ProductForCompare = (
         >
           <DeleteIcon fontSize="small" />
         </IconButton>
-        <Link to={`/products/${el.itemNo}`} className={classes.link}>
+        <Link to={`/shop/${el.itemNo}`} className={classes.link}>
           <CardMedia
             className={classes.media}
             image={el.itemImg}

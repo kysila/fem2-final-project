@@ -69,7 +69,7 @@ const Products = (props) => {
       delete queryOptions[type];
     }
     const newQuery = queryString.stringify(queryOptions, { arrayFormat: 'comma' });
-    props.history.push(`/products/filter?${newQuery}`);
+    props.history.push(`/shop/filter?${newQuery}`);
   };
   const handleSelectedFilters = (selected) => {
     const selectedFiltersItems = Object.entries(selected);
