@@ -22,14 +22,11 @@ import { useStyles } from './style';
 import './styleModal.css';
 import { UPDATE_PASSWORD, UPDATE_CUSTOMER } from '../../../axios/endpoints';
 import { dispatchGetCustomer } from '../../../store/auth/actions';
+import { enqueueSnackbar } from '../../../store/notification/actions';
 
 
 const CustomerInformation = (props) => {
   const classes = useStyles();
-
-  // if (!props.user) {
-  //   return <Redirect push to="/" />;
-  // }
 
   const inputLabel = React.useRef(null);
   const customerEmpty = {
@@ -68,24 +65,9 @@ const CustomerInformation = (props) => {
   const handleDateChange = (date) => {
     setState({ ...state, birthdate: date });
   };
-  // Modal window
-  const successSwalSaveContactInfo = (event) => {
-    Swal.fire(
-      'Saved!',
-      'Your changes have been saved.',
-      'success',
-    );
-  };
-
-  const errorSwalSaveContactInfo = (message) => {
-    Swal.fire({
-      title: 'Error...',
-      text: message,
-    });
-  };
 
   const editCustomerInfo = () => {
-    const { getCustomerInfo } = props;
+    const { getCustomerInfo, notify } = props;
     const {
       firstName, lastName, telephone,
       email, oldPassword, newPassword, address, birthdate,
@@ -116,14 +98,14 @@ const CustomerInformation = (props) => {
         .put(UPDATE_PASSWORD, passwords)
         // eslint-disable-next-line no-shadow
         .then((updatedCustomer) => {
-          successSwalSaveContactInfo();
+          notify("Your password has been saved.", 'success');
           getCustomerInfo();
         })
         .catch((err) => {
           const { data } = err.response;
           const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
             .replace(/,"/g, '; ');
-          errorSwalSaveContactInfo(message);
+          notify(message, 'error');
         });
     }
 
@@ -140,14 +122,14 @@ const CustomerInformation = (props) => {
       .put(UPDATE_CUSTOMER, updatedCustomer)
       // eslint-disable-next-line no-shadow
       .then((updatedCustomer) => {
-        successSwalSaveContactInfo();
+        notify("Your personal information has been saved.", 'success');
         getCustomerInfo();
       })
       .catch((err) => {
         const { data } = err.response;
         const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
           .replace(/,"/g, '; ');
-        errorSwalSaveContactInfo(message);
+        notify(message, 'error');
       });
   };
 
@@ -683,8 +665,12 @@ function putStateToProps(state) {
 function putActionsToProps(dispatch) {
   return {
     getCustomerInfo: () => dispatch(dispatchGetCustomer()),
+    notify: (message, variant = 'default') => dispatch(enqueueSnackbar({
+      message, options: { variant },
+    })),
   };
 }
+// [info, warning, error, success, default]
 
 const CustomerInfo = connect(putStateToProps, putActionsToProps)(CustomerInformation);
 export { CustomerInfo as Information };
