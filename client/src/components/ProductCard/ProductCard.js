@@ -101,7 +101,7 @@ const ProductCard = ({
 
   return (
     <Box className={classes.container}>
-      <Link to={url || '#'} className={classes.link}>
+      <Link to={`/shop/${itemNo}` || '#'} className={classes.link}>
         <Card
           className={classes.card}
           onClick={viewedItemListener}

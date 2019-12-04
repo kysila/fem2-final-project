@@ -18,7 +18,7 @@ const ProductsBreadcrumbs = ({link}) => {
             Homepage
           </Link>
 
-          <Link to="/products/filter?perPage=8&startPage=1" className={classes.breadCrumbLink}>
+          <Link to="/shop/filter?perPage=8&startPage=1" className={classes.breadCrumbLink}>
               All products
           </Link>
 

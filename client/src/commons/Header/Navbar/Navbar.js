@@ -34,7 +34,7 @@ const NavBar = (props) => {
     category = categories.map((el) => (
       <Link
         className={classes.link}
-        to={`/products/filter?perPage=8&startPage=1&categories=${el.id}`}
+        to={`/shop/filter?perPage=8&startPage=1&categories=${el.id}`}
         key={el.name}
         onClick={() => {
           categorySelect(el.id);

@@ -79,7 +79,7 @@ const RecentlyViewed = (props) => {
           name={el.name}
           itemImg={el.itemImg}
           price={el.price}
-          url={el.itemNo}
+          url={el.url}
           rating={el.rating}
           itemNo={el.itemNo}
           id={el.id}
