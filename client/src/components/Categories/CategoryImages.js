@@ -24,7 +24,7 @@ const CategoryImages = (props) => {
     categoryBlocks = props.categories.map((tile) => (
       <GridListTile key={tile.id} cols={+tile.cols}>
         <Link
-          to={`/products/filter?perPage=8&startPage=1&categories=${tile.id}`}
+          to={`/shop/filter?perPage=8&startPage=1&categories=${tile.id}`}
           className={classes.hover}
         >
           <div className={classes.img} style={{ background: `rgb(0, 130, 67) url('${tile.imgUrl}')` }} />

@@ -106,7 +106,7 @@ export const MainCarousel = () => {
               >
                 {item.description}
               </Typography>
-              <Link to={`/products/filter?perPage=8&startPage=1&categories=${item.category.id}`}
+              <Link to={`/shop/filter?perPage=8&startPage=1&categories=${item.category.id}`}
               >
                 <Button className={classes.showItemBtn}>
                   <span>SHOP {item.htmlContent} &rarr;</span>

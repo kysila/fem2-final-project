@@ -57,7 +57,7 @@ const CartItem = (props) => {
           <Grid container className={classes.main_block_text}>
 
             <Grid item>
-              <Link to={`/products/${props.itemNo}`} className={classes.text}>
+              <Link to={`/shop/${props.itemNo}`} className={classes.text}>
                 <p>
                   {name}
                   {' '}
