@@ -1,30 +1,31 @@
+/* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
 import DateFnsUtils from '@date-io/date-fns';
 // Material UI
-import {
-  Button, Checkbox, Divider, Grid, ExpansionPanel, ExpansionPanelActions,
-  ExpansionPanelDetails, ExpansionPanelSummary, FormControl, FormControlLabel,
-  InputLabel, OutlinedInput, Typography, Select,
-} from '@material-ui/core';
+import { Button, Checkbox, Divider, ExpansionPanel, ExpansionPanelActions, ExpansionPanelDetails, ExpansionPanelSummary, FormControl, FormControlLabel, Grid, InputLabel, OutlinedInput, Select, Typography } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 // Modal sweetalert2
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { UPDATE_CUSTOMER, UPDATE_PASSWORD } from '../../../axios/endpoints';
+import { SubscribeLetter } from '../../../commons/Footer/StayInTouch/SubscribeLetter';
+import { UnsubscribeLetter } from '../../Unsubscribe/UnsubscribeLetter';
+import { dispatchGetCustomer } from '../../../store/auth/actions';
+import { enqueueSnackbar } from '../../../store/notification/actions';
 // Local imports
 import { useStyles } from './style';
 import './styleModal.css';
-import { UPDATE_PASSWORD, UPDATE_CUSTOMER } from '../../../axios/endpoints';
 
-
-export const CustomerInformation = (props) => {
+const CustomerInformation = (props) => {
   const classes = useStyles();
+
   const inputLabel = React.useRef(null);
   const customerEmpty = {
     firstName: '',
@@ -62,24 +63,9 @@ export const CustomerInformation = (props) => {
   const handleDateChange = (date) => {
     setState({ ...state, birthdate: date });
   };
-  // Modal window
-  const successSwalSaveContactInfo = (event) => {
-    Swal.fire(
-      'Saved!',
-      'Your changes have been saved.',
-      'success',
-    );
-  };
-
-  const errorSwalSaveContactInfo = (message) => {
-    Swal.fire({
-      title: 'Error...',
-      text: message,
-    });
-  };
 
   const editCustomerInfo = () => {
-    const { getCustomerInfo } = props;
+    const { getCustomerInfo, notify } = props;
     const {
       firstName, lastName, telephone,
       email, oldPassword, newPassword, address, birthdate,
@@ -97,8 +83,53 @@ export const CustomerInformation = (props) => {
       haveChildren,
       haveCar,
       eBicycle,
-      checkedSubscribe,
     };
+
+    const checkedSubscribeTrueOrFalse = !!checkedSubscribe;
+
+    const newSubscriber = {
+      email,
+      letterSubject: 'Congratulations! You are new member of our community',
+      letterHtml: SubscribeLetter({ email }),
+    };
+
+    let updateYourSubscriber;
+    if (checkedSubscribeTrueOrFalse) {
+      updateYourSubscriber = {
+        enabled: checkedSubscribeTrueOrFalse,
+        letterSubject: 'Congratulations! You are new member of our community',
+        letterHtml: SubscribeLetter({ email }),
+      };
+    } else {
+      updateYourSubscriber = {
+        enabled: checkedSubscribeTrueOrFalse,
+        letterSubject: 'Unsubscribe',
+        letterHtml: UnsubscribeLetter(),
+      };
+    }
+
+    axios.put(`/subscribers/email/${email}`, updateYourSubscriber)
+      .then((updateSubscriber) => {
+        if (updateYourSubscriber.enabled) {
+          notify('Your information about subscription has been already saved.', 'success');
+        } else {
+          notify('Your information that you unsubscribed, has been already saved.', 'success');
+        }
+      })
+      .catch((err) => {
+        if (err && err.response && err.response.status === 400) {
+          axios.post('/subscribers', newSubscriber)
+            .then((newSubscriberResult) => {
+              notify('Your information about subscription has been already saved.', 'success');
+            })
+            .catch((error) => {
+              const { data } = err.response;
+              const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
+                .replace(/,"/g, '; ');
+              notify(message, 'error');
+            });
+        }
+      });
 
     const passwords = {
       password: oldPassword,
@@ -110,14 +141,14 @@ export const CustomerInformation = (props) => {
         .put(UPDATE_PASSWORD, passwords)
         // eslint-disable-next-line no-shadow
         .then((updatedCustomer) => {
-          successSwalSaveContactInfo();
+          notify('Your password has been saved.', 'success');
           getCustomerInfo();
         })
         .catch((err) => {
           const { data } = err.response;
           const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
             .replace(/,"/g, '; ');
-          errorSwalSaveContactInfo(message);
+          notify(message, 'error');
         });
     }
 
@@ -130,18 +161,17 @@ export const CustomerInformation = (props) => {
     // eslint-disable-next-line max-len
     Object.keys(updatedCustomer).forEach((key) => (updatedCustomer[key] == null || updatedCustomer[key] === '') && delete updatedCustomer[key]);
 
-    axios
-      .put(UPDATE_CUSTOMER, updatedCustomer)
+    axios.put(UPDATE_CUSTOMER, updatedCustomer)
       // eslint-disable-next-line no-shadow
       .then((updatedCustomer) => {
-        successSwalSaveContactInfo();
+        notify('Your personal information has been saved.', 'success');
         getCustomerInfo();
       })
       .catch((err) => {
         const { data } = err.response;
         const message = JSON.stringify(data).replace(/{"/g, ' ').replace(/}/g, ' ').replace(/":/g, ':')
           .replace(/,"/g, '; ');
-        errorSwalSaveContactInfo(message);
+        notify(message, 'error');
       });
   };
 
@@ -674,5 +704,18 @@ function putStateToProps(state) {
   };
 }
 
-const CustomerInfo = connect(putStateToProps)(CustomerInformation);
+function putActionsToProps(dispatch) {
+  return {
+    getCustomerInfo: () => dispatch(dispatchGetCustomer()),
+    notify: (message, variant = 'default') => dispatch(enqueueSnackbar({
+      message,
+      options: {
+        variant, preventDuplicate: true,
+      },
+    })),
+  };
+}
+
+const CustomerInfo = connect(putStateToProps, putActionsToProps)(CustomerInformation);
 export { CustomerInfo as Information };
+

@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import compareReducer from '../../store/compare/compareReducer';
 import { deleteProductsFromCompare } from '../../store/compare/actions';
 import { useStyles } from './style';
-import AddToCartButton from '../AddToCartButton/AddToCartButton';
+// import AddToCartButton from '../AddToCartButton/AddToCartButton';
 import { getCartFromLS, addProductToCart } from '../../store/cart/actions';
 
 
@@ -25,7 +25,7 @@ const mapStateToProps = (store) => ({
 
 const ProductForCompare = (
   {
-  name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, ...props
+    name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, ...props
   },
 ) => {
   const classes = useStyles();
