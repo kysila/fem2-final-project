@@ -34,10 +34,11 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   img: {
-    width: '100%',
+    // width: '100%',
     height: '100%',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    backgroundColor: 'rgb(0, 130, 67)',
   },
   titleBar: {
     background: 'rgba(54, 62, 99, 0.9)',
