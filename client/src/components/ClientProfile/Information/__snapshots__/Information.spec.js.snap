@@ -32,6 +32,6 @@ exports[`The test of Information component Information was rendered 1`] = `
     }
   }
 >
-  <Information />
+  <Connect(CustomerInformation) />
 </ContextProvider>
 `;
