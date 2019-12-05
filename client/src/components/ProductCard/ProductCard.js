@@ -120,15 +120,15 @@ const ProductCard = ({
               >
                 {`$${price}`}
               </Typography>
-              <Typography
-                className={classes.oldPrice}
-                gutterBottom
-                variant="h5"
-                display="inline"
-                component="h2"
-              >
-                {obj.previousPrice ? `$${obj.previousPrice}` : null}
-              </Typography>
+              {/* <Typography */}
+              {/*  className={classes.oldPrice} */}
+              {/*  gutterBottom */}
+              {/*  variant="h5" */}
+              {/*  display="inline" */}
+              {/*  component="h2" */}
+              {/* > */}
+              {/*  {obj.previousPrice ? `$${obj.previousPrice}` : null} */}
+              {/* </Typography> */}
               <Typography
                 className={classes.fontDesc}
                 variant="body2"
