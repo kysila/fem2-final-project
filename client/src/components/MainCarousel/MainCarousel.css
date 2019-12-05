@@ -1,0 +1,185 @@
+.main-Carousel .slick-slider {
+  margin: 0 auto 0;
+  padding-bottom: 25px;
+  background: linear-gradient(
+    180deg,
+    rgba(106, 134, 232, 0.08) 0%,
+    rgba(106, 134, 232, 0.08) 100%
+  );
+}
+.main-Carousel .slide-container {
+  outline: none;
+}
+
+.main-Carousel .center .slick-center h3 {
+  color: #e67e22;
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.main-Carousel .center h3 {
+  opacity: 0.8;
+  transition: all 300ms ease;
+}
+
+.main-Carousel .content {
+  padding: 20px;
+  margin: auto;
+  width: 90%;
+}
+.main-Carousel .slick-slide img {
+  width: 400px;
+  height: 400px;
+}
+@media (max-width: 690px) {
+  .main-Carousel .slick-slide img {
+    width: 300px;
+    height: 300px;
+    margin-top: 70px;
+  }
+}
+
+@media (max-width: 630px) {
+  .main-Carousel .slick-slide img {
+    width: 270px;
+    height: 270px;
+    margin-top: 100px;
+  }
+}
+@media (max-width: 624px) {
+  .main-Carousel .slick-slide img {
+    margin-top: 70px;
+  }
+}
+@media (max-width: 615px) {
+  .main-Carousel .slick-slide img {
+    margin-top: 40px;
+  }
+}
+@media (max-width: 599px) {
+  .main-Carousel .slick-slide img {
+    width: 200px;
+    height: 200px;
+    margin-top: 10px;
+  }
+}
+
+.main-Carousel .slick-slide img.slick-loading {
+  border: 0;
+}
+
+.main-Carousel .slick-dots {
+  position: static;
+  margin-left: 0;
+}
+
+@media (max-width: 768px) {
+  .main-Carousel h3 {
+    font-size: 24px;
+  }
+
+  .main-Carousel .center {
+    margin-left: -40px;
+    margin-right: -40px;
+  }
+
+  .main-Carousel .center .slick-center h3 {
+    color: #e67e22;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .main-Carousel .center h3 {
+    opacity: 0.8;
+    transform: scale(0.95);
+    transition: all 300ms ease;
+  }
+}
+
+.main-Carousel .slick-vertical .slick-slide {
+  height: 180px;
+}
+
+/*BUTTONS for carousel*/
+.main-Carousel .slick-prev {
+  position: absolute;
+  display: block;
+  left: 4vw;
+  top: 237px;
+  width: 48px;
+  height: 48px;
+  z-index: 100;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1.5px solid #eaeaea;
+  background: #ffffff;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.main-Carousel .slick-prev:hover {
+  background: #ffffff;
+  box-sizing: border-box;
+  border: 2px solid rgba(106, 134, 232, 0.5);
+  box-shadow: 0px 15px 30px 5px rgba(106, 134, 232, 0.05);
+}
+
+.slick-prev:before,
+.slick-next:before {
+  display: none;
+}
+
+.main-Carousel .slick-prev:after {
+  content: "\2039";
+  width: 10px;
+  height: 17px;
+  margin-left: -3px;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 0.5;
+  color: #6686ff;
+  font-family: "Museo Sans 500";
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: pointer;
+}
+
+.main-Carousel .slick-next {
+  position: absolute;
+  display: block;
+  right: 4vw;
+  top: 237px;
+  width: 48px;
+  height: 48px;
+  z-index: 100;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 1.5px solid #eaeaea;
+  background: #ffffff;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.main-Carousel .slick-next:after {
+  content: "\203A";
+  width: 10px;
+  height: 17px;
+  margin-left: 3px;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 0.5;
+  color: #6686ff;
+  font-family: "Museo Sans 500";
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  cursor: pointer;
+}
+
+.main-Carousel .slick-next:hover {
+  background: #ffffff;
+  box-sizing: border-box;
+  border: 2px solid rgba(106, 134, 232, 0.5);
+  box-shadow: 0px 5px 30px 5px rgba(106, 134, 232, 0.05);
+}
