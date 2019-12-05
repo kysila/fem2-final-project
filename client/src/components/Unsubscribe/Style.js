@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     background: '#E5E5E5',
     opacity: '0.8',
     borderRadius: 7,
-    marginTop: 20,
+    marginTop: 150,
     lineHeight: 0.7,
     paddingBottom: 20,
   },

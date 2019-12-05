@@ -6,12 +6,11 @@ import withReactContent from 'sweetalert2-react-content';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar/AppBar';
 import { Link } from 'react-router-dom';
 
 import { useStyles } from './Style';
 import { UnsubscribeLetter } from './UnsubscribeLetter';
+import { Header } from '../../commons';
 
 export const Unsubscribe = (props) => {
   const classes = useStyles();
@@ -63,16 +62,7 @@ export const Unsubscribe = (props) => {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-      <AppBar className={classes.appBar}>
-        <Container maxWidth="md">
-          <Box className={classes.link}>
-            <Link to="/">
-              <img src="/img/logo.svg" alt="Logo" />
-            </Link>
-          </Box>
-        </Container>
-      </AppBar>
+      <Header callCenter="1-855-324-5387" />
       <Container maxWidth="md">
         <Box className={classes.box}>
           <Box display="flex" justifyContent="center">

@@ -24,7 +24,7 @@ const mapStateToProps = (store) => ({
 
 const ProductForCompare = (
   {
-    name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, ...props
+  name, itemImg, price, url, rating, key, itemNo, distance, maxSpeed, chargingTime, obj, ...props
   },
 ) => {
   const classes = useStyles();
