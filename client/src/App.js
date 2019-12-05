@@ -3,6 +3,7 @@ import { SnackbarProvider } from 'notistack';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Cookie from 'js-cookie';
+
 import {
   ClientProfile,
   MainPage,
@@ -19,11 +20,13 @@ import { Unsubscribe } from './components/Unsubscribe/Unsubscribe';
 import Search from './components/Search/Search';
 import Products from './components/Products/Products/Products';
 import ProductDetails from './components/ProductDetails/ProductDetails';
-import { GlobalCss } from './Appcss';
+import { GlobalCss, useStyles } from './Appcss';
 import store from './store/index';
 import { dispatchGetCustomer } from './store/auth/actions';
 
 function App() {
+  const classes = useStyles();
+
   if (Cookie.get('auth')) store.dispatch(dispatchGetCustomer());
   return (
     <Provider store={store}>
@@ -37,7 +40,7 @@ function App() {
       >
         <Router>
           <GlobalCss />
-          <div className="App">
+          <div className={classes.App}>
             <Switch>
               <Route path="/" exact component={MainPage} />
               <Route path="/profile" exact component={ClientProfile} />
