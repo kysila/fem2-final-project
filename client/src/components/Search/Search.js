@@ -31,6 +31,7 @@ const Search = (props) => {
     searchResult = props.searchProducts.map((el) => (
       <Grid item xs={12} sm={4} md={3} key={el.itemNo}>
         <ProductCard
+          obj={el}
           className={classes.card}
           name={el.name}
           itemImg={el.imageUrls[0]}
