@@ -27,7 +27,7 @@ const CategoryImages = (props) => {
           to={`/shop/filter?perPage=8&startPage=1&categories=${tile.id}`}
           className={classes.hover}
         >
-          <div className={classes.img} style={{ background: `rgb(0, 130, 67) url('${tile.imgUrl}')` }} />
+          <div className={classes.img} style={{ backgroundImage: `url('${tile.imgUrl}')` }} />
           <GridListTileBar
             className={classes.titleBar}
             title={tile.name.toUpperCase()}
