@@ -80,4 +80,4 @@ export const clearNewProducts = () => (dispatch) => {
     type: CLEAR_NEW_PRODUCTS,
     newProducts: [],
   });
-}
+};

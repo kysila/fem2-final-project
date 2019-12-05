@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -14,7 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import compareReducer from '../../store/compare/compareReducer';
 import { deleteProductsFromCompare } from '../../store/compare/actions';
 import { useStyles } from './style';
-import AddToCartButton from '../AddToCartButton/AddToCartButton';
 import { getCartFromLS, addProductToCart } from '../../store/cart/actions';
 
 
@@ -65,14 +63,6 @@ const ProductForCompare = (
             </Typography>
           </CardContent>
         </Link>
-        <AddToCartButton
-          className={classes.addToCartButton}
-          user={props.user}
-          addToCartFunc={props.addProductToCart}
-          actions={props.getCartFromLS}
-          obj={el}
-          text="ADD TO CART"
-        />
       </Card>
     </TableCell>
   ));
