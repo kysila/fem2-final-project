@@ -34,7 +34,6 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   img: {
-    // width: '100%',
     height: '100%',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
