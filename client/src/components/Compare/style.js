@@ -64,7 +64,7 @@ export const useStyles = makeStyles((theme) => ({
   firstRow: {
     position: 'sticky',
     left: 0,
-    background: 'linear-gradient(to right, #fff, transparent)',
+    background: '#FFFFFF',
     zIndex: '2',
     [theme.breakpoints.down(480)]: {
       background: '#fff',
