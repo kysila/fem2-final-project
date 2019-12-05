@@ -118,7 +118,7 @@ const ProductCard = ({
                 display="inline"
                 component="h2"
               >
-                {price}
+                {`$${price}`}
               </Typography>
               <Typography
                 className={classes.oldPrice}
