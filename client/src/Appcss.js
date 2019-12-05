@@ -1,4 +1,4 @@
-import {createStyles, makeStyles, withStyles} from '@material-ui/core/styles';
+import { createStyles, makeStyles, withStyles } from '@material-ui/core/styles';
 
 export const GlobalCss = withStyles({
 // @global is handled by jss-plugin-global.
