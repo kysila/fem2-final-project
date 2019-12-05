@@ -90,7 +90,7 @@ function Favorites({ user, getWishlist, addProductToWishlist }) {
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1145,
         settings: {
           autoplay: true,
           pauseOnHover: true,
