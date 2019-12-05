@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import ProductCard from '../ProductCard/ProductCard';
 import { Title } from '../Title/Title';
 import { useStyles } from './Style';
-import { getWishlistFromDB, addProductAndCreateWishlistInDB } from '../../store/wishlist/actions';
+import { addProductAndCreateWishlistInDB } from '../../store/wishlist/actions';
 
 const RecentlyViewed = (props) => {
   const classes = useStyles();
@@ -32,15 +32,7 @@ const RecentlyViewed = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  const {
-    user, getWishlist, addProductToWishlist,
-  } = props;
-  useEffect(() => {
-    if (user) {
-      getWishlist();
-    }
-    // eslint-disable-next-line
-  }, [user]);
+  const { addProductToWishlist } = props;
 
   const settings = {
     dots: true,
@@ -105,15 +97,8 @@ const RecentlyViewed = (props) => {
   );
 };
 
-function putStateToProps(state) {
-  return {
-    user: state.auth.user,
-  };
-}
-
-const RecentlyVwd = connect(putStateToProps, {
+const RecentlyVwd = connect(null, {
   addProductToWishlist: addProductAndCreateWishlistInDB,
-  getWishlist: getWishlistFromDB,
 })(RecentlyViewed);
 export {
   RecentlyVwd as RecentlyViewed,

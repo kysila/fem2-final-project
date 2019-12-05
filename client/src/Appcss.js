@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, withStyles } from '@material-ui/core/styles';
 
 export const GlobalCss = withStyles({
 // @global is handled by jss-plugin-global.
@@ -8,7 +8,6 @@ export const GlobalCss = withStyles({
       color: '#444444',
       backgroundColor: '#fff',
     },
-
     a: {
       textDecoration: 'none',
     },
@@ -92,8 +91,14 @@ export const GlobalCss = withStyles({
     '.MuiButtonBase-root': {
       boxShadow: 'none',
     },
-    '.App': {
-      marginTop: '130px',
-    },
   },
 })(() => null);
+
+export const useStyles = makeStyles((theme) => createStyles({
+  App: {
+    marginTop: '125px',
+    [theme.breakpoints.down(480)]: {
+      marginTop: '70px',
+    },
+  },
+}));

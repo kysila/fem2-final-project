@@ -17,10 +17,26 @@ function Favorites({ user, getWishlist, addProductToWishlist }) {
   let favoritesProducts;
 
   useEffect(() => {
-    axios.get('/products/rates/4.5').then((products) => {
-      setLoading(false);
-      setList(products.data);
-    });
+    const { CancelToken } = axios;
+    const source = CancelToken.source();
+    const loadData = () => {
+      try {
+        axios.get('/products/rates/4.5').then((products) => {
+          setLoading(false);
+          setList(products.data);
+        });
+      } catch (err) {
+        if (axios.isCancel(err)) {
+          // TODO: NOTIFICATION: 'cancelled'
+        } else {
+          throw err;
+        }
+      }
+    };
+    loadData();
+    return () => {
+      source.cancel();
+    };
   }, []);
 
   useEffect(() => {
@@ -31,6 +47,7 @@ function Favorites({ user, getWishlist, addProductToWishlist }) {
   }, [user]);
 
   if (list && !loading) {
+    // eslint-disable-next-line
     favoritesProducts = list.map((el, i) => (
       <ProductCard
         name={el.name}
@@ -73,7 +90,7 @@ function Favorites({ user, getWishlist, addProductToWishlist }) {
     initialSlide: 0,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1145,
         settings: {
           autoplay: true,
           pauseOnHover: true,

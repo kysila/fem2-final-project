@@ -14,16 +14,15 @@ import { Wishlist } from './Wishlist/Wishlist';
 import { OrderList } from './OrderList/OrderList';
 import { ViewedItems } from './ViewedItems/ViewedItems';
 import { Reviews } from './Reviews/Reviews';
-
 import { useStyles } from './style';
-import { dispatchGetCustomer } from '../../store/auth/actions';
 
 function ClientProfile(props) {
   const classes = useStyles();
-  const { getCustomerInfo, user } = props;
+  const { user } = props;
   if (!user) {
     return <Redirect push to="/" />;
   }
+  const invisible = false; // OrderList && Reviews components are under development
 
   return (
     <React.Fragment>
@@ -44,6 +43,7 @@ function ClientProfile(props) {
           My Account
         </Typography>
       </Container>
+
       <Container
         maxWidth="md"
         className={classes.mainContainer}
@@ -51,17 +51,14 @@ function ClientProfile(props) {
         <section
           className={classes.contentSection}
         >
-          <Information
-            getCustomerInfo={getCustomerInfo}
-          />
-          <OrderList />
-          <Wishlist
-            user={user}
-          />
+          <Information />
+          {invisible && <OrderList />}
+          <Wishlist />
           <ViewedItems />
-          <Reviews />
+          {invisible && <Reviews />}
         </section>
       </Container>
+
       <Footer />
     </React.Fragment>
   );
@@ -73,11 +70,5 @@ function putStateToProps(state) {
   };
 }
 
-function putActionsToProps(dispatch) {
-  return {
-    getCustomerInfo: () => dispatch(dispatchGetCustomer()),
-  };
-}
-
-const Profile = connect(putStateToProps, putActionsToProps)(ClientProfile);
+const Profile = connect(putStateToProps)(ClientProfile);
 export { Profile as ClientProfile };

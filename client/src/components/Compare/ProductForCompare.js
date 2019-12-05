@@ -13,7 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import compareReducer from '../../store/compare/compareReducer';
 import { deleteProductsFromCompare } from '../../store/compare/actions';
 import { useStyles } from './style';
-import AddToCartButton from '../AddToCartButton/AddToCartButton';
 import { getCartFromLS, addProductToCart } from '../../store/cart/actions';
 
 
