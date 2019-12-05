@@ -1,6 +1,7 @@
 import {
   ADD_PRODUCTS_TO_COMPARE,
   DELETE_PRODUCTS_FROM_COMPARE,
+  // SET_PRODUCT_MARKED,
 } from './actions';
 
 const initialState = {

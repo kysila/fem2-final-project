@@ -46,7 +46,7 @@ export const getCartFromDB = () => (dispatch) => {
       }
     }).catch((err) => {
       dispatch(enqueueSnackbar({
-        message: err.response.data.message,
+        message: 'Bad axios request',
         options: {
           variant: 'error',
         },

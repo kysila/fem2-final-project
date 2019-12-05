@@ -132,6 +132,7 @@ const Products = (props) => {
     handleSelectedFilters(props.selectedFilters);
     displayedProductsArray = [...props.allProducts];
     products = displayedProductsArray.map((el) => (
+        // eslint-disable-next-line
       <Grid item xs={12} sm={6} md={3} key={el.itemNo}>
         <ProductCard
           className={classes.card}
